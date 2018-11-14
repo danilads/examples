@@ -1,0 +1,21 @@
+00a audacity - https://www.audacityteam.org/download/
+00a audacity plugin mp3 - https://lame.buanzo.org/#lameosxdl
+00b VOX : mp3 & Flac player - app store
+00c iZIp - app store
+
+
+00 Finder(mac os include)
+01 Steam - https://store.steampowered.com/about/
+02 Launchpad (mac os include)
+03 Safari (mac os include)
+04 Chrome
+05 Skype
+06 Telegram
+07 VS code
+08 Sublime
+09 Webstorm(?)
+10 Piskel
+11 Blender
+12 Fl studio
+13 GIMP
+14 Activity Monitor
