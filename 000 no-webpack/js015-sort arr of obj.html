@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+	
+	<script>
+        //простая сортировка массива
+        var numbers = [4, 2, 5, 1, 3];
+        numbers.sort(function(a, b) {
+          return a - b;
+        });
+        console.log(numbers); // [1, 2, 3, 4, 5]
+
+        //сортировка объекта если у низ один тип(то есть всегда с большой буквы, нет пробелов)
+        var items = [
+          { name: 'Edward', value: 21 },
+          { name: 'Sharpe', value: 37 },
+          { name: 'And', value: 45 },
+          { name: 'The', value: -12 },
+          { name: 'Magnetic' },
+          { name: 'Zeros', value: 37 }
+        ];
+        items.sort(function (a, b) {
+          if (a.name > b.name) {
+            return 1;
+          }
+          if (a.name < b.name) {
+            return -1;
+          }
+          // a должно быть равным b
+          return 0;
+        });
+        console.log(items)
+
+         //сложная сортировка текста с приведением к маленьким буквам
+         var items2 = [
+          { name: 'раз два', value: 21 },
+          { name: 'разлив', value: 37 },
+          { name: 'РБ', value: 45 },
+          { name: 'ОАО', value: -12 },
+          { name: 'ОАО ЯД' },
+          { name: 'ОАО орда', value: 37 }
+        ];
+        items2.sort(function (a, b) {
+          //len (длинна) - нужно определить наиболее короткий
+          let len = a.name.length>b.name.length?b.name:a.name;
+          let ans;
+          for(let i=0;i<len.length;i++){
+            if(a.name[i].toLowerCase()===b.name[i].toLowerCase()&&i!==len.length-1){
+              continue;
+            }
+            if (a.name[i].toLowerCase() > b.name[i].toLowerCase()) ans = 1;
+            else if (a.name[i].toLowerCase() < b.name[i].toLowerCase()) ans = -1;
+            else ans = 0;
+            break;
+          }
+          return ans
+        });
+        console.log(items2)
+    </script>		
+</body>
+</html>

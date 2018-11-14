@@ -1,0 +1,16 @@
+.btnLevel1{
+	cursor: pointer;
+}
+.btnLevel2{
+	cursor: pointer;
+	&:hover{
+		color: yellow;
+	}
+	&-selected{
+		@extend .btnLevel2;
+		color: yellowgreen;
+	}
+}
+.btnLevel3{
+	cursor: pointer;
+}

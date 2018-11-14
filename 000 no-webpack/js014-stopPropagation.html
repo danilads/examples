@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+    	.red{
+    		border: 1px dashed red;
+    		padding: 5px;
+    	}
+    	.green{
+    		z-index: 5;
+			border: 1px dashed green;
+			padding: 5px;
+			width: 50%;
+    	}
+	</style>
+</head>
+<body>
+	<div>см. консоль</div>
+	<div class="red" onclick="red()"><div class="green" onclick="green()">Propagation Off</div></div>
+	<div class="red" onclick="(e)=>redBlock(e)"><div class="green" onclick="green()">Propagation On (Red Blocked)</div></div>
+	<div class="red" onclick="red()"><div class="green" onclick="(e)=>greenBlock(e)">Propagation On (Green Blocked)</div></div>
+	<script>
+        function red() {
+        	console.log('red');
+        }
+        function green() {
+			console.log('green');
+        }
+        function redBlock(e){
+			e.stopPropagation();
+        	console.log('red blocked');
+        }
+        function greenBlock(e){
+			e.stopPropagation();
+        	console.log('green blocked');
+        }
+    </script>		
+</body>
+</html>

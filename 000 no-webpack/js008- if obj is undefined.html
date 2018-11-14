@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<div></div>
+	<script>
+		var a = {c:{b:123}}
+		
+		if(a&&a.c&&a.c.b){
+			console.log(a.c.b)
+		}
+		
+		if(a&&a.c&&a.c.b&&a.c.b.n&&a.c.b.n.p){
+			console.log(a.c.b.n.p)
+		}
+	
+	
+		///
+		///Проверка через try catch
+		///
+		try {
+			// если здесь ошибка срабатывает catch
+			console.log(obj.some)
+		} catch (err) {
+			// в err будет текст ошибки строкой
+			console.log(err);
+		}
+		
+		//проверяем объект на вложенность
+		let isExist=true;
+		try{obj.some}catch(e){isExist=false}
+		if(isExist){
+			//работаем с объектом
+			console.log(obj.some);
+		}
+		else{
+			//работаем без объекта
+			console.log("объекта нет");
+			
+		}
+		
+		
+		
+	
+		
+	</script>
+</body> 
+</html>

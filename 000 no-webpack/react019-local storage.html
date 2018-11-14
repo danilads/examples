@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.bor{
+			border: 1px dashed black;
+			width:20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	/////MobileList
+	class MobileList extends React.PureComponent {
+		state={
+		input:"",
+		storage:"",
+
+	}
+
+	addItem=()=>{
+		console.log('set');
+		localStorage.setItem('someKey', this.state.input)
+	}
+	getItem=()=>{
+		console.log('get');
+		console.log('--get',localStorage.getItem('someKey'))
+	}
+
+	set=(e)=>{
+		this.setState({input:e.target.value})
+	}
+	
+	//не работает на странице, которая вносит изменения
+	//но срабатывает на открытых страницах домена в броузере
+	componentDidMount(){
+		window.addEventListener('storage', function(e) { console.log('watafak') })
+	}
+	componentWillUnmount(){
+		window.removeEventListener('storage', function(e) { console.log('watafak') })
+	}
+	
+	
+  	render() {
+		return (
+			<div className="Block_MainPage" style={{backgroundColor:this.state.color}}>
+				<div>
+					{this.state.storage}
+				</div>
+				<div>
+					<input onChange={this.set} value={this.state.input} style={{width:"100%"}} type={"text"}/>
+				</div>
+				<div>
+					<input onClick={this.addItem} style={{width:"100%"}} value="add to storage" type={"button"}/>
+				</div>
+				<div>
+					<input onClick={this.getItem} style={{width:"100%"}} value="get from storage" type={"button"}/>
+				</div>
+			</div>
+			
+		);
+
+	  }
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Regex</title>
+	</head>
+<body>
+	<div id="container"></div>
+	
+	<script>
+	//help sites
+	//https://uiregex.com/ru
+	//https://regexr.com/
+
+		var s1="3,321";
+		console.log("s1",s1.replace(/,/g, '.')); //заменяет точки на запятые
+		
+		var s2="1232142143212"
+		console.log("s2",s2.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')); //делаем отступы 1 232 142 143 212
+		
+		var s3 = "231.54"; //разделитель
+		console.log(s3.replace(/\d/g, "")); //убрать все цифры
+		console.log("s3", s3.split('.')[0]); //обрезать после символа 231
+		console.log("s3", s3.split('.')[1]); //обрезать после символа 54
+		console.log("s3", s3.substring(s3.lastIndexOf(".") + 1)); //обрезать до символа 54
+		
+		var s4 = "4312 4321 4321"; //обрезаем пробелы
+		console.log("s4", s4.replace(/\s+/g, '')) //431243214321
+		
+		var s5 = '+375 (29) 377 78 78'; //обрезаем все кроме цифр
+		console.log("s5", s5.replace(/[^0-9]/g,'')) //375293777878
+				
+	</script>
+</body> 
+</html>

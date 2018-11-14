@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.def{
+			background-color: #fff;
+		}
+		.zoomIn{
+			background-color: #fec;
+			zoom: 120%;
+		}
+		.zoomOut{
+			background-color: #fec;
+			zoom: 80%;
+		}
+		.scaleIn{
+			background-color: #efc;
+			transform: scale(2);
+    		transform-origin: 0 0;
+		}
+		.scaleOut{
+			background-color: #efc;
+			transform: scale(0.5);
+    		transform-origin: 0 0;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		//глобальная функция изменяющая html
+		var g = function(inp){
+			document.getElementsByTagName("html")[0].className=inp;
+		}
+	</script>
+
+	<div id="container"></div> 
+	<script type="text/babel">
+	class MobileList extends React.PureComponent {
+
+		run=(e)=>{
+			if(e===1){
+				g('def');
+			}
+			else if(e===2){
+				g('zoomIn')
+			}
+			else if(e===3){
+				g('zoomOut')
+			}
+			else if(e===4){
+				g('scaleIn')
+			}
+			else if(e===5){
+				g('scaleOut')
+			}	
+		}
+		render() {
+			//вывод пропорции зерна может прийти дробно число
+			console.log(window.devicePixelRatio);
+			return <div>
+					<input type="button" value="change html(default)" onClick={()=>this.run(1)}/>
+					<input type="button" value="масштаб (zoom +)" onClick={()=>this.run(2)}/>
+					<input type="button" value="масштаб (zoom -)" onClick={()=>this.run(3)}/>
+					<input type="button" value="приближение (scale +)" onClick={()=>this.run(4)}/>
+					<input type="button" value="приближение (scale -)" onClick={()=>this.run(5)}/>
+				</div>
+		
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

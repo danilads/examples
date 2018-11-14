@@ -1,0 +1,36 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Offline</title>
+	<script src="000-react.production.min.js"></script>
+	<script src="000-react-dom.production.min.js"></script>
+	<script src="000-babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+
+	/////MobileList
+	class MobileList extends React.Component {
+		state = {
+	
+		}
+
+		render() {
+			return (
+				<div>
+					{this.props.clients}
+				</div>
+			);
+		}
+	}
+	
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList clients={"hi"} />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

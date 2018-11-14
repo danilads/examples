@@ -1,0 +1,96 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+		//анонимная функция  (эквивалент)
+		/////////////////////////////////
+			a => {
+			
+			}
+			// эквивалент
+			(function(a) {
+			
+			})();
+			
+			var sum1 = () => 1 + 2;
+			// эквивалент
+			var sum2 = function() { return 1 + 2; };
+
+			var a1 = g => f => g+f;
+			// эквивалент
+			var a2 = function(g) { 
+				return function(f) {
+					return g+f
+				}
+			};
+			console.log('a1',a1(1)(2)); //3
+			console.log('a2',a2(2)(3)); //5
+			console.log('~~~~~~~~~~~~');
+		/////////////////////////////////
+		/////////////////////////////////
+			const b = data1 => data2 =>{
+				return data1 + data2
+			}		
+			
+			const a = b(1); //присвоили функцию
+
+			console.log('b1',a(234)); //235
+			console.log('b2',b(2)(4)); //6
+			console.log('~~~~~~~~~~~~');
+		/////////////////////////////////
+		/////////////////////////////////
+			const c1 = data => typeof data;
+			console.log('c1',c1(234234)); //"number"
+
+
+			//is.array = data => Array.isArray(data);
+			const c2 = {};
+			["string", "function", "object", "boolean"].forEach(key => {
+				c2[key] = data => typeof data === key;
+			});
+			
+			console.log('c2',c2.string(234234)); //false
+			console.log('c2',c2.string); //присвоили функцию
+			console.log('~~~~~~~~~~~~');
+		/////////////////////////////////
+		/////////////////////////////////
+			const d1 = a => b => c => a + b + c;
+
+
+			console.log('d1',d1(1)(2)(3)); //6
+
+
+			const v = d1(4);
+			console.log('d2',v(2)(3)); //5
+
+			const x = v(3);
+			console.log('d3',x(7)); //5
+			console.log('~~~~~~~~~~~~');
+		/////////////////////////////////
+		/////////////////////////////////
+			let e = s => s * 2;
+
+			let th = c => b => e(c+b); 
+
+			console.log('e', th(1)(2));
+			console.log('~~~~~~~~~~~~');
+		/////////////////////////////////
+		/////////////////////////////////
+			const run = (action) => {
+				if (typeof action === 'function') {
+					return action(run);
+				} else return action;
+			}
+
+			let h = (a) => (run) => {
+				run((run) => console.log(a, run));
+			}
+
+			console.log('f', run(h(23)));
+			
+		/////////////////////////////////
+		/////////////////////////////////
+	</script>
+  </body>
+</html>

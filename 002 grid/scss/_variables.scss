@@ -1,0 +1,96 @@
+//название файла с нижнем подчеркиванием (sass будет использовать только нужные ему перменные, а не все подряд)
+
+//variables
+$primary-color: #333;
+$n1: 11px;
+$n2: 12px;
+$n3: 13px;
+$n4: 14px;
+$n5: 15px;
+$n6: 16px;
+$n7: 17px;
+$n8: 18px;
+$nj: 1px dashed red;
+
+//GRID
+// Grid containers
+//
+$grid-breakpoints: (
+        xxs: 0,
+        xs: 672px,
+        sm: 768px,
+        md: 984px,
+        lg: 1280px,
+        xl: 1600px
+) !default;
+
+// Define the maximum width of `.container` for different screen sizes.
+$container-max-widths: (
+        sm: 80%,	
+        md: 864px, 	//824+40
+        lg: 1152px, //1104+48
+        xl: 1152px  //1104+48
+) !default;
+
+
+//Количество колонок
+$grid-columns: 12 !default;
+
+
+//Gutters
+$grid-gutter-width: (
+		xxs: 18px,
+        xs: 40px,
+        sm: 32px,
+        md: 40px,
+        lg: 48px,
+        xl: 48px
+) !default;
+
+
+//mixins
+@mixin respond-up($breakpoint, $breakpoints: $grid-breakpoints) {
+	$min: breakpoint-min($breakpoint, $breakpoints);
+	@if $min {
+		@media (min-width: $min) {
+		@content;
+		}
+	} @else {
+		@content;
+	}
+}
+  
+@mixin respond-down($breakpoint, $breakpoints: $grid-breakpoints) {
+	$prev: breakpoint-prev($breakpoint, $breakpoints);
+	@if $prev {
+		@media (max-width: breakpoint-max($prev, $breakpoints)) {
+			@content;
+		}
+	}
+}
+
+//functions
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+	$i: index($breakpoint-names, $name);
+	@return if($i < length($breakpoint-names), nth($breakpoint-names, $i + 1), null);
+}
+  
+@function breakpoint-prev($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+	$i: index($breakpoint-names, $name);
+	@return if($i > 1, nth($breakpoint-names, $i - 1), null);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+	$min: map-get($breakpoints, $name);
+	@return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+	$next: breakpoint-next($name, $breakpoints);
+	@return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+@function breakpoint-postfix($name, $breakpoints: $grid-breakpoints) {
+	@return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+

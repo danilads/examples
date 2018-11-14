@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	
+</head>
+<body>
+
+	//запушить файл
+	git add . //добавляем все файлы для комита
+	git status //статус (красным не добавленные файлы)
+	git commit -m "update123" //комит и комментарий
+	git push
+	git clone https://github.com/repoName
+	
+
+	//перед нужно сделать fetch
+	git fetch // обновление истории
+	git pull
+	git pull origin/master
+	
+	git show-branch -list -r //показывает лист веток
+
+	git 
+	
+	//если трабл с аксесом
+	git clone https://{username}:{password}@github.com/{username}/{repo}.git
+	
+	git pull git clone https://{username}:{password}@github.com/{username}/{repo}.git
+	
+	git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
+
+	git checkout branch-name //переключиться в вветку
+
+	git push origin --delete name-branch //удаление
+
+	//
+	//git flow
+	//https://habr.com/post/106912/
+
+	//создание
+	$ git checkout -b feature/имя develop
+
+	//закрытие
+	$ git checkout develop
+	
+	$ git merge --no-ff feature/имя
+
+	(выход из vim :wq)
+	
+	$ git branch -d feature/имя
+	
+	$ git push origin develop
+	
+
+	//
+	//git remote change
+	//изменить для url для fetch и push
+
+
+	//проверить текущую
+	git remote -v
+
+	//изменить
+	git remote set-url origin http://srv-git.service-it.by/loktev/DBOUr
+	
+</body>
+</html>

@@ -1,0 +1,8 @@
+(node)
+node -v //версия
+nvm install 8.11.1 //установить node версию
+nvm use 8.11.1 //использовать node версию
+
+(npm)
+npm -v //версия
+npm up -g npm //обновить npm

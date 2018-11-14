@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<div></div>
+	<script>
+		var hex = "#cccccc";
+		
+		//HEX 2 RGB
+		function Hex2RGB(hex) {
+			var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+			return result ? {
+				r: parseInt(result[1], 16),
+				g: parseInt(result[2], 16),
+				b: parseInt(result[3], 16)
+			} : null;
+		}
+		
+		var rgb = Hex2RGB(hex);
+		console.log(rgb);//возвращает {r: 204, g: 204, b: 204}
+		
+		//Определяет цвет ближе к черному или белому
+		function toneClose2BlackOrWhite(obj){
+			return (obj.r*0.2126 + obj.g*0.7152 + obj.b*0.0722 < 128)? "black" : "white";
+		}
+		
+		console.log(toneClose2BlackOrWhite(rgb)); //white
+		
+		
+	</script>
+</body> 
+</html>

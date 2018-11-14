@@ -1,0 +1,28 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<div></div>
+	<script>
+		var col = 1900;
+		
+		//високосный год?
+		function intercalary (year){
+			if((year%4===0&&year%100!==0)||(year%400===0)){
+				return 366
+			}
+			else{
+				return 365
+			}
+		};
+		
+	
+		console.log(col,intercalary(col));
+		
+		
+	</script>
+</body> 
+</html>

@@ -1,0 +1,6 @@
+//приоритет загрузки в диспечере задач
+//where # is the priority (-20 is the top priority, and 20 is lowest)
+sudo renice # -p 98765
+
+//установка brew https://brew.sh/
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

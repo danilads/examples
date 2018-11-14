@@ -1,0 +1,21 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	
+	<script>
+		//можно использовать window.addEventListener
+		document.addEventListener("keydown", keyDownTextField, false);
+		
+		function keyDownTextField (e) {
+			console.log(e.keyCode);
+		}
+		
+		//синтаксис стрелочной функции
+		document.addEventListener("keydown", ((e)=>(console.log(e.keyCode))));
+	</script>
+</body> 
+</html>

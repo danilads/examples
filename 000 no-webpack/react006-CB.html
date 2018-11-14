@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	/////MainBlock
+	class MainBlock extends React.Component {
+		//функция 
+		cbGetParams = (data) => {
+			console.log('data', data);
+		};
+		
+		clickFunc = () => {
+			console.log('Кнопка нажата');
+		}
+		
+		render() {
+			return <Primitive cbFunc={this.clickFunc} cbGet={this.cbGetParams} addedClass={"MyClass"} />;
+			
+		}
+	}
+	
+	/////Primitive
+	class Primitive extends React.Component {
+		state = {
+			clients:this.props.clients,
+		}
+		
+		/* пропс тайпс нужны для того, чтобы было легче отлаживать примитивы и для того чтобы было понятно, что можно прокинуть примитиву
+		static propTypes = {
+			cbFunc: PropTypes.func,
+			addedClass: PropTypes.string,
+		}
+		*/
+		sendToParent = () => {
+			this.props.cbGet("данные из ребенка");
+		};
+		
+		
+		render() {
+			
+			//тернарка для проверки если функцию не прислали
+			return (
+				<div className={""+this.props.addedClass}>
+					<input type="button" value="Simple CB" onClick={(this.props.cbFunc)?(this.props.cbFunc):null}/>
+					<input type="button" value="CB Func"  onClick = {(this.props.cbGet)?(this.sendToParent):null}/>
+				</div>
+			);
+		}
+	}
+	
+	////////////////App Js
+	
+		ReactDOM.render(
+			<MainBlock/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

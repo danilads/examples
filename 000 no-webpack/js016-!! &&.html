@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+	
+	<script>
+        // 001 двойное не !! преобразует любое значение в bool
+        var n1 = !!1;
+        console.log(n1); //true
+        var n2 = !!0;
+        console.log(n2); //false
+
+        // 002 задание дефолтного значения
+        //старый подход
+        function a1 (a) {
+        	return a = a || 11;
+        }
+        //новый подход
+        const a2 = (a = 12) => {
+            return a;
+        }
+
+        console.log(a1()); //11
+        console.log(a2()); //12
+
+
+        // 003 проверка существования, вложенности и типа
+        var obj2 = {turn:{ui:321}};
+
+        //проверка на существование
+        if(typeof obj !== 'undefined'){
+            console.log(obj&&obj.turn&&obj.turn.ui)
+        }
+
+        if(typeof obj2 !== 'undefined'){
+            //вернет последнее значение obj2.turn.ui
+            console.log(obj2&&obj2.turn&&obj2.turn.ui) //321
+        }
+
+    </script>		
+</body>
+</html>

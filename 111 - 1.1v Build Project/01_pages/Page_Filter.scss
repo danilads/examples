@@ -1,0 +1,16 @@
+@import "../scss/_variables"; //переменные
+.Page_Filter{
+	border: 1px dashed red;
+	.main{
+		font-style: italic;
+		color: green;
+		&-bold{
+			@extend .main;
+			order: 2;
+			font-style: normal;
+			font-weight: 900;
+		}
+
+	}
+	
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+
+</head>
+<body>
+	<p style="color: red">ENCODE MUSIC<br/>Example of using the Web Audio API to load a sound file as an ArrayBuffer, encode and decode the ArrayBuffer
+	  and start playing audio on user-click.</p>
+	<input type="file" accept="audio/*">
+	<button onclick="playSound()" disabled>Start</button>
+	<button onclick="stopSound()" disabled>Stop</button>
+	<div>
+	<p>This will be the output of a base64 string representation of your sound file.</p>
+	<textarea id="encodedResultMusic" cols="100" rows="10"></textarea>
+	</div>
+	
+	<div>
+	<p style="color: red">ENCODE FILE<br/>Please select a file and then hit Evaluate:</p>
+  
+	  <br/>
+	  <br/>
+	  <input id="file" type="file"/>
+	  <br/>
+	  <br/>
+	  <button id="button">Evaluate</div>
+	  <textarea id="encodedResultFile" cols="100" rows="10"></textarea>
+	<script>
+		////////////////////////////////
+		/////////ENCODE MUSIC///////////
+		////////////////////////////////
+		var context = new AudioContext();
+		var source = null;
+		var audioBuffer = null;
+		// Converts an ArrayBuffer to base64, by converting to string 
+		// and then using window.btoa' to base64. 
+		var bufferToBase64 = function (buffer) {
+			var bytes = new Uint8Array(buffer);
+			var len = buffer.byteLength;
+			var binary = "";
+			for (var i = 0; i < len; i++) {
+				binary += String.fromCharCode(bytes[i]);
+			}
+			return window.btoa(binary);
+		};
+		var base64ToBuffer = function (buffer) {
+			var binary = window.atob(buffer);
+			var buffer = new ArrayBuffer(binary.length);
+			var bytes = new Uint8Array(buffer);
+			for (var i = 0; i < buffer.byteLength; i++) {
+				bytes[i] = binary.charCodeAt(i) & 0xFF;
+			}
+			return buffer;
+		};
+		function stopSound() {
+			if (source) {
+				source.stop(0);
+			}
+		}
+		function playSound() {
+			// source is global so we can call .stop() later.
+			source = context.createBufferSource();
+			source.buffer = audioBuffer;
+			source.loop = false;
+			source.connect(context.destination);
+			source.start(0); // Play immediately.
+		}
+		function initSound(arrayBuffer) {
+			var base64String = bufferToBase64(arrayBuffer);
+			var audioFromString = base64ToBuffer(base64String);
+			document.getElementById("encodedResultMusic").value="data:application/octet-stream;base64,"+base64String;
+			context.decodeAudioData(audioFromString, function (buffer) {
+				// audioBuffer is global to reuse the decoded audio later.
+				audioBuffer = buffer;
+				var buttons = document.querySelectorAll('button');
+				buttons[0].disabled = false;
+				buttons[1].disabled = false;
+			}, function (e) {
+				console.log('Error decoding file', e);
+			});
+		}
+		// User selects file, read it as an ArrayBuffer and pass to the API.
+		var fileInput = document.querySelector('input[type="file"]');
+		fileInput.addEventListener('change', function (e) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				initSound(this.result);
+			};
+			reader.readAsArrayBuffer(this.files[0]);
+		}, false);
+		// Load file from a URL as an ArrayBuffer.
+		// Example: loading via xhr2: loadSoundFile('sounds/test.mp3');
+		function loadSoundFile(url) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
+			xhr.responseType = 'arraybuffer';
+			xhr.onload = function (e) {
+				initSound(this.response); // this.response is an ArrayBuffer.
+			};
+			xhr.send();
+		}
+		
+		////////////////////////////////
+		/////////ENCODE FILE////////////
+		////////////////////////////////
+		document.getElementById('button').addEventListener('click', function() {
+		  var files = document.getElementById('file').files;
+		  if (files.length > 0) {
+			getBase64(files[0]);
+		  }
+		});
+
+		function getBase64(file) {
+		   var reader2 = new FileReader();
+		   reader2.readAsDataURL(file);
+		   reader2.onload = function () {
+			 console.log(reader2.result);
+			 document.getElementById("encodedResultFile").value=reader2.result;
+		   };
+		   reader2.onerror = function (error) {
+			 console.log('Error: ', error);
+		   };
+		}
+	</script>
+</body> 
+</html>

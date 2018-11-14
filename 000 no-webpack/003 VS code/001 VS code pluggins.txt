@@ -1,0 +1,16 @@
+Active File In StatusBar
+VS Code ESLint extension
+GitLens — Git supercharged
+IntelliJ IDEA Keybindings
+Material Icon Theme
+Npm Intellisense
+Open file from path
+Path Autocomplete
+Path Intellisense
+Auto Import
+
+(color themes)
+Base16 Ocean Dark Theme Extended
+Electron Color Theme
+Zenburn Theme
+Theme - Oceanic Next

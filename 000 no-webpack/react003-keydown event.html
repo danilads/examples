@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>VeryUsefullComponent</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+///VeryUsefullComponent
+	class VeryUsefullComponent extends React.Component {
+	
+		
+		  pressFunction(event){
+			
+			console.log(event.key);
+			//чтобы была возможность открыть консоль
+			if(!event.keyCode === "F12") {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+		  }
+		  componentDidMount(){
+			document.addEventListener("keydown", this.pressFunction, false);
+		  }
+		  componentWillUnmount(){
+			document.removeEventListener("keydown", this.pressFunction, false);
+		  }
+		
+		render() {
+		
+			return (
+				<div className="container">
+					hello
+				</div>
+			);
+		}
+	}
+	////////////////App Js
+			ReactDOM.render(
+			<VeryUsefullComponent/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

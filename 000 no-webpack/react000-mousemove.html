@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	/////MobileList
+	class MobileList extends React.Component {
+		state = {
+			clients:this.props.clients,
+		}
+		run=(e)=>{
+			console.log(e)
+		}
+	
+	 componentDidMount(){
+		document.addEventListener("mousemove", this.run);
+	  }
+	  componentWillUnmount(){
+		document.removeEventListener("mousemove", this.run);
+	  }
+		render() {
+			
+		
+			return (
+				<div>
+					hello
+				</div>
+			);
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

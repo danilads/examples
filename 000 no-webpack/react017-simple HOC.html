@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	////HOC его можно экспортить export const
+		const CustomHOC = (BaseComponent) => {
+
+			class HOC extends React.Component {
+
+			    render() {
+			    	console.log(this.props);
+			    	return <BaseComponent {...this.props} />
+			    }
+			}
+
+		  return HOC
+		};
+
+	////MobileList
+		class MobileList extends React.Component {
+		
+			render() {
+	            return 	<div>MobileList</div>
+						
+			}
+		}
+	////////////////App Js
+		const A = CustomHOC(MobileList)
+		const B = CustomHOC(A)
+		ReactDOM.render(
+			<B sendProps={'отпавляемс'}/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

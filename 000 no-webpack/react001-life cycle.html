@@ -1,0 +1,123 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	
+	
+	//Render можно вызвать данными способами
+	//1)this.setState
+	//2)из родительского компонента <MyComp/>
+	//--изменением key компонента
+	//--передачей новых props
+	
+	class MobileList extends React.Component {
+		//1 раз в самом начале когда еще компонента нету
+		constructor(props){
+			super(props);
+			//перезапишет state
+			this.state = {
+				step: 1,
+			}
+			
+		}
+		state = {
+			step: 1,
+		}
+		//срабатывает каждый раз перед рендером (статичный)
+		static getDerivedStateFromProps(props,state){
+			console.log(state.step);
+			//возвращает в state объекты
+			//обязательно должен быть return
+			return {
+				newStep: 1,
+				newStep2: 2,
+			}
+		}
+
+		
+		//is invoked immediately after updating occurs. This method is not called for the initial render.
+		componentDidUpdate(prevProps, prevState){
+
+		}
+
+		
+		//Перед вствкой в DOM
+		//Выпиливается в последнем реакте
+		componentWillMount(){
+			
+		}
+
+		//После вставки в DOM
+		componentDidMount(){
+		
+		}
+		//Перед обновлением пропсов, которые приведу к изменению страницы
+		//Выпиливается в последнем реакте
+		componentWillReceiveProps(newProps) {
+			
+		}
+
+		//Перед вызовом render
+		componentWillUpdate(nextProps, nextState){
+
+		}
+		
+		
+		//Вызывается перед рендерингом при получени новых свойств или состояния.
+		//Этот метод не вызывается для начального рендеринга
+		shouldComponentUpdate(nextProps, nextState) { 
+			
+		}
+		
+		
+		
+		
+		//_ismounted
+		//создаем переменную  при маунте
+		//удаляем её при анмаунте
+		//таким образом при проверке этой переменной можно узнать существует ли наш компонент
+		
+		//Вызывается сразу перед тем, как компонент будет удален из DOM
+		//например если у нас SPA, на нужно удалять функции которые висят.
+		
+		//После вставки в DOM
+		componentDidMount() { 
+			this._ismounted = true;
+		}
+		componentWillUnmount(){
+			this._ismounted = false;
+		}
+		
+		//timer
+		timer=null;
+		someTimer=()=>{
+			//если компонента нету setTimeout - не вызывается
+			if(this._ismounted){
+				this.timer = setTimeout(() => {
+
+				}, 1000);
+			}
+		}
+
+		render() {
+			return <div>Hello</div>
+		}
+		
+	}
+	
+	//key Math.random() - всегда будет перерендер компонента
+		ReactDOM.render(
+			<MobileList key={Math.random()}/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

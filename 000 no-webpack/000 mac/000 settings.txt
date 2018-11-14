@@ -1,0 +1,2 @@
+display gamma
+s RGB IEC61966-2.1

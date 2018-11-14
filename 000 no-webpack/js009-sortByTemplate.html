@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<div></div>
+	<script>
+		var items = ["Bananas", "Apples", "Watermelons"];
+		var itemsOrdered = [];
+		var theOrder = ["Watermelons", "Grapes", "Oranges", "Peaches", "Apples", "Bananas"];
+
+		for (var i = 0; i < theOrder.length; i++) {
+		    if (items.indexOf(theOrder[i]) > -1) {
+		        itemsOrdered.push(theOrder[i]);
+		    }
+		}
+
+		console.log(itemsOrdered);
+	</script>
+</body> 
+</html>

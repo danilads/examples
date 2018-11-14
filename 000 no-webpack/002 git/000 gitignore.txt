@@ -1,0 +1,18 @@
+#игнорировать все
+*
+#кроме файлов
+!.babelrc
+!.gitignore
+!App.js
+!index.html
+!package-lock.json
+!package.json
+!webpack.config.js
+
+#кроме папки и файлов содержащихся в ней
+!/components/
+!/components/*
+
+#кроме папки и всех подпапок и файлов содержащихся в ней
+!/components/
+!/components/**

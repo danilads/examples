@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Test</title>
+	<style>
+		div{
+			background-color: #cef;
+			font-size: 20px;
+			line-height: 1;
+		}
+		class
+		
+	</style>
+</head>
+<body>
+	<div id="myDiv">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+	
+</body> 
+<script>
+		var myDiv = document.getElementById("myDiv");
+
+		
+		function changeFontSize (){
+			//font-size (без слов "px")
+			let font = parseFloat(getComputedStyle(myDiv).getPropertyValue("font-size"));
+			//высота блока (без слов "px")
+			let heig = parseFloat(getComputedStyle(myDiv).getPropertyValue("height"));
+			
+			let f = font;
+			
+			//Чтобы дозаполнить сторку до конца мы увеличиваем шрифт
+			//font size проблема здесь
+			for(let i=0;i<f;i++){				
+				if(heig<=font*3){
+					font = font + 1;
+					myDiv.style.fontSize = (font)+"px";
+				}
+			}
+			
+			//далее уменьшаем
+			for(let i=0;i<f;i++){
+				heig = parseFloat(getComputedStyle(myDiv).getPropertyValue("height"));
+				if(heig>font*3){
+					font = font - 1;
+					myDiv.style.fontSize = (font)+"px";
+				}
+			}
+		}
+		changeFontSize ();
+		
+		
+		window.addEventListener('resize', ()=>{
+			changeFontSize ();
+		});
+	</script>
+</html>

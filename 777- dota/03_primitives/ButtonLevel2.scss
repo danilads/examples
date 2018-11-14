@@ -1,0 +1,8 @@
+@import "../scss/_variables"; //переменные
+.ButtonLevel2{
+	background-color: aqua;
+	
+    .selected{
+        background-color: red;
+    }
+}

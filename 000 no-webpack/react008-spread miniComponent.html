@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	//В них нельзя использовать lifecycle
+	/////FuncStyle1
+	function FuncStyle1(props) {
+		let a=0;
+		return <div style={{border: "1px dashed red"}}>{props.p}</div>
+	}
+	
+	
+	/////FuncStyle2
+	const FuncStyle2 = (props) => {
+		let n=12;
+		return <div style={{border: "1px dashed green"}}>{props.p}</div>
+	};
+	
+	
+	
+	/////FuncStyle3
+	/////Без логики
+	const FuncStyle3 = (props) => <div style={props.isTrue&&{border: "1px dashed blue"}}>{props.p}</div>;
+	
+	
+	
+	/////App
+	/////Spread
+	class App extends React.Component {
+		state={
+			style:{
+				width: "200px",
+				border: "1px dashed red",
+				height: "35px",
+				backgroundColor: "#cef"
+			},
+			
+		}
+		
+		render() {
+			//Spread
+			const { send, send:{val} } = this.props;
+			console.log(send);
+			
+			
+			let a=[3,5,7];
+			for ( let v of a ) { 
+				console.log(v);
+			}
+			
+			return (
+			<React.Fragment>
+				<div style={{...this.state.style}}>
+					hello
+				</div>
+				{this.props.isTrue&&<div>isTrue</div>}
+				
+				<FuncStyle1 p={1}/>
+				<FuncStyle2 p={2}/>
+				<FuncStyle3 p={3} isTrue/>
+			</React.Fragment>
+			);
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<App send={'hello'} isTrue/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
