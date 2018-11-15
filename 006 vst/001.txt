@@ -1,22 +1,2 @@
-{
-    "files.autoSave": "off",
-    "materialTheme.fixIconsRunning": false,
-    "window.zoomLevel": 0,
-    "workbench.colorTheme": "Ocean Dark Extended",
-    "diffEditor.ignoreTrimWhitespace": true,
-    "gitlens.advanced.messages": {
-        "suppressShowKeyBindingsNotice": true
-    },
-    "workbench.iconTheme": "material-icon-theme",
-    "git.enableSmartCommit": true,
-    "gitlens.blame.avatars": false,
-	"gitlens.blame.compact": false,
-	"gitlens.blame.heatmap.enabled": false,
-	"gitlens.blame.highlight.enabled": false,
-	"gitlens.blame.separateLines": false,
-	"gitlens.codeLens.authors.enabled": false,
-	"gitlens.codeLens.enabled": false,
-	"gitlens.codeLens.recentChange.enabled": false,
-	"gitlens.currentLine.enabled": false,
-	"gitlens.currentLine.scrollable": false
-}
+//в фл студио нужно удалить ненужные вст (которые)
+001 
