@@ -1,2 +1,10 @@
-//в фл студио нужно удалить ненужные вст (которые)
-001 
+//в Fl Studio нужно удалить ненужные вст (которые не куплены)
+//путь - Image-Line/FL Studio/Presets/Plugin database
+//Generators - синты и инструменты
+//Effects - обработка
+
+//Кастомные плагины vst храним в Applications(Show Package Content)
+//путь - Contents/Resources/FL/Plugins/VST
+
+//Проекты храним в 
+//путь - Image-Line/FL Studio/Prjects
