@@ -97,7 +97,7 @@ class Block_Filter extends React.PureComponent {
 	
 
 	//если с флагом true то это означает что запуск автоматический
-	engine = (isAuto,e) =>{
+	engine = (isAuto) =>{
 		let {isNeedToReCheck,status,curBtn,LoadedN,LoadedH,LoadedI} = this.state;
 		//если кнопка та же
 		if(curBtn===status[1]){
@@ -155,7 +155,7 @@ class Block_Filter extends React.PureComponent {
 			
 			// 3 кейс - переключение с уже загруженной на загруженную
 			else{
-				console.log('3  кейс ',e);
+				console.log('3  кейс ');
 				if(isNeedToReCheck){
 					this.isEngineRun=true;
 					this.setState({isNeedToReCheck:true})
@@ -317,7 +317,7 @@ class Block_Filter extends React.PureComponent {
 		// если была анимация (isEngineRun) и кнопка изменилась - имитация запуск руками
 		else if(isNeedToReCheck&&((v!==curBtn)||(v!==curBtn)||(v!==curBtn))){
 			
-			this.engine(false,"wtf");	
+			this.engine(false);	
 		}
 	}
 	//warning fix
