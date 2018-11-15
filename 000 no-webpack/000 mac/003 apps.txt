@@ -9,13 +9,14 @@
 02 Launchpad (mac os include)
 03 Safari (mac os include)
 04 Chrome
-05 Skype
-06 Telegram
-07 VS code
-08 Sublime
-09 Webstorm(?)
-10 Piskel
-11 Blender
-12 Fl studio
-13 GIMP
-14 Activity Monitor
+05 Firefox
+06 Skype
+07 Telegram
+08 VS code
+09 Sublime
+10 Webstorm(?)
+11 Piskel
+12 Blender
+13 Fl studio
+14 GIMP
+15 Activity Monitor
