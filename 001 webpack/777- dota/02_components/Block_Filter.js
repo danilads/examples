@@ -98,16 +98,14 @@ class Block_Filter extends React.PureComponent {
 
 	//если с флагом true то это означает что запуск автоматический
 	engine = (isAuto) =>{
-		let {isNeedToReCheck,status,curBtn,LoadedN,LoadedH,LoadedI} = this.state;
+		let {isNeedToReCheck,status,curBtn,LoadedN,LoadedH,LoadedI,loadingN,loadingH,loadingI} = this.state;
+		let v = status[1];
 		//если кнопка та же
 		if(curBtn===status[1]){
 			return;
 		}
-
-
 		//если происходит цикл смены анимации
 		if(this.isEngineRun){
-			console.log('сейчас идет анимация');
 			this.setState({isNeedToReCheck:true});
 			return;
 		}
@@ -133,29 +131,41 @@ class Block_Filter extends React.PureComponent {
 			}
 			// 1 кейс - первая загрузка
 			else if(status==='--'){
-				//console.log('1  кейс');
+				console.log('1  кейс');
 				this.isEngineRun=true;
 				this.setState({status:'s-in'})
 				this.timer = setTimeout(() => {
-					this.setState({status:'s-on'},()=>{this.isEngineRun=false})
+					this.setState({status:'s-on'},()=>{this.isEngineRun=false;console.log(1);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},1000);
 			}
 			// 2 кейс - если текущая позиция загружена, а нажатая еще не была
 			else if((curBtn==='N'&&!LoadedN)||(curBtn==='H'&&!LoadedH)||(curBtn==='I'&&!LoadedI)){
-				//console.log('2  кейс');
+				console.log('2  кейс');
 				this.isEngineRun=true;
 				this.setState({status:status[0]+status[1]+'-out'})
 				this.timer = setTimeout(() => {
 					this.setState({status:'s-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'s-on'},()=>{this.isEngineRun=false})
+					this.setState({status:'s-on'},()=>{this.isEngineRun=false;console.log(2);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
-			
-			// 3 кейс - переключение с уже загруженной на загруженную
+			// ???? ДЕЛО В ЭТОМ КЕЙСЕ
+			// 3 кейс - если идет загрузка и нужна переключить на готовую
+			else if((curBtn==='N'&&loadingN)||(curBtn==='H'&&loadingH)||(curBtn==='I'&&loadingI)){
+				console.log('3  кейс');
+				this.isEngineRun=true;
+				this.setState({status:status[0]+'-out'})
+				this.timer = setTimeout(() => {
+					this.setState({status:'s-in'});
+				},1000);
+				this.timer = setTimeout(() => {
+					this.setState({status:'s-on'},()=>{this.isEngineRun=false;console.log(3);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+				},2000);
+			}
+			// 4 кейс - переключение с уже загруженной на загруженную
 			else{
-				console.log('3  кейс ');
+				console.log('4  кейс ');
 				if(isNeedToReCheck){
 					this.isEngineRun=true;
 					this.setState({isNeedToReCheck:true})
@@ -167,7 +177,7 @@ class Block_Filter extends React.PureComponent {
 						this.setState({status:'cN-in'});
 					},1000);
 					this.timer = setTimeout(() => {
-						this.setState({status:'cN-on'},()=>{this.isEngineRun=false})
+						this.setState({status:'cN-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 					},2000);
 				}
 				if(curBtn==='H'){
@@ -175,7 +185,7 @@ class Block_Filter extends React.PureComponent {
 						this.setState({status:'cH-in'});
 					},1000);
 					this.timer = setTimeout(() => {
-						this.setState({status:'cH-on'},()=>{this.isEngineRun=false})
+						this.setState({status:'cH-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 					},2000);
 				}
 				if(curBtn==='I'){
@@ -183,15 +193,15 @@ class Block_Filter extends React.PureComponent {
 						this.setState({status:'cI-in'});
 					},1000);
 					this.timer = setTimeout(() => {
-						this.setState({status:'cI-on'},()=>{this.isEngineRun=false})
+						this.setState({status:'cI-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 					},2000);
 				}
 			}
 		}
 		//запуск из componentDidUpdate
 		else{
-			// 4 кейс
-			//console.log('4  кейс');
+			// 5 кейс
+			console.log('5  кейс');
 			this.isEngineRun=true;
 			this.setState({status:'s-out'})
 			if(curBtn==='N'){
@@ -199,7 +209,7 @@ class Block_Filter extends React.PureComponent {
 					this.setState({status:'cN-in'})
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cN-on'},()=>{this.isEngineRun=false})
+					this.setState({status:'cN-on'},()=>{this.isEngineRun=false;console.log(5);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
 			else if(curBtn==='H'){
@@ -207,7 +217,7 @@ class Block_Filter extends React.PureComponent {
 					this.setState({status:'cH-in'})
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cH-on'},()=>{this.isEngineRun=false})
+					this.setState({status:'cH-on'},()=>{this.isEngineRun=false;console.log(5);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
 			else if(curBtn==='I'){
@@ -215,7 +225,7 @@ class Block_Filter extends React.PureComponent {
 					this.setState({status:'cI-in'})
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cI-on'},()=>{this.isEngineRun=false})
+					this.setState({status:'cI-on'},()=>{this.isEngineRun=false;console.log(5);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
 		}
@@ -307,17 +317,10 @@ class Block_Filter extends React.PureComponent {
 	}
 	
 	componentDidUpdate(prevProps, prevState){
-		console.log('compDidMount')
 		let {isNeedToReCheck,status,curBtn,LoadedN,LoadedH,LoadedI} = this.state;
-		let v = status[1];
 		// если был спинер и нужно показать новости
 		if((status==='s-on'&&curBtn==='N'&&LoadedN)||(status==='s-on'&&curBtn==='H'&&LoadedH)||(status==='s-on'&&curBtn==='I'&&LoadedI)){
 			this.engine(true);
-		}
-		// если была анимация (isEngineRun) и кнопка изменилась - имитация запуск руками
-		else if(isNeedToReCheck&&((v!==curBtn)||(v!==curBtn)||(v!==curBtn))){
-			
-			this.engine(false);	
 		}
 	}
 	//warning fix
