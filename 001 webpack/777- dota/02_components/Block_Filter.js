@@ -96,7 +96,8 @@ class Block_Filter extends React.PureComponent {
 
 	//если с флагом true то это означает что запуск автоматический
 	engine = () =>{
-		let {status,curBtn,LoadedN,LoadedH,LoadedI,loadingN,loadingH,loadingI} = this.state;
+		let {status,curBtn} = this.state;
+		let {LoadedN,LoadedH,LoadedI} = this.props;
 		let v = status[1];
 		//если кнопка та же
 		if(curBtn===status[1]){
@@ -109,8 +110,6 @@ class Block_Filter extends React.PureComponent {
 		//cI-in cI-out cI-on cI-off
 		
 		// если запускаем таймер-анимацию то isEngineRun = true (блокируем запись в state) в конце делаем false
-		
-		
 		
 		// 0  кейс - если переключаем на другую а там тоже загрузка
 		if((status==='s-on'&&curBtn==='N'&&!LoadedN)||(status==='s-on'&&curBtn==='H'&&!LoadedH)||(status==='s-on'&&curBtn==='I'&&!LoadedI)){
@@ -185,6 +184,7 @@ class Block_Filter extends React.PureComponent {
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
+		
 		//spinner
 		if(status==='s-in'){
 			return <div className={"spinner-in"}>
@@ -251,19 +251,10 @@ class Block_Filter extends React.PureComponent {
 		}
 	}
 
-	static getDerivedStateFromProps(props,state){
-		return {
-			loadingN: props.reducer.news.loading,
-			loadingH: props.reducer.heroes.loading,
-			loadingI: props.reducer.items.loading,
-			LoadedN: props.reducer.news.isLoaded,
-			LoadedH: props.reducer.heroes.isLoaded,
-			LoadedI: props.reducer.items.isLoaded,
-		}
-	}
 	
 	componentDidUpdate(prevProps, prevState){
-		let {status,curBtn,LoadedN,LoadedH,LoadedI} = this.state;
+		let {status,curBtn} = this.state;
+		let {LoadedN,LoadedH,LoadedI} = this.props;
 		// если был спинер и нужно показать новости
 		if((status==='s-on'&&curBtn==='N'&&LoadedN)||(status==='s-on'&&curBtn==='H'&&LoadedH)||(status==='s-on'&&curBtn==='I'&&LoadedI)){
 			this.engine();
@@ -335,6 +326,12 @@ class Block_Filter extends React.PureComponent {
 
 
 export default connect((state) => ({
-	reducer: state.reducer
+	reducer: state.reducer,
+	loadingN: state.reducer.news.loading,
+	loadingH: state.reducer.heroes.loading,
+	loadingI: state.reducer.items.loading,
+	LoadedN: state.reducer.news.isLoaded,
+	LoadedH: state.reducer.heroes.isLoaded,
+	LoadedI: state.reducer.items.isLoaded,
 }),
 {loadNews,loadHeroes,loadItems})(Block_Filter);
