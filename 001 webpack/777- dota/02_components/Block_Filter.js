@@ -25,8 +25,6 @@ class Block_Filter extends React.PureComponent {
 		//content cI cN cH
 		//cI-in cI-out cI-on cI-off
 		status: '--', // для _contentRender
-		//нужно ли менять кнопку
-		isNeedToReCheck: false,
 
 	};
 	// ???? после фикса попробовать обе переменные вернуть в  state
@@ -97,156 +95,86 @@ class Block_Filter extends React.PureComponent {
 	
 
 	//если с флагом true то это означает что запуск автоматический
-	engine = (isAuto) =>{
-		let {isNeedToReCheck,status,curBtn,LoadedN,LoadedH,LoadedI,loadingN,loadingH,loadingI} = this.state;
+	engine = () =>{
+		let {status,curBtn,LoadedN,LoadedH,LoadedI,loadingN,loadingH,loadingI} = this.state;
 		let v = status[1];
 		//если кнопка та же
 		if(curBtn===status[1]){
 			return;
 		}
 		//если происходит цикл смены анимации
-		if(this.isEngineRun){
-			this.setState({isNeedToReCheck:true});
-			return;
-		}
-		
-		//!! здесь записываем state
-	
-		//есть два кейса
-		// 1 кейс) первая загрузка (таймер 1сек) fade in
-		// 2 кейс) последующий (таймер 2сек) fade out/fade in
+		if(this.isEngineRun){return;}
 		
 		//s-in s-out s-on s-off
 		//cI-in cI-out cI-on cI-off
 		
-		// если запускаем таймер то isEngineRun = true (блокируем запись в state)
-		// в конце false
+		// если запускаем таймер-анимацию то isEngineRun = true (блокируем запись в state) в конце делаем false
 		
 		
-		//запуск руками
-		if(!isAuto){
-			// 0  кейс - если переключаем на другую а там тоже загрузка
-			if((status==='s-on'&&curBtn==='N'&&!LoadedN)||(status==='s-on'&&curBtn==='H'&&!LoadedH)||(status==='s-on'&&curBtn==='I'&&!LoadedI)){
-				//console.log('0  кейс');
-			}
-			// 1 кейс - первая загрузка
-			else if(status==='--'){
-				console.log('1  кейс');
-				this.isEngineRun=true;
-				this.setState({status:'s-in'})
-				this.timer = setTimeout(() => {
-					this.setState({status:'s-on'},()=>{this.isEngineRun=false;console.log(1);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-				},1000);
-			}
-			// 2 кейс - если текущая позиция загружена, а нажатая еще не была
-			else if((curBtn==='N'&&!LoadedN)||(curBtn==='H'&&!LoadedH)||(curBtn==='I'&&!LoadedI)){
-				console.log('2  кейс');
-				this.isEngineRun=true;
-				this.setState({status:status[0]+status[1]+'-out'})
-				this.timer = setTimeout(() => {
-					this.setState({status:'s-in'});
-				},1000);
-				this.timer = setTimeout(() => {
-					this.setState({status:'s-on'},()=>{this.isEngineRun=false;console.log(2);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-				},2000);
-			}
-			// ???? ДЕЛО В ЭТОМ КЕЙСЕ
-			// 3 кейс - если идет загрузка и нужна переключить на готовую
-			else if(status==='s-on'){
-				console.log('3  кейс');
-				this.isEngineRun=true;
-				this.setState({status:status[0]+'-out'})
-				if(curBtn==='N'){
-					this.timer = setTimeout(() => {
-						this.setState({status:'cN-in'});
-					},1000);
-					this.timer = setTimeout(() => {
-						this.setState({status:'cN-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-					},2000);
-				}
-				if(curBtn==='H'){
-					this.timer = setTimeout(() => {
-						this.setState({status:'cH-in'});
-					},1000);
-					this.timer = setTimeout(() => {
-						this.setState({status:'cH-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-					},2000);
-				}
-				if(curBtn==='I'){
-					this.timer = setTimeout(() => {
-						this.setState({status:'cI-in'});
-					},1000);
-					this.timer = setTimeout(() => {
-						this.setState({status:'cI-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-					},2000);
-				}
-			}
-			// 4 кейс - переключение с уже загруженной на загруженную
-			else{
-				console.log('4  кейс ');
-				if(isNeedToReCheck){
-					this.isEngineRun=true;
-					this.setState({isNeedToReCheck:true})
-				}
-				this.isEngineRun=true;
-				this.setState({status:status[0]+status[1]+'-out'})
-				if(curBtn==='N'){
-					this.timer = setTimeout(() => {
-						this.setState({status:'cN-in'});
-					},1000);
-					this.timer = setTimeout(() => {
-						this.setState({status:'cN-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-					},2000);
-				}
-				if(curBtn==='H'){
-					this.timer = setTimeout(() => {
-						this.setState({status:'cH-in'});
-					},1000);
-					this.timer = setTimeout(() => {
-						this.setState({status:'cH-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-					},2000);
-				}
-				if(curBtn==='I'){
-					this.timer = setTimeout(() => {
-						this.setState({status:'cI-in'});
-					},1000);
-					this.timer = setTimeout(() => {
-						this.setState({status:'cI-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-					},2000);
-				}
-			}
+		
+		// 0  кейс - если переключаем на другую а там тоже загрузка
+		if((status==='s-on'&&curBtn==='N'&&!LoadedN)||(status==='s-on'&&curBtn==='H'&&!LoadedH)||(status==='s-on'&&curBtn==='I'&&!LoadedI)){
+			//console.log('0  кейс');
 		}
-		//запуск из componentDidUpdate
-		else{
-			// 5 кейс
-			console.log('5  кейс');
+		// 1 кейс - первая загрузка
+		else if(status==='--'){
+			console.log('1  кейс');
 			this.isEngineRun=true;
-			this.setState({status:'s-out'})
+			this.setState({status:'s-in'})
+			this.timer = setTimeout(() => {
+				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+			},1000);
+		}
+		// 2 кейс - если текущая позиция загружена, а нажатая еще не была
+		else if((curBtn==='N'&&!LoadedN)||(curBtn==='H'&&!LoadedH)||(curBtn==='I'&&!LoadedI)){
+			console.log('2  кейс');
+			this.isEngineRun=true;
+			this.setState({status:status[0]+status[1]+'-out'})
+			this.timer = setTimeout(() => {
+				this.setState({status:'s-in'});
+			},1000);
+			this.timer = setTimeout(() => {
+				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+			},2000);
+		}
+		else{
+			this.isEngineRun=true;
+			// 3.1 кейс - если идет загрузка и нужна переключить на готовую
+			if(status[0]==='s'){
+				console.log('3.1  кейс');
+				this.setState({status:status[0]+'-out'})
+			}
+			// 3.2 кейс - переключение с уже загруженной на загруженную
+			else{
+				console.log('3.2  кейс');
+				this.setState({status:status[0]+status[1]+'-out'})
+			}
 			if(curBtn==='N'){
 				this.timer = setTimeout(() => {
-					this.setState({status:'cN-in'})
+					this.setState({status:'cN-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cN-on'},()=>{this.isEngineRun=false;console.log(5);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					this.setState({status:'cN-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
-			else if(curBtn==='H'){
+			if(curBtn==='H'){
 				this.timer = setTimeout(() => {
-					this.setState({status:'cH-in'})
+					this.setState({status:'cH-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cH-on'},()=>{this.isEngineRun=false;console.log(5);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					this.setState({status:'cH-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
-			else if(curBtn==='I'){
+			if(curBtn==='I'){
 				this.timer = setTimeout(() => {
-					this.setState({status:'cI-in'})
+					this.setState({status:'cI-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cI-on'},()=>{this.isEngineRun=false;console.log(5);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					this.setState({status:'cI-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
 				},2000);
 			}
 		}
+		
 		
 	}
 	// !! здесь читаем state.status 
@@ -335,10 +263,10 @@ class Block_Filter extends React.PureComponent {
 	}
 	
 	componentDidUpdate(prevProps, prevState){
-		let {isNeedToReCheck,status,curBtn,LoadedN,LoadedH,LoadedI} = this.state;
+		let {status,curBtn,LoadedN,LoadedH,LoadedI} = this.state;
 		// если был спинер и нужно показать новости
 		if((status==='s-on'&&curBtn==='N'&&LoadedN)||(status==='s-on'&&curBtn==='H'&&LoadedH)||(status==='s-on'&&curBtn==='I'&&LoadedI)){
-			this.engine(true);
+			this.engine();
 		}
 	}
 	//warning fix
@@ -357,7 +285,7 @@ class Block_Filter extends React.PureComponent {
   	render() {
 		let arr = this.changeArr()
 		let {reducer, loadNews, loadHeroes, loadItems} = this.props;
-		let {curBtn, isNeedToReCheck} = this.state;
+		let {curBtn} = this.state;
 		return (
 			
 			<div className="Block_Filter">
