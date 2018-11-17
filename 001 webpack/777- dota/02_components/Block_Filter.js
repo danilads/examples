@@ -152,16 +152,34 @@ class Block_Filter extends React.PureComponent {
 			}
 			// ???? ДЕЛО В ЭТОМ КЕЙСЕ
 			// 3 кейс - если идет загрузка и нужна переключить на готовую
-			else if((curBtn==='N'&&loadingN)||(curBtn==='H'&&loadingH)||(curBtn==='I'&&loadingI)){
+			else if(status==='s-on'){
 				console.log('3  кейс');
 				this.isEngineRun=true;
 				this.setState({status:status[0]+'-out'})
-				this.timer = setTimeout(() => {
-					this.setState({status:'s-in'});
-				},1000);
-				this.timer = setTimeout(() => {
-					this.setState({status:'s-on'},()=>{this.isEngineRun=false;console.log(3);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
-				},2000);
+				if(curBtn==='N'){
+					this.timer = setTimeout(() => {
+						this.setState({status:'cN-in'});
+					},1000);
+					this.timer = setTimeout(() => {
+						this.setState({status:'cN-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					},2000);
+				}
+				if(curBtn==='H'){
+					this.timer = setTimeout(() => {
+						this.setState({status:'cH-in'});
+					},1000);
+					this.timer = setTimeout(() => {
+						this.setState({status:'cH-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					},2000);
+				}
+				if(curBtn==='I'){
+					this.timer = setTimeout(() => {
+						this.setState({status:'cI-in'});
+					},1000);
+					this.timer = setTimeout(() => {
+						this.setState({status:'cI-on'},()=>{this.isEngineRun=false;console.log(4);if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					},2000);
+				}
 			}
 			// 4 кейс - переключение с уже загруженной на загруженную
 			else{
