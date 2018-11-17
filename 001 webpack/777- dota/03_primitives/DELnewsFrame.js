@@ -1,7 +1,7 @@
 import React from 'react';
 
-import './NewsFrame.scss';
-class NewsFrame extends React.PureComponent {
+import './DELnewsFrame.scss';
+class DELnewsFrame extends React.PureComponent {
 	
 	state = {
 		
@@ -23,4 +23,4 @@ class NewsFrame extends React.PureComponent {
 
 
 
-export default NewsFrame;
+export default DELnewsFrame;

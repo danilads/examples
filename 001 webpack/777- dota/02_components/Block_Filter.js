@@ -1,5 +1,5 @@
 import React from 'react';
-import NewsFrame from '../03_primitives/NewsFrame';
+import DELnewsFrame from '../03_primitives/DELnewsFrame';
 import {Spiner} from '../03_primitives/Spiner';
 import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
@@ -117,7 +117,7 @@ class Block_Filter extends React.PureComponent {
 		}
 		// 1 кейс - первая загрузка
 		else if(status==='--'){
-			console.log('1  кейс');
+			//console.log('1  кейс');
 			this.isEngineRun=true;
 			this.setState({status:'s-in'})
 			this.timer = setTimeout(() => {
@@ -126,7 +126,7 @@ class Block_Filter extends React.PureComponent {
 		}
 		// 2 кейс - если текущая позиция загружена, а нажатая еще не была
 		else if((curBtn==='N'&&!LoadedN)||(curBtn==='H'&&!LoadedH)||(curBtn==='I'&&!LoadedI)){
-			console.log('2  кейс');
+			//console.log('2  кейс');
 			this.isEngineRun=true;
 			this.setState({status:status[0]+status[1]+'-out'})
 			this.timer = setTimeout(() => {
@@ -140,12 +140,12 @@ class Block_Filter extends React.PureComponent {
 			this.isEngineRun=true;
 			// 3.1 кейс - если идет загрузка и нужна переключить на готовую
 			if(status[0]==='s'){
-				console.log('3.1  кейс');
+				//console.log('3.1  кейс');
 				this.setState({status:status[0]+'-out'})
 			}
 			// 3.2 кейс - переключение с уже загруженной на загруженную
 			else{
-				console.log('3.2  кейс');
+				//console.log('3.2  кейс');
 				this.setState({status:status[0]+status[1]+'-out'})
 			}
 			if(curBtn==='N'){
@@ -184,7 +184,7 @@ class Block_Filter extends React.PureComponent {
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
-		
+
 		//spinner
 		if(status==='s-in'){
 			return <div className={"spinner-in"}>
@@ -304,7 +304,7 @@ class Block_Filter extends React.PureComponent {
 				{/* DEL THIS DOWN */}
 				<div className="DELETE THIS">
 					<div className={this.state.style}>{arr.map(it=>{
-						return <NewsFrame key={it} title={it}/>})}
+						return <DELnewsFrame key={it} title={it}/>})}
 						<div><input type="button" onClick={this.changeArrFunc} value="filter"/></div>
 						<input type="button" onClick={()=>this.changeStyle('in')} value="style in"/>
 						<input type="button" onClick={()=>this.changeStyle('out')} value="style out"/>
