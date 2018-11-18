@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
 import './Block_Filter.scss';
 import ButtonLevel2 from '../03_primitives/ButtonLevel2';
+import ButtonLevel3 from '../03_primitives/ButtonLevel3';
 
 class Block_Filter extends React.PureComponent {
 	
@@ -15,7 +16,7 @@ class Block_Filter extends React.PureComponent {
 		list:[0,1,2,3,4,5,6], //delete
 
 		//buttuns
-		curBtn: '', //текущая кнопка
+		curBtn2: '', //текущая кнопка
 		
 		//content Status
 
@@ -70,37 +71,51 @@ class Block_Filter extends React.PureComponent {
 
 	
 
-	buttons=(e)=>{
-		let {reducer:{news, heroes, items}, loadNews, loadHeroes, loadItems, curBtn} = this.props;
-		if(e===curBtn){return;}
+	buttons2=(e)=>{
+		let {reducer:{news, heroes, items}, loadNews, loadHeroes, loadItems} = this.props;
 		if(e==='N'){
-			this.setState({curBtn:e},()=>{if(this._ismounted)this.engine(false)});
+			this.setState({curBtn2:e},()=>{if(this._ismounted)this.engine2()});
 			if(!news.isLoaded&&!news.loading){
 				loadNews();
 			}
 		}
 		else if(e==='H'){
-			this.setState({curBtn:e},()=>{if(this._ismounted)this.engine(false)});
+			this.setState({curBtn2:e},()=>{if(this._ismounted)this.engine2()});
 			if(!heroes.isLoaded&&!heroes.loading){
 				loadHeroes();
 			}
 		}
 		else if(e==='I'){
-			this.setState({curBtn:e},()=>{if(this._ismounted)this.engine(false)});
+			this.setState({curBtn2:e},()=>{if(this._ismounted)this.engine2()});
 			if(!items.isLoaded&&!items.loading){
 				loadItems();
 			}
 		}
 	}
 	
+	buttons3=(e)=>{
+		if(e==='1'){
+			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
+		}
+		else if(e==='2'){
+			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
+		}
+		else if(e==='3'){
+			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
+		}
+	}
 
-	//если с флагом true то это означает что запуск автоматический
-	engine = () =>{
-		let {status,curBtn} = this.state;
+	engine3=()=>{
+
+	}
+
+	
+	engine2=()=>{
+		let {status,curBtn2} = this.state;
 		let {LoadedN,LoadedH,LoadedI} = this.props;
 		let v = status[1];
 		//если кнопка та же
-		if(curBtn===status[1]){
+		if(curBtn2===status[1]){
 			return;
 		}
 		//если происходит цикл смены анимации
@@ -112,7 +127,7 @@ class Block_Filter extends React.PureComponent {
 		// если запускаем таймер-анимацию то isEngineRun = true (блокируем запись в state) в конце делаем false
 		
 		// 0  кейс - если переключаем на другую а там тоже загрузка
-		if((status==='s-on'&&curBtn==='N'&&!LoadedN)||(status==='s-on'&&curBtn==='H'&&!LoadedH)||(status==='s-on'&&curBtn==='I'&&!LoadedI)){
+		if((status==='s-on'&&curBtn2==='N'&&!LoadedN)||(status==='s-on'&&curBtn2==='H'&&!LoadedH)||(status==='s-on'&&curBtn2==='I'&&!LoadedI)){
 			//console.log('0  кейс');
 		}
 		// 1 кейс - первая загрузка
@@ -121,11 +136,11 @@ class Block_Filter extends React.PureComponent {
 			this.isEngineRun=true;
 			this.setState({status:'s-in'})
 			this.timer = setTimeout(() => {
-				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
 			},1000);
 		}
 		// 2 кейс - если текущая позиция загружена, а нажатая еще не была
-		else if((curBtn==='N'&&!LoadedN)||(curBtn==='H'&&!LoadedH)||(curBtn==='I'&&!LoadedI)){
+		else if((curBtn2==='N'&&!LoadedN)||(curBtn2==='H'&&!LoadedH)||(curBtn2==='I'&&!LoadedI)){
 			//console.log('2  кейс');
 			this.isEngineRun=true;
 			this.setState({status:status[0]+status[1]+'-out'})
@@ -133,7 +148,7 @@ class Block_Filter extends React.PureComponent {
 				this.setState({status:'s-in'});
 			},1000);
 			this.timer = setTimeout(() => {
-				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
 			},2000);
 		}
 		else{
@@ -148,28 +163,28 @@ class Block_Filter extends React.PureComponent {
 				//console.log('3.2  кейс');
 				this.setState({status:status[0]+status[1]+'-out'})
 			}
-			if(curBtn==='N'){
+			if(curBtn2==='N'){
 				this.timer = setTimeout(() => {
 					this.setState({status:'cN-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cN-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					this.setState({status:'cN-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
 				},2000);
 			}
-			if(curBtn==='H'){
+			if(curBtn2==='H'){
 				this.timer = setTimeout(() => {
 					this.setState({status:'cH-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cH-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					this.setState({status:'cH-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
 				},2000);
 			}
-			if(curBtn==='I'){
+			if(curBtn2==='I'){
 				this.timer = setTimeout(() => {
 					this.setState({status:'cI-in'});
 				},1000);
 				this.timer = setTimeout(() => {
-					this.setState({status:'cI-on'},()=>{this.isEngineRun=false;if((v!==curBtn)||(v!==curBtn)||(v!==curBtn)){this.engine(false)}})
+					this.setState({status:'cI-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn)){this.engine2()}})
 				},2000);
 			}
 		}
@@ -253,11 +268,11 @@ class Block_Filter extends React.PureComponent {
 
 	
 	componentDidUpdate(prevProps, prevState){
-		let {status,curBtn} = this.state;
+		let {status,curBtn2} = this.state;
 		let {LoadedN,LoadedH,LoadedI} = this.props;
 		// если был спинер и нужно показать новости
-		if((status==='s-on'&&curBtn==='N'&&LoadedN)||(status==='s-on'&&curBtn==='H'&&LoadedH)||(status==='s-on'&&curBtn==='I'&&LoadedI)){
-			this.engine();
+		if((status==='s-on'&&curBtn2==='N'&&LoadedN)||(status==='s-on'&&curBtn2==='H'&&LoadedH)||(status==='s-on'&&curBtn2==='I'&&LoadedI)){
+			this.engine2();
 		}
 	}
 	//warning fix
@@ -276,24 +291,23 @@ class Block_Filter extends React.PureComponent {
   	render() {
 		let arr = this.changeArr()
 		let {reducer, loadNews, loadHeroes, loadItems} = this.props;
-		let {curBtn} = this.state;
+		let {curBtn2,curBtn3} = this.state;
 		return (
 			
 			<div className="Block_Filter">
 				<div className="BlockNav">
-					<ButtonLevel2 isPushed={curBtn==='N'} title={'news'} funcCB={()=>this.buttons('N')}/>
-					<ButtonLevel2 isPushed={curBtn==='H'} title={'heroes'} funcCB={()=>this.buttons('H')}/>
-					<ButtonLevel2 isPushed={curBtn==='I'} title={'items'} funcCB={()=>this.buttons('I')}/>
+					<ButtonLevel2 isPushed={curBtn2==='N'} title={'news'} funcCB={()=>this.buttons2('N')}/>
+					<ButtonLevel2 isPushed={curBtn2==='H'} title={'heroes'} funcCB={()=>this.buttons2('H')}/>
+					<ButtonLevel2 isPushed={curBtn2==='I'} title={'items'} funcCB={()=>this.buttons2('I')}/>
 				</div>
 
 				<hr/>
 
 				
 				<div className="BlockButtons">
-					<div className="btnLevel3">Selection</div>
-					<div className="btnLevel3">Selection</div>
-					<div className="btnLevel3">Selection</div>
-					<div className="btnLevel3">Selection</div>
+					<ButtonLevel3 isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
+					<ButtonLevel3 isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
+					<ButtonLevel3 isPushed={curBtn3==='3'} title={'filter some'} funcCB={()=>this.buttons3('3')}/>
 				</div>
 				<hr/>
 				<div className="BlockContent">
@@ -305,7 +319,9 @@ class Block_Filter extends React.PureComponent {
 				<div className="DELETE THIS">
 					<div className={this.state.style}>{arr.map(it=>{
 						return <DELnewsFrame key={it} title={it}/>})}
-						<div><input type="button" onClick={this.changeArrFunc} value="filter"/></div>
+					</div>
+					<div>
+						<input type="button" onClick={this.changeArrFunc} value="filter"/>
 						<input type="button" onClick={()=>this.changeStyle('in')} value="style in"/>
 						<input type="button" onClick={()=>this.changeStyle('out')} value="style out"/>
 						<input type="button" onClick={()=>this.changeStyle('static')} value="style static"/>

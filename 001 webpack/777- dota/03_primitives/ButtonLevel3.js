@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ButtonLevel2.scss';
+import './ButtonLevel3.scss';
 
-class ButtonLevel2 extends React.PureComponent {
+class ButtonLevel3 extends React.PureComponent {
 	//Документация
 	static propTypes = {
 		addClass: PropTypes.string,                	//Добавление класса
@@ -24,7 +24,7 @@ class ButtonLevel2 extends React.PureComponent {
   	render() {
 		let {addClass, title, funcCB, isPushed} = this.props;
 		return (
-			<div className={(addClass ? addClass : '') + ' ButtonLevel2'}>
+			<div className={(addClass ? addClass : '') + ' ButtonLevel3'}>
 				<input className={isPushed ? 'selected':''} type='button' value={title} onClick={this.click}/>
 			</div>
 			
@@ -36,4 +36,4 @@ class ButtonLevel2 extends React.PureComponent {
 
 
 
-export default ButtonLevel2;
+export default ButtonLevel3;
