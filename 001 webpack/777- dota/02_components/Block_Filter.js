@@ -1,5 +1,6 @@
 import React from 'react';
 import DELnewsFrame from '../03_primitives/DELnewsFrame';
+import NewsBlock from '../03_primitives/NewsBlock';
 import {Spiner} from '../03_primitives/Spiner';
 import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
@@ -218,18 +219,18 @@ class Block_Filter extends React.PureComponent {
 		}
 		//news
 		if(status==='cN-in'){
-			return <div className={"spinner-in"}>
-				News
+			return <div className={"in"}>
+				{this._newsBlock()}
 			</div>
 		}
 		if(status==='cN-on'){
-			return <div className={"spinner"}>
-				News
+			return <div className={"static"}>
+				{this._newsBlock()}
 			</div>
 		}
 		if(status==='cN-out'){
-			return <div className={"spinner-out"}>
-				News
+			return <div className={"out"}>
+				{this._newsBlock()}
 			</div>
 		}
 		//heroes
@@ -265,6 +266,15 @@ class Block_Filter extends React.PureComponent {
 			</div>
 		}
 	}
+	_newsBlock=()=>{
+		let result=[];
+		if(this.props.reducer.news.data&&this.props.reducer.news.data.appnews&&this.props.reducer.news.data.appnews.newsitems){
+			this.props.reducer.news.data.appnews.newsitems.map((item,key)=>{
+				result.push(<div className={"NewsFrame"} key={key}><div>{item.title}</div></div>)
+			})
+		}
+		return result;
+	}
 
 	
 	componentDidUpdate(prevProps, prevState){
@@ -292,6 +302,7 @@ class Block_Filter extends React.PureComponent {
 		let arr = this.changeArr()
 		let {reducer, loadNews, loadHeroes, loadItems} = this.props;
 		let {curBtn2,curBtn3} = this.state;
+		
 		return (
 			
 			<div className="Block_Filter">
@@ -313,9 +324,11 @@ class Block_Filter extends React.PureComponent {
 				<div className="BlockContent">
 					{this._contentRender()}
 				</div>
+				
 
 
 				{/* DEL THIS DOWN */}
+				
 				<div className="DELETE THIS">
 					<div className={this.state.style}>{arr.map(it=>{
 						return <DELnewsFrame key={it} title={it}/>})}

@@ -13,6 +13,24 @@
 	}
 	.BlockContent{
 		min-height: 64px;
+		.contentOff{
+			opacity: 0;
+		}
+		.content{
+			display: block;
+			&-none{
+				@extend .contentOff;
+				display: none;
+			}
+			&-in{
+				@extend .content;
+				animation: opacityIn 1s;
+			}
+			&-out{
+				@extend .contentOff;
+				animation: opacityOut 1s;
+			}
+		}
 		.spinnerOff{
 			display: flex;
 			justify-content: center;
@@ -43,19 +61,16 @@
 
 	.out > .NewsFrame > div{
 		border: 1px dashed red;
-		width:20px;
 		animation: Aout 1s;
 		opacity: 0;
 		transform: scale(0);
 	}
 	.in >  .NewsFrame > div{
 		border: 1px dashed red;
-		width:20px;
 		animation: Ain 1s;
 	}
 	.static >  .NewsFrame > div{
 		border: 1px dashed red;
-		width:20px;
 	}
 	.off >  .NewsFrame > div{
 		border: 1px dashed rgba(0,0,0,0);
