@@ -10,7 +10,49 @@
 	</head>
 	<body>
 	<script>
+		////////////
 		// замыкание
+		var scope = "global scope";
+		function checkscope(){
+			var scope = 'local scope';
+			function f() {return scope;}
+			return f;
+		}
+		console.log('--1',checkscope()()); //local scope
+
+		//////////
+		//проблема
+		function constfuncs(){
+			var funcs=[];
+			for(var i=0;i<10;i++){
+				funcs[i]=function(){return i;};
+			}
+			return funcs;
+		}
+		var funcs=constfuncs();
+		console.log('--2',funcs[5]()); //10
+
+		//////////
+		//решение
+		var buttons = '';
+		for (var i=0; i<10; i++) {
+			buttons+='<button></button>';
+		}
+
+		document.body.innerHTML = buttons;
+		//пример Стаса
+		//var getIndex = (index) => () => alert(index);
+		//оригинал
+		function getIndex(index) {
+			return function() {alert(index);}
+		}
+		var btns = document.querySelectorAll('button');
+		for (var i=0; i<btns.length; i++) {
+			btns[i].innerHTML = i+1;
+		  btns[i].onclick = getIndex(i+1)
+		}
+
+		
 	</script>
 	</body>
 </html>
