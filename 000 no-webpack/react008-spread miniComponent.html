@@ -55,7 +55,14 @@
 			for ( let v of a ) { 
 				console.log(v);
 			}
-			
+
+			let arr=[];
+			let obj = {a:1,b:2};
+				arr.push({
+					c:3,
+					...obj
+			});
+			console.log(arr);
 			return (
 			<React.Fragment>
 				<div style={{...this.state.style}}>
