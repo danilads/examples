@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+
+		</style>
+	
+	</head>
+	<body>
+	<script>
+		// call
+		function show() {
+			console.log( this.firstName + " " + this.lastName );
+		}
+
+		var user = {
+		  firstName: "Василий",
+		  lastName: "Петров"
+		};
+
+		show.call(user) // "Василий Петров" функция вызовется с this=user
+		
+
+		// одалживание метода
+		
+	</script>
+	</body>
+</html>
