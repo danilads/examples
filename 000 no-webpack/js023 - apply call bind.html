@@ -10,7 +10,7 @@
 	</head>
 	<body>
 	<script>
-		// call
+		// 01 call
 		function show() {
 			console.log( this.firstName + " " + this.lastName );
 		}
@@ -23,8 +23,23 @@
 		show.call(user) // "Василий Петров" функция вызовется с this=user
 		
 
-		// одалживание метода
-		
+		// 02 call apply
+		function func(){
+			for(let i=0;i<arguments.length;i++){
+				console.log('--i',arguments[i]);
+			}
+		}
+		func.apply(user,[1,2,3,4,5]); //5 вызовов
+		func.call(user,[1,2,3,4,5]); //1 вызов
+
+
+		// 03 bind
+		//bind привязывает "BIND" в качестве this для f.
+		function f(){
+			console.log(this);
+		}
+		var g = f.bind("BIND");
+		g();
 	</script>
 	</body>
 </html>
