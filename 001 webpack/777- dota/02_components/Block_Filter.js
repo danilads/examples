@@ -1,6 +1,6 @@
 import React from 'react';
 import DELnewsFrame from '../03_primitives/DELnewsFrame';
-import NewsBlock from '../03_primitives/NewsBlock';
+import NewsBlock from './NewsBlock';
 import {Spiner} from '../03_primitives/Spiner';
 import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
