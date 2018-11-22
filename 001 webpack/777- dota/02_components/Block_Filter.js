@@ -1,6 +1,6 @@
 import React from 'react';
 import DELnewsFrame from '../03_primitives/DELnewsFrame';
-import NewsBlock from './NewsBlock';
+import News from './News';
 import {Spiner} from '../03_primitives/Spiner';
 import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
@@ -11,11 +11,12 @@ import ButtonLevel3 from '../03_primitives/ButtonLevel3';
 class Block_Filter extends React.PureComponent {
 	
 	state = {
-		//delete
+		//DEL THIS DOWN
 		style:'in', //delete
 		howToSort: false,  //delete
 		list:[0,1,2,3,4,5,6], //delete
-
+		//DEL THIS UP
+		
 		//buttuns
 		curBtn2: '', //текущая кнопка
 		
@@ -200,7 +201,11 @@ class Block_Filter extends React.PureComponent {
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
-
+		let {reducer} = this.props;
+		if(status[1]==='N'){
+			return <News status={status} data={reducer.news.data}/>
+		}
+		//DEL THIS DOWN
 		//spinner
 		if(status==='s-in'){
 			return <div className={"spinner-in"}>
