@@ -6,7 +6,9 @@ import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
 
 import Position_News from '../03_primitives/Position_News';
-import {Spiner} from '../03_primitives/Spiner';
+import Position_Heroes from '../03_primitives/Position_Heroes';
+import Position_Items from '../03_primitives/Position_Items';
+import Spiner from '../03_primitives/Spiner';
 import ButtonLevel2 from '../03_primitives/ButtonLevel2';
 import ButtonLevel3 from '../03_primitives/ButtonLevel3';;
 
@@ -164,9 +166,18 @@ class Block_Filter extends React.PureComponent {
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
 		let {reducer} = this.props;
-		// if(status[1]==='N'){
-		// 	return <News status={status} data={reducer.news.data}/>
-		// }
+		if(status[1]==='N'){
+			return <Position_News status={status} data={reducer.news.data}/>
+		}
+		else if(status[1]==='H'){
+			return <Position_Heroes status={status} data={reducer.news.data}/>
+		}
+		else if(status[1]==='I'){
+			return <Position_Items status={status} data={reducer.news.data}/>
+		}
+		else if(status[0]==='s'){
+			return <Spiner status={status}/>
+		}
 		//DEL THIS DOWN
 		//spinner
 		if(status==='s-in'){
