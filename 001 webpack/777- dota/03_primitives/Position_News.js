@@ -10,9 +10,11 @@ class Position_News extends React.PureComponent {
   	render() {
 		//console.log('render ',this.props.title);
 		let {data, status} = this.props;
+		
+		console.log('--d',data);
 		return (
 			<div className="Position">
-				<div className={"content"+status.slice(2)}>news</div>
+				<div>{data.title}</div>
 			</div>		
 		);
 

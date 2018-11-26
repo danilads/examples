@@ -16,7 +16,58 @@
         min-height: 64px;
         
     }
-	
+    
+    
+    //animation
+
+    .contentOff{
+		display: flex;
+		justify-content: center;
+		opacity: 0;
+	}
+	.content{
+		display: flex;
+		justify-content: center;
+		&-none{
+			@extend .contentOff;
+			display: none;
+		}
+		&-in{
+			@extend .content;
+			animation: opacityIn 1s;
+		}
+		&-out{
+			@extend .contentOff;
+			animation: opacityOut 1s;
+		}
+		&-on{
+			@extend .content;
+		}
+	}
+	.spinnerOff{
+		display: flex;
+		justify-content: center;
+		opacity: 0;
+	}
+	.spinner{
+		display: flex;
+		justify-content: center;
+		&-none{
+			@extend .spinnerOff;
+			display: none;
+		}
+		&-in{
+			@extend .spinner;
+			animation: opacityIn 1s;
+		}
+		&-out{
+			@extend .spinnerOff;
+			animation: opacityOut 1s;
+		}
+		&-on{
+			@extend .spinner;
+		}
+	}
 	
 	
 		

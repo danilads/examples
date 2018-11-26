@@ -166,8 +166,11 @@ class Block_Filter extends React.PureComponent {
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
 		let {reducer} = this.props;
+		//key - можно дать не цифровой key
 		if(status[1]==='N'){
-			return <Position_News status={status} data={reducer.news.data}/>
+			return <div className={"content"+status.slice(2)}>{reducer.news.data.appnews.newsitems.map(item=>{
+				return <Position_News key={item.title} data={item}/>
+			})}</div>
 		}
 		else if(status[1]==='H'){
 			return <Position_Heroes status={status} data={reducer.news.data}/>
@@ -177,71 +180,6 @@ class Block_Filter extends React.PureComponent {
 		}
 		else if(status[0]==='s'){
 			return <Spiner status={status}/>
-		}
-		//DEL THIS DOWN
-		//spinner
-		if(status==='s-in'){
-			return <div className={"spinner-in"}>
-				<Spiner/>
-			</div>
-		}
-		if(status==='s-on'){
-			return <div className={"spinner"}>
-				<Spiner/>
-			</div>
-		}
-		if(status==='s-out'){
-			return <div className={"spinner-out"}>
-				<Spiner/>
-			</div>
-		}
-		//news
-		if(status==='cN-in'){
-			return <div className={"in"}>
-				{this._newsBlock()}
-			</div>
-		}
-		if(status==='cN-on'){
-			return <div className={"static"}>
-				{this._newsBlock()}
-			</div>
-		}
-		if(status==='cN-out'){
-			return <div className={"out"}>
-				{this._newsBlock()}
-			</div>
-		}
-		//heroes
-		if(status==='cH-in'){
-			return <div className={"spinner-in"}>
-				Heroes
-			</div>
-		}
-		if(status==='cH-on'){
-			return <div className={"spinner"}>
-				Heroes
-			</div>
-		}
-		if(status==='cH-out'){
-			return <div className={"spinner-out"}>
-				Heroes
-			</div>
-		}
-		//items
-		if(status==='cI-in'){
-			return <div className={"spinner-in"}>
-				Items
-			</div>
-		}
-		if(status==='cI-on'){
-			return <div className={"spinner"}>
-				Items
-			</div>
-		}
-		if(status==='cI-out'){
-			return <div className={"spinner-out"}>
-				Items
-			</div>
 		}
 	}
 	_newsBlock=()=>{
