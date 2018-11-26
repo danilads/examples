@@ -1,123 +1,67 @@
 @import "../scss/_variables"; //переменные
 .Block_Filter{
-	//Block Buttons
+
 	.BlockNav{
-		display: flex;
-		justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
 
-	}
+    }
+    
+    .BlockButtons{
+        display: flex;
+        justify-content: space-between;
+    }
 	
-	.BlockButtons{
-		display: flex;
-		justify-content: space-between;
-	}
-	.BlockContent{
-		min-height: 64px;
-		.contentOff{
-			opacity: 0;
-		}
-		.content{
-			display: block;
-			&-none{
-				@extend .contentOff;
-				display: none;
-			}
-			&-in{
-				@extend .content;
-				animation: opacityIn 1s;
-			}
-			&-out{
-				@extend .contentOff;
-				animation: opacityOut 1s;
-			}
-		}
-		.spinnerOff{
-			display: flex;
-			justify-content: center;
-			opacity: 0;
-		}
-		.spinner{
-			display: flex;
-			justify-content: center;
-			>div{
-				position: absolute;
-			}
-			&-none{
-				@extend .spinnerOff;
-				display: none;
-			}
-			&-in{
-				@extend .spinner;
-				animation: opacityIn 1s;
-			}
-			&-out{
-				@extend .spinnerOff;
-				animation: opacityOut 1s;
-			}
-		}
-	}
+    .BlockContent{
+        min-height: 64px;
+        .contentOff{
+            opacity: 0;
+        }
+        .content{
+            display: block;
+            &-none{
+                @extend .contentOff;
+                display: none;
+            }
+            &-in{
+                @extend .content;
+                animation: opacityIn 1s;
+            }
+            &-out{
+                @extend .contentOff;
+                animation: opacityOut 1s;
+            }
+        }
+        .spinnerOff{
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+        }
+        .spinner{
+            display: flex;
+            justify-content: center;
+            >div{
+                position: absolute;
+            }
+            &-none{
+                @extend .spinnerOff;
+                display: none;
+            }
+            &-in{
+                @extend .spinner;
+                animation: opacityIn 1s;
+            }
+            &-out{
+                @extend .spinnerOff;
+                animation: opacityOut 1s;
+            }
+        }
+    }
+	
+	
+	
+		
+		
 
-
-
-	.out > .NewsFrame > div{
-		border: 1px dashed red;
-		animation: Aout 1s;
-		opacity: 0;
-		transform: scale(0);
-	}
-	.in >  .NewsFrame > div{
-		border: 1px dashed red;
-		animation: Ain 1s;
-	}
-	.static >  .NewsFrame > div{
-		border: 1px dashed red;
-	}
-	.off >  .NewsFrame > div{
-		border: 1px dashed rgba(0,0,0,0);
-		opacity: 0; 
-	}
-	@keyframes Ain {
-		0% {
-			opacity: 0; 
-			transform: scale(1) translate(0%, 100%);
-		}
-
-		100% {
-			opacity: 1;
-			transform: scale(1) translate(0%, 0%);
-		}
-	}
-	@keyframes Aout {
-		0% {
-			opacity: 1; 
-			transform: scale(1) translate(0%, 0%);
-		}
-
-		100% {
-			opacity: 0;
-			transform: scale(1) translate(0%, -100%);
-		}
-	}
-	@keyframes opacityIn {
-		0% {
-			opacity: 0; 
-	
-		}
-	
-		100% {
-			opacity: 1;
-		}
-	}
-	@keyframes opacityOut {
-		0% {
-			opacity: 0; 
-	
-		}
-	
-		100% {
-			opacity: 1;
-		}
-	}
-	
-	
+		
 }

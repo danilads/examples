@@ -1,22 +1,17 @@
 import React from 'react';
-import DELnewsFrame from '../03_primitives/DELnewsFrame';
-import News from './News';
-import {Spiner} from '../03_primitives/Spiner';
+
+import './Block_Filter.scss';
+
 import {connect} from "react-redux";
 import {loadNews,loadHeroes,loadItems} from "../redux/actions";
-import './Block_Filter.scss';
+
+import Position_News from '../03_primitives/Position_News';
+import {Spiner} from '../03_primitives/Spiner';
 import ButtonLevel2 from '../03_primitives/ButtonLevel2';
-import ButtonLevel3 from '../03_primitives/ButtonLevel3';
+import ButtonLevel3 from '../03_primitives/ButtonLevel3';;
 
 class Block_Filter extends React.PureComponent {
-	
 	state = {
-		//DEL THIS DOWN
-		style:'in', //delete
-		howToSort: false,  //delete
-		list:[0,1,2,3,4,5,6], //delete
-		//DEL THIS UP
-		
 		//buttuns
 		curBtn2: '', //текущая кнопка
 		
@@ -30,47 +25,14 @@ class Block_Filter extends React.PureComponent {
 		status: '--', // для _contentRender
 
 	};
-	// ???? после фикса попробовать обе переменные вернуть в  state
-	// ????
+	
 	//если true - значит идет анимация
 	isEngineRun = false;
 	
 	//timer
 	timer = null;
 
-	// DEL THIS DOWN
-	changeArr=()=>{
-		let output = [];
-
-		for(let n=0;n<this.state.list.length;n++){
-			if(this.state.howToSort){
-				output.push(this.state.list[n]);
-			}
-			else{
-				output.push(this.state.list[this.state.list.length-n-1]);
-			}
-		}
-		return output
-	}
-	changeArrFunc=()=>{
-		this.setState({howToSort:!this.state.howToSort})
-	}
-	changeStyle=(e)=>{
-		if(e==='in'){
-			this.setState({style:'in'})
-		}
-		if(e==='out'){
-			this.setState({style:'out'})
-		}
-		if(e==='static'){
-			this.setState({style:'static'})
-		}
-		if(e==='off'){
-			this.setState({style:'off'})
-		}
-	}
-	// DEL THIS UP
-
+	
 	
 
 	buttons2=(e)=>{
@@ -202,9 +164,9 @@ class Block_Filter extends React.PureComponent {
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
 		let {reducer} = this.props;
-		if(status[1]==='N'){
-			return <News status={status} data={reducer.news.data}/>
-		}
+		// if(status[1]==='N'){
+		// 	return <News status={status} data={reducer.news.data}/>
+		// }
 		//DEL THIS DOWN
 		//spinner
 		if(status==='s-in'){
@@ -304,22 +266,18 @@ class Block_Filter extends React.PureComponent {
 	}
 	
   	render() {
-		let arr = this.changeArr()
+
 		let {reducer, loadNews, loadHeroes, loadItems} = this.props;
 		let {curBtn2,curBtn3} = this.state;
 		
 		return (
-			
 			<div className="Block_Filter">
 				<div className="BlockNav">
 					<ButtonLevel2 isPushed={curBtn2==='N'} title={'news'} funcCB={()=>this.buttons2('N')}/>
 					<ButtonLevel2 isPushed={curBtn2==='H'} title={'heroes'} funcCB={()=>this.buttons2('H')}/>
 					<ButtonLevel2 isPushed={curBtn2==='I'} title={'items'} funcCB={()=>this.buttons2('I')}/>
 				</div>
-
 				<hr/>
-
-				
 				<div className="BlockButtons">
 					<ButtonLevel3 isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
 					<ButtonLevel3 isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
@@ -329,35 +287,10 @@ class Block_Filter extends React.PureComponent {
 				<div className="BlockContent">
 					{this._contentRender()}
 				</div>
-				
-
-
-				{/* DEL THIS DOWN */}
-				
-				<div className="DELETE THIS">
-					<div className={this.state.style}>{arr.map(it=>{
-						return <DELnewsFrame key={it} title={it}/>})}
-					</div>
-					<div>
-						<input type="button" onClick={this.changeArrFunc} value="filter"/>
-						<input type="button" onClick={()=>this.changeStyle('in')} value="style in"/>
-						<input type="button" onClick={()=>this.changeStyle('out')} value="style out"/>
-						<input type="button" onClick={()=>this.changeStyle('static')} value="style static"/>
-						<input type="button" onClick={()=>this.changeStyle('off')} value="style off"/>
-					</div>
-				</div>
-				{/* DEL THIS UP */}
-
 			</div>
-			
 		);
-
   	}
-
 }
-
-
-
 
 export default connect((state) => ({
 	reducer: state.reducer,

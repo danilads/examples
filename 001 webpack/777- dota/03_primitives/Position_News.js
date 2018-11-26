@@ -1,7 +1,7 @@
 import React from 'react';
 
-import './News.scss';
-class News extends React.PureComponent {
+import './Position_News.scss';
+class Position_News extends React.PureComponent {
 	
 	state = {
 		
@@ -14,7 +14,7 @@ class News extends React.PureComponent {
 		console.log('--1',status);
 		return (
 			
-			<div className="News">
+			<div className="Position_News">
 				<div>news</div>
 			</div>
 			
@@ -26,4 +26,4 @@ class News extends React.PureComponent {
 
 
 
-export default News;
+export default Position_News;

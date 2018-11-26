@@ -79,18 +79,43 @@
 		/////////////////////////////////
 			const run = (action) => {
 				if (typeof action === 'function') {
-					return action(run);
-				} else return action;
+					return run(action());
+				}
+				else {
+					return action;
+				}
 			}
 
-			let h = (a) => (run) => {
-				run((run) => console.log(a, run));
+			let h23 = (a=23) =>  {
+				return a;
 			}
 
-			console.log('f', run(h(23)));
-			
+			console.log(run(h23));
+			console.log('~~~~~~~~~~~~');
+
+			const run1 = (action) => {
+			    if (typeof action === 'function') {
+			        return action(run1);
+			    } else return action;
+			}
+
+			let h = (a) => (run1) => run1(() => run1([a, run1]));
+
+			console.log('f', run1(h(23)));
+
+			console.log('~~~~~~~~~~~~');
 		/////////////////////////////////
 		/////////////////////////////////
+			function some(f){
+				f('hello');
+			}
+			some(console.log);
+
+			var n = f => {
+				some(f);
+			}
+			n(console.log);
+			console.log('~~~~~~~~~~~~');
 	</script>
   </body>
 </html>
