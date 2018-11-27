@@ -164,13 +164,29 @@ class Block_Filter extends React.PureComponent {
 	//content cI cN cH
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
-		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI} = this.state;
+		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
 		let {reducer} = this.props;
+		
 		//key - можно дать не цифровой key
 		if(status[1]==='N'){
-			return <div className={"content"+status.slice(2)}>{reducer.news.data.appnews.newsitems.map(item=>{
-				return <Position_News key={item.title} data={item}/>
-			})}</div>
+			let newsArr = reducer.news.data;
+			let result = [];
+
+			//FILTER
+			if(curBtn3==="1"){
+				for(let i=0;i<newsArr.length;i++){
+					result.push(<Position_News key={newsArr[i].key}  status={status} data={newsArr[i]}/>);
+				}
+			}
+			else{
+				//срабатывает 2 раза
+				console.log('here?');
+				for(let i=newsArr.length;i>0;i--){
+					result.push(<Position_News key={newsArr[i-1].key} status={status} data={newsArr[i-1]}/>);
+				}
+			}
+			
+			return <div className={"content"+status.slice(2)}>{result}</div>
 		}
 		else if(status[1]==='H'){
 			return <Position_Heroes status={status} data={reducer.news.data}/>

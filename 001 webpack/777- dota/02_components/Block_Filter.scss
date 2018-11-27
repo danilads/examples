@@ -13,62 +13,60 @@
     }
 	
     .BlockContent{
-        min-height: 64px;
-        
+		min-height: 64px;
+		
+
+        //animation
+		.contentOff{
+			opacity: 0;
+		}
+		.content{
+			display: block;
+			&-none .Position{
+				@extend .contentOff;
+				display: none;
+			}
+			&-in .Position{
+				@extend .content;
+				animation: a-in 1s;
+			}
+			&-out .Position{
+				@extend .contentOff;
+				animation: a-out 1s;
+			}
+			&-on .Position{
+				@extend .content;
+			}
+		}
+		.spinnerOff{
+			display: flex;
+			justify-content: center;
+			opacity: 0;
+		}
+		.spinner{
+			display: flex;
+			justify-content: center;
+			&-none{
+				@extend .spinnerOff;
+				display: none;
+			}
+			&-in{
+				@extend .spinner;
+				animation: o-in 1s;
+			}
+			&-out{
+				@extend .spinnerOff;
+				animation: o-out 1s;
+			}
+			&-on{
+				@extend .spinner;
+			}
+		}
     }
     
     
-    //animation
+    
 
-    .contentOff{
-		display: flex;
-		justify-content: center;
-		opacity: 0;
-	}
-	.content{
-		display: flex;
-		justify-content: center;
-		&-none{
-			@extend .contentOff;
-			display: none;
-		}
-		&-in{
-			@extend .content;
-			animation: opacityIn 1s;
-		}
-		&-out{
-			@extend .contentOff;
-			animation: opacityOut 1s;
-		}
-		&-on{
-			@extend .content;
-		}
-	}
-	.spinnerOff{
-		display: flex;
-		justify-content: center;
-		opacity: 0;
-	}
-	.spinner{
-		display: flex;
-		justify-content: center;
-		&-none{
-			@extend .spinnerOff;
-			display: none;
-		}
-		&-in{
-			@extend .spinner;
-			animation: opacityIn 1s;
-		}
-		&-out{
-			@extend .spinnerOff;
-			animation: opacityOut 1s;
-		}
-		&-on{
-			@extend .spinner;
-		}
-	}
-	
 	
 		
 		

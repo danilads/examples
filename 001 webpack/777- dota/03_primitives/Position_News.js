@@ -11,7 +11,7 @@ class Position_News extends React.PureComponent {
 		//console.log('render ',this.props.title);
 		let {data, status} = this.props;
 		
-		console.log('--d',data);
+		console.log('render news');
 		return (
 			<div className="Position">
 				<div>{data.title}</div>

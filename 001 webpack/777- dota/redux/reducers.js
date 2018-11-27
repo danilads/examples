@@ -1,3 +1,6 @@
+import heroesVerify from "../jsonBackUp/heroesVerify";
+import itemsVerify from "../jsonBackUp/itemsVerify";
+
 let initialState = {
 	news:{
 		data: {},
@@ -35,13 +38,20 @@ export default (state = initialState, action) => {
 			}
 		}
 		case "ABILITIES_LOADED": {
+			let arr = action.payload;
+			let result = [];
+			let cnt = 0;
+			for (let pos in arr.abilitydata) {
+				result.push({...arr.abilitydata[pos],codeName: pos, key: cnt});
+				cnt++;
+			}
 			return {
 				...state,
 				abilities:{
 					...state.abilities,
 					loading: false,
 					isLoaded: true,
-					data: action.payload,
+					data: result,
 				}
 			}
 		}
@@ -55,13 +65,18 @@ export default (state = initialState, action) => {
 			}
 		}
 		case "NEWS_LOADED": {
+			let arr = action.payload;
+			let result = [];
+			for(let i=0;i<arr.appnews.newsitems.length;i++){
+				result.push({...arr.appnews.newsitems[i],key:i});
+			}
 			return {
 				...state,
 				news:{
 					...state.news,
 					loading: false,
 					isLoaded: true,
-					data: action.payload,
+					data: result,
 				}
 			}
 		}
@@ -75,13 +90,22 @@ export default (state = initialState, action) => {
 			}
 		}
 		case "HEROES_LOADED": {
+			let arr = action.payload;
+			let result = [];
+			let cnt = 0;
+			for (let pos in arr) {
+				if(heroesVerify.includes(arr[pos].name)){
+					result.push({...arr[pos],codeName: pos, key: cnt});
+					cnt++;
+				}
+			}
 			return {
 				...state,
 				heroes:{
 					...state.heroes,
 					loading: false,
 					isLoaded: true,
-					data: action.payload,
+					data: result,
 				}
 			}
 		}
@@ -95,13 +119,22 @@ export default (state = initialState, action) => {
 			}
 		}
 		case "ITEMS_LOADED": {
+			let arr = action.payload;
+			let result = [];
+			let cnt = 0;
+			for (let pos in arr.itemdata) {
+				if(itemsVerify.includes(arr.itemdata[pos].dname)){
+					result.push({...arr.itemdata[pos],codeName: pos, key: cnt});
+					cnt++;
+				}
+			}
 			return {
 				...state,
 				items:{
 					...state.items,
 					loading: false,
 					isLoaded: true,
-					data: action.payload,
+					data: result,
 				}
 			}
 		}
