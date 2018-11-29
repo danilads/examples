@@ -8,13 +8,6 @@ import "babel-polyfill";
 
 //redux
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { combineReducers } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import reducer from "./redux/reducers";
-
-//middlewares для работы асинхронных action's
-import thunk from 'redux-thunk';
 
 //components
 import Block_MainPage from './components/Block_MainPage';

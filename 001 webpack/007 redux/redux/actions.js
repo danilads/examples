@@ -1,4 +1,14 @@
 //getState() - возвращает весь state редакса
+export const save = (e) => (dispatch, getState) => {
+	//если нужно получить store то лучше брать отдельные объекты
+	let {items,text} = getState();
+	console.log(items);
+	console.log(text);
+	dispatch({
+		type: 'SAVE_VALUE',
+		payload: e
+	})
+}
 export const load = () => async (dispatch, getState) => {
 	
 	dispatch({
