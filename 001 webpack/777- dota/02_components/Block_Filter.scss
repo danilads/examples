@@ -22,17 +22,32 @@
 		}
 		.content{
 			display: block;
+			&-none .Position > div{
+				@extend .contentOff;
+				display: none;
+			}
 			&-none .Position{
 				@extend .contentOff;
 				display: none;
 			}
-			&-in .Position{
+			&-in .Position > div{
 				@extend .content;
 				animation: a-in 1s;
 			}
-			&-out .Position{
+			&-in .Position {
+				@extend .content;
+				animation: o-in 1s;
+			}
+			&-out .Position > div{
 				@extend .contentOff;
 				animation: a-out 1s;
+			}
+			&-out .Position{
+				@extend .contentOff;
+				animation: o-out 1s;
+			}
+			&-on .Position > div{
+				@extend .content;
 			}
 			&-on .Position{
 				@extend .content;

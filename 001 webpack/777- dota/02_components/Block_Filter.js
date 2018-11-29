@@ -175,14 +175,13 @@ class Block_Filter extends React.PureComponent {
 			//FILTER
 			if(curBtn3==="1"){
 				for(let i=0;i<newsArr.length;i++){
-					result.push(<Position_News key={newsArr[i].key}  status={status} data={newsArr[i]}/>);
+					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
 			}
 			else{
 				//срабатывает 2 раза
-				console.log('here?');
 				for(let i=newsArr.length;i>0;i--){
-					result.push(<Position_News key={newsArr[i-1].key} status={status} data={newsArr[i-1]}/>);
+					result.push(<Position_News key={newsArr[i-1].key} data={newsArr[i-1]}/>);
 				}
 			}
 			
@@ -197,15 +196,6 @@ class Block_Filter extends React.PureComponent {
 		else if(status[0]==='s'){
 			return <Spiner status={status}/>
 		}
-	}
-	_newsBlock=()=>{
-		let result=[];
-		if(this.props.news.data&&this.props.news.data.appnews&&this.props.news.data.appnews.newsitems){
-			this.props.news.data.appnews.newsitems.map((item,key)=>{
-				result.push(<div className={"NewsFrame"} key={key}><div>{item.title}</div></div>)
-			})
-		}
-		return result;
 	}
 
 	

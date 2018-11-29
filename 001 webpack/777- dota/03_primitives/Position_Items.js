@@ -9,12 +9,12 @@ class Position_Items extends React.PureComponent {
 
   	render() {
 		//console.log('render ',this.props.title);
-		let {data, status} = this.props;
-		console.log('--s',status.slice(2));
+		let {data} = this.props;
+
 		console.log('--d',data);
 		return (
 			<div className="Position">
-				<div className={"content"+status.slice(2)}>items</div>
+				<div>items</div>
 			</div>		
 		);
 
