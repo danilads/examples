@@ -2,7 +2,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reducer from "./reducers";
+import abilities from "./reducers/abilities";
+import news from "./reducers/news";
+import items from "./reducers/items";
+import heroes from "./reducers/heroes";
 
 //middlewares для работы асинхронных action's
 import thunk from 'redux-thunk';
@@ -12,7 +15,7 @@ import thunk from 'redux-thunk';
 let store; 
 if(process.env.NODE_ENV==='development'){
 	store = createStore(
-		combineReducers({reducer}),
+		combineReducers({abilities,news,items,heroes}),
 		  composeWithDevTools(
 			applyMiddleware(thunk)
 		  )
@@ -20,7 +23,7 @@ if(process.env.NODE_ENV==='development'){
 }
 else if(process.env.NODE_ENV==='production'){
 	store = createStore(
-		combineReducers({reducer}),
+		combineReducers({abilities,news,items,heroes}),
 		applyMiddleware(thunk)
 		  
 	);

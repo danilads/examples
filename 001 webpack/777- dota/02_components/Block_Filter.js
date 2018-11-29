@@ -38,7 +38,7 @@ class Block_Filter extends React.PureComponent {
 	
 
 	buttons2=(e)=>{
-		let {reducer:{news, heroes, items}, loadNews, loadHeroes, loadItems} = this.props;
+		let {news, heroes, items, loadNews, loadHeroes, loadItems} = this.props;
 		if(e==='N'){
 			this.setState({curBtn2:e},()=>{if(this._ismounted)this.engine2()});
 			if(!news.isLoaded&&!news.loading){
@@ -165,11 +165,11 @@ class Block_Filter extends React.PureComponent {
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
-		let {reducer} = this.props;
+		let {news, items, heroes} = this.props;
 		
 		//key - можно дать не цифровой key
 		if(status[1]==='N'){
-			let newsArr = reducer.news.data;
+			let newsArr = news.data;
 			let result = [];
 
 			//FILTER
@@ -189,10 +189,10 @@ class Block_Filter extends React.PureComponent {
 			return <div className={"content"+status.slice(2)}>{result}</div>
 		}
 		else if(status[1]==='H'){
-			return <Position_Heroes status={status} data={reducer.news.data}/>
+			return <Position_Heroes status={status} data={news.data}/>
 		}
 		else if(status[1]==='I'){
-			return <Position_Items status={status} data={reducer.news.data}/>
+			return <Position_Items status={status} data={news.data}/>
 		}
 		else if(status[0]==='s'){
 			return <Spiner status={status}/>
@@ -200,8 +200,8 @@ class Block_Filter extends React.PureComponent {
 	}
 	_newsBlock=()=>{
 		let result=[];
-		if(this.props.reducer.news.data&&this.props.reducer.news.data.appnews&&this.props.reducer.news.data.appnews.newsitems){
-			this.props.reducer.news.data.appnews.newsitems.map((item,key)=>{
+		if(this.props.news.data&&this.props.news.data.appnews&&this.props.news.data.appnews.newsitems){
+			this.props.news.data.appnews.newsitems.map((item,key)=>{
 				result.push(<div className={"NewsFrame"} key={key}><div>{item.title}</div></div>)
 			})
 		}
@@ -232,7 +232,7 @@ class Block_Filter extends React.PureComponent {
 	
   	render() {
 
-		let {reducer, loadNews, loadHeroes, loadItems} = this.props;
+		let {loadNews, loadHeroes, loadItems} = this.props;
 		let {curBtn2,curBtn3} = this.state;
 		
 		return (
@@ -258,12 +258,14 @@ class Block_Filter extends React.PureComponent {
 }
 
 export default connect((state) => ({
-	reducer: state.reducer,
-	loadingN: state.reducer.news.loading,
-	loadingH: state.reducer.heroes.loading,
-	loadingI: state.reducer.items.loading,
-	LoadedN: state.reducer.news.isLoaded,
-	LoadedH: state.reducer.heroes.isLoaded,
-	LoadedI: state.reducer.items.isLoaded,
+	news: state.news,
+	heroes: state.heroes,
+	items: state.items,
+	loadingN: state.news.loading,
+	loadingH: state.heroes.loading,
+	loadingI: state.items.loading,
+	LoadedN: state.news.isLoaded,
+	LoadedH: state.heroes.isLoaded,
+	LoadedI: state.items.isLoaded,
 }),
 {loadNews,loadHeroes,loadItems})(Block_Filter);
