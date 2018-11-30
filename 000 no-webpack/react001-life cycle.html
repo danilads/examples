@@ -31,6 +31,7 @@
 		state = {
 			step: 1,
 		}
+		//!Если в didUpdate мы используем setState - то getDerived будет уходить в бесконечный цикл
 		//срабатывает каждый раз перед рендером (статичный)
 		static getDerivedStateFromProps(props,state){
 			console.log(state.step);
