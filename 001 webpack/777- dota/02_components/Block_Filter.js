@@ -26,6 +26,9 @@ class Block_Filter extends React.PureComponent {
 		//cI-in cI-out cI-on cI-off
 		status: '--', // для _contentRender
 
+		//engine 3 status
+		e3status: 'on'
+
 	};
 	
 	//если true - значит идет анимация
@@ -164,7 +167,7 @@ class Block_Filter extends React.PureComponent {
 	//content cI cN cH
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
-		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
+		let {e3status,status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
 		let {news, items, heroes} = this.props;
 		
 		//NEWS
@@ -184,7 +187,7 @@ class Block_Filter extends React.PureComponent {
 				}
 			}
 			
-			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)}>{result}</div></React.Fragment>
+			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		//HEROES
 		else if(status[1]==='H'){
