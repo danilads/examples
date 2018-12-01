@@ -184,12 +184,13 @@ class Block_Filter extends React.PureComponent {
 				}
 			}
 			
-			return <div className={"content"+status.slice(2)}>{result}</div>
+			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)}>{result}</div></React.Fragment>
 		}
 		//HEROES
 		else if(status[1]==='H'){
 			let heroesArr = heroes.data;
 			let result = [];
+
 			//filter
 			if(curBtn3==="1"){
 				for(let i=0;i<heroesArr.length;i++){
@@ -202,12 +203,13 @@ class Block_Filter extends React.PureComponent {
 				}
 			}
 			
-			return <div className={"content"+status.slice(2)}>{result}</div>
+			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)}>{result}</div></React.Fragment>
 		}
 		//ITEMS
 		else if(status[1]==='I'){
 			let itemsArr = items.data;
 			let result = [];
+			
 			//filter
 			if(curBtn3==="1"){
 				for(let i=0;i<itemsArr.length;i++){
@@ -219,14 +221,29 @@ class Block_Filter extends React.PureComponent {
 					result.push(<Position_Items key={itemsArr[i-1].key} data={itemsArr[i-1]}/>);
 				}
 			}
-			return <div className={"content"+status.slice(2)}>{result}</div>
+			
+			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)}>{result}</div></React.Fragment>
 		}
 		else if(status[0]==='s'){
 			return <Spiner status={status}/>
 		}
 	}
 
-	
+	_blockButtons=(e)=>{
+		let {curBtn3} = this.state;
+		let dis=true;
+		if(e==='-on'){
+			dis=false;
+		}
+		return <React.Fragment>
+				<div className={"BlockButtons block"+e}>
+					<ButtonLevel3 dis={dis} isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
+					<ButtonLevel3 dis={dis} isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
+					<ButtonLevel3 dis={dis} isPushed={curBtn3==='3'} title={'filter some'} funcCB={()=>this.buttons3('3')}/>
+				</div>
+				<hr className={"block"+e}/>
+			</React.Fragment>
+	};
 	componentDidUpdate(prevProps, prevState){
 		let {status,curBtn2} = this.state;
 		let {LoadedN,LoadedH,LoadedI} = this.props;
@@ -259,12 +276,6 @@ class Block_Filter extends React.PureComponent {
 					<ButtonLevel2 isPushed={curBtn2==='N'} title={'news'} funcCB={()=>this.buttons2('N')}/>
 					<ButtonLevel2 isPushed={curBtn2==='H'} title={'heroes'} funcCB={()=>this.buttons2('H')}/>
 					<ButtonLevel2 isPushed={curBtn2==='I'} title={'items'} funcCB={()=>this.buttons2('I')}/>
-				</div>
-				<hr/>
-				<div className="BlockButtons">
-					<ButtonLevel3 isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
-					<ButtonLevel3 isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
-					<ButtonLevel3 isPushed={curBtn3==='3'} title={'filter some'} funcCB={()=>this.buttons3('3')}/>
 				</div>
 				<hr/>
 				<div className="BlockContent">

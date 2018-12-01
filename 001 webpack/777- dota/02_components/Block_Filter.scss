@@ -9,14 +9,14 @@
     
     .BlockButtons{
         display: flex;
-        justify-content: space-between;
+		justify-content: space-between;
+
     }
 	
     .BlockContent{
 		min-height: 64px;
 		
-
-        //animation
+        //Animation Position
 		.contentOff{
 			opacity: 0;
 		}
@@ -36,7 +36,7 @@
 			}
 			&-in .Position {
 				@extend .content;
-				animation: o-in 1s;
+				animation: s-in 1s;
 			}
 			&-out .Position > div{
 				@extend .contentOff;
@@ -44,7 +44,7 @@
 			}
 			&-out .Position{
 				@extend .contentOff;
-				animation: o-out 1s;
+				animation: s-out 1s;
 			}
 			&-on .Position > div{
 				@extend .content;
@@ -52,6 +52,33 @@
 			&-on .Position{
 				@extend .content;
 			}
+		}
+
+		//Animation Buttons
+		.blockOff{
+			opacity: 0;
+		}
+		.block{
+			opacity: 1;
+			&-none{
+				@extend .blockOff;
+				display: none;
+			}
+			
+			&-in{
+				@extend .block;
+				animation: o-in 1s;
+			}
+			
+			&-out{
+				@extend .blockOff;
+				animation: o-out 1s;
+			}
+		
+			&-on{
+				@extend .block;
+			}
+		
 		}
 	
     }

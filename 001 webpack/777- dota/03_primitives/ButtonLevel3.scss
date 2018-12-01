@@ -1,8 +1,13 @@
 @import "../scss/_variables"; //переменные
 .ButtonLevel3{
-	background-color: aqua;
 	
+	input{
+        background-color: aqua;
+    }
     .selected{
         background-color: green;
+    }
+    input:disabled{
+        background-color: gray;
     }
 }
