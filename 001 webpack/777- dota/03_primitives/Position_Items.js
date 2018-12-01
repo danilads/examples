@@ -8,13 +8,11 @@ class Position_Items extends React.PureComponent {
 	};
 
   	render() {
-		//console.log('render ',this.props.title);
 		let {data} = this.props;
-
-		console.log('--d',data);
+		console.log('render heroes');
 		return (
-			<div className="Position">
-				<div>items</div>
+			<div className="Position Items">
+				<div>{data.dname}</div>
 			</div>		
 		);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Position.scss';
+import './Spiner.scss';
 class Spiner extends React.PureComponent {
 	
 	state = {
@@ -12,7 +12,7 @@ class Spiner extends React.PureComponent {
 		let {data, status} = this.props;
 		
 		return (
-            <div className={"Position"}>
+            <div className={"Spiner"}>
                 <div className={"spinner"+status.slice(1)}>
                     <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 </div>

@@ -167,19 +167,18 @@ class Block_Filter extends React.PureComponent {
 		let {status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
 		let {news, items, heroes} = this.props;
 		
-		//key - можно дать не цифровой key
+		//NEWS
 		if(status[1]==='N'){
 			let newsArr = news.data;
 			let result = [];
 
-			//FILTER
+			//filter
 			if(curBtn3==="1"){
 				for(let i=0;i<newsArr.length;i++){
 					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
 			}
 			else{
-				//срабатывает 2 раза
 				for(let i=newsArr.length;i>0;i--){
 					result.push(<Position_News key={newsArr[i-1].key} data={newsArr[i-1]}/>);
 				}
@@ -187,11 +186,40 @@ class Block_Filter extends React.PureComponent {
 			
 			return <div className={"content"+status.slice(2)}>{result}</div>
 		}
+		//HEROES
 		else if(status[1]==='H'){
-			return <Position_Heroes status={status} data={news.data}/>
+			let heroesArr = heroes.data;
+			let result = [];
+			//filter
+			if(curBtn3==="1"){
+				for(let i=0;i<heroesArr.length;i++){
+					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
+				}
+			}
+			else{
+				for(let i=heroesArr.length;i>0;i--){
+					result.push(<Position_Heroes key={heroesArr[i-1].key} data={heroesArr[i-1]}/>);
+				}
+			}
+			
+			return <div className={"content"+status.slice(2)}>{result}</div>
 		}
+		//ITEMS
 		else if(status[1]==='I'){
-			return <Position_Items status={status} data={news.data}/>
+			let itemsArr = items.data;
+			let result = [];
+			//filter
+			if(curBtn3==="1"){
+				for(let i=0;i<itemsArr.length;i++){
+					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
+				}
+			}
+			else{
+				for(let i=itemsArr.length;i>0;i--){
+					result.push(<Position_Items key={itemsArr[i-1].key} data={itemsArr[i-1]}/>);
+				}
+			}
+			return <div className={"content"+status.slice(2)}>{result}</div>
 		}
 		else if(status[0]==='s'){
 			return <Spiner status={status}/>

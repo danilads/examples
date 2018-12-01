@@ -6,17 +6,17 @@
 	}
 
 	.out > .NewsFrame > div{
-		border: 1px dashed red;
+		border: 1px dashed green;
 		animation: a-out 1s;
 		opacity: 0;
 		transform: scale(0);
 	}
 	.in >  .NewsFrame > div{
-		border: 1px dashed red;
+		border: 1px dashed green;
 		animation: a-in 1s;
 	}
 	.static >  .NewsFrame > div{
-		border: 1px dashed red;
+		border: 1px dashed green;
 	}
 	.off >  .NewsFrame > div{
 		border: 1px dashed rgba(0,0,0,0);

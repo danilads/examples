@@ -8,11 +8,11 @@ class Position_Heroes extends React.PureComponent {
 	};
 
   	render() {
-		//console.log('render ',this.props.title);
 		let {data} = this.props;
+		console.log('render heroes');
 		return (
-			<div className="Position">
-				<div>heroes</div>
+			<div className="Position Heroes">
+				<div>{data.name}</div>
 			</div>		
 		);
 
