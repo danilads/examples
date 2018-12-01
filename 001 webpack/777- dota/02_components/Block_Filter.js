@@ -27,7 +27,11 @@ class Block_Filter extends React.PureComponent {
 		status: '--', // для _contentRender
 
 		//engine 3 status
-		e3status: 'on'
+		//on in out
+		e3status: 'on',
+		//sort
+		sort: 1
+
 
 	};
 	
@@ -36,6 +40,7 @@ class Block_Filter extends React.PureComponent {
 	
 	//timer
 	timer = null;
+
 
 	
 	
@@ -75,7 +80,13 @@ class Block_Filter extends React.PureComponent {
 	}
 
 	engine3=()=>{
-
+		this.setState({e3status:'out'})
+		this.timer = setTimeout(() => {
+			this.setState({e3status:'in',sort:2})
+		},1000);
+		this.timer = setTimeout(() => {
+			this.setState({e3status:'on'})
+		},2000);
 	}
 
 	
@@ -167,7 +178,7 @@ class Block_Filter extends React.PureComponent {
 	//content cI cN cH
 	//cI-in cI-out cI-on cI-off
 	_contentRender=()=>{
-		let {e3status,status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
+		let {sort,e3status,status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
 		let {news, items, heroes} = this.props;
 		
 		//NEWS
@@ -176,7 +187,7 @@ class Block_Filter extends React.PureComponent {
 			let result = [];
 
 			//filter
-			if(curBtn3==="1"){
+			if(sort===1){
 				for(let i=0;i<newsArr.length;i++){
 					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}

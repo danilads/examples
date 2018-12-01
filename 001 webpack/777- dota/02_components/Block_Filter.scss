@@ -82,8 +82,31 @@
 		}
 
 		//Animation engine 3
-		.e3-on{
-			border: 1px dashed red;
+	
+		.e3Off{
+			opacity: 0;
+		}
+		.e3{
+			opacity: 1;
+			&-none{
+				@extend .e3Off;
+				display: none;
+			}
+			
+			&-in{
+				@extend .e3;
+				animation: o-in 1s;
+			}
+			
+			&-out{
+				@extend .e3Off;
+				animation: o-out 1s;
+			}
+		
+			&-on{
+				@extend .e3;
+			}
+		
 		}
 	
     }
