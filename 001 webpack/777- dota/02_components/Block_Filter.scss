@@ -5,12 +5,14 @@
         display: flex;
         justify-content: space-between;
 
-    }
+	}
+	.hid{
+		overflow: hidden;
+	}
     
     .BlockButtons{
         display: flex;
 		justify-content: space-between;
-
     }
 	
     .BlockContent{
@@ -58,27 +60,50 @@
 		.blockOff{
 			opacity: 0;
 		}
-		.block{
+		.block{		
 			opacity: 1;
 			&-none{
 				@extend .blockOff;
 				display: none;
 			}
-			
 			&-in{
 				@extend .block;
-				animation: o-in 1s;
+				animation: a-in 1s;
 			}
 			
 			&-out{
 				@extend .blockOff;
-				animation: o-out 1s;
+				animation: a-out 1s;
 			}
 		
 			&-on{
 				@extend .block;
 			}
 		
+		}
+
+		//HR animation
+		.hrOff{
+			opacity: 0;
+		}
+		.hr{		
+			opacity: 1;
+			&-none{
+				@extend .hrOff;
+				display: none;
+			}
+			&-in{
+				@extend .hr;
+				animation: o-in 1s;
+			}
+			
+			&-out{
+				@extend .hrOff;
+				animation: o-out 1s;
+			}
+			&-on{
+				@extend .hr;
+			}
 		}
 
 		//Animation engine 3

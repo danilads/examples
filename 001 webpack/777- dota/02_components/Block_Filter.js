@@ -30,13 +30,17 @@ class Block_Filter extends React.PureComponent {
 		//on in out
 		e3status: 'on',
 		//sort
-		sort: 1
+		sort: 1,
+
+		//пред состояние кнопки 3
+		prevBut3: ''
 
 
 	};
 	
 	//если true - значит идет анимация
 	isEngineRun = false;
+	isEngine3Run = false;
 	
 	//timer
 	timer = null;
@@ -80,12 +84,21 @@ class Block_Filter extends React.PureComponent {
 	}
 
 	engine3=()=>{
-		this.setState({e3status:'out'})
+		//если кнопка та же
+		if(this.state.curBtn3===this.state.prevBut3){
+			return;
+		}
+
+		//если происходит цикл смены анимации
+		if(this.isEngine3Run){return;}
+
+		this.isEngine3Run=true;
+		this.setState({e3status:'out',prevBut3:this.state.curBtn3})
 		this.timer = setTimeout(() => {
 			this.setState({e3status:'in',sort:2})
 		},1000);
 		this.timer = setTimeout(() => {
-			this.setState({e3status:'on'})
+			this.setState({e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
 		},2000);
 	}
 
@@ -250,12 +263,16 @@ class Block_Filter extends React.PureComponent {
 			dis=false;
 		}
 		return <React.Fragment>
-				<div className={"BlockButtons block"+e}>
-					<ButtonLevel3 dis={dis} isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
-					<ButtonLevel3 dis={dis} isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
-					<ButtonLevel3 dis={dis} isPushed={curBtn3==='3'} title={'filter some'} funcCB={()=>this.buttons3('3')}/>
+				<div className="hid">
+					<div className={"BlockButtons block"+e}>
+						<ButtonLevel3 dis={dis} isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
+						<ButtonLevel3 dis={dis} isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
+						<ButtonLevel3 dis={dis} isPushed={curBtn3==='3'} title={'filter some'} funcCB={()=>this.buttons3('3')}/>
+					</div>
 				</div>
-				<hr className={"block"+e}/>
+				<div className="hid">
+					<hr className={"hr"+e}/>
+				</div>
 			</React.Fragment>
 	};
 	componentDidUpdate(prevProps, prevState){
