@@ -16,6 +16,7 @@ class Block_Filter extends React.PureComponent {
 	state = {
 		//buttuns
 		curBtn2: '', //текущая кнопка
+		curBtn3: '1', //текущая кнопка
 		
 		//content Status
 
@@ -30,7 +31,7 @@ class Block_Filter extends React.PureComponent {
 		//on in out
 		e3status: 'on',
 		//sort
-		sort: 1,
+		sort: "1",
 
 		//пред состояние кнопки 3
 		prevBut3: ''
@@ -84,6 +85,7 @@ class Block_Filter extends React.PureComponent {
 	}
 
 	engine3=()=>{
+		console.log('---');
 		//если кнопка та же
 		if(this.state.curBtn3===this.state.prevBut3){
 			return;
@@ -95,7 +97,7 @@ class Block_Filter extends React.PureComponent {
 		this.isEngine3Run=true;
 		this.setState({e3status:'out',prevBut3:this.state.curBtn3})
 		this.timer = setTimeout(() => {
-			this.setState({e3status:'in',sort:2})
+			this.setState({e3status:'in',sort:this.state.curBtn3})
 		},1000);
 		this.timer = setTimeout(() => {
 			this.setState({e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
@@ -200,7 +202,7 @@ class Block_Filter extends React.PureComponent {
 			let result = [];
 
 			//filter
-			if(sort===1){
+			if(sort==="1"){
 				for(let i=0;i<newsArr.length;i++){
 					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
@@ -219,7 +221,7 @@ class Block_Filter extends React.PureComponent {
 			let result = [];
 
 			//filter
-			if(curBtn3==="1"){
+			if(sort==="1"){
 				for(let i=0;i<heroesArr.length;i++){
 					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
 				}
@@ -230,7 +232,7 @@ class Block_Filter extends React.PureComponent {
 				}
 			}
 			
-			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)}>{result}</div></React.Fragment>
+			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		//ITEMS
 		else if(status[1]==='I'){
@@ -238,7 +240,7 @@ class Block_Filter extends React.PureComponent {
 			let result = [];
 			
 			//filter
-			if(curBtn3==="1"){
+			if(sort==="1"){
 				for(let i=0;i<itemsArr.length;i++){
 					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
 				}
@@ -249,7 +251,7 @@ class Block_Filter extends React.PureComponent {
 				}
 			}
 			
-			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)}>{result}</div></React.Fragment>
+			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		else if(status[0]==='s'){
 			return <Spiner status={status}/>
