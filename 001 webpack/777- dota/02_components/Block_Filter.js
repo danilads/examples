@@ -34,7 +34,7 @@ class Block_Filter extends React.PureComponent {
 		sort: "1",
 
 		//пред состояние кнопки 3
-		prevBut3: ''
+		prevBut3: '1'
 
 
 	};
@@ -45,6 +45,7 @@ class Block_Filter extends React.PureComponent {
 	
 	//timer
 	timer = null;
+	timer2 = null;
 
 
 	
@@ -85,7 +86,6 @@ class Block_Filter extends React.PureComponent {
 	}
 
 	engine3=()=>{
-		console.log('---');
 		//если кнопка та же
 		if(this.state.curBtn3===this.state.prevBut3){
 			return;
@@ -96,10 +96,10 @@ class Block_Filter extends React.PureComponent {
 
 		this.isEngine3Run=true;
 		this.setState({e3status:'out',prevBut3:this.state.curBtn3})
-		this.timer = setTimeout(() => {
+		this.timer2 = setTimeout(() => {
 			this.setState({e3status:'in',sort:this.state.curBtn3})
 		},1000);
-		this.timer = setTimeout(() => {
+		this.timer2 = setTimeout(() => {
 			this.setState({e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
 		},2000);
 	}
@@ -113,6 +113,8 @@ class Block_Filter extends React.PureComponent {
 		if(curBtn2===status[1]){
 			return;
 		}
+		//обнуляем анимацию кнопок 3 уровня
+		this.timer2 = null;
 		//если происходит цикл смены анимации
 		if(this.isEngineRun){return;}
 		
@@ -140,7 +142,7 @@ class Block_Filter extends React.PureComponent {
 			this.isEngineRun=true;
 			this.setState({status:status[0]+status[1]+'-out'})
 			this.timer = setTimeout(() => {
-				this.setState({status:'s-in'});
+				this.setState({status:'s-in',curBtn3:'1',prevBut3: '1',sort:'1'});
 			},1000);
 			this.timer = setTimeout(() => {
 				this.setState({status:'s-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
@@ -160,7 +162,7 @@ class Block_Filter extends React.PureComponent {
 			}
 			if(curBtn2==='N'){
 				this.timer = setTimeout(() => {
-					this.setState({status:'cN-in'});
+					this.setState({status:'cN-in',curBtn3:'1',prevBut3: '1',sort:'1'});
 				},1000);
 				this.timer = setTimeout(() => {
 					this.setState({status:'cN-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
@@ -168,7 +170,7 @@ class Block_Filter extends React.PureComponent {
 			}
 			if(curBtn2==='H'){
 				this.timer = setTimeout(() => {
-					this.setState({status:'cH-in'});
+					this.setState({status:'cH-in',curBtn3:'1',prevBut3: '1',sort:'1'});
 				},1000);
 				this.timer = setTimeout(() => {
 					this.setState({status:'cH-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn2)){this.engine2()}})
@@ -176,7 +178,7 @@ class Block_Filter extends React.PureComponent {
 			}
 			if(curBtn2==='I'){
 				this.timer = setTimeout(() => {
-					this.setState({status:'cI-in'});
+					this.setState({status:'cI-in',curBtn3:'1',prevBut3: '1',sort:'1'});
 				},1000);
 				this.timer = setTimeout(() => {
 					this.setState({status:'cI-on'},()=>{this.isEngineRun=false;if((v!==curBtn2)||(v!==curBtn2)||(v!==curBtn)){this.engine2()}})
@@ -203,15 +205,51 @@ class Block_Filter extends React.PureComponent {
 
 			//filter
 			if(sort==="1"){
+				//sort
+				newsArr.sort((a, b)=> {
+					if (a.title[0] > b.title[0]) {
+						return 1;
+					}
+					if (a.title[0] < b.title[0]) {
+						return -1;
+					}
+					return 0;		
+				});
 				for(let i=0;i<newsArr.length;i++){
 					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
 			}
-			else{
-				for(let i=newsArr.length;i>0;i--){
-					result.push(<Position_News key={newsArr[i-1].key} data={newsArr[i-1]}/>);
+			else if(sort==="2"){
+				newsArr.sort((a, b)=> {
+					if (a.title[0] > b.title[0]) {
+						return -1;
+					}
+					if (a.title[0] < b.title[0]) {
+						return 1;
+					}
+					return 0;		
+				});
+				for(let i=0;i<newsArr.length;i++){
+					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
 			}
+			else if(sort==="3"){
+				//sort
+				newsArr.sort((a, b)=> {
+					if (a.gid > b.gid) {
+						return -1;
+					}
+					if (a.gid < b.gid) {
+						return 1;
+					}
+					return 0;		
+				});
+				//random
+				for(let i=0;i<newsArr.length;i++){
+					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
+				}
+			}
+			
 			
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
@@ -222,16 +260,51 @@ class Block_Filter extends React.PureComponent {
 
 			//filter
 			if(sort==="1"){
+				//sort
+				heroesArr.sort((a, b)=> {
+					if (a.name[0] > b.name[0]) {
+						return 1;
+					}
+					if (a.name[0] < b.name[0]) {
+						return -1;
+					}
+					return 0;		
+				});
 				for(let i=0;i<heroesArr.length;i++){
 					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
-				}
+				}	
 			}
-			else{
+			else if(sort==="2"){
+				//sort
+				heroesArr.sort((a, b)=> {
+					if (a.name[0] > b.name[0]) {
+						return 1;
+					}
+					if (a.name[0] < b.name[0]) {
+						return -1;
+					}
+					return 0;		
+				});
 				for(let i=heroesArr.length;i>0;i--){
 					result.push(<Position_Heroes key={heroesArr[i-1].key} data={heroesArr[i-1]}/>);
 				}
 			}
-			
+			else if(sort==="3"){
+				//sort
+				heroesArr.sort((a, b)=> {
+					if (a.bio[0] > b.bio[0]) {
+						return -1;
+					}
+					if (a.bio[0] < b.bio[0]) {
+						return -0;
+					}
+					return 0;		
+				});
+				//random
+				for(let i=0;i<heroesArr.length;i++){
+					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
+				}
+			}
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		//ITEMS
@@ -241,16 +314,53 @@ class Block_Filter extends React.PureComponent {
 			
 			//filter
 			if(sort==="1"){
+				//sort
+				itemsArr.sort((a, b)=> {
+					if (a.dname[0] > b.dname[0]) {
+						return 1;
+					}
+					if (a.dname[0] < b.dname[0]) {
+						return -1;
+					}
+					return 0;		
+				});
+				//random
 				for(let i=0;i<itemsArr.length;i++){
 					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
 				}
 			}
-			else{
-				for(let i=itemsArr.length;i>0;i--){
-					result.push(<Position_Items key={itemsArr[i-1].key} data={itemsArr[i-1]}/>);
+			else if(sort==="2"){
+				//sort
+				itemsArr.sort((a, b)=> {
+					if (a.dname[0] > b.dname[0]) {
+						return -1;
+					}
+					if (a.dname[0] < b.dname[0]) {
+						return 1;
+					}
+					return 0;		
+				});
+				//random
+				for(let i=0;i<itemsArr.length;i++){
+					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
 				}
 			}
-			
+			else if(sort==="3"){
+				//sort
+				itemsArr.sort((a, b)=> {
+					if (a.lore> b.lore) {
+						return 1;
+					}
+					if (a.lore < b.lore) {
+						return -1;
+					}
+					return 0;		
+				});
+				//random
+				for(let i=0;i<itemsArr.length;i++){
+					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
+				}
+			}
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		else if(status[0]==='s'){
@@ -302,7 +412,10 @@ class Block_Filter extends React.PureComponent {
 
 		let {loadNews, loadHeroes, loadItems} = this.props;
 		let {curBtn2,curBtn3} = this.state;
-		
+		console.log('sort',this.state.sort);
+		console.log('prevBut3',this.state.prevBut3);
+		console.log('curBtn3',this.state.curBtn3);
+		console.log('-----------')
 		return (
 			<div className="Block_Filter">
 				<div className="BlockNav">

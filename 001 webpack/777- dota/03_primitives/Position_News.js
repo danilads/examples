@@ -9,7 +9,7 @@ class Position_News extends React.PureComponent {
 
   	render() {
 		let {data} = this.props;
-		console.log('render news');
+		//console.log('render news');
 		return (
 			<div className="Position News">
 				<div>{data.title}</div>
