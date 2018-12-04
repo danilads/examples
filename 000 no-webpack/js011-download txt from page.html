@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+
+</head>
+<body>
+	<div>
+		<textarea id="text-val" rows="4">This is the content of my file</textarea><br/>
+		<input type="button" id="dwn-btn" value="Download dinamically generated text file"/>
+	</div>
+	<div>
+		<a id="exportxt" onclick="downloadInnerHtml(fileName, 'editor','text/plain')" href="#">SAVE PROJECT IN TXT FILE</a> 
+
+		<div id="editor">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus facilisis ante id luctus. Aliquam vestibulum, dui in pulvinar facilisis, felis nisl viverra nisl, nec ultrices neque tortor eget erat. Vivamus vel leo vehicula, condimentum quam aliquam, congue mauris. Pellentesque id lectus id nulla molestie vehicula sed at velit. Maecenas sit amet tristique nunc, in lobortis mi. Integer in turpis odio. Duis eget urna vestibulum, venenatis justo et, semper neque. Suspendisse in ante massa. Aenean massa nisl, tincidunt id nisl eu, convallis lobortis augue. Integer blandit augue eget nunc condimentum consectetur. Duis gravida nisl hendrerit, sagittis orci in, sollicitudin risus. Nullam elementum sem nec nunc facilisis, et semper metus tincidunt.
+		
+			Phasellus ornare quis ipsum non scelerisque. In sollicitudin est placerat nibh porttitor pretium. Phasellus ac purus nulla. Phasellus in enim vel leo viverra sodales eget sit amet ante. Sed ultrices elementum nibh, tristique euismod nunc volutpat sit amet. Suspendisse potenti. Morbi feugiat diam tristique, euismod dui in, mattis diam. Vestibulum euismod commodo cursus. Proin posuere libero vitae purus blandit, in posuere erat malesuada. Donec ultrices vel velit in feugiat. Vestibulum suscipit erat urna, bibendum vestibulum dui varius sit amet.
+		</div>
+	</div>
+	<script>
+		function download(filename, text) {
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
+
+			element.style.display = 'none';
+			document.body.appendChild(element);
+
+			element.click();
+
+			document.body.removeChild(element);
+		}
+
+		// Start file download.
+		document.getElementById("dwn-btn").addEventListener("click", function(){
+			// Generate download of hello.txt file with some content
+			var text = document.getElementById("text-val").value;
+			var filename = "hello.txt";
+			
+			download(filename, text);
+		}, false);
+		
+
+		//SAVE AS DOC
+		var a = document.getElementById("exportxt");
+
+		function downloadInnerHtml(filename, elId, mimeType) {
+			var elHtml = document.getElementById(elId).innerHTML;
+			if (navigator.msSaveBlob) { // IE 10+ 
+				navigator.msSaveBlob(new Blob([elHtml], { type: mimeType + ';charset=utf-8;' }), filename);
+			}
+			else{
+				var link = document.createElement('a');
+				mimeType = mimeType || 'text/plain';
+
+				link.setAttribute('download', filename);
+				link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+				document.body.appendChild(link);//for FF предположительно, Firefox не любит нажатия элементов, которые не являются «на странице»:
+				link.click(); 
+				document.body.removeChild(link);//for FF
+			}
+		}
+		var fileName =  'myexportedhtml.doc'; 
+	</script>
+</body> 
+</html>
