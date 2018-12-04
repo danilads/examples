@@ -9,7 +9,7 @@ class Position_Items extends React.PureComponent {
 
   	render() {
 		let {data} = this.props;
-		console.log('render heroes');
+		//console.log('render heroes');
 		return (
 			<div className="Position Items">
 				<div>{data.dname}</div>

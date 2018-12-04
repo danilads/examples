@@ -65,7 +65,7 @@ class Page_Content extends React.PureComponent {
 						<Block_Filter/>
 	
 						{/* DEL THIS DOWN */}
-						<div className="DELETE THIS">
+						{/* <div className="DELETE THIS">
 							<div className={this.state.style}>{arr.map(it=>{
 								return <DELnewsFrame key={it} title={it}/>})}
 							</div>
@@ -76,7 +76,7 @@ class Page_Content extends React.PureComponent {
 								<input type="button" onClick={()=>this.changeStyle('static')} value="style static"/>
 								<input type="button" onClick={()=>this.changeStyle('off')} value="style off"/>
 							</div>
-						</div>
+						</div> */}
 						{/* DEL THIS UP */}
 					</div>
 				</div>	
