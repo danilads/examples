@@ -96,11 +96,14 @@ class Block_Filter extends React.PureComponent {
 
 		this.isEngine3Run=true;
 		this.setState({e3status:'out',prevBut3:this.state.curBtn3})
+	
 		this.timer2 = setTimeout(() => {
 			this.setState({e3status:'in',sort:this.state.curBtn3})
 		},1000);
 		this.timer2 = setTimeout(() => {
-			this.setState({e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
+			if(this.timer2){
+				this.setState({e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
+			}
 		},2000);
 	}
 
@@ -113,8 +116,11 @@ class Block_Filter extends React.PureComponent {
 		if(curBtn2===status[1]){
 			return;
 		}
+		//обнуляем engine3
+		this.isEngine3Run=false;
 		//обнуляем анимацию кнопок 3 уровня
 		this.timer2 = null;
+	
 		//если происходит цикл смены анимации
 		if(this.isEngineRun){return;}
 		
