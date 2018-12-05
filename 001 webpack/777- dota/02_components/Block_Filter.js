@@ -75,13 +75,13 @@ class Block_Filter extends React.PureComponent {
 	
 	buttons3=(e)=>{
 		if(e==='1'){
-			this.setState({curBtn3:e},()=>{console.log('btn1');if(this._ismounted)this.engine3()});
+			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
 		}
 		else if(e==='2'){
-			this.setState({curBtn3:e},()=>{console.log('btn1');if(this._ismounted)this.engine3()});
+			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
 		}
 		else if(e==='3'){
-			this.setState({curBtn3:e},()=>{console.log('btn1');if(this._ismounted)this.engine3()});
+			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
 		}
 	}
 
@@ -90,17 +90,15 @@ class Block_Filter extends React.PureComponent {
 		if(this.state.curBtn3===this.state.prevBut3){
 			return;
 		}
-		console.log('-----------')
-		console.log('engine3 run?')
-		console.log('-----------')
+		
 		//если происходит цикл смены анимации
 		if(this.isEngine3Run){return;}
 
 		this.isEngine3Run=true;
-		this.setState({e3status:'out',prevBut3:this.state.curBtn3})
+		this.setState({e3status:'out'})
 	
 		this.timer2 = setTimeout(() => {
-			this.setState({e3status:'in',sort:this.state.curBtn3})
+			this.setState({e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3})
 		},1000);
 		this.timer2 = setTimeout(() => {
 			if(this.timer2){
@@ -420,11 +418,6 @@ class Block_Filter extends React.PureComponent {
 
 		let {loadNews, loadHeroes, loadItems} = this.props;
 		let {curBtn2,curBtn3} = this.state;
-		console.log('-----------')
-		console.log('sort',this.state.sort);
-		console.log('prevBut3',this.state.prevBut3);
-		console.log('curBtn3',this.state.curBtn3);
-		console.log('-----------')
 		return (
 			<div className="Block_Filter">
 				<div className="BlockNav">
