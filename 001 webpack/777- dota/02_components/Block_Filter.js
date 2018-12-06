@@ -383,8 +383,8 @@ class Block_Filter extends React.PureComponent {
 	
 		let arrOfButtons=[];
 		if(status[1]==='N'){
-			arrOfButtons.push('new f1');
-			arrOfButtons.push('new f2');
+			arrOfButtons.push('Latest to oldest');
+			arrOfButtons.push('oldest to latest');
 			arrOfButtons.push('new f3');
 		}
 		else if(status[1]==='H'){
