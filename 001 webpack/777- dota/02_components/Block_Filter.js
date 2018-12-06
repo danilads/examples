@@ -375,17 +375,33 @@ class Block_Filter extends React.PureComponent {
 	}
 
 	_blockButtons=(e)=>{
-		let {curBtn3} = this.state;
+		let {status,curBtn2,curBtn3} = this.state;
 		let dis=true;
 		if(e==='-on'){
 			dis=false;
 		}
+	
+		let arrOfButtons=[];
+		if(status[1]==='N'){
+			arrOfButtons.push('new f1');
+			arrOfButtons.push('new f2');
+			arrOfButtons.push('new f3');
+		}
+		else if(status[1]==='H'){
+			arrOfButtons.push('heroes f1');
+			arrOfButtons.push('heroes f2');
+			arrOfButtons.push('heroes f3');
+		}
+		else if(status[1]==='I'){
+			arrOfButtons.push('items f1');
+			arrOfButtons.push('items f2');
+			arrOfButtons.push('items f3');
+		}
 		return <React.Fragment>
 				<div className="hid">
-					<div className={"BlockButtons block"+e}>
-						<ButtonLevel3 dis={dis} isPushed={curBtn3==='1'} title={'filter a-z'} funcCB={()=>this.buttons3('1')}/>
-						<ButtonLevel3 dis={dis} isPushed={curBtn3==='2'} title={'filter z-a'} funcCB={()=>this.buttons3('2')}/>
-						<ButtonLevel3 dis={dis} isPushed={curBtn3==='3'} title={'filter some'} funcCB={()=>this.buttons3('3')}/>
+					<div className={"BlockButtons block"+e}>{arrOfButtons.map((it,ind)=>{
+						return <ButtonLevel3 key={ind} dis={dis} isPushed={curBtn3===(ind+1).toString()} title={it} funcCB={()=>this.buttons3((ind+1).toString())}/>
+					})}
 					</div>
 				</div>
 				<div className="hid">
