@@ -27,8 +27,9 @@
 	
 	git show-branch -list -r //показывает лист веток
 
-	git 
+
 	
+	////////////////
 	//если трабл с аксесом
 	git clone https://{username}:{password}@github.com/{username}/{repo}.git
 	
@@ -40,7 +41,8 @@
 
 	git push origin --delete name-branch //удаление
 
-	//
+
+	//////////
 	//git flow
 	//https://habr.com/post/106912/
 
@@ -59,7 +61,7 @@
 	$ git push origin develop
 	
 
-	//
+	////////////////
 	//git remote change
 	//изменить для url для fetch и push
 
@@ -70,5 +72,15 @@
 	//изменить
 	git remote set-url origin http://srv-git.service-it.by/loktev/DBOUr
 	
+
+	////////////////
+	//(выход из vim :wq)
+	//git откатиться до комита
+
+	git log -20 (кол-во коммитов, чтобы спуститься вниз жмем enter)
+	//находим имя комита 1be12hjk1kj12jkh1jk2h1
+
+	// имя комита (пробел) точка - это все файлы
+	git checkout 1be12hjk1kj12jkh1jk2h1 .
 </body>
 </html>
