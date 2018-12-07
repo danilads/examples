@@ -73,17 +73,7 @@ class Block_Filter extends React.PureComponent {
 		}
 	}
 	
-	buttons3=(e)=>{
-		if(e==='1'){
-			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
-		}
-		else if(e==='2'){
-			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
-		}
-		else if(e==='3'){
-			this.setState({curBtn3:e},()=>{if(this._ismounted)this.engine3()});
-		}
-	}
+
 
 	engine3=()=>{
 		//если кнопка та же
@@ -204,6 +194,7 @@ class Block_Filter extends React.PureComponent {
 		let {sort,e3status,status,loadingN,loadingH,loadingI,LoadedN,LoadedH,LoadedI,curBtn3} = this.state;
 		let {news, items, heroes} = this.props;
 		
+		
 		//NEWS
 		if(status[1]==='N'){
 			let newsArr = news.data;
@@ -254,6 +245,10 @@ class Block_Filter extends React.PureComponent {
 				for(let i=0;i<newsArr.length;i++){
 					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
+			}
+			else if(sort==="4"){
+				//sort
+				console.log('--4');
 			}
 			
 			
@@ -311,6 +306,10 @@ class Block_Filter extends React.PureComponent {
 					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
 				}
 			}
+			else if(sort==="4"){
+				//sort
+				console.log('--4');
+			}
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		//ITEMS
@@ -367,6 +366,10 @@ class Block_Filter extends React.PureComponent {
 					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
 				}
 			}
+			else if(sort==="4"){
+				//sort
+				console.log('--4');
+			}
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
 		else if(status[0]==='s'){
@@ -383,24 +386,29 @@ class Block_Filter extends React.PureComponent {
 	
 		let arrOfButtons=[];
 		if(status[1]==='N'){
-			arrOfButtons.push('Latest to oldest');
+			arrOfButtons.push('latest to oldest');
 			arrOfButtons.push('oldest to latest');
-			arrOfButtons.push('new f3');
+			arrOfButtons.push('filter a-z');
+			arrOfButtons.push('filter z-a');
 		}
 		else if(status[1]==='H'){
-			arrOfButtons.push('heroes f1');
-			arrOfButtons.push('heroes f2');
-			arrOfButtons.push('heroes f3');
+			arrOfButtons.push('melee only');
+			arrOfButtons.push('range only');
+			arrOfButtons.push('filter a-z');
+			arrOfButtons.push('filter z-a');
 		}
 		else if(status[1]==='I'){
-			arrOfButtons.push('items f1');
-			arrOfButtons.push('items f2');
-			arrOfButtons.push('items f3');
+			arrOfButtons.push('price low to high');
+			arrOfButtons.push('price high to low');
+			arrOfButtons.push('filter a-z');
+			arrOfButtons.push('filter z-a');
 		}
+		
 		return <React.Fragment>
 				<div className="hid">
 					<div className={"BlockButtons block"+e}>{arrOfButtons.map((it,ind)=>{
-						return <ButtonLevel3 key={ind} dis={dis} isPushed={curBtn3===(ind+1).toString()} title={it} funcCB={()=>this.buttons3((ind+1).toString())}/>
+						let index = (ind+1).toString();
+						return <ButtonLevel3 key={ind} dis={dis} isPushed={curBtn3===index} title={it} funcCB={()=>{this.setState({curBtn3:index},()=>{if(this._ismounted)this.engine3()}) }}/>
 					})}
 					</div>
 				</div>
