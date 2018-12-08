@@ -20,6 +20,10 @@
 			Phasellus ornare quis ipsum non scelerisque. In sollicitudin est placerat nibh porttitor pretium. Phasellus ac purus nulla. Phasellus in enim vel leo viverra sodales eget sit amet ante. Sed ultrices elementum nibh, tristique euismod nunc volutpat sit amet. Suspendisse potenti. Morbi feugiat diam tristique, euismod dui in, mattis diam. Vestibulum euismod commodo cursus. Proin posuere libero vitae purus blandit, in posuere erat malesuada. Donec ultrices vel velit in feugiat. Vestibulum suscipit erat urna, bibendum vestibulum dui varius sit amet.
 		</div>
 	</div>
+	<div>
+		<input type='file' accept='text/plain' onchange='openFile(event)'><br>
+    	<div id='output'>
+	</div>
 	<script>
 		function download(filename, text) {
 			var element = document.createElement('a');
@@ -64,6 +68,20 @@
 			}
 		}
 		var fileName =  'myexportedhtml.doc'; 
+
+		//open file
+		var openFile = function(event) {
+        var input = event.target;
+
+        var reader = new FileReader();
+			reader.onload = function(){
+			var text = reader.result;
+			var node = document.getElementById('output');
+			node.innerText = text;
+			console.log(reader.result.substring(0, 200));
+			};
+			reader.readAsText(input.files[0]);
+		};
 	</script>
 </body> 
 </html>
