@@ -20,13 +20,23 @@ class ButtonLevel3 extends React.PureComponent {
 		}
 	}
 
+	class=(p,d)=>{
+		if(d){
+			return 'disabled';
+		}
+		if(p){
+			return 'selected';
+		}else{
+			return 'diselected'
+		}
 
+		
+	}
   	render() {
 		let {addClass, title, funcCB, isPushed, dis} = this.props;
-		
 		return (
 			<div className={(addClass ? addClass : '') + ' ButtonLevel3'}>
-				<input disabled={dis} className={isPushed ? 'selected':''} type='button' value={title} onClick={this.click}/>
+				<div className={this.class(isPushed,dis)}  onClick={this.click}>{title}</div>
 			</div>
 			
 		);
