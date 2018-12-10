@@ -202,13 +202,12 @@ class Block_Filter extends React.PureComponent {
 
 			//filter
 			if(sort==="1"){
-				//sort
 				newsArr.sort((a, b)=> {
-					if (a.title[0] > b.title[0]) {
-						return 1;
-					}
-					if (a.title[0] < b.title[0]) {
+					if (a.date > b.date) {
 						return -1;
+					}
+					if (a.date < b.date) {
+						return 1;
 					}
 					return 0;		
 				});
@@ -218,11 +217,11 @@ class Block_Filter extends React.PureComponent {
 			}
 			else if(sort==="2"){
 				newsArr.sort((a, b)=> {
-					if (a.title[0] > b.title[0]) {
-						return -1;
-					}
-					if (a.title[0] < b.title[0]) {
+					if (a.date > b.date) {
 						return 1;
+					}
+					if (a.date < b.date) {
+						return -1;
 					}
 					return 0;		
 				});
@@ -231,24 +230,32 @@ class Block_Filter extends React.PureComponent {
 				}
 			}
 			else if(sort==="3"){
-				//sort
 				newsArr.sort((a, b)=> {
-					if (a.gid > b.gid) {
-						return -1;
-					}
-					if (a.gid < b.gid) {
+					if (a.title.toLowerCase().trim() > b.title.toLowerCase().trim()) {
 						return 1;
+					}
+					if (a.title.toLowerCase().trim() < b.title.toLowerCase().trim()) {
+						return -1;
 					}
 					return 0;		
 				});
-				//random
 				for(let i=0;i<newsArr.length;i++){
 					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
 				}
 			}
 			else if(sort==="4"){
-				//sort
-				console.log('--4');
+				newsArr.sort((a, b)=> {
+					if (a.title.toLowerCase().trim() > b.title.toLowerCase().trim()) {
+						return -1;
+					}
+					if (a.title.toLowerCase().trim() < b.title.toLowerCase().trim()) {
+						return 1;
+					}
+					return 0;		
+				});
+				for(let i=0;i<newsArr.length;i++){
+					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
+				}
 			}
 			
 			

@@ -38,7 +38,7 @@ export const loadNews = () => async (dispatch, getState) => {
 			setTimeout(() => {
 				dispatch({
 					type: 'NEWS_LOADED',
-					payload: newsBackUpJson
+					payload: data
 				})
 			  }, 2000)
 		});
