@@ -442,6 +442,7 @@ class Block_Filter extends React.PureComponent {
 	//чистим таймаут
 	componentWillUnmount(){
 		clearTimeout(this.timer);
+		clearTimeout(this.timer2);
 		this._ismounted = false;
 	}
 	
