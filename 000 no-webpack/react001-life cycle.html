@@ -32,7 +32,8 @@
 		state = {
 			step: 1,
 		}
-		//!Если в didUpdate мы используем setState - то getDerived будет уходить в бесконечный цикл
+
+		//!Если в didUpdate мы используем setState - то используя в связке getDerived  возможно будет уходить в бесконечный цикл
 		//срабатывает каждый раз перед рендером (статичный)
 		static getDerivedStateFromProps(props,state){
 			console.log(state.step);
@@ -45,32 +46,12 @@
 		}
 
 		
-		//is invoked immediately after updating occurs. This method is not called for the initial render.
+		//Вызывается после рендера
+		//Этот метод не вызывается для начального рендеринга
 		componentDidUpdate(prevProps, prevState){
 
 		}
-
 		
-		//Перед вствкой в DOM
-		//Выпиливается в последнем реакте
-		componentWillMount(){
-			
-		}
-
-		//После вставки в DOM
-		componentDidMount(){
-		
-		}
-		//Перед обновлением пропсов, которые приведу к изменению страницы
-		//Выпиливается в последнем реакте
-		componentWillReceiveProps(newProps) {
-			
-		}
-
-		//Перед вызовом render
-		componentWillUpdate(nextProps, nextState){
-
-		}
 		
 		
 		//Вызывается перед рендерингом при получени новых свойств или состояния.
@@ -80,8 +61,14 @@
 		}
 		
 		
-		
-		
+		//если нужен таймер
+		timer=null;
+		timerFunc=()=>{
+			this.timer = setTimeout(() => {
+				console.log('hello')
+			},1000);
+		}
+
 		//_ismounted
 		//создаем переменную  при маунте
 		//удаляем её при анмаунте
@@ -92,10 +79,14 @@
 		
 		//После вставки в DOM
 		componentDidMount() { 
+			//здесь вешаем листенеры
 			this._ismounted = true;
 		}
 		componentWillUnmount(){
+			//здесь убираем листенеры
 			this._ismounted = false;
+			//чистим таймаут
+			clearTimeout(this.timer);
 		}
 		
 		//timer
