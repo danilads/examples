@@ -324,6 +324,7 @@ class Block_Filter extends React.PureComponent {
 					return 0;		
 				});
 				for(let i=0;i<arr.length;i++){
+					console.log(arr[i].name);
 					result.push(<Position_Heroes key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
@@ -478,6 +479,28 @@ class Block_Filter extends React.PureComponent {
 		this._ismounted = false;
 	}
 	
+
+	run=()=>{
+		//+ - 0-9
+		let n = this.props.abilities.data.sort((a, b)=> {
+			if (a.codeName.toLowerCase().trim() > b.codeName.toLowerCase().trim()) {
+				return 1;
+			}
+			if (a.codeName.toLowerCase().trim() < b.codeName.toLowerCase().trim()) {
+				return -1;
+			}
+			return 0;		
+		});
+		
+		for(let i=0;i<n.length;i++){
+			let y = n[i].dname[0];
+			if(y==='+'||y==='-'||y==='0'||y==='1'||y==='2'||y==='3'||y==='4'||y==='5'||y==='6'||y==='7'||y==='8'||y==='9'||this.props.abilities.data[i].codeName.slice(0,7)==="special"){
+				continue;
+			}
+			console.log(n[i].codeName);
+		}
+		
+	};
   	render() {
 
 		let {loadNews, loadHeroes, loadItems} = this.props;
@@ -489,6 +512,7 @@ class Block_Filter extends React.PureComponent {
 					<ButtonLevel2 isPushed={curBtn2==='H'} title={'heroes'} funcCB={()=>this.buttons2('H')}/>
 					<ButtonLevel2 isPushed={curBtn2==='I'} title={'items'} funcCB={()=>this.buttons2('I')}/>
 				</div>
+				<div onClick={this.run}>run</div>
 				<hr/>
 				<div className="BlockContent">
 					{this._contentRender()}
@@ -502,6 +526,7 @@ export default connect((state) => ({
 	news: state.news,
 	heroes: state.heroes,
 	items: state.items,
+	abilities: state.abilities,
 	loadingN: state.news.loading,
 	loadingH: state.heroes.loading,
 	loadingI: state.items.loading,

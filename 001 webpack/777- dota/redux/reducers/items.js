@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
 			let result = [];
 			let cnt = 0;
 			for (let pos in arr.itemdata) {
-				if(itemsVerify.includes(arr.itemdata[pos].dname)){
+				if(itemsVerify.includes(pos)){
 					result.push({...arr.itemdata[pos],codeName: pos, key: cnt});
 					cnt++;
 				}

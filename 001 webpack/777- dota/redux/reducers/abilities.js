@@ -21,6 +21,8 @@ export default (state = initialState, action) => {
 				result.push({...arr.abilitydata[pos],codeName: pos, key: cnt});
 				cnt++;
 			}
+			// нужно добавить в abilitiesVerify
+			result.push({codeName: "invoker_mana_break", dname: "Mana Break", key:cnt+1, desc: "Burns an opponent's mana on each attack.  Mana Break deals 50% of the mana burned as damage to the target."})
 			return {
 				...state,
 				loading: false,
