@@ -76,6 +76,7 @@ class Block_Filter extends React.PureComponent {
 
 
 	engine3=()=>{
+		let {status} = this.state;
 		//если кнопка та же
 		if(this.state.curBtn3===this.state.prevBut3){
 			return;
@@ -85,14 +86,14 @@ class Block_Filter extends React.PureComponent {
 		if(this.isEngine3Run){return;}
 
 		this.isEngine3Run=true;
-		this.setState({e3status:'out'})
+		this.setState({status:status[0]+status[1]+'-out',e3status:'out'})
 	
 		this.timer2 = setTimeout(() => {
-			this.setState({e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3})
+			this.setState({status:status[0]+status[1]+'-in',e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3})
 		},1000);
 		this.timer2 = setTimeout(() => {
 			if(this.timer2){
-				this.setState({e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
+				this.setState({status:status[0]+status[1]+'-on',e3status:'on'},()=>{this.isEngine3Run=false,this.engine3()});
 			}
 		},2000);
 	}
@@ -200,9 +201,9 @@ class Block_Filter extends React.PureComponent {
 			let newsArr = news.data;
 			let result = [];
 
-			//filter
+			//filter - latest to oldest
 			if(sort==="1"){
-				newsArr.sort((a, b)=> {
+				let arr = newsArr.sort((a, b)=> {
 					if (a.date > b.date) {
 						return -1;
 					}
@@ -211,12 +212,13 @@ class Block_Filter extends React.PureComponent {
 					}
 					return 0;		
 				});
-				for(let i=0;i<newsArr.length;i++){
-					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_News key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - oldest to latest
 			else if(sort==="2"){
-				newsArr.sort((a, b)=> {
+				let arr = newsArr.sort((a, b)=> {
 					if (a.date > b.date) {
 						return 1;
 					}
@@ -225,12 +227,13 @@ class Block_Filter extends React.PureComponent {
 					}
 					return 0;		
 				});
-				for(let i=0;i<newsArr.length;i++){
-					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_News key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - filter a-z
 			else if(sort==="3"){
-				newsArr.sort((a, b)=> {
+				let arr = newsArr.sort((a, b)=> {
 					if (a.title.toLowerCase().trim() > b.title.toLowerCase().trim()) {
 						return 1;
 					}
@@ -239,12 +242,13 @@ class Block_Filter extends React.PureComponent {
 					}
 					return 0;		
 				});
-				for(let i=0;i<newsArr.length;i++){
-					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_News key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - filter z-a
 			else if(sort==="4"){
-				newsArr.sort((a, b)=> {
+				let arr = newsArr.sort((a, b)=> {
 					if (a.title.toLowerCase().trim() > b.title.toLowerCase().trim()) {
 						return -1;
 					}
@@ -253,8 +257,8 @@ class Block_Filter extends React.PureComponent {
 					}
 					return 0;		
 				});
-				for(let i=0;i<newsArr.length;i++){
-					result.push(<Position_News key={newsArr[i].key}  data={newsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_News key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
 			
@@ -266,56 +270,77 @@ class Block_Filter extends React.PureComponent {
 			let heroesArr = heroes.data;
 			let result = [];
 
-			//filter
+			//filter - melee only
 			if(sort==="1"){
-				//sort
-				heroesArr.sort((a, b)=> {
-					if (a.name[0] > b.name[0]) {
+				let preSort = heroesArr.sort((a, b)=> {
+					if (a.name.toLowerCase().trim() > b.name.toLowerCase().trim()) {
 						return 1;
 					}
-					if (a.name[0] < b.name[0]) {
+					if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
 						return -1;
 					}
 					return 0;		
 				});
-				for(let i=0;i<heroesArr.length;i++){
-					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
+				let arr = [];
+				for(let j=0;j<preSort.length;j++){
+					if(preSort[j].atk=== "melee"){
+						arr.push(preSort[j]);
+					}
+				}
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Heroes key={arr[i].key}  data={arr[i]}/>);
 				}	
 			}
+			//filter - range only
 			else if(sort==="2"){
-				//sort
-				heroesArr.sort((a, b)=> {
-					if (a.name[0] > b.name[0]) {
+				let preSort = heroesArr.sort((a, b)=> {
+					if (a.name.toLowerCase().trim() > b.name.toLowerCase().trim()) {
 						return 1;
 					}
-					if (a.name[0] < b.name[0]) {
+					if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
 						return -1;
 					}
 					return 0;		
 				});
-				for(let i=heroesArr.length;i>0;i--){
-					result.push(<Position_Heroes key={heroesArr[i-1].key} data={heroesArr[i-1]}/>);
+				let arr = [];
+				for(let j=0;j<preSort.length;j++){
+					if(preSort[j].atk=== "ranged"){
+						arr.push(preSort[j]);
+					}
+				}
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Heroes key={arr[i].key} data={arr[i]}/>);
 				}
 			}
+			//filter - filter a-z
 			else if(sort==="3"){
-				//sort
-				heroesArr.sort((a, b)=> {
-					if (a.bio[0] > b.bio[0]) {
-						return -1;
+				let arr = heroesArr.sort((a, b)=> {
+					if (a.name.toLowerCase().trim() > b.name.toLowerCase().trim()) {
+						return 1;
 					}
-					if (a.bio[0] < b.bio[0]) {
-						return -0;
+					if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
+						return -1;
 					}
 					return 0;		
 				});
-				//random
-				for(let i=0;i<heroesArr.length;i++){
-					result.push(<Position_Heroes key={heroesArr[i].key}  data={heroesArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Heroes key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - filter z-a
 			else if(sort==="4"){
-				//sort
-				console.log('--4');
+				let arr = heroesArr.sort((a, b)=> {
+					if (a.name.toLowerCase().trim() > b.name.toLowerCase().trim()) {
+						return -1;
+					}
+					if (a.name.toLowerCase().trim() < b.name.toLowerCase().trim()) {
+						return 1;
+					}
+					return 0;		
+				});
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Heroes key={arr[i].key}  data={arr[i]}/>);
+				}
 			}
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}
@@ -324,58 +349,65 @@ class Block_Filter extends React.PureComponent {
 			let itemsArr = items.data;
 			let result = [];
 			
-			//filter
+			//filter - price low to high
 			if(sort==="1"){
-				//sort
-				itemsArr.sort((a, b)=> {
-					if (a.dname[0] > b.dname[0]) {
+				let arr = itemsArr.sort((a, b)=> {
+					if (a.cost > b.cost) {
 						return 1;
 					}
-					if (a.dname[0] < b.dname[0]) {
+					if (a.cost < b.cost) {
 						return -1;
 					}
 					return 0;		
 				});
-				//random
-				for(let i=0;i<itemsArr.length;i++){
-					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Items key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - price high to low
 			else if(sort==="2"){
-				//sort
-				itemsArr.sort((a, b)=> {
-					if (a.dname[0] > b.dname[0]) {
+				let arr = itemsArr.sort((a, b)=> {
+					if (a.cost > b.cost) {
 						return -1;
 					}
-					if (a.dname[0] < b.dname[0]) {
+					if (a.cost < b.cost) {
 						return 1;
 					}
 					return 0;		
 				});
-				//random
-				for(let i=0;i<itemsArr.length;i++){
-					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Items key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - filter a-z
 			else if(sort==="3"){
-				//sort
-				itemsArr.sort((a, b)=> {
-					if (a.lore> b.lore) {
+				let arr = itemsArr.sort((a, b)=> {
+					if (a.codeName.toLowerCase().trim() > b.codeName.toLowerCase().trim()) {
 						return 1;
 					}
-					if (a.lore < b.lore) {
+					if (a.codeName.toLowerCase().trim() < b.codeName.toLowerCase().trim()) {
 						return -1;
 					}
 					return 0;		
 				});
-				//random
-				for(let i=0;i<itemsArr.length;i++){
-					result.push(<Position_Items key={itemsArr[i].key}  data={itemsArr[i]}/>);
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Items key={arr[i].key}  data={arr[i]}/>);
 				}
 			}
+			//filter - filter z-a
 			else if(sort==="4"){
-				//sort
-				console.log('--4');
+				let arr = itemsArr.sort((a, b)=> {
+					if (a.codeName.toLowerCase().trim() > b.codeName.toLowerCase().trim()) {
+						return -1;
+					}
+					if (a.codeName.toLowerCase().trim() < b.codeName.toLowerCase().trim()) {
+						return 1;
+					}
+					return 0;		
+				});
+				for(let i=0;i<arr.length;i++){
+					result.push(<Position_Items key={arr[i].key}  data={arr[i]}/>);
+				}
 			}
 			return <React.Fragment>{this._blockButtons(status.slice(2))}<div className={"content"+status.slice(2)+" e3-"+e3status}>{result}</div></React.Fragment>
 		}

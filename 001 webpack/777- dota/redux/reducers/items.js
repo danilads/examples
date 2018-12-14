@@ -24,6 +24,9 @@ export default (state = initialState, action) => {
 					result.push({...arr.itemdata[pos],codeName: pos, key: cnt});
 					cnt++;
 				}
+				else{
+					console.log(arr.itemdata[pos].dname);
+				}
 			}
 			return {
 				...state,
