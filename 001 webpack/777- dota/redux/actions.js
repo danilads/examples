@@ -68,8 +68,8 @@ export const loadHeroes = () => async (dispatch, getState) => {
         type: 'ABILITIES_LOADING'
 	});
 
-	let answer = {};
-	let answer2  = {};
+	let answer;
+	let answer2;
 
 	try {
 		answer = await fetch('https://cors-anywhere.herokuapp.com/http://www.dota2.com/jsfeed/heropickerdata?v=18874723138974056&l=english', {
@@ -81,8 +81,6 @@ export const loadHeroes = () => async (dispatch, getState) => {
 	} catch (e) {
 		//диспчаем ошибку
 		console.log('error', e);
-		//защита от продолжения
-		return;
 	}
 	
 
@@ -93,7 +91,7 @@ export const loadHeroes = () => async (dispatch, getState) => {
 		payload: '',
 	}), 2000);
 	*/
-	
+
 	if(answer2===undefined){
 		setTimeout(() => {
 			dispatch({
