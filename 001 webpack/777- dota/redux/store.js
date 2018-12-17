@@ -6,6 +6,7 @@ import abilities from "./reducers/abilities";
 import news from "./reducers/news";
 import items from "./reducers/items";
 import heroes from "./reducers/heroes";
+import modal from "./reducers/modal";
 
 //middlewares для работы асинхронных action's
 import thunk from 'redux-thunk';
@@ -15,7 +16,7 @@ import thunk from 'redux-thunk';
 let store; 
 if(process.env.NODE_ENV==='development'){
 	store = createStore(
-		combineReducers({abilities,news,items,heroes}),
+		combineReducers({abilities,news,items,heroes,modal}),
 		  composeWithDevTools(
 			applyMiddleware(thunk)
 		  )
@@ -23,7 +24,7 @@ if(process.env.NODE_ENV==='development'){
 }
 else if(process.env.NODE_ENV==='production'){
 	store = createStore(
-		combineReducers({abilities,news,items,heroes}),
+		combineReducers({abilities,news,items,heroes,modal}),
 		applyMiddleware(thunk)
 		  
 	);

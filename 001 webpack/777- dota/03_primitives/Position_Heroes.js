@@ -1,19 +1,25 @@
 import React from 'react';
 
 import './Position.scss';
+
+import {connect} from "react-redux";
+import {modalOpen,modalClose} from "../redux/actions";
 class Position_Heroes extends React.PureComponent {
 	
-	state = {
+	
+	modal=()=>{
 		
-	};
-
+		this.props.modalOpen(123);
+	}
   	render() {
 		let {data} = this.props;
-		//console.log('render heroes');
+		console.log('render heroes');
 		return (
-			<div className="Position Heroes">
-				<div>{data.name}</div>
-			</div>		
+			<React.Fragment>
+				<div className="Position Heroes" onClick={this.modal}>
+					<div>{data.name}</div>
+				</div>
+			</React.Fragment>	
 		);
 
   	}
@@ -22,4 +28,7 @@ class Position_Heroes extends React.PureComponent {
 
 
 
-export default Position_Heroes;
+export default connect((state) => ({
+	
+}),
+{modalOpen,modalClose})(Position_Heroes);
