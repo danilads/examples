@@ -4,12 +4,17 @@ import './Modal.scss';
 
 
 class Modal extends React.PureComponent {
-	close
+	_heroes=()=>{
+        return <div>
+            heroes
+
+        </div>
+    }
 	modalPrevent=(e)=>{
         e.stopPropagation();
     }
   	render() {
-		
+		console.log(this.props.data);
 		return (
 			<div className="ModalHoc" onClick={this.props.cbClose}>
                 <div onClick={this.modalPrevent}>
@@ -20,6 +25,7 @@ class Modal extends React.PureComponent {
                 <br/>
                 <button onClick={this.props.cbClose}>shit</button>
 
+                {this.props.data.type==='H'&&this._heroes()}
                 </div>
                     
             </div>

@@ -8,12 +8,11 @@ class Position_Heroes extends React.PureComponent {
 	
 	
 	modal=()=>{
-		
-		this.props.modalOpen(123);
+		 
+		this.props.modalOpen({type:'H',data:this.props.data});
 	}
   	render() {
 		let {data} = this.props;
-		//console.log('render heroes');
 		return (
 			<React.Fragment>
 				<div className="Position Heroes" onClick={this.modal}>
