@@ -21,10 +21,6 @@ class ButtonLevel3 extends React.PureComponent {
 	}
 
 	classN=(p,d)=>{
-		console.log('--push',p);
-		console.log('--dis',d);
-		console.log('~~~~~~~~');
-
 		if(d){
 			if(p){
 				return 'dis-pushed'
