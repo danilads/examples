@@ -167,12 +167,14 @@ export const loadItems = () => async (dispatch, getState) => {
 };
 
 export const modalOpen = (e) => (dispatch, getState) => {
+	document.body.style.overflow = 'hidden';
 	dispatch({
 		type: 'MODAL_OPEN',
 		payload: e
 	});
 }
 export const modalClose = () => (dispatch, getState) => {
+	document.body.style.overflow = 'auto';
 	dispatch({
         type: 'MODAL_CLOSED'
 	});

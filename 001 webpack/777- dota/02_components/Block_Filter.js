@@ -11,7 +11,6 @@ import Position_Items from '../03_primitives/Position_Items';
 import Spiner from '../03_primitives/Spiner';
 import ButtonLevel2 from '../03_primitives/ButtonLevel2';
 import ButtonLevel3 from '../03_primitives/ButtonLevel3';;
-import Modal from '../03_primitives/Modal';
 
 class Block_Filter extends React.PureComponent {
 	state = {
@@ -494,7 +493,7 @@ class Block_Filter extends React.PureComponent {
 				<div className="BlockContent">
 					{this._contentRender()}
 				</div>
-				<Modal/>
+				
 			</div>
 		);
   	}

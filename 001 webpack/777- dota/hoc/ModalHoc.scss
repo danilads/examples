@@ -1,5 +1,6 @@
 @import "../scss/_variables"; //переменные
-.Modal{
+.ModalHoc{
+    z-index: 99;
     background-color: rgba(27, 39, 51, 0.5);;
     position: fixed;
     width: 100vw;
