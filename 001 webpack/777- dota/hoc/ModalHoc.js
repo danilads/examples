@@ -14,10 +14,10 @@ export const  ModalHoc = (BaseComponent) => {
      
         
         render() {
-            let {modal} = this.props;
+            let {modal,abilities} = this.props;
             return <React.Fragment>
                 {/* подсовываем модалку */}
-                {modal.isOpened&&<Modal data={modal} cbClose={this.modalClose}/>}
+                {modal.isOpened&&<Modal abilities={abilities} data={modal} cbClose={this.modalClose}/>}
                 {/* Обернутый компонент */}
                 <BaseComponent/>
             </React.Fragment>
@@ -25,7 +25,7 @@ export const  ModalHoc = (BaseComponent) => {
     }
     return connect((state) => ({
         modal: state.modal,
-
+        abilities: state.abilities,
     }),
     {modalOpen,modalClose})(ModalHoc);
 };

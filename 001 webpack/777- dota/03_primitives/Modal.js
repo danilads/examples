@@ -5,6 +5,10 @@ import './Modal.scss';
 
 class Modal extends React.PureComponent {
 	_heroes=()=>{
+        let {data:{data:{name,codeName,bio}}} = this.props
+        // console.log(name);
+        // console.log(codeName);
+        // console.log(bio);
         return <div>
             heroes
 
@@ -14,7 +18,7 @@ class Modal extends React.PureComponent {
         e.stopPropagation();
     }
   	render() {
-		console.log(this.props.data);
+		console.log('--abilities',this.props.abilities);
 		return (
 			<div className="ModalHoc" onClick={this.props.cbClose}>
                 <div onClick={this.modalPrevent}>
