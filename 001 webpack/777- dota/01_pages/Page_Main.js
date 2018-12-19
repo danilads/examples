@@ -12,9 +12,13 @@ class Page_Main extends React.PureComponent {
 		return (
 			<div className="Page_Main">
 				<div>~~Main~~</div>
-				<div>league</div>
+				<div>league(external link)</div>
 				<div>enter portal</div>
+				<div>about</div>
+				<br/>
 				<div><NavLink to="/content" activeClassName="SActivated">Dota content</NavLink></div>
+				<br/>
+				<div><NavLink to="/about" activeClassName="SActivated">About</NavLink></div>
 			</div>
 		);
 

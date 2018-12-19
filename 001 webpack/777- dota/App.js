@@ -16,6 +16,7 @@ import { Route } from 'react-router-dom';
 //components
 import Page_Main from './01_pages/Page_Main';
 import Page_Content from './01_pages/Page_Content';
+import Page_About from './01_pages/Page_About';
 
 //store
 import store from './redux/store';
@@ -30,6 +31,7 @@ ReactDOM.render(
 			<React.Fragment>
 				<Route path="/" exact component={Page_Main} />
 				<Route path="/content" component={Page_Content} />
+				<Route path="/about" component={Page_About} />
 			</React.Fragment>
 		</BrowserRouter>
 	</Provider>
