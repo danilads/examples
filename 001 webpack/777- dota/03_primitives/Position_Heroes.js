@@ -13,7 +13,7 @@ class Position_Heroes extends React.PureComponent {
 	}
   	render() {
 		let {data} = this.props;
-		console.log('render heroes');
+		//console.log('render heroes');
 		return (
 			<React.Fragment>
 				<div className="Position Heroes" onClick={this.modal}>

@@ -8,25 +8,19 @@ export const  ModalHoc = (BaseComponent) => {
         state = {
 		
         };
-        modal=()=>{
-            console.log('open')
+        modalBack=()=>{
             this.props.modalClose();
         }
-        mouseDown=()=>{
-            console.log('mousedown');
+        modalPrevent=(e)=>{
+            e.stopPropagation();
         }
-        componentDidMount() { 
-            document.addEventListener("onmousedown", this.mouseDown);
-        }
-        componentWillUnmount(){
-            document.removeEventListener("onmousedown", this.mouseDown);
-        }
+     
         
         render() {
             let {isOpened} = this.props;
             return <React.Fragment>
-                {isOpened&&<div className="ModalHoc" onClick={this.modal}>
-                    <div>modal</div>
+                {isOpened&&<div className="ModalHoc" onClick={this.modalBack}>
+                    <div onClick={this.modalPrevent}>modal</div>
                     
                 </div>}
                 {/* Обернутый компонент */}

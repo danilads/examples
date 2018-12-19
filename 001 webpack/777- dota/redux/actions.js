@@ -174,6 +174,7 @@ export const modalOpen = (e) => (dispatch, getState) => {
 	});
 }
 export const modalClose = () => (dispatch, getState) => {
+	console.log('close');
 	document.body.style.overflow = 'auto';
 	dispatch({
         type: 'MODAL_CLOSED'

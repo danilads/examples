@@ -34,7 +34,8 @@ class Block_Filter extends React.PureComponent {
 		sort: "1",
 
 		//пред состояние кнопки 3
-		prevBut3: '1'
+		prevBut3: '1',
+		prevBut2: ''
 
 
 	};
@@ -417,8 +418,9 @@ class Block_Filter extends React.PureComponent {
 	}
 
 	_blockButtons=(e)=>{
-		let {status,curBtn2,curBtn3} = this.state;
+		let {status,curBtn2,curBtn3,prevBut2} = this.state;
 		let dis=true;
+		
 		if(e==='-on'){
 			dis=false;
 		}
@@ -443,16 +445,22 @@ class Block_Filter extends React.PureComponent {
 			arrOfButtons.push('filter z-a');
 		}
 		
+		//фикс (блокируем анимацию кнопок 3уровня если кнопку 2 не переключили)
+		let h = e;
+		if(curBtn2===status[1]&&prevBut2===curBtn2){
+			h="-on"
+		}
+
 		return <React.Fragment>
 				<div className="hid">
-					<div className={"BlockButtons block"+e}>{arrOfButtons.map((it,ind)=>{
+					<div className={"BlockButtons block"+h}>{arrOfButtons.map((it,ind)=>{
 						let index = (ind+1).toString();
-						return <ButtonLevel3 key={ind} dis={dis} isPushed={curBtn3===index} title={it} funcCB={()=>{this.setState({curBtn3:index},()=>{if(this._ismounted)this.engine3()}) }}/>
+						return <ButtonLevel3 key={ind} dis={dis} isPushed={curBtn3===index} title={it} funcCB={()=>{this.setState({prevBut2:this.state.curBtn2,curBtn3:index},()=>{if(this._ismounted)this.engine3()}) }}/>
 					})}
 					</div>
 				</div>
 				<div className="hid">
-					<hr className={"hr"+e}/>
+					<hr className={"hr"+h}/>
 				</div>
 			</React.Fragment>
 	};

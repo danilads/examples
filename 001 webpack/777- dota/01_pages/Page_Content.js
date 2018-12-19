@@ -6,14 +6,17 @@ import './Page_Content.scss';
 
 import Block_Filter from '../02_components/Block_Filter';
 import {ModalHoc} from '../hoc/ModalHoc';
-
+import {connect} from "react-redux";
+import {modalClose} from "../redux/actions";
 class Page_Content extends React.PureComponent {
 	state = {
 		
 	}
 
 
-	
+	componentDidMount() { 
+		modalClose();
+	}
   	render() {
 		let {reducer, loadNews, loadHeroes, loadItems} = this.props;
 		let {curBtn2,curBtn3} = this.state;
@@ -35,5 +38,6 @@ class Page_Content extends React.PureComponent {
 		);
   	}
 }
-export default Page_Content;
 
+export default connect((state) => ({}),
+{modalClose})(Page_Content);
