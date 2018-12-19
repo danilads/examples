@@ -23,6 +23,31 @@
         opacity: 0;
     }
 }
+//special 2
+@keyframes s2-in {
+    0% {
+        box-sizing: border-box;
+        margin-left: 100%;
+        opacity: 0; 
+    }
+    100% {
+        box-sizing: border-box;
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+@keyframes s2-out {
+    0% {
+        box-sizing: border-box;
+        margin-left: 0;
+        opacity: 1; 
+    }
+    100% {
+        box-sizing: border-box;
+        margin-left: 100%;
+        opacity: 0;
+    }
+}
 //opcaity
 @keyframes o-in {
     0% {

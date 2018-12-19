@@ -38,7 +38,7 @@
 			}
 			&-in .Position {
 				@extend .content;
-				animation: s-in 1s;
+				animation: s2-in 1s;
 			}
 			&-out .Position > div{
 				@extend .contentOff;
@@ -46,7 +46,7 @@
 			}
 			&-out .Position{
 				@extend .contentOff;
-				animation: s-out 1s;
+				animation: s2-out 1s;
 			}
 			&-on .Position > div{
 				@extend .content;
