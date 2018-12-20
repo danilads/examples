@@ -1,4 +1,5 @@
 import abilitiesVerify from "../../jsonBackUp/abilitiesVerify";
+import abilitiesExtend from "../../jsonBackUp/abilitiesExtend";
 
 let initialState = {
 	data: {},
@@ -51,7 +52,24 @@ export default (state = initialState, action) => {
 			result.push({dname: "Primal Spring",key:cnt+12,pos: "s3",skill: "monkey_king_primal_spring",hurl: "monkey_king",desc: "Monkey King springs out from his tree perch, damaging and slowing enemies in the area where he lands. Damage and slow amounts are in proportion to channel duration."})
 			result.push({dname: "Mischief",key:cnt+13,pos: "s5",skill: "monkey_king_mischief",hurl: "monkey_king",desc: "Changes Monkey King's shape to deceive opponents, using the environment nearby as inspiration for the disguise. Taking damage, attacking, or using any item or ability breaks Monkey King's disguise. Grants invulnerability for 0.2 upon transforming."})
 			
+			//extend
+			
+			let arr2 = abilitiesExtend;
+			tothis:for(let i=0;i<result.length;i++){
+				console.log(result[i])
+				for(let j=0;j<arr2.length;j++){
+					//console.log(arr2[j.hero])
+					if(result[i].hurl===arr2[j].hero){
+						// console.log('yep')
+						// result[i]={...result[i]}
 
+						// arr2.splice(j, 1);
+						// continue tothis;
+					}
+					
+				}
+			}
+			
 			return {
 				...state,
 				loading: false,

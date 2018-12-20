@@ -7,11 +7,11 @@ class Modal extends React.PureComponent {
 	_heroes=()=>{
         let {data:{data:{name,codeName,bio}},abilities:{data}} = this.props
         // console.log(name);
-        console.log(codeName);
+        //console.log(codeName);
         // console.log(bio);
         for(let i=0;i<data.length;i++){
             if(data[i].hurl===codeName){
-                console.log(data[i]);
+                //console.log(data[i]);
             }
 
         }
