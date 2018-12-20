@@ -1,5 +1,6 @@
 import React from 'react';
-
+import {connect} from "react-redux";
+import {modalClose} from "../redux/actions";
 
 import './Page_About.scss';
 
@@ -9,7 +10,9 @@ class Page_About extends React.PureComponent {
 		
 	}
 
-
+	componentDidMount() { 
+		modalClose();
+	}
 	
   	render() {
 		
@@ -30,5 +33,5 @@ class Page_About extends React.PureComponent {
 		);
   	}
 }
-export default Page_About;
-
+export default connect((state) => ({}),
+{modalClose})(Page_About);

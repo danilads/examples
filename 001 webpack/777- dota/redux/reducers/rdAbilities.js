@@ -1,3 +1,5 @@
+import abilitiesVerify from "../../jsonBackUp/abilitiesVerify";
+
 let initialState = {
 	data: {},
 	loading: false,
@@ -18,8 +20,10 @@ export default (state = initialState, action) => {
 			let result = [];
 			let cnt = 0;
 			for (let pos in arr.abilitydata) {
-				result.push({...arr.abilitydata[pos],codeName: pos, key: cnt});
-				cnt++;
+				if(abilitiesVerify.includes(pos)){
+					result.push({...arr.abilitydata[pos],codeName: pos, key: cnt});
+					cnt++;
+				}
 			}
 			// https://dota2.gamepedia.com/Heroes
 			// нужно добавить в abilitiesVerify
@@ -47,7 +51,7 @@ export default (state = initialState, action) => {
 			result.push({dname: "Primal Spring",key:cnt+12,pos: "s3",skill: "monkey_king_primal_spring",hero: "Monkey King",desc: "Monkey King springs out from his tree perch, damaging and slowing enemies in the area where he lands. Damage and slow amounts are in proportion to channel duration."})
 			result.push({dname: "Mischief",key:cnt+13,pos: "s5",skill: "monkey_king_mischief",hero: "Monkey King",desc: "Changes Monkey King's shape to deceive opponents, using the environment nearby as inspiration for the disguise. Taking damage, attacking, or using any item or ability breaks Monkey King's disguise. Grants invulnerability for 0.2 upon transforming."})
 			
-			
+
 			return {
 				...state,
 				loading: false,

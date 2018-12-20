@@ -1,6 +1,6 @@
 @import "../scss/_variables"; //переменные
 .ModalHoc{
-    z-index: 99;
+    z-index: 5;
     background-color: rgba(27, 39, 51, 0.5);;
     position: fixed;
     width: 100vw;
@@ -11,10 +11,12 @@
     left: 0;
     margin: auto;
     div{
+        z-index: 10;
         background-color: white;
+        color: black;
         position: absolute;
-        width: 500px;
-        height: 300px;
+        width: 90%;
+        height: 90%;
         top: 0;
         right: 0;
         bottom: 0;

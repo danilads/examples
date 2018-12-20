@@ -1,13 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Page_Main.scss';
-
+import {connect} from "react-redux";
+import {modalClose} from "../redux/actions";
 class Page_Main extends React.PureComponent {
 	
 	state = {
 		
 	};
-
+	componentDidMount() { 
+		modalClose();
+	}
   	render() {
 		return (
 			<div className="Page_Main">
@@ -28,4 +31,5 @@ class Page_Main extends React.PureComponent {
 
 
 
-export default Page_Main;
+export default connect((state) => ({}),
+{modalClose})(Page_Main);
