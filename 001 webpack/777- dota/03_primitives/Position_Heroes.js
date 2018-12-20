@@ -8,8 +8,7 @@ class Position_Heroes extends React.PureComponent {
 	
 	
 	modal=()=>{
-		 
-		this.props.modalOpen({type:'H',data:this.props.data});
+		this.props.modalOpen({type:'H',name:this.props.data.codeName,data:this.props.data});
 	}
   	render() {
 		let {data} = this.props;

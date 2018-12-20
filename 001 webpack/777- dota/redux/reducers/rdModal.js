@@ -1,6 +1,7 @@
 let initialState = {
 	isOpened:false,
 	type:"",//N H I
+	name:"",//tusk
 	data: {},
 }
 //export default (state = initialState, {type,payload}) - сокращенная запись
@@ -11,6 +12,7 @@ export default (state = initialState, action) => {
 				...state,
 				isOpened:true,
 				type:action.payload.type,
+				name:action.payload.name,
 				data:action.payload.data
 			}
 		}
@@ -19,6 +21,7 @@ export default (state = initialState, action) => {
 				...state,
 				isOpened:false,
 				type:"",
+				name:"",
 				data: {}
 			}
 		}
