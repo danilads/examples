@@ -15,7 +15,7 @@ class Modal extends React.PureComponent {
         // console.log(abilities);
         return <div>
             {name}
-
+            <img src={"./04_images/heroes/abaddon.png"}/>
         </div>
     }
 	modalPrevent=(e)=>{
