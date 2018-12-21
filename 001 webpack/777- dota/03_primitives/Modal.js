@@ -10,12 +10,15 @@ class Modal extends React.PureComponent {
         // console.log(codeName);
         // console.log(bio);
 
-        console.log(data.name)
+  
         // массив абилок
-        // console.log(abilities);
+        console.log(abilities);
+
         return <div>
-            {name}
-            <img src={"./04_images/heroes/abaddon.png"}/>
+            <div><img src={"./04_images/heroes/"+data.name+".png"}/></div>
+            <div>{abilities.map((it,key)=>{
+                return <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+it.skill+".png"} key={key}/>
+            })}</div>
         </div>
     }
 	modalPrevent=(e)=>{
@@ -27,14 +30,10 @@ class Modal extends React.PureComponent {
 		return (
 			<div className="ModalHoc" onClick={this.props.cbClose}>
                 <div onClick={this.modalPrevent}>
-                
-                helo
-                <br/>
-                helo
-                <br/>
-                <button onClick={this.props.cbClose}>shit</button>
+              
+                    <button onClick={this.props.cbClose}>close</button>
 
-                {this.props.data.type==='H'&&this._heroes()}
+                    {this.props.data.type==='H'&&this._heroes()}
                 </div>
                     
             </div>
