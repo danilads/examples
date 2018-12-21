@@ -21,6 +21,7 @@ export default (state = initialState, action) => {
 			let cnt = 0;
 			for (let pos in arr) {
 				if(heroesVerify.includes(arr[pos].name)){
+					console.log(pos);
 					result.push({...arr[pos],codeName: pos, key: cnt});
 					cnt++;
 				}

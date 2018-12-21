@@ -5,18 +5,16 @@ import './Modal.scss';
 
 class Modal extends React.PureComponent {
 	_heroes=()=>{
-        let {data:{data:{name,codeName,bio}},abilities:{data}} = this.props
+        let {data:{data:{name,codeName,bio}},abilities,data} = this.props
         // console.log(name);
-        //console.log(codeName);
+        // console.log(codeName);
         // console.log(bio);
-        for(let i=0;i<data.length;i++){
-            if(data[i].hurl===codeName){
-                //console.log(data[i]);
-            }
 
-        }
+        console.log(data.name)
+        // массив абилок
+        // console.log(abilities);
         return <div>
-            heroes
+            {name}
 
         </div>
     }
@@ -25,6 +23,7 @@ class Modal extends React.PureComponent {
     }
   	render() {
 		// console.log('--abilities',this.props.abilities);
+		// console.log('--data',this.props.data);
 		return (
 			<div className="ModalHoc" onClick={this.props.cbClose}>
                 <div onClick={this.modalPrevent}>
