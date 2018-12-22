@@ -12,13 +12,24 @@ class Modal extends React.PureComponent {
 
   
         // массив абилок
-        console.log(abilities);
+        //console.log(abilities);
 
         return <div>
             <div><img src={"./04_images/heroes/"+data.name+".png"}/></div>
             <div>{abilities.map((it,key)=>{
                 return <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+it.skill+".png"} key={key}/>
             })}</div>
+        </div>
+    }
+    _items=()=>{
+        let {data:{data:{dname,img}},abilities,data} = this.props
+       
+        // console.log('--',dname);
+        // console.log('--',data.data);
+
+        return <div>
+           <div>{dname}</div>
+           <div><img src={"./04_images/items/"+img}/></div>
         </div>
     }
 	modalPrevent=(e)=>{
@@ -34,6 +45,7 @@ class Modal extends React.PureComponent {
                     <button onClick={this.props.cbClose}>close</button>
 
                     {this.props.data.type==='H'&&this._heroes()}
+                    {this.props.data.type==='I'&&this._items()}
                 </div>
                     
             </div>

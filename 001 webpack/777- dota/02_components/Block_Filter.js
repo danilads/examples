@@ -10,7 +10,9 @@ import Position_Heroes from '../03_primitives/Position_Heroes';
 import Position_Items from '../03_primitives/Position_Items';
 import Spiner from '../03_primitives/Spiner';
 import ButtonLevel2 from '../03_primitives/ButtonLevel2';
-import ButtonLevel3 from '../03_primitives/ButtonLevel3';;
+import ButtonLevel3 from '../03_primitives/ButtonLevel3';
+
+import {removeDagon} from "../utils/utils";
 
 class Block_Filter extends React.PureComponent {
 	state = {
@@ -347,7 +349,7 @@ class Block_Filter extends React.PureComponent {
 		}
 		//ITEMS
 		else if(status[1]==='I'){
-			let itemsArr = items.data;
+			let itemsArr = removeDagon(items.data);
 			let result = [];
 			
 			//filter - price low to high
@@ -361,6 +363,8 @@ class Block_Filter extends React.PureComponent {
 					}
 					return 0;		
 				});
+				
+				
 				for(let i=0;i<arr.length;i++){
 					result.push(<Position_Items key={arr[i].key}  data={arr[i]}/>);
 				}
