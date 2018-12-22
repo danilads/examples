@@ -11,17 +11,18 @@ class Page_Main extends React.PureComponent {
 	componentDidMount() { 
 		modalClose();
 	}
+
   	render() {
 		return (
 			<div className="Page_Main">
-				<div>~~Main~~</div>
-				<div>league(external link)</div>
-				<div>enter portal</div>
-				<div>about</div>
-				<br/>
-				<div><NavLink to="/content" activeClassName="SActivated">Dota content</NavLink></div>
-				<br/>
-				<div><NavLink to="/about" activeClassName="SActivated">About</NavLink></div>
+				<div className="mainLogo">
+					<div><img src="./04_images/logoAnim.gif"/></div>
+				</div>
+				<div className="buttonsBlock">
+					<div><a className="btnLevel1" href="https://www.dota2.com" target="_blank">official site</a></div>
+					<div><NavLink className="btnLevel1" to="/content" activeClassName="SActivated">enter portal</NavLink></div>
+					<div><NavLink className="btnLevel1" to="/about" activeClassName="SActivated">about</NavLink></div>
+				</div>
 			</div>
 		);
 

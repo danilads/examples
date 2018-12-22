@@ -1,5 +1,24 @@
 .btnLevel1{
+	display: block;
 	cursor: pointer;
+	font-size: 1.5em;
+	width: 180px;
+	text-align: center;
+	border: 1px solid white;
+	border-radius: 4px;
+	padding: 10px;
+	color: white;
+	text-decoration: none;
+	transition: all 0.5s;
+	&:hover{
+		color: #ffffff;
+		animation: neon 1.5s ease-in-out infinite alternate;
+	}
+	&Selected{
+		color: #ffffff;
+		animation: neon 1.5s ease-in-out infinite alternate;
+	}
+
 }
 .btnLevel2{
 	cursor: pointer;

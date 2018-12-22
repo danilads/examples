@@ -4,16 +4,16 @@ import './Modal.scss';
 
 
 class Modal extends React.PureComponent {
+    _news=()=>{
+        let {data:{data:{contents,title,url}},abilities,data} = this.props
+        console.log(this.props)
+        return <div>
+            <a href={url} target="_blank">{title}</a>
+            <div dangerouslySetInnerHTML={{__html: contents}} />
+        </div>
+    }
 	_heroes=()=>{
         let {data:{data:{name,codeName,bio}},abilities,data} = this.props
-        // console.log(name);
-        // console.log(codeName);
-        // console.log(bio);
-
-  
-        // массив абилок
-        //console.log(abilities);
-
         return <div>
             <div><img src={"./04_images/heroes/"+data.name+".png"}/></div>
             <div>{abilities.map((it,key)=>{
@@ -43,7 +43,7 @@ class Modal extends React.PureComponent {
                 <div onClick={this.modalPrevent}>
               
                     <button onClick={this.props.cbClose}>close</button>
-
+                    {this.props.data.type==='N'&&this._news()}
                     {this.props.data.type==='H'&&this._heroes()}
                     {this.props.data.type==='I'&&this._items()}
                 </div>
