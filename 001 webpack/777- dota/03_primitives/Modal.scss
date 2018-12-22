@@ -1,7 +1,7 @@
 @import "../scss/_variables"; //переменные
 .ModalHoc{
     z-index: 5;
-    background-color: rgba(27, 39, 51, 0.5);;
+    background-color: rgba(73, 61, 61, 0.5);;
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -11,19 +11,16 @@
     left: 0;
     margin: auto;
     .content{
-        overflow: hidden;
-        border-radius: 10px;
+        overflow: auto;
         border: 1px solid white;
         z-index: 10;
         background-color: black;
         color: black;
         position: absolute;
-        min-height: 500px;
-        width: 90%;
-        top: 40px;
-        right: 0;
-        left: 0;
-        margin: auto;
+        left: 10%;
+        right: 10%;
+        top: 10%;
+        bottom: 10%;
 
         .image{
             display: flex;
@@ -53,11 +50,17 @@
 
         
         .title{
-
+            .heroes{
+                .avatar{
+                    width:100px;
+                    border: 1px solid white;
+                }
+                .skills{
+                    width:30px;
+                    border: 1px solid white;
+                }
+            }
         }
     }
-
-    
-
 }
 

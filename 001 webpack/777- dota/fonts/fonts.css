@@ -1,13 +1,13 @@
 @font-face {
 	font-family: 'Raleway';
-	src: url('Raleway.ttf');
-	src: url('Raleway.eot');
-	src: url('Raleway.woff2') format('woff2'),
-	url('Raleway.woff') format('woff'),
-	url('Raleway.otf') format("opentype"),
-	url('Raleway.ttf') format('truetype'),
-	url('Raleway.svg#Raleway') format('svg'),
-	url('Raleway.eot?#iefix') format('embedded-opentype');
+	src: url('Raleway-Regular.ttf');
+	src: url('Raleway-Regular.eot');
+	src: url('Raleway-Regular.woff2') format('woff2'),
+	url('Raleway-Regular.woff') format('woff'),
+	url('Raleway-Regular.otf') format("opentype"),
+	url('Raleway-Regular.ttf') format('truetype'),
+	url('Raleway-Regular.svg#Raleway-Regular') format('svg'),
+	url('Raleway-Regular.eot?#iefix') format('embedded-opentype');
 	font-style: normal;
 }
 

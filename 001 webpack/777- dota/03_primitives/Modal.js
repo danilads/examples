@@ -14,19 +14,29 @@ class Modal extends React.PureComponent {
     }
 	_heroes=()=>{
         let {data:{data:{name,codeName,bio}},abilities,data} = this.props
-        return <div>
-            <div><img src={"./04_images/heroes/"+data.name+".png"}/></div>
-            <div>{abilities.map((it,key)=>{
-                return <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+it.skill+".png"} key={key}/>
-            })}</div>
+        let arrS = []; //simple skills
+        let arrU = []; //ultimate skills
+        let arrA = []; //aditional skills
+        for(let i=0;i<abilities.length;i++){
+            if(abilities[i].pos[0]==='s'){
+                arrS[Number(abilities[i].pos[1])] = <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+abilities[i].skill+".png"} key={abilities[i].key}/>
+            }
+            else if(abilities[i].pos[0]==='u'){
+                arrU[Number(abilities[i].pos[1])] = <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+abilities[i].skill+".png"} key={abilities[i].key}/>
+
+            }
+            else if(abilities[i].pos[0]==='a'){
+                arrA[Number(abilities[i].pos[1])] = <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+abilities[i].skill+".png"} key={abilities[i].key}/>
+            }
+        }
+        return <div className="heroes">
+            <div><img className="avatar" src={"./04_images/heroes/"+data.name+".png"}/></div>
+            <div>{arrS}<span>{" "}</span>{arrU}</div>
+            <div>{arrA}</div>
         </div>
     }
     _items=()=>{
         let {data:{data:{dname,img}},abilities,data} = this.props
-       
-        // console.log('--',dname);
-        // console.log('--',data.data);
-
         return <div>
            <div>{dname}</div>
            <div><img src={"./04_images/items/"+img}/></div>
