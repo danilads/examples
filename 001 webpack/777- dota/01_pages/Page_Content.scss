@@ -1,8 +1,14 @@
 @import "../scss/_variables"; //переменные
 .Page_Content{
 	.img{
-		display: flex;
-		justify-content: center;
+		margin: 20px;
+		padding: 90px;
+		>img{
+			width: 100%;
+			max-width: 700px;
+			margin: 0 auto;
+			display: block;
+		}
 	}
 
 	.out > .NewsFrame > div{

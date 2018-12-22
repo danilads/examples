@@ -3,11 +3,10 @@
     cursor: pointer;
   
     .dis-pushed{
-        color: rgb(201, 146, 146)!important;
+        color: #777!important;
         transition:all 500ms ease;
     }
     .selected{
-        text-decoration: underline;
         transition:all 500ms ease;
     }
     .diselected{
@@ -17,6 +16,8 @@
     .disabled{
         color: #444!important;
         transition:all 500ms ease;
+        opacity: 0.6;
+        cursor: not-allowed;
     }
    
 }

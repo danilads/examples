@@ -40,8 +40,12 @@ class Modal extends React.PureComponent {
 		// console.log('--data',this.props.data);
 		return (
 			<div className="ModalHoc" onClick={this.props.cbClose}>
-                <div onClick={this.modalPrevent}>
-              
+                <div className="content" onClick={this.modalPrevent}>
+                    <div className="image">
+                        <div className="glass"></div>
+                        <div className="cont"><img src="./04_images/logoItem.gif"/></div>
+                        <div className="cont"><div>Heroes</div></div>
+                    </div>
                     <button onClick={this.props.cbClose}>close</button>
                     {this.props.data.type==='N'&&this._news()}
                     {this.props.data.type==='H'&&this._heroes()}

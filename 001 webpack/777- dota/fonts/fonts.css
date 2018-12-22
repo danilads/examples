@@ -1,15 +1,31 @@
 @font-face {
 	font-family: 'Raleway';
-	src: url('Raleway-Regular.ttf');
+	src: url('Raleway.ttf');
+	src: url('Raleway.eot');
+	src: url('Raleway.woff2') format('woff2'),
+	url('Raleway.woff') format('woff'),
+	url('Raleway.otf') format("opentype"),
+	url('Raleway.ttf') format('truetype'),
+	url('Raleway.svg#Raleway') format('svg'),
+	url('Raleway.eot?#iefix') format('embedded-opentype');
 	font-style: normal;
 }
 
 
 @font-face {
-	font-family: 'Nosifer';
+	font-family: 'Nosifer-Regular';
 	src: url('Nosifer-Regular.ttf');
+	src: url('Nosifer-Regular.eot');
+	src: url('Nosifer-Regular.woff2') format('woff2'),
+	url('Nosifer-Regular.woff') format('woff'),
+	url('Nosifer-Regular.otf') format("opentype"),
+	url('Nosifer-Regular.ttf') format('truetype'),
+	url('Nosifer-Regular.svg#Nosifer-Regular') format('svg'),
+	url('Nosifer-Regular.eot?#iefix') format('embedded-opentype');
 	font-style: normal;
 }
+
+
 /*
 @font-face {
 	font-family: 'Open Sans';

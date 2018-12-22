@@ -25,7 +25,7 @@ class ButtonLevel2 extends React.PureComponent {
 		let {addClass, title, funcCB, isPushed} = this.props;
 		return (
 			<div className={(addClass ? addClass : '') + ' ButtonLevel2'}>
-				<input className={isPushed ? 'selected':''} type='button' value={title} onClick={this.click}/>
+				<div className={isPushed ? 'btnLevel2-selected':'btnLevel2-diselected'} onClick={this.click}>{title}</div>
 			</div>
 			
 		);
