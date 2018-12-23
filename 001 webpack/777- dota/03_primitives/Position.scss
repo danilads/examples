@@ -1,5 +1,6 @@
 @import "../scss/_variables"; //переменные
 .Position{
+	cursor: pointer;
 	overflow: hidden;
 	position: relative;
 	&::before{

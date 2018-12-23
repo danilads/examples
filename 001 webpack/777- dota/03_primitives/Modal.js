@@ -1,7 +1,8 @@
 import React from 'react';
 
 import './Modal.scss';
-
+SvgCancel
+import SvgCancel from '../05_svg/SvgCancel';
 
 class Modal extends React.PureComponent {
     _news=()=>{
@@ -55,8 +56,14 @@ class Modal extends React.PureComponent {
                         <div className="glass"></div>
                         <div className="cont"><img src="./04_images/logoItem.gif"/></div>
                         <div className="cont"><div>Heroes</div></div>
+                        <div className="close">
+                            <SvgCancel className="cross" onClick={this.props.cbClose}/>
+                            <div>close</div>
+                        </div>
+                        
+
                     </div>
-                    <button onClick={this.props.cbClose}>close</button>
+                   
                     {this.props.data.type==='N'&&this._news()}
                     {this.props.data.type==='H'&&this._heroes()}
                     {this.props.data.type==='I'&&this._items()}
