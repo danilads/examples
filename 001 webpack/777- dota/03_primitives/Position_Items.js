@@ -15,9 +15,11 @@ class Position_Items extends React.PureComponent {
 		let {data} = this.props;
 		//console.log('render heroes');
 		return (
-			<div className="Position Items" onClick={this.modal}>
-				<div>{data.dname}</div>
-				<div><img src={"./04_images/items/"+data.img.slice(0, -2)}/></div>
+			<div className="Position" onClick={this.modal}>
+				<div className="Items">
+					<div>{data.dname}</div>
+					<div><img src={"./04_images/items/"+data.img.slice(0, -2)}/></div>
+				</div>
 			</div>		
 		);
 

@@ -20,20 +20,31 @@ class Modal extends React.PureComponent {
         let arrA = []; //aditional skills
         for(let i=0;i<abilities.length;i++){
             if(abilities[i].pos[0]==='s'){
-                arrS[Number(abilities[i].pos[1])] = <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+abilities[i].skill+".png"} key={abilities[i].key}/>
+                arrS[Number(abilities[i].pos[1])] = <div className={"skill"} key={abilities[i].key}><img src={"./04_images/abilities/"+abilities[i].skill+".png"}/><span>{abilities[i].dname}</span></div>
             }
             else if(abilities[i].pos[0]==='u'){
-                arrU[Number(abilities[i].pos[1])] = <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+abilities[i].skill+".png"} key={abilities[i].key}/>
+                arrU[Number(abilities[i].pos[1])] = <div className={"skill"} key={abilities[i].key}><img src={"./04_images/abilities/"+abilities[i].skill+".png"}/><span>{abilities[i].dname}</span></div>
 
             }
             else if(abilities[i].pos[0]==='a'){
-                arrA[Number(abilities[i].pos[1])] = <img style={{width:'30px',border:'1px solid black'}} src={"./04_images/abilities/"+abilities[i].skill+".png"} key={abilities[i].key}/>
+                arrA[Number(abilities[i].pos[1])] = <div className={"skill"} key={abilities[i].key}><img src={"./04_images/abilities/"+abilities[i].skill+".png"}/><span>{abilities[i].dname}</span></div>
             }
         }
+
         return <div className="heroes">
-            <div><img className="avatar" src={"./04_images/heroes/"+data.name+".png"}/></div>
-            <div>{arrS}<span>{" "}</span>{arrU}</div>
-            <div>{arrA}</div>
+            <div className="topCont">
+                <img className="avatar" src={"./04_images/heroes/"+data.name+".png"}/>
+                <div className="text">
+                    <div>{name}</div>
+                    <div className="bio" dangerouslySetInnerHTML={{__html: bio}}/>
+                </div>
+            </div>
+            <div className="skills">
+                {arrS}
+                {arrU}
+                {arrA}
+            </div>
+            
         </div>
     }
     _items=()=>{
@@ -60,14 +71,14 @@ class Modal extends React.PureComponent {
                             <SvgCancel className="cross" onClick={this.props.cbClose}/>
                             <div>close</div>
                         </div>
-                        
-
                     </div>
-                   
-                    {this.props.data.type==='N'&&this._news()}
-                    {this.props.data.type==='H'&&this._heroes()}
-                    {this.props.data.type==='I'&&this._items()}
+                    <div className="title">
+                        {this.props.data.type==='N'&&this._news()}
+                        {this.props.data.type==='H'&&this._heroes()}
+                        {this.props.data.type==='I'&&this._items()}
+                    </div>
                 </div>
+                
                     
             </div>
 		);

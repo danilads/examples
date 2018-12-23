@@ -66,13 +66,31 @@
         
         .title{
             .heroes{
-                .avatar{
-                    width:100px;
-                    border: 1px solid white;
+                border: 1px dashed white;
+                .topCont{
+                    &:after{
+                        display: block;
+                        clear: both;
+                        content: "";
+                    }
+                    .avatar{
+                        float: left;
+                        height: 100%;
+                        border: 1px solid white;
+                    }
+                    .text{
+                        color: white;
+                       
+                    }
                 }
+                
                 .skills{
-                    width:30px;
-                    border: 1px solid white;
+                    .skill{
+                        color: white;
+                        img{
+                            width:30px;
+                        }
+                    }
                 }
             }
         }

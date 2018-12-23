@@ -21,5 +21,33 @@
 		height: 1px;
 		background-color: red;
 	}
+	.Heroes{
+		font-size: 12px;
+		height: 56px;
+		overflow: hidden;
+		&:after{
+			display: block;
+			clear: both;
+			content: "";
+		}
+		.avatar{
+			float: left;
+			height: 56px;
+		}
+		.title{
+	
+		}
+		.bio{
+			overflow: hidden;
+			height: 1em;
+			line-height: 1;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.skills{
+			
+		}
+	}
 }
+
 

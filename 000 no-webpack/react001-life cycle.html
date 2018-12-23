@@ -80,13 +80,20 @@
 		//После вставки в DOM
 		componentDidMount() { 
 			//здесь вешаем листенеры
+			document.addEventListener("keydown", this.pressFunction, false);
+
 			this._ismounted = true;
 		}
+	
 		componentWillUnmount(){
 			//здесь убираем листенеры
+			document.removeEventListener("keydown", this.pressFunction, false);
+
 			this._ismounted = false;
+			
 			//чистим таймаут
 			clearTimeout(this.timer);
+			
 		}
 		
 		//timer
