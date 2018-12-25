@@ -58,7 +58,7 @@ class Modal extends React.PureComponent {
         e.stopPropagation();
     }
   	render() {
-		// console.log('--abilities',this.props.abilities);
+		console.log('--abilities',this.props.abilities);
 		// console.log('--data',this.props.data);
 		return (
 			<div className="ModalHoc" onClick={this.props.cbClose}>

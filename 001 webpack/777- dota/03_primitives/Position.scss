@@ -10,7 +10,7 @@
 		display: block;
 		width: 100%;
 		height: 1px;
-		background-color: red;
+		background-color: white;
 	}
 	&::after{
 		position: absolute;
@@ -19,11 +19,11 @@
 		display: block;
 		width: 100%;
 		height: 1px;
-		background-color: red;
+		background-color: white;
 	}
 	.Heroes{
 		font-size: 12px;
-		height: 56px;
+		height: 60px;
 		overflow: hidden;
 		&:after{
 			display: block;
@@ -32,7 +32,8 @@
 		}
 		.avatar{
 			float: left;
-			height: 56px;
+			height: 61px;
+			border: 1px solid white;
 		}
 		.title{
 	
@@ -45,7 +46,35 @@
 			text-overflow: ellipsis;
 		}
 		.skills{
-			
+			position: relative;
+			span{
+				&:hover .tooltip{
+					opacity: 1;
+				}
+			}
+			img{
+				width: 30px;
+				border: 1px solid white;
+			}
+			.tooltip{
+				height: 27px;
+				/* overflow: hidden; */
+				font-size: 0.6em;
+				height: 62px;
+				width: 107px;
+				background-color: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				text-align: left;
+				left: -2px;
+				top: -30px;
+				padding: 5px;
+				/* Position the tooltip text */
+				position: absolute;
+			   
+				/* Fade in tooltip */
+				opacity: 0;
+				transition: all 1000ms ease;
+			}
 		}
 	}
 }
