@@ -92,7 +92,7 @@ class Block_Filter extends React.PureComponent {
 		this.setState({status:status[0]+status[1]+'-out',e3status:'out'})
 		
 		this.timer3 = setTimeout(() => {
-			this.setState({status:status[0]+status[1]+'-in',e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3},()=>{console.log('amin DELTE')})
+			this.setState({status:status[0]+status[1]+'-in',e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3})
 		},1000);
 		this.timer2 = setTimeout(() => {
 			if(this.timer2){

@@ -10,18 +10,26 @@ class Position_Heroes extends React.PureComponent {
 	modal=()=>{
 		this.props.modalOpen({type:'H',name:this.props.data.codeName,data:this.props.data});
 	}
-
+	_renderDescr=(e)=>{
+	
+		return "Hero type: "+e.atk_l+" / Roles: "+e.roles.map(it=>{
+			return it+" "
+		});
+	}
   	render() {
-		let {data,ab} = this.props;
-
+		let {data} = this.props;
+		console.log('--data',data);
 		return (
 			<React.Fragment>
 				<div className="Position" onClick={this.modal}>
 					<div className="Heroes">
-						<img className="avatar" src={"./04_images/heroes/"+data.codeName+".png"}/>
+						<div className={'imgWrap'}>
+							<img className="avatar" src={"./04_images/heroes/"+data.codeName+".png"}/>
+							<div className="tooltip"><div>{data.bio}</div></div>
+						</div>
 						<div className="title">{data.name}</div>
-						{/* <div className="role" dangerouslySetInnerHTML={{__html: data.bio}}/> */}
-						{/* <div className="type" dangerouslySetInnerHTML={{__html: data.bio}}/> */}
+						<div className="atk">{this._renderDescr(data)}</div>
+
 					</div>
 				</div>
 			</React.Fragment>	

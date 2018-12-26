@@ -22,55 +22,76 @@
 		background-color: white;
 	}
 	.Heroes{
+		cursor: pointer;
 		font-size: 12px;
 		height: 60px;
 		overflow: hidden;
+		padding: 5px 10px;
+		transition: all 1000ms ease;
+		&:hover{
+			background-color: rgb(30, 30, 30);
+		}
 		&:after{
 			display: block;
 			clear: both;
 			content: "";
 		}
-		.avatar{
-			float: left;
-			height: 61px;
-			border: 1px solid white;
-		}
-		.title{
-	
-		}
-		.bio{
-			overflow: hidden;
-		}
-		.skills{
+		.imgWrap{
 			position: relative;
-			span{
-				&:hover .tooltip{
-					opacity: 1;
-				}
+			&:hover .tooltip{
+				opacity: 1;
 			}
-			img{
-				width: 30px;
-				border: 1px solid white;
+			.avatar{
+				float: left;
+				height: 51px;
+				border-radius: 12px;
 			}
 			.tooltip{
 				height: 27px;
-				/* overflow: hidden; */
 				font-size: 0.6em;
-				height: 62px;
-				width: 107px;
-				background-color: rgba(0, 0, 0, 0.5);
+				height: 8px;
+				width: 100%;
+				background-color: rgb(61, 61, 61);
 				color: #fff;
 				text-align: left;
 				left: -2px;
-				top: -30px;
-				padding: 5px;
-				/* Position the tooltip text */
+				top: -1px;
 				position: absolute;
-			   
-				/* Fade in tooltip */
+				// Fade in tooltip 
 				opacity: 0;
 				transition: all 1000ms ease;
+				//elepsis
+				div{
+					width: 100%;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+				//arrow
+				&:after {
+					content: "";
+					position: absolute;
+					top: 100%;
+					left: 15px;
+					margin-left: -5px;
+					border-width: 5px;
+					border-style: solid;
+					border-color: rgb(61, 61, 61) transparent transparent transparent;
+				  }
 			}
+		}
+		
+		.title{
+			font-family: 'Nosifer-Regular';
+			padding-left: 107px;
+			padding-top: 9px;
+			padding-bottom: 2px;
+		}
+		.atk{
+			padding-left: 9px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 		}
 	}
 }
