@@ -2,7 +2,8 @@
 00a audacity plugin mp3 - https://lame.buanzo.org/#lameosxdl
 00b VOX : mp3 & Flac player - app store
 00c iZIp - app store
-
+00e OpenEmu - ps1 psp nes games
+00f transmission - bit torrent
 
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
