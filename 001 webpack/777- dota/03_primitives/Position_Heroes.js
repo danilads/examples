@@ -23,12 +23,10 @@ class Position_Heroes extends React.PureComponent {
 			<React.Fragment>
 				<div className="Position" onClick={this.modal}>
 					<div className="Heroes">
-						<div className={'imgWrap'}>
-							<img className="avatar" src={"./04_images/heroes/"+data.codeName+".png"}/>
-							<div className="tooltip"><div>{data.bio}</div></div>
-						</div>
+						<img className="avatar" src={"./04_images/heroes/"+data.codeName+".png"}/>
 						<div className="title">{data.name}</div>
 						<div className="atk">{this._renderDescr(data)}</div>
+						<div className="tooltip"><div>{data.bio}</div></div>
 
 					</div>
 				</div>
