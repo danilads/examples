@@ -60,18 +60,12 @@ export default (state = initialState, action) => {
 					
 				}
 			}
-			let obj = {};
-			//optimze data
-			for(let i=0;i<result.length;i++){
-				console.log(result[i]);
-			}
 			
 			return {
 				...state,
 				loading: false,
 				isLoaded: true,
 				data: result,
-				optimizedData: obj,
 			}
 		}
 		default: return state;

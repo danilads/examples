@@ -49,7 +49,7 @@ class Block_Filter extends React.PureComponent {
 	//timer
 	timer = null;
 	timer2 = null;
-
+	timer3 = null;
 
 	
 	
@@ -79,7 +79,7 @@ class Block_Filter extends React.PureComponent {
 
 
 	engine3=()=>{
-		let {status} = this.state;
+		let {status,curBtn2} = this.state;
 		//если кнопка та же
 		if(this.state.curBtn3===this.state.prevBut3){
 			return;
@@ -90,9 +90,9 @@ class Block_Filter extends React.PureComponent {
 
 		this.isEngine3Run=true;
 		this.setState({status:status[0]+status[1]+'-out',e3status:'out'})
-	
-		this.timer2 = setTimeout(() => {
-			this.setState({status:status[0]+status[1]+'-in',e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3})
+		
+		this.timer3 = setTimeout(() => {
+			this.setState({status:status[0]+status[1]+'-in',e3status:'in',sort:this.state.curBtn3,prevBut3:this.state.curBtn3},()=>{console.log('amin DELTE')})
 		},1000);
 		this.timer2 = setTimeout(() => {
 			if(this.timer2){
@@ -110,14 +110,18 @@ class Block_Filter extends React.PureComponent {
 		if(curBtn2===status[1]){
 			return;
 		}
-		//обнуляем engine3
+		// обнуляем engine3
 		this.isEngine3Run=false;
-		//обнуляем анимацию кнопок 3 уровня
+		// обнуляем анимацию кнопок 3 уровня
+		clearTimeout(this.timer2);
 		this.timer2 = null;
-	
-		//если происходит цикл смены анимации
-		if(this.isEngineRun){return;}
+		clearTimeout(this.timer3);
+		this.timer3 = null;
 		
+	
+		// если происходит цикл смены анимации
+		if(this.isEngineRun){return;}
+
 		//s-in s-out s-on s-off
 		//cI-in cI-out cI-on cI-off
 		
@@ -138,6 +142,7 @@ class Block_Filter extends React.PureComponent {
 		}
 		// 2 кейс - если текущая позиция загружена, а нажатая еще не была
 		else if((curBtn2==='N'&&!LoadedN)||(curBtn2==='H'&&!LoadedH)||(curBtn2==='I'&&!LoadedI)){
+			this.engine3();
 			//console.log('2  кейс');
 			this.isEngineRun=true;
 			this.setState({status:status[0]+status[1]+'-out'})
@@ -149,6 +154,7 @@ class Block_Filter extends React.PureComponent {
 			},2000);
 		}
 		else{
+			this.engine3();
 			this.isEngineRun=true;
 			// 3.1 кейс - если идет загрузка и нужна переключить на готовую
 			if(status[0]==='s'){
@@ -487,6 +493,7 @@ class Block_Filter extends React.PureComponent {
 	componentWillUnmount(){
 		clearTimeout(this.timer);
 		clearTimeout(this.timer2);
+		clearTimeout(this.timer3);
 		this._ismounted = false;
 	}
 	
