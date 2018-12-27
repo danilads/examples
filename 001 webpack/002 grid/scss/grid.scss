@@ -1,32 +1,4 @@
 @import "_variables";
-
-
-// Grid containers
-//
-// Define the maximum width of `.container` for different screen sizes.
-$container-max-widths: (
-        sm: 80%,	
-        md: 864px, 	//824+40
-        lg: 1152px, //1104+48
-        xl: 1152px  //1104+48
-) !default;
-
-
-//Количество колонок
-$grid-columns: 12 !default;
-
-
-//Gutters
-$grid-gutter-width: (
-		xxs: 18px,
-        xs: 40px,
-        sm: 32px,
-        md: 40px,
-        lg: 48px,
-        xl: 48px
-) !default;
-
-
 //mixins
 @mixin make-grid-columns($columns: $grid-columns, $breakpoints: $grid-breakpoints) {
 	// Common properties for all breakpoints

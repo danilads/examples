@@ -65,11 +65,11 @@ class Modal extends React.PureComponent {
                 <div className="content" onClick={this.modalPrevent}>
                     <div className="image">
                         <div className="glass"></div>
-                        <div className="cont"><img src="./04_images/logoItem.gif"/></div>
-                        <div className="cont"><div>Heroes</div></div>
+                        <div className="contImg"><img src="./04_images/logoItem.gif"/></div>
+                        <div className="contText">Heroes</div>
                         <div className="close">
                             <SvgCancel className="cross" onClick={this.props.cbClose}/>
-                            <div>close</div>
+                            <div className="text">close</div>
                         </div>
                     </div>
                     <div className="title">
