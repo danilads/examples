@@ -1,5 +1,32 @@
 @import "../scss/_variables"; //переменные
 .Page_About{
-
-	
+    background-color: black;
+    height: 100%;
+    .image{
+        display: flex;
+        justify-content: center;
+        img{
+            margin-top: -64px;
+            width: 100%;
+        }
+    }
+    .title{
+        font-family: 'Nosifer-Regular';
+        position: relative;
+        div{
+            font-size: 5em;
+            position:absolute;
+            top: -54px;
+            left:50%; 
+            transform:translate(-50%, -50%);
+            @include respond-down(sm){
+                font-size: 4em;
+                top: -43px;
+            }
+            @include respond-down(xs){
+                font-size: 3em;
+                top:-31px;
+            }
+        }
+    }
 }

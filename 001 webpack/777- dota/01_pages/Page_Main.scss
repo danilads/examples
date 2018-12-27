@@ -25,6 +25,12 @@
         >div{
            
             margin: 100px 20px 20px;
-        }
+		}
+		@include respond-down(sm){
+			transform: scale(0.7);
+		}
+		@include respond-down(xs){
+			transform: scale(0.5);
+		}
     }
 }

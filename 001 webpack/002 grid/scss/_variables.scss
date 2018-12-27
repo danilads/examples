@@ -19,7 +19,7 @@ $nj: 1px dashed red;
 // xl big-desktop-up 1600px
 
 //GRID
-// Grid containers
+// Брэйк поинты
 $grid-breakpoints: (
         xxs: 0,
         xs: 480px,
@@ -28,13 +28,18 @@ $grid-breakpoints: (
         lg: 1280px,
         xl: 1600px
 ) !default;
-// Define the maximum width of `.container` for different screen sizes.
-// на последнем breakpoint'е контейнер занимает 100%
+
+// на последнем breakpoint'е контейнер занимает 100% 
+// можно указывать в %
+// длинна учитывется с гаттером ( 400 = 10px 380px 10px)
+// также xs срабатывает на sm брейпоинте
+// xl - это все что выше xl брейпоинта
 $container-max-widths: (
-        sm: 400px,
-        md: 864px, 	//824+40
-        lg: 1152px, //1104+48
-        xl: 1152px  //1104+48
+		xs: 70%,
+        sm: 600px,
+        md: 800px,
+        lg: 1000px,
+        xl: 1200px
 ) !default;
 
 
@@ -42,7 +47,9 @@ $container-max-widths: (
 $grid-columns: 12 !default;
 
 //Gutters
-//гатер xxs работает на брейкпоинте xs
+// сумма левого и правого гатерсов
+// гатер xxs работает на брейкпоинте xs
+// xl - это все что выше xl брейпоинта
 $grid-gutter-width: (
 		xxs: 18px,
         xs: 30px,

@@ -15,14 +15,14 @@ $nj: 1px dashed red;
 
 
 
-// xs small-mobile 480px
+// xs small-mobile 480px 
 // sm tablet-portrait and mobile 768px
 // md tablet-landscape-up 1024px
 // lg desktop-up 1280px
 // xl big-desktop-up 1600px
 
 //GRID
-// Grid containers
+// Брэйк поинты
 $grid-breakpoints: (
         xxs: 0,
         xs: 480px,
@@ -31,13 +31,18 @@ $grid-breakpoints: (
         lg: 1280px,
         xl: 1600px
 ) !default;
-// Define the maximum width of `.container` for different screen sizes.
+
+// на последнем breakpoint'е контейнер занимает 100% 
+// можно указывать в %
+// длинна учитывется с гаттером ( 400 = 10px 380px 10px)
+// также xs срабатывает на sm брейпоинте
+// xl - это все что выше xl брейпоинта
 $container-max-widths: (
-		xs: 400px,
-        sm: 80%,	
-        md: 864px, 	//824+40
-        lg: 1152px, //1104+48
-        xl: 1152px  //1104+48
+		xs: 90%,
+        sm: 85%,
+        md: 80%,
+        lg: 75%,
+        xl: 70%
 ) !default;
 
 
@@ -45,14 +50,18 @@ $container-max-widths: (
 $grid-columns: 12 !default;
 
 //Gutters
+// сумма левого и правого гатерсов
+// гатер xxs работает на брейкпоинте xs
+// xl - это все что выше xl брейпоинта
 $grid-gutter-width: (
-		xxs: 18px,
-        xs: 40px,
-        sm: 32px,
-        md: 40px,
-        lg: 48px,
+		xxs: 16px,
+        xs: 26px,
+        sm: 28px,
+        md: 34px,
+        lg: 40px,
         xl: 48px
 ) !default;
+
 
 //mixins
 @mixin respond-up($breakpoint, $breakpoints: $grid-breakpoints) {

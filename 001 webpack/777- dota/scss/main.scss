@@ -6,14 +6,22 @@
 @import "animations"; //animations
 
 
-
+html{
+	height: 100%;
+	min-width: 320px;
+}
 
 body {
 	font-family: 'Raleway';
 	line-height: 1.25;
 	background-color: #080808;
 	color: white;
+	height: 100%;
 }
+#container{
+	height: 100%;
+}
+
 hr{
 	border: none;
     background-color: white;
