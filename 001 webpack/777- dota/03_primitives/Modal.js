@@ -66,7 +66,11 @@ class Modal extends React.PureComponent {
                     <div className="image">
                         <div className="glass"></div>
                         <div className="contImg"><img src="./04_images/logoItem.gif"/></div>
-                        <div className="contText">Heroes</div>
+                        <div className="contText">
+                            {this.props.data.type==='N'&&"News"}
+                            {this.props.data.type==='H'&&"Heroes"}
+                            {this.props.data.type==='I'&&"Items"}
+                        </div>
                         <div className="close">
                             <SvgCancel className="cross" onClick={this.props.cbClose}/>
                             <div className="text">close</div>
