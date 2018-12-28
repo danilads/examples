@@ -11,9 +11,14 @@
         }
     }
     .title{
-        font-family: 'Nosifer-Regular';
         position: relative;
         div{
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.5s;
+            animation: neon 1.5s ease-in-out infinite alternate;
             font-size: 5em;
             position:absolute;
             top: -54px;

@@ -4,8 +4,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 	//устанавливается в packaje.json (нужен cross-env)
-  //mode: process.env.NODE_ENV,
-  mode: 'development',
+  mode: process.env.NODE_ENV,
+  //mode: 'development',
   //mode: 'production',
   optimization: {
     minimizer: [

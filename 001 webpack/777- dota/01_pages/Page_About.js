@@ -35,6 +35,11 @@ class Page_About extends React.PureComponent {
 									return <li key={key}>{it}</li>
 								})}
 							</ul>
+							'Вся анимация написана без использования внешних библиотек',
+							'Используется кросс-доменный запрос и данные храняться в redux',
+							'Реализован адаптив',
+							'Кроссбраузерность проверена на win / mac / andriod / ios'
+
 							Динамичность
 								-фильтр
 								-модальное окно
@@ -51,7 +56,7 @@ class Page_About extends React.PureComponent {
 							 Сборка 
 								-dev
 								-prod
-								minify
+								web packminify
 							Трудности
 								плавный движок анимации
 						</div>
