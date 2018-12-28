@@ -4,17 +4,12 @@
 	.BlockNav{
         display: flex;
 		justify-content: space-between;
-		
-		@include respond-down(sm){
-			.ButtonLevel2{
-				div{
+		.ButtonLevel2{
+			div{
+				@include respond-down(sm){
 					width: 120px;
 				}
-			}
-		}
-		@include respond-down(xs){
-			.ButtonLevel2{
-				div{
+				@include respond-down(xs){
 					width: 100px;
 				}
 			}
@@ -28,6 +23,16 @@
     .BlockButtons{
         display: flex;
 		justify-content: space-between;
+		.ButtonLevel3{
+			div{
+				@include respond-down(sm){
+					font-size: 0.9em;
+				}
+				@include respond-down(xs){
+					font-size: 0.7em;
+				}
+			}
+		}
     }
 	
     .BlockContent{

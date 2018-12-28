@@ -22,7 +22,7 @@ class Position_Heroes extends React.PureComponent {
 		return (
 			<React.Fragment>
 				<div className="Position" onClick={this.modal}>
-					<div className="Heroes">
+					<div className="HeroesItems">
 						<img className="avatar" src={"./04_images/heroes/"+data.codeName+".png"}/>
 						<div className="title">{data.name}</div>
 						<div className="atk">{this._renderDescr(data)}</div>

@@ -14,10 +14,12 @@ class Position_News extends React.PureComponent {
   	render() {
 		let {data} = this.props;
 		//console.log('render news');
+		console.log(data);
 		return (
 			<div className="Position" onClick={this.modal}>
 				<div className="News">
-					<div>{data.title}</div>
+					<div className="title">{data.title}</div>
+					<div className="desc">{data.feedlabel}</div>
 				</div>
 			</div>		
 		);

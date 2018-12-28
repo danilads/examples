@@ -23,7 +23,7 @@
 		height: 1px;
 		background-color: white;
 	}
-	.Items{
+	.News{
 		cursor: pointer;
 		font-size: 12px;
 		height: 60px;
@@ -33,16 +33,28 @@
 		&:hover{
 			transform: scale(1.02, 1.02);
 		}
-		&:hover .tooltip{
-			opacity: 1;
-		}
 		&:after{
 			display: block;
 			clear: both;
 			content: "";
 		}
+		.title{
+			font-family: 'Nosifer-Regular';
+			padding-left: 10px;
+			padding-top: 9px;
+			padding-bottom: 2px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.desc{
+			padding-left: 9px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
 	}
-	.Heroes{
+	.HeroesItems{
 		cursor: pointer;
 		font-size: 12px;
 		height: 60px;
@@ -82,16 +94,13 @@
 			text-overflow: ellipsis;
 		}
 		.tooltip{
-			position: relative;
 			color: #fff;
 			opacity: 0;
 			transition: all 500ms ease;
 			div{
-				left: 117px;
-				top: 2px;
-				position: absolute;
+				padding-left: 10px;
+				padding-top: 2px;
 				font-size: .7em;
-				width: calc(100% - 117px);
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
