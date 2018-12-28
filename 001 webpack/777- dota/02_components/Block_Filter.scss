@@ -3,7 +3,22 @@
 
 	.BlockNav{
         display: flex;
-        justify-content: space-between;
+		justify-content: space-between;
+		
+		@include respond-down(sm){
+			.ButtonLevel2{
+				div{
+					width: 120px;
+				}
+			}
+		}
+		@include respond-down(xs){
+			.ButtonLevel2{
+				div{
+					width: 100px;
+				}
+			}
+		}
 
 	}
 	.hid{

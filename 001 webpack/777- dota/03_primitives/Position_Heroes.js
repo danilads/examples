@@ -27,7 +27,6 @@ class Position_Heroes extends React.PureComponent {
 						<div className="title">{data.name}</div>
 						<div className="atk">{this._renderDescr(data)}</div>
 						<div className="tooltip"><div>{data.bio}</div></div>
-
 					</div>
 				</div>
 			</React.Fragment>	

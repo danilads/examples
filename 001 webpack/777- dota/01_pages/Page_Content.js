@@ -25,7 +25,7 @@ class Page_Content extends React.PureComponent {
 			
 			<div className="Page_Content container">
 				<div className="row">
-					<div className="col-12 img"><img src="./04_images/Logo.png"/></div>
+					<div className="col-12 img"><img src="./04_images/Logo2.png"/></div>
 					<div className="col-12">
 						<Modal/>
 						
