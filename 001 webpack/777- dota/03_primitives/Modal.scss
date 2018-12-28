@@ -21,7 +21,7 @@
         right: 10%;
         top: 10%;
         bottom: 10%;
-
+        min-width: 256px;
         .image{
             display: flex;
             border-bottom: 1px solid white;
@@ -41,17 +41,18 @@
             }
             .contText{
                 width: 80%;
-                font-family: 'Nosifer';
+                font-family: 'Nosifer-Regular';
                 color: #F0493B;
                 font-weight: 900;
                 font-size: 5em;
                 text-shadow: 0px 3px 3px rgb(255, 136, 117); 
+                
+                @include respond-down(sm){
+					font-size: 3em;
+                }
                 @include respond-down(xs){
 					font-size: 2em;
                 }
-                @include respond-down(sm){
-					font-size: 3em;
-				}
             }
             .close{
                 @include respond-down(md){
@@ -86,7 +87,14 @@
         
         .title{
             .heroes{
-                border: 1px dashed white;
+                .title{
+                    display: block;
+                    font-family: 'Nosifer-Regular';
+                    color: white;
+                    text-decoration: none;
+                    padding-top: 8px;
+                    padding-left: 4px;
+                }
                 .topCont{
                     &:after{
                         display: block;
@@ -94,24 +102,129 @@
                         content: "";
                     }
                     .avatar{
+                        padding-right: 4px;
+                        padding-left: 4px; 
                         float: left;
                         height: 100%;
-                        border: 1px solid white;
+           
                     }
-                    .text{
+                
+                    .bio{
                         color: white;
-                       
+                        font-size: 0.8em;
                     }
+                    
+                    
+                }
+                .skillsTitle{
+                    padding-left: 4px;
+                    color: white;
+                    font-family: 'Nosifer-Regular';
                 }
                 
                 .skills{
+                    
                     .skill{
                         color: white;
+                        padding-bottom: 6px;
+                        border-bottom: 1px solid white;
+                        &:after{
+                            display: block;
+                            clear: both;
+                            content: "";
+                        }
                         img{
-                            width:30px;
+                            padding-right: 4px;
+                            padding-left: 4px; 
+                            width:60px;
+                            float: left;
+                        }
+                        .titl{
+                            margin-top: 4px;
+                            font-weight: 900;
+                            font-size: 0.8em;
+                        }
+                        .typ{
+                            text-decoration: underline;
+                            font-weight: 700;
+                            padding: 4px 0;
+                            font-size: 0.7em;
+                        }
+                        .desc{
+                            font-size: 0.7em;
                         }
                     }
                 }
+            }
+            .news{
+                .title{
+                    display: block;
+                    font-family: 'Nosifer-Regular';
+                    color: white;
+                    text-decoration: none;
+                    padding-top: 8px;
+                    padding-left: 4px;
+                }
+                .text{
+                    font-size: 0.8em;
+                    word-wrap: break-word;
+                    width: 100%;
+                    color: white;
+
+                    a{
+                        color: #888;
+                    }
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+            .items{
+                .title{
+                    display: block;
+                    font-family: 'Nosifer-Regular';
+                    color: white;
+                    text-decoration: none;
+                    padding-top: 8px;
+                    padding-left: 4px;
+                }
+                .cont{
+                    display: flex;
+
+                    .imgWrap{
+                        width: 98px;
+                        border-right: 2px solid white;
+                        img{
+                            padding-right: 4px;
+                            padding-left: 4px; 
+                            float: left;
+                            width: 95px;
+                        }
+                    }
+                    .contWrap{
+                        padding-left: 7px;
+                        .cost{
+                            color: white;
+                            font-size: 0.8em;
+                            padding-bottom: 5px;
+                        }
+                        .attr{
+                            color: white;
+                            font-size: 0.8em;
+                        }
+                    }
+                   
+
+                }
+                .desc{
+                    font-size: 0.8em;
+                    color: white;
+                    h1{
+                        font-size: 1em;
+                    }
+                    
+                }
+                
             }
             
         }

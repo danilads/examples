@@ -14,7 +14,6 @@ class Position_News extends React.PureComponent {
   	render() {
 		let {data} = this.props;
 		//console.log('render news');
-		console.log(data);
 		return (
 			<div className="Position" onClick={this.modal}>
 				<div className="News">
