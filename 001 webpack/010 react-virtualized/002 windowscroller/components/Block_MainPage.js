@@ -1,6 +1,6 @@
 import React,{Fragment} from 'react';
 
-import { List } from 'react-virtualized';
+import { List, WindowScroller } from 'react-virtualized';
 import './Block_MainPage.scss';
 import ReactResizeDetector from 'react-resize-detector';
 
@@ -21,19 +21,30 @@ class Block_MainPage extends React.PureComponent {
 	onResize = (e1,e2) => {
 		this.setState({width:e1, height:e2})
 	};
+
   	render() {
 		  
 		let {width, height} = this.state;
 		return (
 			<div className={"Block_Filter"}>
 				{/* rowHeight в пикселях !должна совпадать с блоком */}
-				<List
-					width={width}
-					height={height}
-					rowCount={this.state.arr.length}
-					rowHeight={22}
-					rowRenderer={this.rowRenderer}
-				/>
+
+				<WindowScroller>
+					{({ height, isScrolling, onChildScroll, scrollTop }) => (
+					<List
+						autoHeight
+						width={width}
+						height={height}
+						isScrolling={isScrolling}
+						onScroll={onChildScroll}
+						rowCount={this.state.arr.length}
+						rowHeight={22}
+						rowRenderer={this.rowRenderer}
+						scrollTop={scrollTop}
+						
+					/>
+					)}
+				</WindowScroller>
 				 <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
 			</div>
 		);
