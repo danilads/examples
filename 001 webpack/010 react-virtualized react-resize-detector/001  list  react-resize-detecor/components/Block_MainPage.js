@@ -22,6 +22,7 @@ class Block_MainPage extends React.PureComponent {
 		this.setState({width:e1, height:e2})
 	};
   	render() {
+		  
 		let {width, height} = this.state;
 		return (
 			<div className={"Block_Filter"}>
