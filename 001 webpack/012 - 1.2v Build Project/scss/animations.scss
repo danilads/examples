@@ -1,0 +1,101 @@
+//special
+@keyframes s-in {
+    0% {
+        opacity: 0; 
+
+    }
+    35% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes s-out {
+    0% {
+        opacity: 1; 
+
+    }
+    35% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+//special 2
+@keyframes s2-in {
+    0% {
+        box-sizing: border-box;
+        margin-left: 100%;
+        opacity: 0; 
+    }
+    100% {
+        box-sizing: border-box;
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+@keyframes s2-out {
+    0% {
+        box-sizing: border-box;
+        opacity: 1; 
+    }
+    100% {
+        box-sizing: border-box;
+        opacity: 0;
+    }
+}
+//opcaity
+@keyframes o-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes o-out {
+    0% {
+        opacity: 1; 
+    }
+    100% {
+        opacity: 0;
+    }
+}
+//animagion
+@keyframes a-in {
+    0% {
+        opacity: 0; 
+        transform: scale(1) translate(0%, 100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translate(0%, 0%);
+    }
+}
+@keyframes a-out {
+    0% {
+        opacity: 1; 
+        transform: scale(1) translate(0%, 0%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1) translate(0%, -100%);
+    }
+}
+
+
+///////////////////
+//buttons animation
+
+@keyframes neon {
+	from {
+		text-shadow: 0 0 5px #fff, 0 0 7px #fff, 0 0 12px #fff, 0 0 20px #FF9900, 0 0 25px #FF9900, 0 0 30px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900;
+	}
+	to {
+	text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px #fff, 0 0 12px #FF9900, 0 0 20px #FF9900, 0 0 25px #FF9900, 0 0 30px #FF9900, 0 0 40px #FF9900;
+	}
+}
