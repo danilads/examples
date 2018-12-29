@@ -2,6 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Page_Main.scss';
 import {HOC_close} from '../hoc/HOC_close';
+import Spiner from '../03_primitives/Spiner';
+//import Page_Main from './01_pages/Page_Main';
+
 import {connect} from "react-redux";
 import {AC_loadHeroes} from "../redux/actions";
 class Page_Main extends React.PureComponent {
@@ -10,8 +13,19 @@ class Page_Main extends React.PureComponent {
 		
 	};
 	_renderSpiner=()=>{
+		let d = this.props.heroes;
 		let result;
-		return result
+
+		if(!d.isLoaded&&!d.loading){
+			result='данные еще не загужались'
+		}
+		if(d.loading){
+			result = <Spiner/>
+		}
+		if(d.isLoaded){
+			result='данные загружены'
+		}
+		return result;
 	};
   	render() {
 		  console.log(this.props.heroes);
@@ -25,7 +39,7 @@ class Page_Main extends React.PureComponent {
 					<div className="btnLevel1" onClick={this.props.AC_loadHeroes}>load redux</div>
 					<div><NavLink className="btnLevel1" to="/about" activeClassName="SActivated">about</NavLink></div>
 				</div>
-				<div>{this._renderSpiner}</div>
+				<div className="cont">{this._renderSpiner()}</div>
 			</div>
 		);
 

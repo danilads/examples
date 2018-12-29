@@ -32,5 +32,9 @@
 		@include respond-down(xs){
 			transform: scale(0.5);
 		}
-    }
+	}
+	.cont{
+		display: flex;
+		justify-content: center;
+	}
 }
