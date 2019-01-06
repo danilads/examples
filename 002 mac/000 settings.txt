@@ -2,4 +2,4 @@ display gamma
 s RGB IEC61966-2.1
 
 right click folders
-system preferences/keyboard/shortcuts
+system preferences/keyboard/shortcuts/Services
