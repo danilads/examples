@@ -1,59 +1,127 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title></title>
-	<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
-	<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-</head>
-<body>
+	<style>
+		.container{
+			position: relative;
+		}
+		#menu{
+			z-index: 99;
+			width: 40%;
+			position: absolute;
+			right: 0;
+			height: 100vh;
+			top: 0;
+    		background: #cef;
+			border: 1px solid black;
+			animation: a-in;
+			transition: all 0.5s;
+		}
+		@keyframes a-in {
+			0% {
+				color: red;
+				opacity: 0;
+				transform: scale(1) translate(0%, 100%);
+			}
+
+			100% {
+				color: green;
+				opacity: 1;
+				transform: scale(1) translate(0%, 0%);
+			}
+		}
+	</style>
+	<body>
 	<div id="container"></div> 
 	<script type="text/babel">
-	/////Clients
-	class Clients extends React.Component {
-		state = {
-			clients:this.props.clients,
-			status:true,
+///VeryUsefullComponent
+	class VeryUsefullComponent extends React.Component {
+		state={
+			text: "hello",
+			bgColor: "white",
+			leftMenu: false
 		}
-		componentWillReceiveProps = (newProps) => {
-			console.log("MobileClient id="+this.props.info.id+" componentWillReceiveProps");
-			//this.setState({info:newProps.info});
-		};
-		render() {
-			let stat=(this.state.status)?"Активен":"Неактивен";
-			return <div className='ClientFrame'>
-				<span className='ClientFIO'>{this.props.fio}</span>
-				<span className='ClientBalance'>{this.props.balance}</span>
-				<span className='ClientStatus'>{stat}</span>
-			</div>;
-		}
-	}
-	
-	/////MobileList
-	class MobileList extends React.Component {
-		state = {
-			clients:this.props.clients,
-		}
-		render() {
+		initialPoint: "";
+		finalPoint: "";
+		
+		  touchStart=(event)=>{
+			event.stopPropagation();
 			
-			//вызовет столько раз, сколько элементов в массиве
-			let clientsFrame=this.state.clients.map( v =>
-				<Clients key={v.id} fio={v.fio} balance={v.balance} />
-			);
+			document.initialPoint=event.changedTouches[0];
+			this.setState({leftMenu:false});
+			
+		  }
+		  touchEnd=(event)=>{
+			event.stopPropagation();
+			document.finalPoint=event.changedTouches[0];
+			var xAbs = Math.abs(document.initialPoint.pageX - document.finalPoint.pageX);
+			var yAbs = Math.abs(document.initialPoint.pageY - document.finalPoint.pageY);
+			if (xAbs > 20 || yAbs > 20) {
+			if (xAbs > yAbs) {
+				if (document.finalPoint.pageX < document.initialPoint.pageX){
+					//   достаем спрва меню
+					// console.log('get percents', document.initialPoint.pageX/(document.documentElement.clientWidth/100));
+					let n = false;
+					if(document.initialPoint.pageX/(document.documentElement.clientWidth/100)>90){
+						n=true;
+					}
+					/*СВАЙП ВЛЕВО*/
+						
+						this.setState({bgColor:this.mRcolor(),text:Math.random(),leftMenu:n})
+						
+					}
+				else{
+						/*СВАЙП ВПРАВО*/
+						this.setState({bgColor:this.mRcolor(),text:Math.random()})
+						
+					}
+				}
+				else {
+					if (document.finalPoint.pageY < document.initialPoint.pageY){
+						/*СВАЙП ВВЕРХ*/
+						this.setState({bgColor:this.mRcolor(),text:Math.random()})
+					
+					}
+					else{
+						/*СВАЙП ВНИЗ*/
+						this.setState({bgColor:this.mRcolor(),text:Math.random()})
+					
+					}
+				}
+			}
+		  }
+		  mRcolor=()=>{
+				return '#'+Math.round(Math.random()*100)+Math.round(Math.random()*100)+Math.round(Math.random()*100);
+			}
+		  componentDidMount(){
+			document.addEventListener("touchstart", this.touchStart, false);
+			document.addEventListener('touchend', this.touchEnd, false);
+		  }
+		  componentWillUnmount(){
+			document.removeEventListener("touchstart", this.touchStart, false);
+			document.removeEventListener('touchend', this.touchEnd, false);
+		  }
+		
+		render() {
+
 			return (
-				<div>
-					{clientsFrame}
+				<div className="container" style={{backgroundColor:this.state.bgColor}}>
+					<div>{this.state.text}</div>
+					<div id='menu'>left menu show</div>
+					{this.state.leftMenu?<div id='menu' style={{animation:'a-in'}}>left menu show</div>:""}
 				</div>
 			);
 		}
 	}
 	////////////////App Js
-	let contJson = [{id:12,fio:'Alex',balance:330},{id:11,fio:'Sam',balance:220}];
-	
-		ReactDOM.render(
-			<MobileList clients={contJson} />
+			ReactDOM.render(
+			<VeryUsefullComponent/>
 			,document.getElementById('container')
 		);
 	</script>
