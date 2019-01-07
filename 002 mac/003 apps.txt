@@ -7,17 +7,19 @@
 
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
-02 Launchpad (mac os include)
-03 Safari (mac os include)
-04 Chrome
-05 Firefox
-06 Skype
-07 Telegram
-08 VS code
-09 Sublime
-10 Webstorm(?)
-11 Piskel
-12 Blender
-13 Fl studio
-14 GIMP
-15 Activity Monitor
+01 OpenEmu
+03 Launchpad (mac os include)
+04 Safari (mac os include)
+05 Chrome
+06 Firefox
+07 Skype
+08 Telegram
+09 VS code
+10 Sublime
+11 Webstorm(?)
+12 Piskel
+13 Blender
+14 Fl studio
+15 GIMP
+16 Activity Monitor
+17 Huawei Suite(?)
