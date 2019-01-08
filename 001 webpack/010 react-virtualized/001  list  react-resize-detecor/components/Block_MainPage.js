@@ -33,6 +33,7 @@ class Block_MainPage extends React.PureComponent {
 					rowCount={this.state.arr.length}
 					rowHeight={22}
 					rowRenderer={this.rowRenderer}
+					//rowRenderer={(e)=>this.rowRenderer(e,additionalProps)}
 				/>
 				 <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
 			</div>
