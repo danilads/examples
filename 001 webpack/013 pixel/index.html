@@ -8,11 +8,21 @@
 	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
 	<style>
-		.container{
-			position: relative;
-		    overflow: hidden;
+		.wrap{
+
 		}
-		
+		.content{
+		    display: inline-flex;
+			border: 1px dashed red;
+		}
+		.row{
+
+		}
+		.pixel{
+			width: 5px;
+			height: 5px;
+			border: 1px solid gray;
+		}
 
 	</style>
 	<body>
@@ -35,17 +45,34 @@
 			],
 		}
 		_renderField=(e)=>{
+			//00 дешифруем массив
+
+
+			//01 разбиваем массив на строки(в зависимости от высоты шрифта)
+			//между ними идет полоса которай фактически не будет в массиве (чисто визуальное разделение)
+			let formedArr = []; //[[],[],[],[],[]]
+			for(let i=1;e.length>=i;i++){
+				if(i/100===){
+					console.log('hello');
+				}
+				//result.push(<div className={'pixel'}></div>);
+			}	
+
+
+
 			let result=[];
 
+
 			for(let i=0;e.length>i;i++){
-				
+				result.push(<div className={'pixel'}></div>);
 			}
+
 			return result;
 		}
 		render() {
 			return (
-				<div className="container">
-					<div>{this._renderField(this.state.arr)}</div>
+				<div className="wrap">
+					<div className="content">{this._renderField(this.state.arr)}</div>
 				</div>
 			);
 		}
