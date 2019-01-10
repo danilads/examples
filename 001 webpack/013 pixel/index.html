@@ -12,11 +12,11 @@
 
 		}
 		.content{
-		    display: inline-flex;
+		   
 			border: 1px dashed red;
 		}
 		.row{
-
+ 			display: inline-flex;
 		}
 		.pixel{
 			width: 5px;
@@ -42,6 +42,56 @@
 				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
 				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
 				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
+				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
 			],
 		}
 		_renderField=(e)=>{
@@ -51,20 +101,24 @@
 			//01 разбиваем массив на строки(в зависимости от высоты шрифта)
 			//между ними идет полоса которай фактически не будет в массиве (чисто визуальное разделение)
 			let formedArr = []; //[[],[],[],[],[]]
+			let arr = [];
 			for(let i=1;e.length>=i;i++){
-				if(i/100===){
-					console.log('hello');
+				arr.push(e[i]);
+				if(i%100===0){
+					formedArr.push(arr);
+					arr=[];
 				}
-				//result.push(<div className={'pixel'}></div>);
 			}	
 
 
-
+			console.log(formedArr);
 			let result=[];
 
 
-			for(let i=0;e.length>i;i++){
-				result.push(<div className={'pixel'}></div>);
+			for(let i=0;formedArr.length>i;i++){
+				result.push(<div className={'row'}>{formedArr[i].map(it =>{
+					return <div className={'pixel'}></div>
+				})}</div>);
 			}
 
 			return result;
