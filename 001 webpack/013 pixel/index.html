@@ -10,32 +10,23 @@
 	<style>
 		.container{
 			position: relative;
+		    overflow: hidden;
 		}
-		#menu{
+		.menu{
 			z-index: 99;
 			width: 40%;
-			position: absolute;
+			position: fixed;
 			right: 0;
 			height: 100vh;
 			top: 0;
     		background: #cef;
 			border: 1px solid black;
-			animation: a-in;
 			transition: all 0.5s;
 		}
-		@keyframes a-in {
-			0% {
-				color: red;
-				opacity: 0;
-				transform: scale(1) translate(0%, 100%);
-			}
-
-			100% {
-				color: green;
-				opacity: 1;
-				transform: scale(1) translate(0%, 0%);
-			}
+		.show{
+			right: -100vw;
 		}
+
 	</style>
 	<body>
 	<div id="container"></div> 
@@ -69,6 +60,7 @@
 					// console.log('get percents', document.initialPoint.pageX/(document.documentElement.clientWidth/100));
 					let n = false;
 					if(document.initialPoint.pageX/(document.documentElement.clientWidth/100)>90){
+						console.log('here');
 						n=true;
 					}
 					/*СВАЙП ВЛЕВО*/
@@ -109,12 +101,11 @@
 		  }
 		
 		render() {
-
+			console.log('--1',this.state.leftMenu);
 			return (
 				<div className="container" style={{backgroundColor:this.state.bgColor}}>
 					<div>{this.state.text}</div>
-					<div id='menu'>left menu show</div>
-					{this.state.leftMenu?<div id='menu' style={{animation:'a-in'}}>left menu show</div>:""}
+					<div className={this.state.leftMenu?"menu":"menu show"}>left menu show</div>
 				</div>
 			);
 		}

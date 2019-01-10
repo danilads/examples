@@ -7,6 +7,27 @@
 	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.container{
+			position: relative;
+		    overflow: hidden;
+		}
+		.menu{
+			z-index: 99;
+			width: 40%;
+			position: fixed;
+			right: 0;
+			height: 100vh;
+			top: 0;
+    		background: #cef;
+			border: 1px solid black;
+			transition: all 0.5s;
+		}
+		.show{
+			right: -100vw;
+		}
+
+	</style>
 	<body>
 	<div id="container"></div> 
 	<script type="text/babel">
@@ -14,7 +35,8 @@
 	class VeryUsefullComponent extends React.Component {
 		state={
 			text: "hello",
-			bgColor: "white"
+			bgColor: "white",
+			leftMenu: false
 		}
 		initialPoint: "";
 		finalPoint: "";
@@ -23,6 +45,7 @@
 			event.stopPropagation();
 			
 			document.initialPoint=event.changedTouches[0];
+			this.setState({leftMenu:false});
 			
 		  }
 		  touchEnd=(event)=>{
@@ -33,8 +56,16 @@
 			if (xAbs > 20 || yAbs > 20) {
 			if (xAbs > yAbs) {
 				if (document.finalPoint.pageX < document.initialPoint.pageX){
+					//   достаем спрва меню
+					// console.log('get percents', document.initialPoint.pageX/(document.documentElement.clientWidth/100));
+					let n = false;
+					if(document.initialPoint.pageX/(document.documentElement.clientWidth/100)>90){
+						console.log('here');
+						n=true;
+					}
 					/*СВАЙП ВЛЕВО*/
-						this.setState({bgColor:this.mRcolor(),text:Math.random()})
+						
+						this.setState({bgColor:this.mRcolor(),text:Math.random(),leftMenu:n})
 						
 					}
 				else{
@@ -72,7 +103,8 @@
 		render() {
 			return (
 				<div className="container" style={{backgroundColor:this.state.bgColor}}>
-					{this.state.text}
+					<div>{this.state.text}</div>
+					<div className={this.state.leftMenu?"menu":"menu show"}>left menu show</div>
 				</div>
 			);
 		}
