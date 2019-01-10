@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class Child1 extends React.Component {
+		state={
+			
+		}
+
+		render() {
+
+			return (<div>
+						<div onClick={this.props.cb}>child 1</div>
+					</div>
+			)
+		}
+	}
+	class Child2 extends React.Component {
+		state={
+			text: "some text",
+		}
+
+		childFunc=()=>{
+			console.log('run childFunc')
+		}
+
+		runFromChild=(e)=>{
+			console.log('run fromChild '+e);
+		}
+
+		//0.01 передаем функцию в cb
+		componentDidMount(){
+			this.props.cbRecord(this.childFunc);
+		}
+		render() {
+
+			return (<div>
+						<div>{"child 2 "+this.state.text}</div>
+					</div>
+			)
+		}
+	}
+	class Parrent extends React.Component {
+		state={
+			
+		}
+		//1.01 объявляем контейнер
+		containerRef = {};
+
+		//0.02 записываем функцию из ребенка
+		record=(fn)=>{
+			this.fn=fn;
+		}
+		
+		recordedFunc=()=>{
+			//0.03 запускаем функцию из ребенка (вариант 1)
+			this.fn();
+
+			//1.02 записываем стейт из родителя
+			this.containerRef.setState({text:'changed'});
+
+			//1.03 запускаем функцию из ребенка (вариант 2)
+			this.containerRef.runFromChild('hello');
+			
+		}
+		
+
+		render() {
+			return (<div>
+						<div><Child1 cb={this.recordedFunc}/></div>
+						<div><Child2 ref = {(el) => this.containerRef = el} cbRecord={this.record}/></div>
+					</div>
+			)
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<Parrent/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
