@@ -1,7 +1,8 @@
 import React,{Fragment} from 'react';
 
 
-import Crypt from 'crypto-js';
+import Crypt from '../core/crypto-js';
+
 import './Block_MainPage.scss';
 
 class Block_MainPage extends React.PureComponent {

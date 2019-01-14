@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "crypto-js": "^3.1.9-1"
+    "react-dom": "^16.6.3"
   }
 }
