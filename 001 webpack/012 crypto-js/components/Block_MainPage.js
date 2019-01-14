@@ -1,8 +1,11 @@
 import React,{Fragment} from 'react';
 
+//import from npm
+//import Crypt from 'crypto-js';
 
-//import Crypt from '../core/crypto-js';
-import Crypt from '../core/aes';
+//import from core
+import Crypt from '../core/crypto-js';
+
 
 import './Block_MainPage.scss';
 
@@ -13,24 +16,29 @@ class Block_MainPage extends React.PureComponent {
 
   	render() {
 		//AES
-		/*** encrypt */  
-		let AESe = Crypt.AES.encrypt("plaintext", "Secret Passphrase");  
-		console.log('AES encrypt',AESe.toString());
-
+		//encrypt
+		let AESe = Crypt.AES.encrypt("text123д", "password");  
+		
+		//hash
 		let hash = AESe.toString();
 		console.log(hash)
 
 
-		/*** decrypt */  
-		console.log('hash decrypt',Crypt.AES.decrypt(hash, "Secret Passphrase"));
+		//decrypt hash
+		let hashD = Crypt.AES.decrypt(hash, "password");
+		let text = hashD.toString(Crypt.enc.Utf8);
+		console.log('hash - ',text);
 
-		/*** decrypt */  
-		let AESd  = Crypt.AES.decrypt(AESe, "Secret Passphrase");  
-		console.log('AES decrypt',AESd);
 		
-		//  get text
+
+		//decrypt object 
+		let AESd  = Crypt.AES.decrypt(AESe, "password");  
 		var originalText = AESd.toString(Crypt.enc.Utf8);
-		console.log('AES text',originalText);
+		console.log('AES - ',originalText);
+
+		//decrypt wrong
+		let wrong = Crypt.AES.decrypt(AESe, "password1"); 
+		console.log('wrong - ',wrong)
 		
 		return (
 			<div className={"Block_Filter"}>
