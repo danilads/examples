@@ -1,0 +1,11 @@
+.Block_Filter{
+    border: 1px dashed red;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    .bord{
+        border: 1px dashed green;
+        box-sizing: border-box;
+        height: 22px;
+    }
+}
