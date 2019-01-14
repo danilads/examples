@@ -1,7 +1,8 @@
 import React,{Fragment} from 'react';
 
 
-import Crypt from '../core/crypto-js';
+//import Crypt from '../core/crypto-js';
+import Crypt from '../core/aes';
 
 import './Block_MainPage.scss';
 
