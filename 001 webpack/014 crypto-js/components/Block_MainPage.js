@@ -14,7 +14,14 @@ class Block_MainPage extends React.PureComponent {
 		//AES
 		/*** encrypt */  
 		let AESe = Crypt.AES.encrypt("plaintext", "Secret Passphrase");  
-		console.log('AES encrypt',AESe);
+		console.log('AES encrypt',AESe.toString());
+
+		let hash = AESe.toString();
+		console.log(hash)
+
+
+		/*** decrypt */  
+		console.log('hash decrypt',Crypt.AES.decrypt(hash, "Secret Passphrase"));
 
 		/*** decrypt */  
 		let AESd  = Crypt.AES.decrypt(AESe, "Secret Passphrase");  
