@@ -17,6 +17,21 @@ class Block_MainPage extends React.PureComponent {
   	render() {
 		//AES
 		//encrypt
+		/*
+			CBC (the default)
+			CFB
+			CTR
+			OFB
+			ECB
+		*/
+		/*
+			Pkcs7 (the default)
+			Iso97971
+			AnsiX923
+			Iso10126
+			ZeroPadding
+			NoPadding
+		*/
 		let AESe = Crypt.AES.encrypt("text123д", "password");  
 		
 		//hash
@@ -37,8 +52,11 @@ class Block_MainPage extends React.PureComponent {
 		console.log('AES - ',originalText);
 
 		//decrypt wrong
-		let wrong = Crypt.AES.decrypt(AESe, "password1"); 
+		let wrong = Crypt.AES.decrypt(AESe, "password1");
+		console.log('right - ',AESd)
 		console.log('wrong - ',wrong)
+		console.log('wrong - ',wrong.toString(Crypt.enc.Utf8))
+		
 		
 		return (
 			<div className={"Block_Filter"}>
