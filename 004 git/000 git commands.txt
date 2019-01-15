@@ -7,24 +7,28 @@
 </head>
 <body>
 
-
+	////////////////
 	//github pages
+	////////////////
 	нужно создать репозиторий с именем имяАкка, доступно будет по адресу {имяАкка}.github.io
 
-
+	////////////////
 	//запушить файл
+	////////////////
 	git add . //добавляем все файлы для комита
 	git status //статус (красным не добавленные файлы)
 	git commit -m "update123" //комит и комментарий
 	git push
-	git clone https://github.com/repoName
 	
 
-	//перед нужно сделать fetch
+	//клонировать репозиторий
+	git clone https://github.com/repoName
+	
+	
+	//перед merge - нужно сделать fetch
 	git fetch // обновление истории
-	git pull
+	git pull  //обновление текущей ветки
 
-	//git pull origin/master
 	
 	git show-branch -list -r //показывает лист веток
 
@@ -32,49 +36,48 @@
 	
 	////////////////
 	//если трабл с аксесом
+	////////////////
+
+	//можно клонировать с паролем и больше не понадобиться его вводить
 	git clone https://{username}:{password}@github.com/{username}/{repo}.git
 	
 	git pull git clone https://{username}:{password}@github.com/{username}/{repo}.git
 	
 	git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
 
-	git checkout ИмяВетки //переключиться в вветку
 
-	git push origin --delete ИмяВетки //удаление
-
-
-	//////////
+	////////////////
 	//git flow
 	//https://habr.com/post/106912/
-	//как узнать "origin" или другое название у нас  - git remote -v
+	//как узнать название "origin" конкретно в нашем репозитории  - git remote -v
+	////////////////
 
 	//создание
-	$ git checkout -b ИмяВетки develop
+	git checkout -b ИмяВетки develop
 
-	//закрытие
-	$ git checkout develop
+	//закрытие (develop - ИмяВетки)
+	git checkout develop
 
-	$ git pull
+	git pull
 	
-	$ git merge --no-ff ИмяВетки
+	git merge --no-ff ИмяВетки
 
 	(выход из vim :wq)
 	
-	//удаление локальной ветки
-	$ git branch -d ИмяВетки
-	//удаление ветки на сервере
-	$ git push origin -d ИмяВетки
+	git add .
+	git commit -m "update123" //комит и комментарий
+	git push origin develop
 
-	
-	$ git add .
-	$ git commit -m "update123" //комит и комментарий
-	$ git push origin develop
+	//удаление локальной ветки
+	git branch -d ИмяВетки
+	//удаление ветки на сервере
+	git push origin -d ИмяВетки
 	
 
 	////////////////
 	//git remote change
 	//изменить для url для fetch и push
-
+	////////////////
 
 	//проверить текущую
 	git remote -v
@@ -86,7 +89,7 @@
 	////////////////
 	//git откатиться до комита
 	//(выход из vim :wq)
-	//
+	////////////////
 
 	git log -20 (кол-во коммитов, чтобы спуститься вниз жмем enter)
 	//находим имя комита 1be12hjk1kj12jkh1jk2h1
@@ -94,10 +97,13 @@
 	// имя комита (пробел) точка - это все файлы
 	git checkout 1be12hjk1kj12jkh1jk2h1 .
 
+	//комитим
+	git commit -m "update123" //комит и комментарий
+
 	//пушим
 	git push
 
-	//далее смотрим что данный пуш теперь стал head'ом
+	//далее смотрим что данный комит стал head'ом
 	git log 
 </body>
 </html>
