@@ -9,7 +9,7 @@
 
 
 	//github pages
-	нужно создать репозиторий с именем {имяАкка}.github.io
+	нужно создать репозиторий с именем имяАкка, доступно будет по адресу {имяАкка}.github.io
 
 
 	//запушить файл
@@ -23,7 +23,8 @@
 	//перед нужно сделать fetch
 	git fetch // обновление истории
 	git pull
-	git pull origin/master
+
+	//git pull origin/master
 	
 	git show-branch -list -r //показывает лист веток
 
@@ -37,9 +38,9 @@
 	
 	git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
 
-	git checkout branch-name //переключиться в вветку
+	git checkout ИмяВетки //переключиться в вветку
 
-	git push origin --delete name-branch //удаление
+	git push origin --delete ИмяВетки //удаление
 
 
 	//////////
@@ -47,17 +48,25 @@
 	//https://habr.com/post/106912/
 
 	//создание
-	$ git checkout -b feature/имя develop
+	$ git checkout -b ИмяВетки develop
 
 	//закрытие
 	$ git checkout develop
+
+	$ git pull
 	
-	$ git merge --no-ff feature/имя
+	$ git merge --no-ff ИмяВетки
 
 	(выход из vim :wq)
 	
-	$ git branch -d feature/имя
+	//удаление локальной ветки
+	$ git branch -d ИмяВетки
+	//удаление ветки на сервере
+	$ git push -d ИмяВетки
+
 	
+	$ git add .
+	$ git commit -m "update123" //комит и комментарий
 	$ git push origin develop
 	
 
