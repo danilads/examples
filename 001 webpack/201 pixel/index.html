@@ -51,8 +51,15 @@
 
 			}
 		}
-		enterPass=()=>{
-			return<div>введите пароль</div>
+		enterPass=(e)=>{
+			console.log(e);
+		}
+		enterPassForm=()=>{
+			return<div>
+				<div>enter passw</div>
+				<input type="password"/>
+				<input type="button" onClick={(e)=>this.enterPass(e)} value="submitP"/>
+			</div>
 		}
 		render() {
 			////////
@@ -78,7 +85,7 @@
 			let {isFirstRun} = this.state;
 			return (
 				<div className="wrap">
-					{isFirstRun&&this.enterPass()}
+					{isFirstRun&&this.enterPassForm()}
 				</div>
 			);
 		}
