@@ -7,6 +7,7 @@
 	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<script src="./crypto-js.js"></script>
 	<style>
 		.wrap{
 			overflow: scroll;
@@ -37,163 +38,44 @@
 	<script type="text/babel">
 ///VeryUsefullComponent
 	class VeryUsefullComponent extends React.Component {
-		state={
-			arr:[
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-				false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-			],
+		state = {
+
 		}
-		_renderField=(e)=>{
-			//00 дешифруем массив
-
-
-			//01 разбиваем массив на строки(в зависимости от высоты шрифта)
-			//между ними идет полоса которай фактически не будет в массиве (чисто визуальное разделение)
-			let formedArr = []; //[[],[],[],[],[]]
-			let arr = [];
-			for(let i=1;e.length>=i;i++){
-				arr.push(e[i]);
-				if(i%100===0){
-					formedArr.push(arr);
-					arr=[];
-				}
-			}	
-
-
-			console.log(formedArr);
-			let result=[];
-
-
-			for(let i=0;formedArr.length>i;i++){
-				result.push(<div className={'row'}>{formedArr[i].map(it =>{
-					return <div className={'pixel'}></div>
-				})}</div>);
+		componentDidMount() { 
+			// первый запуск
+			if(localStorage.getItem('StorageHash1')===null){
+				
 			}
+			// не первый запуск
+			else{
 
-			return result;
+			}
 		}
 		render() {
+			////////
+			//Crypto
+			let AESe = CryptoJS.AES.encrypt("text123д", "password");  
+			
+			//hash
+			let hash = AESe.toString();
+			console.log(hash)
+
+
+			//decrypt hash
+			let text = CryptoJS.AES.decrypt(hash, "password").toString(CryptoJS.enc.Utf8);
+			console.log('hash - ',text);
+
+			
+			/////////
+			//storage
+			localStorage.setItem('someKey1', "hello")
+			console.log('--getFromStorage1',localStorage.getItem('someKey1'))
+			//ключ которого нету
+			console.log('--getFromStorage2',localStorage.getItem('someKey2'))
+
 			return (
 				<div className="wrap">
-					<div className="content">{this._renderField(this.state.arr)}</div>
+					
 				</div>
 			);
 		}
