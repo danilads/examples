@@ -39,28 +39,70 @@
 ///VeryUsefullComponent
 	class VeryUsefullComponent extends React.Component {
 		state = {
-			isFirstRun:true,
+			hashName: 'StorageHash2',
+			isFirstRun: true,
+			pass: "",
+			field: "text:",
+			isPassRight: false,
+			errorEmpty: false,
+			step:0,
+			passTimer: 2000,
+
 		}
 		componentDidMount() { 
-			// первый запуск
-			if(localStorage.getItem('StorageHash1')===null){
-
+			// первый запуск / не первый запуск
+			if(localStorage.getItem(this.state.hashName)===null){
+				this.setState({isFirstRun:true})
 			}
-			// не первый запуск
 			else{
-
+				this.setState({isFirstRun:false})
 			}
 		}
-		enterPass=(e)=>{
-			console.log(e);
+		enterPass=()=>{
+			if(this.state.isFirstRun){
+				if(this.state.pass===""){
+					this.setState({errorEmpty:true})
+				}
+				else{
+					localStorage.setItem(this.state.hashName, CryptoJS.AES.encrypt(this.state.field, this.state.pass));
+					this.setState({isFirstRun:false, pass:""})
+				}
+			}
+			else{
+				let hash = localStorage.getItem(this.state.hashName).toString();
+				let deCrypt = CryptoJS.AES.decrypt(hash, this.state.pass).toString(CryptoJS.enc.Utf8);
+			
+				if(deCrypt.length===0){
+					this.setState({step:-1, pass:""})
+
+				}
+				else{
+					this.setState({step:1, pass:""})
+				}
+			}
+			
+
 		}
-		enterPassForm=()=>{
+		_renderStepError=()=>{
 			return<div>
-				<div>enter passw</div>
-				<input type="password"/>
-				<input type="button" onClick={(e)=>this.enterPass(e)} value="submitP"/>
+				таймер от взлома
 			</div>
 		}
+		_renderStep1=()=>{
+			return<div>
+				вошли
+			</div>
+		}
+		_renderStep0=()=>{
+			return<div>
+				{this.state.isFirstRun&&<div>у вас первый запуск</div>}
+				{!this.state.isFirstRun&&<div>введите пароль</div>}
+				{this.state.errorEmpty&&<div>поле не должно быть пустым</div>}
+				<input type="password" value={this.state.pass} onFocus={()=>this.setState({errorEmpty:false})} onChange={(e)=>{this.setState({pass:e.target.value})}}/>
+				<input type="button" onClick={this.enterPass} value="submitP"/>
+			</div>
+		}
+		
 		render() {
 			////////
 			//Crypto
@@ -76,16 +118,14 @@
 			console.log('hash - ',text);
 
 			
-			/////////
-			//storage
-			localStorage.setItem('someKey1', "hello")
-			console.log('--getFromStorage1',localStorage.getItem('someKey1'))
-			//ключ которого нету
-			console.log('--getFromStorage2',localStorage.getItem('someKey2'))
-			let {isFirstRun} = this.state;
+			let {_renderStepError,_renderStep0,_renderStep1} = this;
+			let {isFirstRun,step} = this.state;
+
 			return (
 				<div className="wrap">
-					{isFirstRun&&this.enterPassForm()}
+					{step===-1&&_renderStepError()}
+					{step===0&&_renderStep0()}
+					{step===1&&_renderStep1()}
 				</div>
 			);
 		}
