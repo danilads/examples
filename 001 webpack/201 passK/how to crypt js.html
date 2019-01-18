@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<script src="./crypto-js.js"></script>
+	<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class MyComp extends React.Component {
+		
+		render() {
+			var salt = CryptoJS.lib.WordArray.random(128/8);
+
+			// 1000 iterations takes a couple seconds in the browser. Wouldn't want to go much higher if this is a browser implementation
+			var iterations = 1000;
+
+			// make your own hash if you don't know this one
+			var matchHash = '98a24959e05c77656f6308a541d2dd922c4dd9e2b6b75d49509e31c42fb4a4ba681ad5408ede32a523139bb38f3db5ea9f867f2cb4512137018296eeea000d36';
+
+			var userHash = CryptoJS.PBKDF2('321', salt, { keySize: 512/32, iterations: iterations });
+			console.log(userHash.toString() === matchHash);
+			return (
+				<div>
+					hello
+				</div>
+			);
+		}
+	}
+	////////////////App Js
+			ReactDOM.render(
+			<MyComp/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
