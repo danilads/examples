@@ -14,21 +14,48 @@
 	class MyComp extends React.Component {
 		
 		render() {
-			var salt = CryptoJS.lib.WordArray.random(128/8);
+			//SHA-3
+			//var hash = CryptoJS.SHA3("Message", { outputLength: 512 });
+			//console.log('hash',hash.toString());
 
-			// 1000 iterations takes a couple seconds in the browser. Wouldn't want to go much higher if this is a browser implementation
-			var iterations = 1000;
+			
 
-			// make your own hash if you don't know this one
-			var matchHash = '98a24959e05c77656f6308a541d2dd922c4dd9e2b6b75d49509e31c42fb4a4ba681ad5408ede32a523139bb38f3db5ea9f867f2cb4512137018296eeea000d36';
+			//encrypt
+			//var salt = CryptoJS.lib.WordArray.random(128/8);
+			//var iv = CryptoJS.lib.WordArray.random(128 / 8)
+			//var encrypted = CryptoJS.AES.encrypt('password', CryptoJS.PBKDF2('text', salt, { keySize: 512 / 32, iterations: 10000 }), { iv: iv, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC })
+			//var encrypt = salt.toString() + iv.toString() + encrypted.toString()
+			//console.log('encrypt',encrypt)
 
-			var userHash = CryptoJS.PBKDF2('321', salt, { keySize: 512/32, iterations: iterations });
-			console.log(userHash.toString() === matchHash);
+			//decrypt
+			//var key = CryptoJS.PBKDF2(encrypt, CryptoJS.enc.Hex.parse('password'.substr(0, 32)), { keySize: 512 / 32, iterations: 100000 });
+
+			//var decrypted = CryptoJS.AES.decrypt('password'.substring(64), key, { iv: CryptoJS.enc.Hex.parse('password'.substr(32, 32)) /* iv */, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC });
+
+			//console.log('decrypt',decrypted.toString(CryptoJS.enc.Utf8));
+
+			let text = 'pas123';
+			let secret = 'some data';
+
+			var salt = CryptoJS.lib.WordArray.random(128 / 8);
+  			var iv = CryptoJS.lib.WordArray.random(128 / 8);
+      		var encrypted = CryptoJS.AES.encrypt(text, CryptoJS.PBKDF2(secret, salt, { keySize: 256 / 32, iterations: 100 }) /* key */, { iv: iv, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC });
+      		var transitmessage = salt.toString() + iv.toString() + encrypted.toString()
+			console.log('transitmessage',transitmessage);
+    
+ 				
+			var key = CryptoJS.PBKDF2(transitmessage, CryptoJS.enc.Hex.parse(text.substr(0, 32)) /* Salt */, { keySize: 256 / 32, iterations: 100 })
+			var decrypted = CryptoJS.AES.decrypt(text.substring(64) /* encrypted */, key, { iv: CryptoJS.enc.Hex.parse(text.substr(32, 32)) /* iv */, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC })
+			console.log('decrypted',decrypted.toString(CryptoJS.enc.Utf8));
+
+
 			return (
 				<div>
 					hello
 				</div>
 			);
+
+
 		}
 	}
 	////////////////App Js
