@@ -14,71 +14,51 @@
 	class MyComp extends React.Component {
 		
 		render() {
-			//////////////////////////////////////////
-			//SHA-3
-			//var hash = CryptoJS.SHA3("Message", { outputLength: 512 });
-			//console.log('hash',hash.toString());
+			var msg = 'wtf';
+			var pass = 'p123';
+			var keySize = 512;
+			var iterations = 10000;
 
-			//////////////////////////////////////////
-			//SALT
-			// saltWArray = CryptoJS.lib.WordArray.random(128/8);
-			// saltString = saltWArray.toString(); // same salt but in String format
+			//encrypt
+			var salt = CryptoJS.lib.WordArray.random(128/8);
 
-			// var key1 = CryptoJS.PBKDF2("password", saltWArray, { keySize: 512/32, iterations: 300 });
-			// var key2 = CryptoJS.PBKDF2("password", saltString, { keySize: 512/32, iterations: 300 });
-			
-			//////////////////////////////////////////
-			//SIMPLE AES
-			// var string = 'Lorem ipsum dolor sit amet, ...';
-			// var password = 'my-password';
+			var key = CryptoJS.PBKDF2(pass, salt, {
+				keySize: keySize/32,
+				iterations: iterations
+				});
 
-			// var encrypted = CryptoJS.AES.encrypt(string, password);
-			// console.log(encrypted.toString());
-		
-			// var decrypted = CryptoJS.AES.decrypt(encrypted, password);
-			// console.log(decrypted.toString(CryptoJS.enc.Utf8));
+			var iv = CryptoJS.lib.WordArray.random(128/8);
 
-			//////////////////////////////////////////
-			//AES ADVANCED
+			var encrypted = CryptoJS.AES.encrypt(msg, key, { 
+				iv: iv, 
+				padding: CryptoJS.pad.Pkcs7,
+				mode: CryptoJS.mode.CBC
 
-			// //encrypt
-			// var salt = CryptoJS.lib.WordArray.random(128/8);
-			// var iv = CryptoJS.lib.WordArray.random(128 / 8)
-			// var pass = CryptoJS.PBKDF2('password', salt, { keySize: 512 / 32, iterations: 1000 }).toString();
-		
-			// var encrypted = CryptoJS.AES.encrypt('some text', pass, { iv: iv, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC })
-			// console.log('encrypt',encrypted.toString())
+			});
 
-			// //decrypt
-			// //var key = CryptoJS.PBKDF2(encrypt, CryptoJS.enc.Hex.parse('password'.substr(0, 32)), { keySize: 512 / 32, iterations: 1000 });
+			// salt, iv will be hex 32 in length
+			// append them to the ciphertext for use  in decryption
+			var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
+			console.log(transitmessage);
 
-			// var decrypted = CryptoJS.AES.decrypt(encrypted, pass, { iv: iv, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC });
 
-			// console.log('decrypt',decrypted.toString(CryptoJS.enc.Utf8));
+			//decrypt
+			var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
+			var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
+			var encrypted = transitmessage.substring(64);
 
-			//////////////////////////////////////////
-			//APP
+			var key = CryptoJS.PBKDF2(pass, salt, {
+				keySize: keySize/32,
+				iterations: iterations
+				});
 
-			let text = 'pas123';
-			let secret = 'some data';
+			var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
+				iv: iv, 
+				padding: CryptoJS.pad.Pkcs7,
+				mode: CryptoJS.mode.CBC
 
-			var salt = CryptoJS.lib.WordArray.random(128 / 8);
-			var iv = CryptoJS.lib.WordArray.random(128 / 8);
-	
-			var pbkdf2 = CryptoJS.PBKDF2(secret, salt, { keySize: 256 / 32, iterations: 1000 })
-      		var encrypted = CryptoJS.AES.encrypt(text,  pbkdf2, { iv: iv, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC });
-			console.log('encrypted',encrypted.toString());
-
-			// var transitmessage = salt.toString() + iv.toString() + encrypted.toString()
-			// console.log('transitmessage',transitmessage);
-    
- 				
-			var key = CryptoJS.PBKDF2(text, CryptoJS.enc.Hex.parse(text.substr(0, 32)) /* Salt */, { keySize: 256 / 32, iterations: 100 })
-			console.log("key",key.toString());
-			var decrypted = CryptoJS.AES.decrypt(text.substring(64) /* encrypted */, key, { iv: CryptoJS.enc.Hex.parse(text.substr(32, 32)) /* iv */, padding: CryptoJS.pad.Pkcs7, mode: CryptoJS.mode.CBC })
-			console.log('decrypted',decrypted.toString(CryptoJS.enc.Utf8));
-
-			
+			})
+			console.log(decrypted.toString(CryptoJS.enc.Utf8));
 
 			return (
 				<div>
