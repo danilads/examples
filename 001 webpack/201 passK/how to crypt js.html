@@ -14,52 +14,71 @@
 	class MyComp extends React.Component {
 		
 		render() {
-			var msg = 'wtf';
-			var pass = 'p123';
-			var keySize = 512;
-			var iterations = 10000;
+			for(let i=0;i<10;i++){
 
-			//encrypt
-			var salt = CryptoJS.lib.WordArray.random(128/8);
+				var msg = 'wtf';
+				var pass = 'p123';
+				var keySize = 512;
+				var iterations = 10000;
 
-			var key = CryptoJS.PBKDF2(pass, salt, {
-				keySize: keySize/32,
-				iterations: iterations
+				//encrypt
+				//соль создется рандомно при первом запуск и храниться в localStorage
+				var salt = CryptoJS.lib.WordArray.random(128/8);
+
+				var key = CryptoJS.PBKDF2(pass, salt, {
+					keySize: keySize/32,
+					iterations: iterations
+					});
+
+				var iv = CryptoJS.lib.WordArray.random(128/8);
+
+				var encrypted = CryptoJS.AES.encrypt(msg, key, { 
+					iv: iv, 
+					padding: CryptoJS.pad.Pkcs7,
+					mode: CryptoJS.mode.CBC
+
 				});
 
-			var iv = CryptoJS.lib.WordArray.random(128/8);
+				// salt, iv will be hex 32 in length
+				// append them to the ciphertext for use  in decryption
+				var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
+				console.log(transitmessage);
 
-			var encrypted = CryptoJS.AES.encrypt(msg, key, { 
-				iv: iv, 
-				padding: CryptoJS.pad.Pkcs7,
-				mode: CryptoJS.mode.CBC
-
-			});
-
-			// salt, iv will be hex 32 in length
-			// append them to the ciphertext for use  in decryption
-			var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
-			console.log(transitmessage);
+				///////////////////////////
+				//таски
+				///////////////////////////
+				//2 этап шифрования 
+				//делим хэш на 2или3или4 части и закидываем в массив из 100или1000 позиций в рандомное место зависимое от пароля
+				//в остальные места кидаем сгенерированные псевдо-хэши
+				//!!!!!проблема не решает подбора паролей из самой системы нужна задержка на decrypt
+				//? может умная капча тоже с шифрованием?
 
 
-			//decrypt
-			var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
-			var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
-			var encrypted = transitmessage.substring(64);
+				//01 при сохранении когда делаем 100или1000 хэшей делаем полосу загрузки
 
-			var key = CryptoJS.PBKDF2(pass, salt, {
-				keySize: keySize/32,
-				iterations: iterations
-				});
+				//02 при создании докуменат предупреждаем что пароль восстановить невозможно(но можно изменить зная текущий)
+				
+				
 
-			var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
-				iv: iv, 
-				padding: CryptoJS.pad.Pkcs7,
-				mode: CryptoJS.mode.CBC
 
-			})
-			console.log(decrypted.toString(CryptoJS.enc.Utf8));
+				//decrypt
+				var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
+				var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
+				var encrypted = transitmessage.substring(64);
 
+				var key = CryptoJS.PBKDF2(pass, salt, {
+					keySize: keySize/32,
+					iterations: iterations
+					});
+
+				var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
+					iv: iv, 
+					padding: CryptoJS.pad.Pkcs7,
+					mode: CryptoJS.mode.CBC
+
+				})
+				console.log(decrypted.toString(CryptoJS.enc.Utf8));
+			}
 			return (
 				<div>
 					hello
