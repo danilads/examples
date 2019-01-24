@@ -35,6 +35,7 @@
 	////////////////
 	//Rename Branch
 	////////////////
+	!если не пушились то можно выполнить только первый шаг
 	1.	If you are on the branch you want to rename:
 		git branch -m new-name
 
