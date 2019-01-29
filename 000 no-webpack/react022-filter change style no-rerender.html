@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.lof > .bor{
+			border: 1px dashed black;
+			width:20px;
+		}
+		.lon > .bor{
+			border: 1px dashed red;
+			width:20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class Item extends React.PureComponent {
+		render() {
+			console.log("rerender",this.props.children)
+			return<div className="bor">{this.props.children}</div>
+		}
+	}
+	/////MobileList
+	class MobileList extends React.PureComponent {
+		state = {
+			styleToggle: true,
+			howToSort: false,
+			list:[0,1,2,3,4,5,6],
+		}
+		
+		changeArr=()=>{
+			let output = [];
+			for(let n=0;n<this.state.list.length;n++){
+				if(this.state.howToSort){
+					output.push(this.state.list[n]);
+				}
+				else{
+					output.push(this.state.list[this.state.list.length-n-1]);
+				}
+			}
+			return output
+		}
+		changeArrFunc=()=>{
+			this.setState({howToSort:!this.state.howToSort})
+		}
+		changeStyle=()=>{
+			this.setState({styleToggle:!this.state.styleToggle})
+		}
+		render() {
+			let arr = this.changeArr()
+			console.log(this.state.styleToggle);
+			return <div className={this.state.styleToggle?"lof":"lon"}>{arr.map(it=>{
+					return <Item key={it}>
+						{it}
+					</Item>})}
+					<input type="button" onClick={this.changeArrFunc} value="filter"/>
+					<input type="button" onClick={this.changeStyle} value="style"/>
+					</div>
+		
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

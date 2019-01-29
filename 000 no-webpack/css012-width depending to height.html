@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+.ratio {
+    width: 50%; /* здесь можно установить любую нужную ширину */
+}
+
+.ratio-inner {
+    position: relative;
+    height: 0;
+    border: none;
+}
+
+.ratio-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #eee;
+}
+
+.ratio-4-3 {
+    padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
+}
+
+.ratio-5-1 {
+    padding-top: 20%; /* 100% ширины делим на 5 и умножаем на 1 */
+}
+	</style>
+</head>
+<body>
+            <div class="ratio">
+                <div class="ratio-inner ratio-4-3">
+                    <div class="ratio-content">
+                        Это содержимое блока 4/3
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="ratio">
+                <div class="ratio-inner ratio-5-1">
+                    <div class="ratio-content">
+                        Это содержимое блока 5/1
+                    </div>
+                </div>
+            </div>
+</body> 
+</html>

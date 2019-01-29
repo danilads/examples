@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>MobileList</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+	.high{
+		width:200px;
+		height: 200px;
+		background-color: #fec;
+	}
+	.low{
+		width:200px;
+		height: 20px;
+		background-color: #fec;
+	}
+    .cross {
+        position: absolute;
+        left: 190px;
+        top: 13px;
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+    }
+    .cross::after{
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background: black;
+        width: 1px;
+        height: 1px;
+        box-shadow:
+            -4px -4px 0 0 black,
+            4px -4px 0 0 black,
+            4px 4px 0 0 black,
+            -4px 4px 0 0 black,
+            
+            -3px -3px 0 0 black,
+            3px -3px 0 0 black,
+            3px 3px 0 0 black,
+            -3px 3px 0 0 black,
+            
+            -2px -2px 0 0 black,
+            2px -2px 0 0 black,
+            2px 2px 0 0 black,
+            -2px 2px 0 0 black,
+            
+            
+            -1px -1px 0 0 black,
+            1px -1px 0 0 black,
+            1px 1px 0 0 black,
+            -1px 1px 0 0 black;
+        }
+	</style>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	////MobileList
+	class MobileList extends React.Component {
+		state = {
+			class:"low"
+		}
+		inputNode = null;
+		clickHandler=(e)=>{
+            if(e.target.dataset.myatr==="add"){
+                console.log('here')
+                this.setState({class:"low"})
+            }
+            else if(this.inputNode.contains(e.target)===false){
+                this.setState({class:"low"})
+            }
+            else if(this.inputNode.contains(e.target)===true&&this.state.class==="low"){
+                this.setState({class:"high"})
+            }
+		}
+	    componentDidMount() {
+	        this._ismounted = true;
+	        window.addEventListener('click', this.clickHandler);
+	    }
+	    componentWillUnmount() {
+	        this._ismounted = false;
+	        window.removeEventListener('click', this.clickHandler);
+	    }
+		render() {
+            return 	<div ref={(el) => this.inputNode = el} className={"drop "+this.state.class}>drop down<div data-myatr={"add"} className="cross"></div></div>
+					
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
