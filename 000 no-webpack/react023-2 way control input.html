@@ -13,25 +13,41 @@
 	<script type="text/babel">
 	class Child extends React.Component {
 		state={
-			
+			text:"",
 		}
-		
+		componentDidUpdate(prevProps, prevState){
+			if(prevProps.s!==this.props.s){
+				this.setState({text:this.props.s})
+			}
+		}
+		componentDidMount() { 
+			//записываем  в стейт
+			this.setState({text:this.props.s})
+		}
+		change=(e)=>{
+			this.setState({text:e});
+		}
 		render() {
-			console.log('--n',this.props.n);
-			console.log('--s',this.props.s);
+			console.log('--s',this.state.text);
 
 			return (<div>
-						<input defaultValue={this.props.s} onChange={(e)=>this.setState({s:e.target.value})}/>
+						<input value={this.state.text} onChange={(e)=>this.change(e.target.value)}/>
 					</div>
 			)
 		}
 	}
 
 	class Parrent extends React.Component {
-		
+		state={
+			s:"Ivanov",
+		}
+		c=()=>{
+			this.setState({s:"Petrov"});
+		}
 		render() {
 			return (<div>
-						<div><Child n="Ivan" s="Ivanov"/></div>
+						<div><input type="button" value={"change props"} onClick={this.c}/></div>
+						<div><Child s={this.state.s}/></div>
 					</div>
 			)
 		}
