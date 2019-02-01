@@ -9,7 +9,6 @@ class Block_MainPage extends React.PureComponent {
 	};
 
   	render() {
-		console.log('--value',this.state.value);
 		return (
 			<div style={{padding:'2px'}}>
 				<div style={{padding:'4px 0'}}>
