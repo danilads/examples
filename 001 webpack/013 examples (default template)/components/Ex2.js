@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 
 
-class Ex1 extends React.PureComponent {
+class Ex2 extends React.PureComponent {
 	
 	state = {
 		
@@ -9,8 +9,8 @@ class Ex1 extends React.PureComponent {
 
   	render() {
 		return (
-			<div className={"Block_Filter"}>
-				hello
+			<div>
+				ex2
 			</div>
 		);
 
@@ -20,4 +20,4 @@ class Ex1 extends React.PureComponent {
 
 
 
-export default Ex1;
+export default Ex2;
