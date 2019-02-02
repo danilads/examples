@@ -2,12 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Block_MainPage from './components/Block_MainPage';
+import Dropdown from './components/Dropdown';
 
 //css
 import './scss/main.scss';
 ReactDOM.render(
-	<Block_MainPage/>
+	<Dropdown/>
 	, document.getElementById('container') 
 );
 
