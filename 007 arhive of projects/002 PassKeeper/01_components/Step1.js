@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {load} from '../utils/utils.js';
 import './Step1.scss';
 
 class Step1 extends React.PureComponent {
@@ -9,8 +10,9 @@ class Step1 extends React.PureComponent {
     submit=(e)=>{
         //первый вход
         if(e){
+            //нужно создать соль и хранить ее в localStorage
             console.log('первый вход');
-
+            load();
         }
         //не первый вход
         else{
