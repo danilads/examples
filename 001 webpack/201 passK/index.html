@@ -50,10 +50,11 @@
 
 		}
 		componentDidMount() { 
-			// первый запуск / не первый запуск
+			// первый запуск
 			if(localStorage.getItem(this.state.hashName)===null){
 				this.setState({isFirstRun:true})
 			}
+			// не первый запуск
 			else{
 				this.setState({isFirstRun:false})
 			}
@@ -73,7 +74,6 @@
 				let deCrypt = CryptoJS.AES.decrypt(hash, this.state.pass).toString(CryptoJS.enc.Utf8);
 			
 				if(deCrypt.length===0){
-					this.timerFunc();
 					this.setState({step:-1, pass:""})
 
 				}
@@ -83,13 +83,6 @@
 			}
 			
 
-		}
-		timer=null;
-		timerFunc=()=>{
-			this.timer = setTimeout(() => {
-				this.setState({step:0});
-			},this.state.passTimer);
-			this.setState({passTimer:this.state.passTimer*2});
 		}
 		_renderStepError=()=>{
 

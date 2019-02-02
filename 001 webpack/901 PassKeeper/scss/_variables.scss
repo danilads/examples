@@ -1,0 +1,111 @@
+//название файла с нижнем подчеркиванием (sass будет использовать только нужные ему перменные, а не все подряд)
+
+//variables
+$primary-color: #333;
+$n1: 11px;
+$n2: 12px;
+$n3: 13px;
+$n4: 14px;
+$n5: 15px;
+$n6: 16px;
+$n7: 17px;
+$n8: 18px;
+$nj: 1px dashed red;
+
+
+
+
+// xs small-mobile 480px 
+// sm tablet-portrait and mobile 768px
+// md tablet-landscape-up 1024px
+// lg desktop-up 1280px
+// xl big-desktop-up 1600px
+
+//GRID
+// Брэйк поинты
+$grid-breakpoints: (
+        xxs: 0,
+        xs: 480px,
+        sm: 768px,
+        md: 1024px,
+        lg: 1280px,
+        xl: 1600px
+) !default;
+
+// на последнем breakpoint'е контейнер занимает 100% 
+// можно указывать в %
+// длинна учитывется с гаттером ( 400 = 10px 380px 10px)
+// также xs срабатывает на sm брейпоинте
+// xl - это все что выше xl брейпоинта
+$container-max-widths: (
+		xs: 90%,
+        sm: 85%,
+        md: 80%,
+        lg: 75%,
+        xl: 70%
+) !default;
+
+
+//Количество колонок
+$grid-columns: 12 !default;
+
+//Gutters
+// сумма левого и правого гатерсов
+// гатер xxs работает на брейкпоинте xs
+// xl - это все что выше xl брейпоинта
+$grid-gutter-width: (
+		xxs: 16px,
+        xs: 26px,
+        sm: 28px,
+        md: 34px,
+        lg: 40px,
+        xl: 48px
+) !default;
+
+
+//mixins
+@mixin respond-up($breakpoint, $breakpoints: $grid-breakpoints) {
+	$min: breakpoint-min($breakpoint, $breakpoints);
+	@if $min {
+		@media (min-width: $min) {
+		@content;
+		}
+	} @else {
+		@content;
+	}
+}
+  
+@mixin respond-down($breakpoint, $breakpoints: $grid-breakpoints) {
+	$prev: breakpoint-prev($breakpoint, $breakpoints);
+	@if $prev {
+		@media (max-width: breakpoint-max($prev, $breakpoints)) {
+			@content;
+		}
+	}
+}
+
+//functions
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+	$i: index($breakpoint-names, $name);
+	@return if($i < length($breakpoint-names), nth($breakpoint-names, $i + 1), null);
+}
+  
+@function breakpoint-prev($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+	$i: index($breakpoint-names, $name);
+	@return if($i > 1, nth($breakpoint-names, $i - 1), null);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+	$min: map-get($breakpoints, $name);
+	@return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+	$next: breakpoint-next($name, $breakpoints);
+	@return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+@function breakpoint-postfix($name, $breakpoints: $grid-breakpoints) {
+	@return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
