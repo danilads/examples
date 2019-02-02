@@ -1,0 +1,113 @@
+@import "../scss/_variables"; //переменные
+.Position{
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+	&::before{
+		z-index: 3;
+		position: absolute;
+		top: 0;
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: white;
+	}
+	&::after{
+		z-index: 3;
+		position: absolute;
+		bottom: -1;
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: white;
+	}
+	.News{
+		cursor: pointer;
+		font-size: 12px;
+		height: 60px;
+		overflow: hidden;
+		padding: 0 15px;
+		transition: all 500ms ease;
+		&:hover{
+			transform: scale(1.02, 1.02);
+		}
+		&:after{
+			display: block;
+			clear: both;
+			content: "";
+		}
+		.title{
+			font-family: 'Nosifer-Regular';
+			padding-left: 10px;
+			padding-top: 9px;
+			padding-bottom: 2px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.desc{
+			padding-left: 9px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
+	.HeroesItems{
+		cursor: pointer;
+		font-size: 12px;
+		height: 60px;
+		overflow: hidden;
+		padding: 0 15px;
+		transition: all 500ms ease;
+		&:hover{
+			transform: scale(1.02, 1.02);
+		}
+		&:hover .tooltip{
+			opacity: 1;
+		}
+		&:after{
+			display: block;
+			clear: both;
+			content: "";
+		}
+		.avatar{
+			float: left;
+			height: 60px;
+
+		}
+		
+		.title{
+			font-family: 'Nosifer-Regular';
+			padding-left: 10px;
+			padding-top: 9px;
+			padding-bottom: 2px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.atk{
+			padding-left: 9px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.tooltip{
+			color: #fff;
+			opacity: 0;
+			transition: all 500ms ease;
+			div{
+				padding-left: 10px;
+				padding-top: 2px;
+				font-size: .7em;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		
+		}
+	}
+}
+
+

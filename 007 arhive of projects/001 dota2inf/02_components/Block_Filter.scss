@@ -1,0 +1,179 @@
+@import "../scss/_variables"; //переменные
+.Block_Filter{
+
+	.BlockNav{
+        display: flex;
+		justify-content: space-between;
+		.ButtonLevel2{
+			div{
+				@include respond-down(sm){
+					width: 120px;
+				}
+				@include respond-down(xs){
+					width: 100px;
+				}
+			}
+		}
+
+	}
+	.hid{
+		overflow: hidden;
+	}
+    
+    .BlockButtons{
+        display: flex;
+		justify-content: space-between;
+		.ButtonLevel3{
+			div{
+				@include respond-down(sm){
+					font-size: 0.9em;
+				}
+				@include respond-down(xs){
+					font-size: 0.7em;
+				}
+			}
+		}
+    }
+	
+    .BlockContent{
+		min-height: 64px;
+		
+        //Animation Position
+		.contentOff{
+			opacity: 0;
+		}
+		.content{
+			display: block;
+			&-none .Position > div{
+				@extend .contentOff;
+				display: none;
+			}
+			&-none .Position{
+				@extend .contentOff;
+				display: none;
+			}
+			&-in .Position > div{
+				@extend .content;
+				animation: a-in 1s;
+			}
+			&-in .Position {
+				@extend .content;
+				animation: s-in 1s;
+				&::before{
+					animation: s2-in 1s;
+				}
+				&::after{
+					animation: s2-in 1s;
+				}
+			}
+			&-out .Position > div{
+				@extend .contentOff;
+				animation: a-out 1s;
+			}
+			&-out .Position{
+				@extend .contentOff;
+				animation: s-out 1s;
+				&::before{
+					animation: s2-out 1s;
+				}
+				&::after{
+					animation: s2-out 1s;
+				}
+			}
+			&-on .Position > div{
+				@extend .content;
+			}
+			&-on .Position{
+				@extend .content;
+			}
+		}
+
+		//Animation Buttons
+		.blockOff{
+			opacity: 0;
+		}
+		.block{		
+			opacity: 1;
+			&-none{
+				@extend .blockOff;
+				display: none;
+			}
+			&-in{
+				@extend .block;
+				animation: a-in 1s;
+			}
+			
+			&-out{
+				@extend .blockOff;
+				animation: a-out 1s;
+			}
+		
+			&-on{
+				@extend .block;
+			}
+		
+		}
+
+		//HR animation
+		.hrOff{
+			opacity: 0;
+		}
+		.hr{		
+			opacity: 1;
+			&-none{
+				@extend .hrOff;
+				display: none;
+			}
+			&-in{
+				@extend .hr;
+				animation: o-in 1s;
+			}
+			
+			&-out{
+				@extend .hrOff;
+				animation: o-out 1s;
+			}
+			&-on{
+				@extend .hr;
+			}
+		}
+
+		//Animation engine 3
+	
+		.e3Off{
+			opacity: 0;
+		}
+		.e3{
+			opacity: 1;
+			&-none{
+				@extend .e3Off;
+				display: none;
+			}
+			
+			&-in{
+				@extend .e3;
+				animation: o-in 1s;
+			}
+			
+			&-out{
+				@extend .e3Off;
+				animation: o-out 1s;
+			}
+		
+			&-on{
+				@extend .e3;
+			}
+		
+		}
+	
+    }
+    
+    
+    
+
+	
+		
+		
+
+		
+}

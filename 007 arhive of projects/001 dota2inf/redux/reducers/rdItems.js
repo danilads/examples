@@ -1,4 +1,4 @@
-import heroesVerify from "../../jsonBackUp/heroesVerify";
+import itemsVerify from "../../jsonBackUp/itemsVerify";
 
 let initialState = {
 	data: {},
@@ -9,20 +9,19 @@ let initialState = {
 //export default (state = initialState, {type,payload}) - сокращенная запись
 export default (state = initialState, action) => {
 	switch(action.type) {
-		case "HEROES_LOADING": {
+		case "ITEMS_LOADING": {
 			return {
 				...state,
 				loading: true,
 			}
 		}
-		case "HEROES_LOADED": {
+		case "ITEMS_LOADED": {
 			let arr = action.payload;
 			let result = [];
 			let cnt = 0;
-			//фильтруем данные
-			for (let pos in arr) {
-				if(heroesVerify.includes(arr[pos].name)){
-					result.push({...arr[pos],codeName: pos, key: cnt});
+			for (let pos in arr.itemdata) {
+				if(itemsVerify.includes(pos)){
+					result.push({...arr.itemdata[pos],codeName: pos, key: cnt});
 					cnt++;
 				}
 			}

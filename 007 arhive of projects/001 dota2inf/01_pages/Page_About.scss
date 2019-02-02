@@ -1,0 +1,50 @@
+@import "../scss/_variables"; //переменные
+.Page_About{
+    background-color: black;
+
+    .image{
+        display: flex;
+        justify-content: center;
+        &-ward{
+            @extend .image;
+            margin-top: -64px;
+            width: 100%;
+        }
+        &-cur{
+            @extend .image;
+            width: 100%;
+            padding-bottom: 50px;
+        }
+    }
+    .title{
+        position: relative;
+        div{
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.5s;
+            animation: neon 1.5s ease-in-out infinite alternate;
+            font-size: 5em;
+            position:absolute;
+            top: -54px;
+            left:50%; 
+            transform:translate(-50%, -50%);
+            @include respond-down(sm){
+                font-size: 4em;
+                top: -43px;
+            }
+            @include respond-down(xs){
+                font-size: 3em;
+                top:-31px;
+            }
+        }
+    }
+    .content{
+        div{
+            font-weight: 600;
+            padding-top: 15px; 
+            font-size: 1.2em;
+        }
+    }
+}

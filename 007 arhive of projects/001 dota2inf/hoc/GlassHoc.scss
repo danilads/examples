@@ -1,0 +1,9 @@
+@import "../scss/_variables"; //переменные
+.GlassHoc{
+    background-color :rgba(116, 114, 143, 0.2);
+    z-index: 999999;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}

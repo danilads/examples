@@ -1,0 +1,59 @@
+@import "../scss/_variables"; //переменные
+.Page_Content{
+	.img{
+		margin: 20px;
+		padding: 90px;
+		@include respond-down(sm){
+			padding: 30px;
+		}
+		@include respond-down(xs){
+			margin: 0;
+			padding: 10px;
+		}
+		>div{
+			margin: 0 auto;
+			display: block;
+			>img{
+				width: 100%;
+				max-width: 700px;
+				margin: 0 auto;
+				display: block;
+			}
+			@include respond-down(xl){
+				min-height: 130px;
+			}
+			@include respond-down(lg){
+				min-height: 130px;
+			}
+			@include respond-down(md){
+				min-height: 130px;
+			}
+			@include respond-down(sm){
+				min-height: 130px;
+			}
+			@include respond-down(xs){
+				min-height: 80px;
+			}
+		}
+		
+	}
+
+	.out > .NewsFrame > div{
+		border: 1px dashed green;
+		animation: a-out 1s;
+		opacity: 0;
+		transform: scale(0);
+	}
+	.in >  .NewsFrame > div{
+		border: 1px dashed green;
+		animation: a-in 1s;
+	}
+	.static >  .NewsFrame > div{
+		border: 1px dashed green;
+	}
+	.off >  .NewsFrame > div{
+		border: 1px dashed rgba(0,0,0,0);
+		opacity: 0; 
+	}
+	
+}
