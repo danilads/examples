@@ -23,13 +23,16 @@ export function load (e){
 	return  data;
 };
 export function encrypt (mes,passW,keyS,iter,slt,iV,salt2str,iv2str){
+	
+
 	let msg = mes; //msg = 'wtf';
 	let pass = passW; //pass = 'p123';
 	let keySize = keyS; //keySize = 512;
 	let iterations = iter; //iterations = 10000;
-
+	
 	let salt = JSON.parse(slt); //salt = CryptoJS.lib.WordArray.random(128/8);
 	let iv = JSON.parse(iV); //iv = CryptoJS.lib.WordArray.random(128/8);
+
 
 	let key = CryptoJS.PBKDF2(pass, salt, {
 		keySize: keySize/32,
@@ -47,7 +50,6 @@ export function encrypt (mes,passW,keyS,iter,slt,iV,salt2str,iv2str){
 	// salt, iv will be hex 32 in length
 	// append them to the ciphertext for use  in decryption
 	let transitmessage = salt2str+ iv2str + encrypted.toString();
-	console.log("transitmessage",transitmessage);
 	return transitmessage;
 };
 export function decrypt (mes,passW,keySize,iterations){
@@ -67,6 +69,6 @@ export function decrypt (mes,passW,keySize,iterations){
 		mode: CryptoJS.mode.CBC
 
 	})
-	console.log("decript",decrypted.toString(CryptoJS.enc.Utf8));
+
 	return decrypted.toString(CryptoJS.enc.Utf8);
 };

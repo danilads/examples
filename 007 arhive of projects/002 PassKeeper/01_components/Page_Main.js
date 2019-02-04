@@ -7,7 +7,7 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 class Page_Main extends React.PureComponent {
 	state = {
-		hashName: 'StorageHash16',
+		hashName: 'StorageHash23',
 		keySize: 512,
 		iter: 10000,
 		pass:"",
@@ -38,9 +38,6 @@ class Page_Main extends React.PureComponent {
 		this.setState({step:2});
 	};
 	getData=(pass,mess,salt,iv,salt2str,iv2str)=>{
-		console.log('--salt',salt);
-		console.log('--iv',iv);
-
 		this.setState({pass,mess,salt,iv,pass,salt2str,iv2str})
 	};
   	render() {

@@ -7,13 +7,13 @@ class Step1 extends React.PureComponent {
     state={
         pass:"",
         isPassWrong:false,
+        isPassEmpty:false,
     };
     submit=(e)=>{
         //первый вход
         if(e){
             if(this.state.pass===""){
-                // !!!!нужно сделать title
-
+                this.setState({isPassEmpty:true});
             }
             else{
                 let salt = CryptoJS.lib.WordArray.random(128/8);
@@ -25,16 +25,20 @@ class Step1 extends React.PureComponent {
                 let encr = encrypt("1234",this.state.pass,512,10000,JSON.stringify(salt),JSON.stringify(iv),salt2str,iv2str);
                 save(this.props.hashN,salt,iv,encr,keyS,iter,salt2str,iv2str);
 
-                // !!!!нужно сделать переключение на степ 2
-                // this.props.getData(this.state.pass,out,data.salt,data.iv,data.salt2str,data.salt2iv);
-                // this.props.cbChangeStep();
+                //переход на step 2
+                let data = load(this.props.hashN);
+                
+    
+                let out = decrypt(data.encrypt,this.state.pass,data.keySize,data.iter);
+                this.props.getData(this.state.pass,out,data.salt,data.iv,data.salt2str,data.iv2str);
+                this.props.cbChangeStep();
+
             }
          
         }
         //не первый вход
         else{
             let data = load(this.props.hashN);
-            console.log("data",data);
 
             let out = decrypt(data.encrypt,this.state.pass,data.keySize,data.iter);
 
@@ -52,7 +56,10 @@ class Step1 extends React.PureComponent {
     };
 
     _renderTitle=(e)=>{
-        if(e&&!this.state.isPassWrong){
+        if(this.state.isPassEmpty){
+            return <div>пароль не должен быть пустым (первый вход)</div>
+        }
+        else if(e&&!this.state.isPassWrong){
             return <div>первый вход (введите пароль)</div>
         }
         else if(!e&&!this.state.isPassWrong){
@@ -61,6 +68,7 @@ class Step1 extends React.PureComponent {
         else if(this.state.isPassWrong){
             return <div>неверный пароль (введите пароль)</div>
         }
+        
 
     };
   	render() {

@@ -5,13 +5,17 @@ import './Step2.scss';
 
 class Step2 extends React.PureComponent {
     state={
-        text:""
+        text:"",
+        saved: false,
     };
     save=()=>{
         let data = "1234"+this.state.text;
         let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
+
         let encr =  encrypt(data,pass,keySize,iter,salt,iv,salt2str,iv2str);
-        save(hashName,salt,iv,encr,keySize,iter,salt2str,iv2str);
+        save(hashName,JSON.parse(salt),JSON.parse(iv),encr,keySize,iter,salt2str,iv2str);
+        console.log('SAVED');
+        this.setState({saved:true});
     };
 
     componentDidUpdate(prevProps){
@@ -24,22 +28,12 @@ class Step2 extends React.PureComponent {
     }
   	render() {
         let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
-        let {} = this.state;
-        // !!!!нужно сделать title данные сохранены
+        let {saved} = this.state;
+        // !!!!нужно сделать title данные сохранены и disable input & textarea
 		return (
 			<div className="Step2">
-                здесь выводим дату
-                <div>{hashName}</div>
-                <div>{mess.slice(4)}</div>
-                <div>{pass}</div>
-                <div>{keySize}</div>
-                <div>{iter}</div>
-                <div>{salt}</div>
-                <div>{iv}</div>
-                <div>{salt2str}</div>
-                <div>{iv2str}</div>
-                <textarea value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea>
-                <input onClick={this.save} type="button" value="save"/>
+                <div><textarea disabled={saved} value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea></div>
+                <div><input disabled={saved} onClick={this.save} type="button" value="save"/></div>
 			</div>
 		);
   	}
