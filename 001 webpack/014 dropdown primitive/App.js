@@ -2,12 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Dropdown from './components/Dropdown';
+import MainPage from './components/MainPage';
 
 //css
 import './scss/main.scss';
 ReactDOM.render(
-	<Dropdown/>
+	<MainPage/>
 	, document.getElementById('container') 
 );
 

@@ -1,0 +1,70 @@
+.Dropdown{
+	position: relative;
+	//возможно нужно будет увеличить
+	z-index: 50;
+	.D_content{
+	  background-color: white;
+	  cursor: default;
+	  width: 243px;
+	  height: 42px;
+	  border-radius: 4px;
+	  border: 1px solid rgb(210, 212, 219);
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  font-size: 14px;
+	  line-height: 1.4285em;
+	  color: rgba(0,0,0,.87);
+	  overflow: hidden;
+  
+	  &:hover{
+		border: 1px solid rgb(49, 60, 71);
+	  }
+	  &-hover{
+		@extend .D_content;
+		border: 1px solid rgb(49, 60, 71);
+	  }
+  
+	  .D_head{
+		padding-left: 5px;
+		width: calc(100% - 32px);
+	  }
+	  .D_chevron{
+		display: flex;
+		padding-right: 12px;
+		font-size: 12px;
+  
+		path{
+		  stroke: rgb(204, 204, 204);
+		  fill: rgb(204, 204, 204);
+		}
+		&:hover{
+		  color: rgb(153, 153, 153);
+		  path{
+			stroke: rgb(153, 153, 153);
+			fill: rgb(153, 153, 153);
+		  }
+		}
+		&-down{
+		  @extend .D_chevron;
+		  padding-top: 3px;
+		  svg{
+			transform: rotate(180deg);
+		  }
+		}
+	  }
+	}
+  
+	.D_dropContainer{
+	  position: absolute;
+	  top: 52px;
+	  left: -1px;
+	  .D_dropContent{
+		background-color: white;
+		cursor: default;
+		border-radius: 4px;
+		border: 1px solid rgb(210, 212, 219);
+	  }
+	}
+  }
+  
