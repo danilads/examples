@@ -19,6 +19,10 @@ class Dropdown extends PureComponent {
 			PropTypes.object,
 		]),
 	};
+	static defaultProps = {
+    title: "title",
+    dropContent: "content"
+  };
 	
 	state = {
 		isOpened: false,
