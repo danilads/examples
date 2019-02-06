@@ -75,7 +75,7 @@ class Dropdown extends PureComponent {
 		let {isOpened} = this.state;
 		return (
 		<div className={classNames('Dropdown',className)}>
-			<div className={isOpened?'D_content-hover':'D_content'} ref={this.mainContainer} onClick={this.openCloseFunc}>
+			<div className={'D_content'} style={isOpened?{border: "1px solid #313c47!important"}:{}} ref={this.mainContainer} onClick={this.openCloseFunc}>
 			<div className={'D_head'}>
 				{typeof title === 'function'?title({isOpened,openCloseFunc:this.openCloseFunc}):title}
 			</div>
