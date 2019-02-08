@@ -1,5 +1,5 @@
 toggleElem = isOpened => {
-    const {state: {isOpened: prevIsOpened}, props: {cbOpen, cbClose}}} = this;
+    const {state: {isOpened: prevIsOpened}, props: {cbOpen, cbClose}} = this;
   
     if (!isBoolean(isOpened))
       isOpened = !prevIsOpened;
@@ -12,7 +12,7 @@ toggleElem = isOpened => {
     const cb = isOpened ? cbOpen : cbClose;
   
     cb && cb();
-  }
+}
 
 
   openCloseFunc=(e)=>{
@@ -21,21 +21,21 @@ toggleElem = isOpened => {
     if(e===true){
         this.setState({isOpened:this.state.e});
         this.props.cbOpen && this.props.cbOpen();
-      }
-      //close
-      else if(e===false){
+    }
+    //close
+    else if(e===false){
         this.setState({isOpened:this.state.e});
         this.props.cbClose && this.props.cbClose();
-      }
-      //toggle
-      else{
+    }
+    //toggle
+    else{
         this.setState({isOpened:!this.state.isOpened});
         if(this.state.isOpened){
-          this.props.cbClose && this.props.cbClose();
+            this.props.cbClose && this.props.cbClose();
         }
         else{
-          this.props.cbOpen && this.props.cbOpen();
+            this.props.cbOpen && this.props.cbOpen();
         }
-      }
-    };
+    }
+};
   
