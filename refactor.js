@@ -39,7 +39,7 @@ toggleElem = isOpened => {
     }
 };
   
-
+//babel transp
 
 toggleElem = function toggleElem(isOpened) {
   var prevIsOpened = _this.state.isOpened,
