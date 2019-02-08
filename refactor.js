@@ -39,3 +39,39 @@ toggleElem = isOpened => {
     }
 };
   
+
+
+toggleElem = function toggleElem(isOpened) {
+  var prevIsOpened = _this.state.isOpened,
+      _this$props = _this.props,
+      cbOpen = _this$props.cbOpen,
+      cbClose = _this$props.cbClose;
+  if (!isBoolean(isOpened)) isOpened = !prevIsOpened;
+
+  _this.setState({isOpened: isOpened});
+
+  var cb = isOpened ? cbOpen : cbClose;
+  cb && cb();
+};
+
+
+
+openCloseFunc = function openCloseFunc(e) {
+    if (e === true) {
+      _this.setState({isOpened: _this.state.e});
+      _this.props.cbOpen && _this.props.cbOpen();
+    }
+    else if (e === false) {
+        _this.setState({isOpened: _this.state.e});
+        _this.props.cbClose && _this.props.cbClose();
+    }
+    else {
+          _this.setState({isOpened: !_this.state.isOpened});
+          if (_this.state.isOpened) {
+              _this.props.cbClose && _this.props.cbClose();
+          }
+          else {
+            _this.props.cbOpen && _this.props.cbOpen();
+          }
+        }
+  };
