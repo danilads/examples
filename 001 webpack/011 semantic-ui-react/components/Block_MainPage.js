@@ -1,30 +1,33 @@
 import React,{Fragment} from 'react';
 import Filter from '../primitives/Filter';
 import Pop from './Pop';
+import Vis from './Vissibility';
+import Mod from './Modal';
 import {Visibility} from 'semantic-ui-react';
 
 
 class Block_MainPage extends React.PureComponent {
+	state={
+		pos:0,
+	}
 	
-	state = {
-		content:[1,2,3,4,5,6,7,8,9,10]
-	};
-	showMore=()=>{
-		console.log('show more');
-		let anotherArr = [11,12,13,14,15,16,17,18,19,20]
-		this.setState({content:this.state.content.concat(anotherArr)});
-	};
   	render() {
 		return (
 			<div className={"Block_Filter"}>
-				<Visibility
-					onBottomVisible={()=>{this.showMore()}}
-				>
-					{this.state.content.map((it,ind)=>{
-						return <div key={ind} style={{padding:"20px 0",border:'1px dashed gray'}}>{it}</div>
-					})}
-				</Visibility>
-				<Pop/>
+				<button onClick={()=>{
+					this.setState({pos:1});
+				}}>Vissibility</button>
+				<button onClick={()=>{
+					this.setState({pos:2});
+				}}>Popup</button>
+				<button onClick={()=>{
+					this.setState({pos:3});
+				}}>Modal</button>
+
+				{this.state.pos===1&&<Vis/>}
+				{this.state.pos===2&&<Pop/>}
+				{this.state.pos===3&&<Mod/>}
+				
 			</div>
 		);
 
