@@ -75,7 +75,7 @@ class Dropdown extends PureComponent {
 		let {isOpened} = this.state;
 		console.log('--type of title', typeof title);
 		return (
-			<div className={classNames('Dropdown',className)}>
+			<div style={isOpened?{zIndex: 51}:{zIndex: 50}} className={classNames('Dropdown',className)}>
 				<div className={'D_content'} style={isOpened?{border: "1px solid #313c47!important"}:{}} ref={this.mainContainer} onClick={this.openCloseFunc}>
 				<div className={'D_head'}>
 					{typeof title === 'function'?title({isOpened,openCloseFunc:this.openCloseFunc}):title}

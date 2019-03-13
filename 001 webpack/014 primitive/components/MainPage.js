@@ -1,13 +1,14 @@
-import React, {PureComponent} from 'react';
+import React, {Fragment ,PureComponent} from 'react';
 
 import Dropdown from './Dropdown';
 class MainPage extends PureComponent {
-
-  	render() {
-		return (
-            <div style={{display:'flex'}}>
+    state={
+        content:''
+    }
+    showDropdown=()=>{
+        return <Fragment>
                 {/* typeof title = 'string' */}
-                <Dropdown title={'title'} dropContent={'content'}/>
+                                <Dropdown title={'title'} dropContent={'content'}/>
 
                 {/* typeof title = 'object' */}
                 <Dropdown
@@ -24,6 +25,14 @@ class MainPage extends PureComponent {
                     }}
                     dropContent={<div>content</div>}
                 />
+        </Fragment>
+    }
+  	render() {
+		return (
+            <div>
+                <button onClick={()=>{this.setState({content:this.showDropdown()})}}>Dropdown</button>
+
+                <div>{this.state.content}</div>
 
             </div>
 		);
