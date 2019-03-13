@@ -1,7 +1,8 @@
 import React, {Fragment ,PureComponent} from 'react';
 
 import Dropdown from './Dropdown';
-class MainPage extends PureComponent {
+import RadioButtons from './RadioButtons';
+class AaaMainPage extends PureComponent {
     state={
         content:''
     }
@@ -27,11 +28,16 @@ class MainPage extends PureComponent {
                 />
         </Fragment>
     }
+    showRadioButtons=()=>{
+        return <Fragment>
+            <RadioButtons/>
+        </Fragment>
+    }
   	render() {
 		return (
             <div>
                 <button onClick={()=>{this.setState({content:this.showDropdown()})}}>Dropdown</button>
-
+                <button onClick={()=>{this.setState({content:this.showRadioButtons()})}}>RadioButtons</button>
                 <div>{this.state.content}</div>
 
             </div>
@@ -42,4 +48,4 @@ class MainPage extends PureComponent {
 
 
 
-export default MainPage;
+export default AaaMainPage;

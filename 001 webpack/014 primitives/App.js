@@ -2,12 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import MainPage from './components/MainPage';
+import AaaMainPage from './components/AaaMainPage';
 
 //css
 import './scss/main.scss';
 ReactDOM.render(
-	<MainPage/>
+	<AaaMainPage/>
 	, document.getElementById('container') 
 );
 
