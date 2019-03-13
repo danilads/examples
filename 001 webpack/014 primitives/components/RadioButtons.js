@@ -3,27 +3,25 @@ import classNames from 'classnames';
 import './RadioButtons.scss';
 import PropTypes from 'prop-types';
 
-//В радио подразумевается, что выбрана
 class RadioButtons extends PureComponent {
   static propTypes = {
-    className: PropTypes.string, //стиль
-    cbClose: PropTypes.func, //колбек срабатывает при закрытии
+    className: PropTypes.string, // Стиль.
+    name: PropTypes.string.isRequired, // Уникальное имя которое объединяет в группу кнопки (Обязательное заполнение).
+    
+    value: PropTypes.string.isRequired, // Выбранное значение из массива props.arrOfValues. Если передать значение не содержащееся в массиве, то ни одна кнопка не будет выбранна(не-типичное поведение для радио).
+    arrOfValues: PropTypes.array.isRequired, // Передаем массив значений кнопок.
+    onChange: PropTypes.func, // Возвращает выбранное значение из массива props.arrOfValues.
 
-    title: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-      PropTypes.object,
-    ]),
-    dropContent: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-      PropTypes.object,
-    ]),
-    cbOpen: PropTypes.func, //колбек срабатывает при открытии
+   
+    // Внешний вид радио кнопки (функция которая возвращает jsx, ей в аргументы прелит выбранна или невыбранна данная кнопка)
+    // (Не обязательное поле, т.к. можем настроить вид обычными стилями).
+    buttonView: PropTypes.func
   };
   static defaultProps = {
-    title: "title",
-    dropContent: "content"
+    className: "",
+    name: "someGroup",
+    value: "1",
+    arrOfValues: ["1","2","3"],
   };
 
   state = {
@@ -31,11 +29,14 @@ class RadioButtons extends PureComponent {
   };
 
   render() {
-    let {title,dropContent,className} = this.props;
-    let {isOpened} = this.state;
+    let {arrOfValues,className,name} = this.props;
+
     return (
         <div className={classNames('RadioButtons',className)}>
-            radio bitches
+            {arrOfValues.map(i=>{
+              return <label key={i}><input type="radio" name={name}/><span className="button">{i}</span></label>
+                     
+            })}
         </div>
     );
   }

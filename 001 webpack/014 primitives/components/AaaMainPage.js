@@ -9,7 +9,7 @@ class AaaMainPage extends PureComponent {
     showDropdown=()=>{
         return <Fragment>
                 {/* typeof title = 'string' */}
-                                <Dropdown title={'title'} dropContent={'content'}/>
+                <Dropdown title={'title'} dropContent={'content'}/>
 
                 {/* typeof title = 'object' */}
                 <Dropdown
@@ -35,12 +35,15 @@ class AaaMainPage extends PureComponent {
     }
   	render() {
 		return (
-            <div>
-                <button onClick={()=>{this.setState({content:this.showDropdown()})}}>Dropdown</button>
-                <button onClick={()=>{this.setState({content:this.showRadioButtons()})}}>RadioButtons</button>
-                <div>{this.state.content}</div>
+            <Fragment>
+                <div style={{marginBottom:"20px"}}>
+                    <button onClick={()=>{this.setState({content:this.showDropdown()})}}>Dropdown</button>
+                    <button onClick={()=>{this.setState({content:this.showRadioButtons()})}}>RadioButtons</button>
+                
 
-            </div>
+                </div>
+                <div>{this.state.content}</div>
+            </Fragment>
 		);
   	}
 
