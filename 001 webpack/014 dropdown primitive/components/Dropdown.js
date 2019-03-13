@@ -70,23 +70,24 @@ class Dropdown extends PureComponent {
 	componentWillUnmount(){
 		document.removeEventListener("click", this.clickOutside);
 	};
-  	render() {
+	render() {
 		let {title,dropContent,className} = this.props;
 		let {isOpened} = this.state;
+		console.log('--type of title', typeof title);
 		return (
-		<div className={classNames('Dropdown',className)}>
-			<div className={'D_content'} style={isOpened?{border: "1px solid #313c47!important"}:{}} ref={this.mainContainer} onClick={this.openCloseFunc}>
-			<div className={'D_head'}>
-				{typeof title === 'function'?title({isOpened,openCloseFunc:this.openCloseFunc}):title}
+			<div className={classNames('Dropdown',className)}>
+				<div className={'D_content'} style={isOpened?{border: "1px solid #313c47!important"}:{}} ref={this.mainContainer} onClick={this.openCloseFunc}>
+				<div className={'D_head'}>
+					{typeof title === 'function'?title({isOpened,openCloseFunc:this.openCloseFunc}):title}
+				</div>
+				<div className={isOpened?'D_chevron-down':'D_chevron'}>{this._renderSVG()}</div>
+				</div>
+				<div className={'D_dropContainer'} ref={this.dropContainer}>
+				<div className={"D_dropContent"}>
+					{isOpened&&(typeof dropContent === 'function'?dropContent({isOpened,openCloseFunc:this.openCloseFunc}):dropContent)}
+				</div>
+				</div>
 			</div>
-			<div className={isOpened?'D_chevron-down':'D_chevron'}>{this._renderSVG()}</div>
-			</div>
-			<div className={'D_dropContainer'} ref={this.dropContainer}>
-			<div className={"D_dropContent"}>
-				{isOpened&&(typeof dropContent === 'function'?dropContent({isOpened,openCloseFunc:this.openCloseFunc}):dropContent)}
-			</div>
-			</div>
-		</div>
 		);
   	}
 
