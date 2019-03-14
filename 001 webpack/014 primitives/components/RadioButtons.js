@@ -23,21 +23,21 @@ class RadioButtons extends PureComponent {
 
 
     className: PropTypes.string, // Стиль.
-    label: PropTypes.string, // Лэйбел. (Если присылаем свое отображение props.buttonView label не отображается)
+    label: PropTypes.string, // Лэйбел. (Если присылаем свое отображение props.customView label не отображается)
 
     // (Не обязательное поле, т.к. можем настроить вид обычными стилями).
     // Внешний вид радио кнопки (функция которая возвращает jsx, ей в аргументы прелит выбранна или невыбранна данная радио-кнопка)
-    buttonView: PropTypes.func
+    customView: PropTypes.func
   };
 
   changeRadio=()=>{
     this.props.onChange(this.props.value);
   }
   render() {
-    let {value,className,groupName,selectedValue,label,buttonView} = this.props;
+    let {value,className,groupName,selectedValue,label,customView} = this.props;
     return (
-        <div className={classNames(buttonView?'RadioButtons-custom':'RadioButtons',className)}>
-          <label className={selectedValue===value?"ButtonSelected":"ButtonDeselected"}><input onChange={this.changeRadio} type="radio" name={groupName}/>{buttonView?buttonView(selectedValue===value):label}</label>
+        <div className={classNames(customView?'RadioButtons-custom':'RadioButtons',className)}>
+          <label className={selectedValue===value?"ButtonSelected":"ButtonDeselected"}><input onChange={this.changeRadio} type="radio" name={groupName}/>{customView?customView(selectedValue===value):label}</label>
         </div>
     );
   }
