@@ -2,11 +2,13 @@
     margin: 5px 0;
     position: relative;
     height: 20px;
+    
 
     input{
         display: none;
     }
     label {
+        cursor: pointer;
         padding-left: 27px;
         &:before{
             content: "";
@@ -44,5 +46,19 @@
             background-color: gray;
         }
         
+    }
+    &-custom{
+        label{
+            cursor: pointer;
+        }
+        input{
+            display: none;
+        }
+        .ButtonSelected{
+
+        }
+        .ButtonDeselected{
+
+        }
     }
 }
