@@ -11,8 +11,15 @@
         cursor: pointer;
     }
     
-    input[type="radio"]:checked ~ * {
-        
-        background:pink !important;
-    } 
+
+    .ButtonSelected{
+        width:  20px;
+        height: 20px;
+        background-color: #ecf;
+    }
+    .ButtonDeselected{
+        width:  20px;
+        height: 20px;
+        background-color: #fec;
+    }
 }

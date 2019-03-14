@@ -4,7 +4,12 @@ import Dropdown from './Dropdown';
 import RadioButtons from './RadioButtons';
 class AaaMainPage extends PureComponent {
     state={
-        content:''
+        content:'',
+
+        //RadioButtons
+        radioArr:["1","2","3"],
+        selectedRadio: "1",
+
     }
     showDropdown=()=>{
         return <Fragment>
@@ -30,19 +35,42 @@ class AaaMainPage extends PureComponent {
     }
     showRadioButtons=()=>{
         return <Fragment>
-            <RadioButtons/>
+            <RadioButtons
+                groupName="someBtns"
+                arrOfValues={this.state.radioArr}
+                value={this.state.radioArr[0]}
+                selectedValue={this.state.selectedRadio}
+                onChange={(e)=>this.setState({selectedRadio:e})}
+            />
+            <RadioButtons
+                groupName="someBtns"
+                arrOfValues={this.state.radioArr}
+                value={this.state.radioArr[1]}
+                selectedValue={this.state.selectedRadio}
+                onChange={(e)=>this.setState({selectedRadio:e})}
+            />
+            <RadioButtons
+                groupName="someBtns"
+                arrOfValues={this.state.radioArr}
+                value={this.state.radioArr[2]}
+                selectedValue={this.state.selectedRadio}
+                onChange={(e)=>this.setState({selectedRadio:e})}
+            />
         </Fragment>
     }
   	render() {
 		return (
             <Fragment>
                 <div style={{marginBottom:"20px"}}>
-                    <button onClick={()=>{this.setState({content:this.showDropdown()})}}>Dropdown</button>
-                    <button onClick={()=>{this.setState({content:this.showRadioButtons()})}}>RadioButtons</button>
+                    <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
+                    <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
                 
 
                 </div>
-                <div>{this.state.content}</div>
+                <div>
+                    {this.state.content===1&&this.showDropdown()}
+                    {this.state.content===2&&this.showRadioButtons()}
+                </div>
             </Fragment>
 		);
   	}
