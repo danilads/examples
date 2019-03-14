@@ -74,7 +74,7 @@ class AaaMainPage extends PureComponent {
                 value={this.state.radioArr2[0]}
                 selectedValue={this.state.selectedRadio2}
                 onChange={(e)=>this.setState({selectedRadio2:e})}
-                buttonView={(e)=>this.radioButton(e)}
+                customView={(e)=>this.radioButton(e)}
             />
             <RadioButtons
                 groupName="someBtns2"
@@ -83,7 +83,7 @@ class AaaMainPage extends PureComponent {
                 value={this.state.radioArr2[1]}
                 selectedValue={this.state.selectedRadio2}
                 onChange={(e)=>this.setState({selectedRadio2:e})}
-                buttonView={(e)=>this.radioButton(e)}
+                customView={(e)=>this.radioButton(e)}
             />
             <RadioButtons
                 groupName="someBtns2"
@@ -92,7 +92,7 @@ class AaaMainPage extends PureComponent {
                 value={this.state.radioArr2[2]}
                 selectedValue={this.state.selectedRadio2}
                 onChange={(e)=>this.setState({selectedRadio2:e})}
-                buttonView={(e)=>this.radioButton(e)}
+                customView={(e)=>this.radioButton(e)}
             />
         </Fragment>
     }
