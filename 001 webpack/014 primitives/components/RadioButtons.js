@@ -15,8 +15,8 @@ class RadioButtons extends PureComponent {
     
     // Компоненту нужно (ОБЯЗАТЕЛЬНО!) передать:
     groupName: PropTypes.string.isRequired, // Уникальное имя которое объединяет в группу радио-кнопки.
-    value: PropTypes.string.isRequired, // Значение из массива props.arrOfValues (какую именно кнопку рэндерим)
-    selectedValue: PropTypes.string.isRequired, // Выбранное значение из массива props.arrOfValues. Если передать значение не содержащееся в массиве, то радио-кнопка не будет выбранна (Если нужно, чтобы по умолчания не выбрана ни одна кнопка)
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number]).isRequired, // Значение из массива props.arrOfValues (какую именно кнопку рэндерим)
+    selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number]).isRequired, // Выбранное значение из массива props.arrOfValues. Если передать значение не содержащееся в массиве, то радио-кнопка не будет выбранна (Если нужно, чтобы по умолчания не выбрана ни одна кнопка)
     
     // Контроль за выбранной радио кнопкой осуществляется в родительском компоненте
     onChange: PropTypes.func.isRequired, // Возвращает выбранное значение props.value при выборе радио-кнопки.
