@@ -37,6 +37,7 @@ class AaaMainPage extends PureComponent {
         return <Fragment>
             <RadioButtons
                 groupName="someBtns"
+                label="label 1"
                 arrOfValues={this.state.radioArr}
                 value={this.state.radioArr[0]}
                 selectedValue={this.state.selectedRadio}
@@ -44,6 +45,7 @@ class AaaMainPage extends PureComponent {
             />
             <RadioButtons
                 groupName="someBtns"
+                label="label 2"
                 arrOfValues={this.state.radioArr}
                 value={this.state.radioArr[1]}
                 selectedValue={this.state.selectedRadio}
@@ -51,6 +53,7 @@ class AaaMainPage extends PureComponent {
             />
             <RadioButtons
                 groupName="someBtns"
+                label="label 3"
                 arrOfValues={this.state.radioArr}
                 value={this.state.radioArr[2]}
                 selectedValue={this.state.selectedRadio}

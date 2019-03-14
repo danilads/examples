@@ -1,25 +1,48 @@
 .RadioButtons{
-    input[type="radio"] {
+    margin: 5px 0;
+    position: relative;
+    height: 20px;
+
+    input{
         display: none;
-      }
+    }
     label {
-        display: inline-block;
-        background-color: #ddd;
-        padding: 4px 11px;
-        font-family: Arial;
-        font-size: 16px;
-        cursor: pointer;
+        padding-left: 27px;
+        &:before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: blue;
+            border: 1px solid black;
+            border-radius: 50%;
+        }
+        
     }
     
 
     .ButtonSelected{
-        width:  20px;
-        height: 20px;
-        background-color: #ecf;
+        &:before{
+            background-color: blue;
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid black;
+        }
     }
     .ButtonDeselected{
-        width:  20px;
-        height: 20px;
-        background-color: #fec;
+        &:before{
+            background-color: gray;
+        }
+        
     }
 }

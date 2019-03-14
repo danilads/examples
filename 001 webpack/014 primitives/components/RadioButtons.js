@@ -23,6 +23,7 @@ class RadioButtons extends PureComponent {
 
 
     className: PropTypes.string, // Стиль.
+    label: PropTypes.string, // Лэйбел.
 
     // (Не обязательное поле, т.к. можем настроить вид обычными стилями).
     // Внешний вид радио кнопки (функция которая возвращает jsx, ей в аргументы прелит выбранна или невыбранна данная радио-кнопка)
@@ -33,10 +34,10 @@ class RadioButtons extends PureComponent {
     this.props.onChange(this.props.value);
   }
   render() {
-    let {value,className,groupName,selectedValue} = this.props;
+    let {value,className,groupName,selectedValue,label} = this.props;
     return (
         <div className={classNames('RadioButtons',className)}>
-          <label><input onChange={this.changeRadio} type="radio" name={groupName}/><div className={selectedValue===value?"ButtonSelected":"ButtonDeselected"}></div></label>
+          <label className={selectedValue===value?"ButtonSelected":"ButtonDeselected"}><input onChange={this.changeRadio} type="radio" name={groupName}/>{label}</label>
 
         </div>
     );
