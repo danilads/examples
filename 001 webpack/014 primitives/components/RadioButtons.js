@@ -31,6 +31,7 @@ class RadioButtons extends PureComponent {
   };
 
   changeRadio=()=>{
+    console.log('--it works?');
     this.props.onChange(this.props.value);
   }
   render() {
