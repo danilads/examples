@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        .block{
+            width: 1000px;
+            height: 900px;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	/////MobileList
+	class MobileList extends React.Component {
+        constructor() {
+            super();
+            this.state = { 
+                height: window.innerHeight, 
+                width: window.innerWidth
+            };
+        }
+        scroll=()=>{
+            console.log('--scroll');
+            this.getscroll();
+        };
+        resize=()=>{
+            console.log('--resize');
+            this.setState({
+                height: window.innerHeight, 
+                width: window.innerWidth
+            });
+            this.getscroll();
+            
+        };
+        getscroll=(e)=>{
+           if(window.pageXOffest!==null){
+                console.log({x:window.innerWidth,y:window.innerHeight})
+           }
+        }
+        
+        componentDidMount() { 
+			document.addEventListener("scroll", this.scroll);
+			window.addEventListener("resize", this.resize);
+		}
+	
+		componentWillUnmount(){
+			document.removeEventListener("scroll", this.scroll);
+			window.removeEventListener("resize", this.resize);
+		}
+		render() {
+			return (
+				<div className={'block'}>
+					<div><span>width:</span><span>{this.state.width}</span></div>
+					<div><span>height:</span><span>{this.state.height}</span></div>
+				</div>
+			);
+		}
+	}
+	////////////////App Js
+	let contJson = [{id:12,fio:'Alex',balance:330},{id:11,fio:'Sam',balance:220}];
+	
+		ReactDOM.render(
+			<MobileList clients={contJson} />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
