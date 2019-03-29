@@ -7,15 +7,14 @@ class AaaMainPage extends PureComponent {
         content:'',
 
         //RadioButtons
-        radioArr:["1","2","3"],
         selectedRadio: "1",
-        radioArr2:["1","2","3"],
+
         selectedRadio2: "1",
 
     }
     radioButton=(e)=>{
         return <span style={{border:"1px solid black"}}>
-            <span style={e?{color:'red'}:{}}>button</span>
+            <span style={e.isChecked?{color:'red'}:{}}>button</span>
         </span>
     }
     showDropdown=()=>{
@@ -40,59 +39,59 @@ class AaaMainPage extends PureComponent {
                 />
         </Fragment>
     }
+    setRadio2=(e)=>{
+        this.setState({selectedRadio2:e})
+    }
     showRadioButtons=()=>{
         return <Fragment>
             <RadioButtons
-                groupName="someBtns"
+                name="someBtns"
                 label="label 1"
-                arrOfValues={this.state.radioArr}
-                value={this.state.radioArr[0]}
+                value={"1"}
                 selectedValue={this.state.selectedRadio}
                 onChange={(e)=>this.setState({selectedRadio:e})}
+                
             />
             <RadioButtons
-                groupName="someBtns"
+                name="someBtns"
                 label="label 2"
-                arrOfValues={this.state.radioArr}
-                value={this.state.radioArr[1]}
+                value={"2"}
                 selectedValue={this.state.selectedRadio}
                 onChange={(e)=>this.setState({selectedRadio:e})}
+                
             />
             <RadioButtons
-                groupName="someBtns"
+                name="someBtns"
                 label="label 3"
-                arrOfValues={this.state.radioArr}
-                value={this.state.radioArr[2]}
+                value={"3"}
                 selectedValue={this.state.selectedRadio}
                 onChange={(e)=>this.setState({selectedRadio:e})}
+                
             />
 
             <RadioButtons
-                groupName="someBtns2"
+                name="someBtns2"
                 label="label 1"
-                arrOfValues={this.state.radioArr2}
-                value={this.state.radioArr2[0]}
+                value={"1"}
                 selectedValue={this.state.selectedRadio2}
-                onChange={(e)=>this.setState({selectedRadio2:e})}
-                customView={(e)=>this.radioButton(e)}
+                onChange={this.setRadio2}
+                customView={this.radioButton}
             />
             <RadioButtons
-                groupName="someBtns2"
+                name="someBtns2"
                 label="label 2"
-                arrOfValues={this.state.radioArr2}
-                value={this.state.radioArr2[1]}
+                value={"2"}
                 selectedValue={this.state.selectedRadio2}
-                onChange={(e)=>this.setState({selectedRadio2:e})}
-                customView={(e)=>this.radioButton(e)}
+                onChange={this.setRadio2}
+                customView={this.radioButton}
             />
             <RadioButtons
-                groupName="someBtns2"
+                name="someBtns2"
                 label="label 3"
-                arrOfValues={this.state.radioArr2}
-                value={this.state.radioArr2[2]}
+                value={"3"}
                 selectedValue={this.state.selectedRadio2}
-                onChange={(e)=>this.setState({selectedRadio2:e})}
-                customView={(e)=>this.radioButton(e)}
+                onChange={this.setRadio2}
+                customView={this.radioButton}
             />
         </Fragment>
     }
