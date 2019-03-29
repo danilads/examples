@@ -39,4 +39,3 @@ export const  ModalHoc = (BaseComponent) => {
     }),
     {modalOpen,modalClose})(ModalHoc);
 };
-
