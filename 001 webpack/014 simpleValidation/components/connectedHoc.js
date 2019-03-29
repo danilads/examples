@@ -9,9 +9,8 @@ import {writeInModel} from "../redux/actions";
 
 const connectedHoc = (BaseComponent) => {
     class ConnectedHoc extends React.Component {
-    
         writeInRedux=(value)=>{
-            this.props.writeInModel(value.target.value,this.props.model)
+            this.props.writeInModel(value,this.props.model)
         }
         render() {
             return <React.Fragment>

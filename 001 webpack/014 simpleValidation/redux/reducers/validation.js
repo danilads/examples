@@ -19,7 +19,7 @@ let initialState = {
 			isBlur: true,
 		},
 		checkField:{
-			value: "",
+			value: [],
 			isValid: false,
 			isTouched: false,
 			isBlur: true,

@@ -28,7 +28,7 @@ class AaaMainPage extends PureComponent {
                 <ValidComponent
                     component={CheckBox}
                     model="checkField"
-                    validRules={""}
+                    validRules={"checkNone"}
                 />
 
                 <ValidComponent

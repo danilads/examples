@@ -7,7 +7,7 @@ class InputText extends PureComponent {
   render() {
     return (
         <div>
-          <input type={"text"} onChange={this.props.onChange} defaultValue={this.props.defalultText}/>
+          <input type={"text"} onChange={(e)=>this.props.onChange(e.target.value)} defaultValue={this.props.defalultText}/>
         </div>
     );
   }

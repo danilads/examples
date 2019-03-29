@@ -13,11 +13,16 @@ class ValidComponent extends PureComponent {
   componentDidUpdate(prevProps, prevState){
     let {validRules,validation,model,setError} = this.props;
     let isError = false;
-    //кейс валидация
+    //01
+    //кейс валидации текст
     if(validRules==="length<2"&&validation[model].value<2&&validation[model].isTouched){
       isError=true;
     }
-    
+    //02
+    if(validRules==="checkNone"&&validation[model].value.length===0&&validation[model].isTouched){
+      isError=true;
+    }
+
     //чтобы небыло бесконечного цикла
     if(prevProps.validation[model].isValid!==isError){
       setError(isError,model);
