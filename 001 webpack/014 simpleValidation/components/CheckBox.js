@@ -24,8 +24,8 @@ class CheckBox extends PureComponent {
 
     return (
         <div>
-          <input type={"checkbox"} value={0} onChange={(e)=>this.writeInRedux(e)}/>
-          <input type={"checkbox"} value={1} onChange={(e)=>this.writeInRedux(e)}/>
+          <input type={"checkbox"} value={"CBETA1"} onChange={(e)=>this.writeInRedux(e)}/>
+          <input type={"checkbox"} value={"CBETA2"} onChange={(e)=>this.writeInRedux(e)}/>
         </div>
     );
   }
