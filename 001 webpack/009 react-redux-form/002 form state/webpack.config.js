@@ -12,7 +12,8 @@ module.exports = {
   },
   devServer: {
     inline:true,
-    port: 8080
+    port: 8080,
+    historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
   },
   entry: {
 		main: ['babel-polyfill', './app.js'] //для работы async / await
@@ -48,9 +49,6 @@ module.exports = {
     ]
       }
     ]
-  },
-  devServer: {
-    historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
   },
   plugins: [
 	new MiniCssExtractPlugin({
