@@ -15,7 +15,7 @@ class ValidComponent extends PureComponent {
     let isError = false;
     //01
     //кейс валидации текст
-    if(validRules==="length<2"&&validation[model].value<2&&validation[model].isTouched){
+    if(validRules==="length<2"&&validation[model].value.length<2&&validation[model].isTouched){
       isError=true;
     }
     //02
