@@ -18,7 +18,7 @@ module.exports = {
 	  })
     ]
   },
-  devtool: devMode?'inline-source-map':false, //'source map' - для того чтобы в chrome в вкладке source можно было читать несобранный код
+  devtool: devMode?'inline-source-map':undefined, //'source map' - для того чтобы в chrome в вкладке source можно было читать несобранный код
   devServer: {
     inline:true,
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)

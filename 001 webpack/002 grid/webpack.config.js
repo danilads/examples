@@ -2,7 +2,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: 'development',
