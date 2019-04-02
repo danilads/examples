@@ -2,6 +2,7 @@ import React, {Fragment ,PureComponent} from 'react';
 
 import Dropdown from './Dropdown';
 import RadioButtons from './RadioButtons';
+import InputTextWithSpaces from './InputTextWithSpaces';
 class AaaMainPage extends PureComponent {
     state={
         content:'',
@@ -95,18 +96,25 @@ class AaaMainPage extends PureComponent {
             />
         </Fragment>
     }
+    showInputWithSpaces=()=>{
+        return <Fragment>
+            <InputTextWithSpaces/>
+        </Fragment>
+    }
   	render() {
 		return (
             <Fragment>
                 <div style={{marginBottom:"20px"}}>
                     <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
                     <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
+                    <button onClick={()=>{this.setState({content:3})}}>InputWithSpaces</button>
                 
 
                 </div>
                 <div>
                     {this.state.content===1&&this.showDropdown()}
                     {this.state.content===2&&this.showRadioButtons()}
+                    {this.state.content===3&&this.showInputWithSpaces()}
                 </div>
             </Fragment>
 		);
