@@ -2,18 +2,22 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  mode: 'development',
-  //mode: 'production',
+  //устанавливается в packaje.json (нужен cross-env)
+ mode: process.env.NODE_ENV,
+ //mode: 'development',
+ //mode: 'production',
   optimization: {
     minimizer: [
       new UglifyJsPlugin()
     ]
   },
+  devtool: devMode?'inline-source-map':undefined, //'source map' - для того чтобы в chrome в вкладке source можно было читать несобранный код
   devServer: {
     inline:true,
-    port: 8080,
+    port: 8081,
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
   },
   entry: {
