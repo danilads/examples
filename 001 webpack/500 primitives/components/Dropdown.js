@@ -36,11 +36,11 @@ class Dropdown extends PureComponent {
 		//if send atr
 		//open
 		if(e===true){
-		  this.setState({isOpened:this.state.e});
+		  this.setState({isOpened:e});
 		}
 		//close
 		else if(e===false){
-		  this.setState({isOpened:this.state.e});
+		  this.setState({isOpened:e});
 		  this.props.cbClose && this.props.cbClose();
 		}
 		//toggle
