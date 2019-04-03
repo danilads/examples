@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import './InputTextWithSpaces.scss';
 import PropTypes from 'prop-types';
 
+import InputSpacesHoc from '../hoc/InputSpacesHoc';
+
 class InputTextWithSpaces extends PureComponent {
   static propTypes = {
     customView: PropTypes.func
