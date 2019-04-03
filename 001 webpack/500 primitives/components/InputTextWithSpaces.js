@@ -2,24 +2,33 @@ import React, {PureComponent,createRef} from 'react';
 import classNames from 'classnames';
 import './InputTextWithSpaces.scss';
 import PropTypes from 'prop-types';
-
-import InputSpacesHoc from '../hoc/InputSpacesHoc';
+import {reactRefModifyStr} from "../utils/utils";
 
 class InputTextWithSpaces extends PureComponent {
   static propTypes = {
-    customView: PropTypes.func
+    className: PropTypes.string,
+    customView: PropTypes.func,
   };
 
-  changeRadio=()=>{
-    //console.log('--it works?',this.props.value);
-    this.props.onChange(this.props.value);
+  state={
+    value: "",
   }
+  containerRef = {};
+  dirtyValue = "";
+
   render() {
     let {className} = this.props;
+    let value = this.state.value;
+    let result = reactRefModifyStr([{reg:"^[0-9]+$",symbol:"@"}], this.containerRef, "ᾩᾩ-ᾩᾩ", value, false);
+    this.dirtyValue = result.dirtyVal;
+
+    console.log('--state value', this.state.value);
+    console.log('--dirtyValue', this.dirtyValue);
+ 
 
     return (
-        <div className={classNames('RadioButtons', className)}>
-            some input
+        <div className={classNames('InputTextWithSpaces', className)}>
+            <input type="text" value={result.clearVal} onChange={(e)=>this.setState({value:e.target.value})} ref={(el)=>this.containerRef=el}/>
         </div>
     );
   }

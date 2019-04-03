@@ -5,7 +5,7 @@ import RadioButtons from './RadioButtons';
 import InputTextWithSpaces from './InputTextWithSpaces';
 class AaaMainPage extends PureComponent {
     state={
-        content:'',
+        content:3,
 
         //RadioButtons
         selectedRadio: "1",
