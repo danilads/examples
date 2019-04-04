@@ -5,7 +5,7 @@ import RadioButtons from './RadioButtons';
 import InputTextWithSpaces from './InputTextWithSpaces';
 class AaaMainPage extends PureComponent {
     state={
-        content:3,
+        content:"",
 
         //RadioButtons
         selectedRadio: "1",
@@ -107,7 +107,7 @@ class AaaMainPage extends PureComponent {
                 <div style={{marginBottom:"20px"}}>
                     <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
                     <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
-                    <button onClick={()=>{this.setState({content:3})}}>InputWithSpaces</button>
+                    <button onClick={()=>{this.setState({content:3})}}>InputWithSpaces(не доделал)</button>
                 
 
                 </div>
