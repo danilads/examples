@@ -4,6 +4,11 @@ export const save = (e) => (dispatch, getState) => {
 	let {items,text} = getState();
 	console.log(items);
 	console.log(text);
+	//можно вызывать два диспача
+	// dispatch({
+	// 	type: 'SAVE_VALUE',
+	// 	payload: e
+	// })
 	dispatch({
 		type: 'SAVE_VALUE',
 		payload: e

@@ -25,7 +25,10 @@ class AaaMainPage extends PureComponent {
 
                 {/* typeof title = 'object' */}
                 <Dropdown
-                    title={<div>hello</div>}
+                    title={<div><input type={"checkbox"} onClick={(e)=>{
+                        
+                        e.stopPropagation();
+                    }}/></div>}
                     dropContent={<div><br/>hello<hr/></div>}
                 />
 
