@@ -7,36 +7,56 @@
 	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.one{
+			border:1px solid gray;
+			font-size: 2em;
+			font-weight: 900;
+		}
+	</style>
 </head>
 <body>
 	<div id="container"></div> 
 	<script type="text/babel">
 	/////MobileList
 	class MobileList extends React.Component {
-		//объявляем контейнер
-		containerRef = {};
-		
+		//объявляем контейнер для реф (1 способ)
+		containerRef1 = {};
+		//объявляем контейнер для реф (2 способ)
+		containerRef2 = React.createRef();
+
+
 		 myResize = () => {
 		 	//ширина рефки
-			console.log('1', this.containerRef.offsetWidth);
+			console.log('1', this.containerRef1.offsetWidth);
 			//ширина viewport'a
 			console.log('2', window.innerWidth);
 			//высота viewport'a
 			console.log('3', window.innerHeight);
 
 			//ширина программы (с рамкой) window.outerWidth
+
+			//рефки
+			console.log('--1',this.containerRef1);
+			console.log('--2',this.containerRef2.current);
+
+			//Получаем стили
+			console.log(window.getComputedStyle(this.containerRef1).getPropertyValue("font-size"));
+			console.log(window.getComputedStyle(this.containerRef2.current).getPropertyValue("font-weight"));
 		}
 		//Объявляем
 		componentDidMount() {
 			const {myResize} = this;
 			myResize();
+			
 			window.addEventListener('resize', myResize);
 		}
 		render() {
-			//рефка
+			
 			return (
 				<div>
-					<div ref = {(el) => this.containerRef = el}>hi</div>
+					<div ref = {(el) => this.containerRef1 = el}>объявляем рефку 1</div>
+					<div ref={this.containerRef2} className={'one'}>объявляем рефку 2</div>
 				</div>
 			);
 		}
