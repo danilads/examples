@@ -20,7 +20,7 @@
 		console.log("e2",e2.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')); //делаем отступы 1 232 142 143 212
 		
 		var e3 = "231.54"; //разделитель
-		console.log(e3.replace(/\d/g, "")); //убрать все цифры
+		console.log("e3", e3.replace(/\d/g, "")); //убрать все цифры
 		console.log("e3", e3.split('.')[0]); //обрезать после символа 231
 		console.log("e3", e3.split('.')[1]); //обрезать после символа 54
 		console.log("e3", e3.substring(e3.lastIndexOf(".") + 1)); //обрезать до символа 54
@@ -31,6 +31,9 @@
 		var e5 = '+375 (29) 377 78 78'; //обрезаем все кроме цифр
 		console.log("e5", e5.replace(/[^0-9]/g,'')) //375293777878
 				
+		var e6 = "245px"; //обрезаем пиксели
+		console.log("e6", e6.replace(/ *px/g, '')); //245
+		console.log("e6", parseInt(e6, 10)); //245
 	</script>
 </body> 
 </html>
