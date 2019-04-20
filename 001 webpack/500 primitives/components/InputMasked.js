@@ -130,7 +130,7 @@ class InputMasked extends PureComponent {
     // нужно отслеживания когда мы встваляем текст
     this.prevValueIn = this.valueIn;
     this.valueIn = currentValue;
-
+    
     //удаление выделением
     if(this.cursorPosStart!==this.cursorPosEnd){
       // console.log('--удаление выделением');
@@ -145,6 +145,8 @@ class InputMasked extends PureComponent {
       let cutLength = text.replace(/\s+/g, '').length-this.props.maxLength;
       text=text.slice(0,-cutLength);
     }
+    //нужен для бага если текст один и тот же(1111 1111 и нажали еще 1 то рендера не будет)
+    this.forceUpdate();
     this.setState({text:text.replace(/\s+/g, '')});
     this.props.onChange(text.replace(/\s+/g, ''));
   };
@@ -160,7 +162,6 @@ class InputMasked extends PureComponent {
       <div>-УДАЛЯЕМ ВЫДЕЛЕНИЕМ(Но не 1 символ)</div>
       <br/>
       <div>КЕЙСЫ</div>
-      <div>если ввести 1111 1111 1111 и продолжить вводить 1, то перерендера небудет</div>
     </React.Fragment>);
   }
 }
