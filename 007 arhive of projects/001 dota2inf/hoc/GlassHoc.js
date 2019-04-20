@@ -11,7 +11,7 @@ export const  GlassHoc = (BaseComponent) => {
 
                 <div className='GlassHoc'></div><BaseComponent {...this.props}/>
             </React.Fragment>
-        }
+        } 
     }
     return GlassHoc;
 };

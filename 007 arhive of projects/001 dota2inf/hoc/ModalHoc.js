@@ -31,7 +31,7 @@ export const  ModalHoc = (BaseComponent) => {
                 {/* Обернутый компонент */}
                 <BaseComponent/>
             </React.Fragment>
-        }
+        } 
     }
     return connect((state) => ({
         modal: state.modal,

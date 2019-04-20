@@ -2,17 +2,19 @@ import React, {Fragment ,PureComponent} from 'react';
 
 import Dropdown from './Dropdown';
 import RadioButtons from './RadioButtons';
-import InputTextWithSpaces from './InputTextWithSpaces';
+import InputMasked from './InputMasked';
 class AaaMainPage extends PureComponent {
     state={
-        content:"",
+        content:3,
 
         //RadioButtons
         selectedRadio: "1",
-
         selectedRadio2: "1",
+        //InputMasked
+        inputMaskedText: "",
 
     }
+    //Dropdown
     radioButton=(e)=>{
         return <span style={{border:"1px solid black"}}>
             <span style={e.isChecked?{color:'red'}:{}}>button</span>
@@ -43,6 +45,7 @@ class AaaMainPage extends PureComponent {
                 />
         </Fragment>
     }
+    //Radio
     setRadio2=(e)=>{
         this.setState({selectedRadio2:e})
     }
@@ -99,9 +102,14 @@ class AaaMainPage extends PureComponent {
             />
         </Fragment>
     }
-    showInputWithSpaces=()=>{
+    //InputMasked
+    setInputMaskedText=(e)=>{
+        this.setState({inputMaskedText:e});
+    }
+    showInputMasked=()=>{
+
         return <Fragment>
-            <InputTextWithSpaces/>
+            <InputMasked onChange={this.setInputMaskedText} value={this.state.inputMaskedText} maxLength={12}/>
         </Fragment>
     }
   	render() {
@@ -110,14 +118,14 @@ class AaaMainPage extends PureComponent {
                 <div style={{marginBottom:"20px"}}>
                     <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
                     <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
-                    <button onClick={()=>{this.setState({content:3})}}>InputWithSpaces(не доделал)</button>
+                    <button onClick={()=>{this.setState({content:3})}}>InputMasked</button>
                 
 
                 </div>
                 <div>
                     {this.state.content===1&&this.showDropdown()}
                     {this.state.content===2&&this.showRadioButtons()}
-                    {this.state.content===3&&this.showInputWithSpaces()}
+                    {this.state.content===3&&this.showInputMasked()}
                 </div>
             </Fragment>
 		);
