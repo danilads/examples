@@ -1,0 +1,5 @@
+WAV 96kHz
+Leave remainder
+512 point sinc
+HQ for all
+Disable max poy
