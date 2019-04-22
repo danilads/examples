@@ -12,10 +12,16 @@ class InputMasked extends PureComponent {
 
   cursorPosStart="";
   cursorPosEnd="";
-  curText =""; // значение в инпуте с пробелами
-  //нужно для выделение
-  valueIn = "";
-  prevValueIn = "";
+  valueInInput =""; // актуальное значение в инпуте 
+
+
+  //здесь новый цикл форматирования еще не отработал (formatSpaces)
+  valueIn = ""; // текущее введенное значение  --valueIn 1234 56789
+  prevValueIn = ""; // предыдущее текущее введенное значение  --prevValueIn 1234 56
+
+  //после форматирования (formatSpaces)
+  valueInInput =""; // актуальное значение в инпуте  --valueInInput 1234 5678 9
+  preValueInInput = ""; //актуальное значение в инпуте (до нажатия клавиши) --preValueInInput 1234 56
 
 
 
@@ -32,10 +38,10 @@ class InputMasked extends PureComponent {
         }
       }
       if(this.props.maxLength&&arr.length>this.props.maxLength){
-        this.curText=newArr.slice(0,this.props.maxLength+8).join('');
+        this.valueInInput=newArr.slice(0,this.props.maxLength+8).join('');
         return newArr.slice(0,this.props.maxLength+8).join('');
       }
-      this.curText=newArr.join('');
+      this.valueInInput=newArr.join('');
       return newArr.join('');
     }
 
@@ -58,14 +64,17 @@ class InputMasked extends PureComponent {
       // console.log('--cur state',this.state.text);
       //
       // console.log('----------------------');
-      // console.log('--length',this.curText.length);
+      // console.log('--length',this.valueInInput.length);
 
       console.log('--valueIn',this.valueIn);
       console.log('--prevValueIn',this.prevValueIn);
 
+      console.log('--valueInInput',this.valueInInput);
+      console.log('--preValueInInput',this.preValueInInput);
+
       // console.log('--start',this.cursorPosStart);
       // console.log('--end',this.cursorPosEnd);
-      if((this.state.text.length===prevState.text.length+1)||(this.state.text.length===prevState.text.length&&(this.state.text.length===this.props.maxLength||this.state.text.length===this.props.maxLength+1)&&this.valueIn.replace(/\s+/g, '').length===this.props.maxLength+1)){
+      if(this.valueIn.length===this.preValueInInput.length+1){
         console.log('-НАБОР ИЛИ СМЕЩЕНИЕ + КОГДА ТЕКСТ ПОЛНЫЙ ТОЖЕ');
         if((this.cursorPosStart+1)%5===0){
           // console.log('--смещаем на 1');
@@ -78,10 +87,10 @@ class InputMasked extends PureComponent {
           this.containerRef.current.selectionEnd=this.cursorPosStart+1;
         }
       }
-      else if(this.state.text.length+1===prevState.text.length&&this.cursorPosStart===this.cursorPosEnd){
+      else if(this.valueIn.length+1===this.preValueInInput.length){
         console.log('-УДАЛЕНИЕ');
         //удаление в середине
-        if((this.cursorPosStart%5===0&&this.curText.length+1===this.cursorPosStart)||(this.curText.length>this.cursorPosStart||this.curText.length===this.cursorPosStart)){
+        if((this.cursorPosStart%5===0&&this.valueInInput.length+1===this.cursorPosStart)||(this.valueInInput.length>this.cursorPosStart||this.valueInInput.length===this.cursorPosStart)){
           //если удаляем один символ со смещением
           // console.log('--удаление не в конце строки');
           if(this.cursorPosStart%5===0){
@@ -101,14 +110,14 @@ class InputMasked extends PureComponent {
           this.containerRef.current.selectionEnd=this.cursorPosStart;
         }
       }
-      else if(this.state.text.length>prevState.text.length||this.props.maxLength&&(this.props.maxLength===this.state.text.length)){
+      else if(this.valueIn.length>this.preValueInInput.length+1){
         console.log('-ВСТАВЛЯЕМ ТЕКСТ');
         // console.log('--pre',this.prevValueIn);
         // console.log('--cur',this.valueIn);
 
 
       }
-      else if(this.cursorPosStart!==this.cursorPosEnd){
+      else if(this.valueIn.length+1<this.preValueInInput.length){
         console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ');
       }
       // TODO
@@ -124,10 +133,9 @@ class InputMasked extends PureComponent {
     this.cursorPosEnd = this.containerRef.current&&this.containerRef.current.selectionEnd;
   };
   change=(currentValue,prevValue)=>{
-    console.log('--onChangeCur', currentValue);
-    console.log('--onChangePre', prevValue);
     let text = currentValue;
     // нужно отслеживания когда мы встваляем текст
+    this.preValueInInput = prevValue;
     this.prevValueIn = this.valueIn;
     this.valueIn = currentValue;
     
@@ -135,16 +143,18 @@ class InputMasked extends PureComponent {
     if(this.cursorPosStart!==this.cursorPosEnd){
       // console.log('--удаление выделением');
     }
-    //удаление одного символа перед пробелом в середине строки
-    else if(text.length===prevValue.length-1&&(this.cursorPosStart)%5===0){
-      //console.log('--удаление одного символа перед пробелом в середине строки ');
+    //если курсор стоит перед пробелом и мы удаляем, то нужно удалить и пробел и перд символ
+    else if(this.valueIn.length+1===this.preValueInInput.length && this.cursorPosStart%5===0){
       text=text.slice(0,this.cursorPosStart-2)+text.slice(this.cursorPosStart-1);
     }
+ 
+
     //удаляем сиволы которые превышают maxLength
     if(typeof this.props.maxLength==="number"&&this.props.maxLength<text.replace(/\s+/g, '').length){
       let cutLength = text.replace(/\s+/g, '').length-this.props.maxLength;
       text=text.slice(0,-cutLength);
     }
+    
     //нужен для бага если текст один и тот же(1111 1111 и нажали еще 1 то рендера не будет)
     this.forceUpdate();
     this.setState({text:text.replace(/\s+/g, '')});
