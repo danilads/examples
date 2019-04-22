@@ -26,8 +26,6 @@ class InputMasked extends PureComponent {
 
 
   formatSpaces=(val)=>{
-
-
     if(typeof val==='string'){
       let text = val;
 
@@ -71,8 +69,8 @@ class InputMasked extends PureComponent {
       // console.log('--valueInInput',this.valueInInput);
       // console.log('--preValueInInput',this.preValueInInput);
 
-      // console.log('--start',this.cursorPosStart);
-      // console.log('--end',this.cursorPosEnd);
+      console.log('--start',this.cursorPosStart);
+      console.log('--end',this.cursorPosEnd);
       if(this.valueIn.length===this.preValueInInput.length+1){
         console.log('-НАБОР ИЛИ ВСТАВКА ОДНОГО СИМВОЛА');
         if((this.cursorPosStart+1)%5===0){
@@ -122,19 +120,18 @@ class InputMasked extends PureComponent {
       }
       else if(this.valueIn.length>this.preValueInInput.length+1){
         console.log('-ВСТАВЛЯЕМ ТЕКСТ');
-        // console.log('--pre',this.prevValueIn);
-        // console.log('--cur',this.valueIn);
 
+        // встваляем один и более
+        // встваляем один и более когда текст полный
 
       }
       else if(this.valueIn.length+1<this.preValueInInput.length){
         console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ');
+        this.containerRef.current.selectionStart=this.cursorPosStart;
+        this.containerRef.current.selectionEnd=this.cursorPosStart;
       }
-      // TODO
-      // удаление проебла выделением
-      // удаление выделением
-      // встваляем один и более
-      // встваляем один и более когда текст полный
+
+      
 
     }
   }
