@@ -57,6 +57,11 @@ class InputMasked extends PureComponent {
 
   };
 
+  //поиск смещения
+  findPhantomOffset=()=>{
+
+  };
+
   componentDidUpdate(prevProps, prevState, snapshot) {
 
 
@@ -69,8 +74,8 @@ class InputMasked extends PureComponent {
       // console.log('--valueInInput',this.valueInInput);
       // console.log('--preValueInInput',this.preValueInInput);
 
-      console.log('--start',this.cursorPosStart);
-      console.log('--end',this.cursorPosEnd);
+      // console.log('--start',this.cursorPosStart);
+      // console.log('--end',this.cursorPosEnd);
       if(this.valueIn.length===this.preValueInInput.length+1){
         console.log('-НАБОР ИЛИ ВСТАВКА ОДНОГО СИМВОЛА');
         if((this.cursorPosStart+1)%5===0){
@@ -118,26 +123,35 @@ class InputMasked extends PureComponent {
           this.containerRef.current.selectionEnd=this.cursorPosStart;
         }
       }
-      else if(this.valueIn.length>this.preValueInInput.length+1){
+      else if(this.valueIn.length>this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd){
         console.log('-ВСТАВЛЯЕМ ТЕКСТ');
-
-        // встваляем один и более
-        // встваляем один и более когда текст полный
-
+        this.containerRef.current.selectionStart=this.cursorPosStart+(this.valueIn.length-this.valueInInput.length);
+        this.containerRef.current.selectionEnd=this.cursorPosStart+(this.valueIn.length-this.valueInInput.length);
+        
       }
-      else if(this.valueIn.length+1<this.preValueInInput.length){
-        console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ');
+      else if(this.valueIn.length+1<this.preValueInInput.length && this.cursorPosEnd-this.cursorPosStart === this.preValueInInput.length-this.valueIn.length){
+        console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ')
         this.containerRef.current.selectionStart=this.cursorPosStart;
         this.containerRef.current.selectionEnd=this.cursorPosStart;
       }
-
-      
-
+      else if(this.cursorPosStart!==this.cursorPosEnd){
+        console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ')
+          //this.cursorPosStart -базовая точка
+          // TODO
+      }
     }
   }
   selectText=()=>{
     this.cursorPosStart = this.containerRef.current&&this.containerRef.current.selectionStart;
     this.cursorPosEnd = this.containerRef.current&&this.containerRef.current.selectionEnd;
+    // TODO
+    console.log('--Потенциально удаленные символы')
+
+    console.log('--valueIn',this.valueIn);
+    console.log('--prevValueIn',this.prevValueIn);
+
+    console.log('--valueInInput',this.valueInInput);
+    console.log('--preValueInInput',this.preValueInInput);
   };
   change=(currentValue,prevValue)=>{
     
