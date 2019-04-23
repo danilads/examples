@@ -138,6 +138,8 @@ class InputMasked extends PureComponent {
         console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ')
           //this.cursorPosStart -базовая точка
           // TODO
+          // console.log('--text before',newArr.slice(0,this.props.maxLength+8).join('');)
+          // console.log(this.preValueInInput);
       }
     }
   }
@@ -145,13 +147,13 @@ class InputMasked extends PureComponent {
     this.cursorPosStart = this.containerRef.current&&this.containerRef.current.selectionStart;
     this.cursorPosEnd = this.containerRef.current&&this.containerRef.current.selectionEnd;
     // TODO
-    console.log('--Потенциально удаленные символы')
+    // console.log('--Потенциально удаленные символы')
 
-    console.log('--valueIn',this.valueIn);
-    console.log('--prevValueIn',this.prevValueIn);
+    // console.log('--valueIn',this.valueIn);
+    // console.log('--prevValueIn',this.prevValueIn);
 
-    console.log('--valueInInput',this.valueInInput);
-    console.log('--preValueInInput',this.preValueInInput);
+    // console.log('--valueInInput',this.valueInInput);
+    // console.log('--preValueInInput',this.preValueInInput);
   };
   change=(currentValue,prevValue)=>{
     
@@ -185,10 +187,13 @@ class InputMasked extends PureComponent {
     return (<React.Fragment>
       <div><input onSelect={this.selectText} onChange={(e)=>this.change(e.target.value,value)} value={value} ref={this.containerRef} /></div>
       <br/>
-      <div>-НАБОР ИЛИ СМЕЩЕНИЕ + КОГДА ТЕКСТ ПОЛНЫЙ ТОЖЕ</div>
-      <div>-УДАЛЕНИЕ</div>
-      <div>-ВСТАВЛЯЕМ ТЕКСТ(Но не 1 символ)</div>
-      <div>-УДАЛЯЕМ ВЫДЕЛЕНИЕМ(Но не 1 символ)</div>
+      <div>-1234 12xx xx34</div>
+      <div>-вместо "xx xx" - вставляем "БОРР"</div>
+
+
+      <div>-1234 123x 3334</div>
+      <div>-вместо "x "" - вставляем "Б"</div>
+
       <br/>
       <div>КЕЙСЫ</div>
     </React.Fragment>);
