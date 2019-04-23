@@ -23,3 +23,4 @@
 15 GIMP
 16 Activity Monitor
 17 Huawei Suite(?)
+18 Teamviewer

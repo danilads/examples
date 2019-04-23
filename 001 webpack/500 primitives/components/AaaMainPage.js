@@ -5,7 +5,7 @@ import RadioButtons from './RadioButtons';
 import InputMasked from './InputMasked';
 class AaaMainPage extends PureComponent {
     state={
-        content:1,
+        content:3,
         //Dropdown
         isOpened: false,
         //RadioButtons
@@ -115,7 +115,6 @@ class AaaMainPage extends PureComponent {
         this.setState({inputMaskedText:e});
     }
     showInputMasked=()=>{
-
         return <Fragment>
             <InputMasked onChange={this.setInputMaskedText} value={this.state.inputMaskedText} maxLength={12}/>
         </Fragment>
@@ -127,8 +126,6 @@ class AaaMainPage extends PureComponent {
                     <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
                     <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
                     <button onClick={()=>{this.setState({content:3})}}>InputMasked</button>
-                
-
                 </div>
                 <div>
                     {this.state.content===1&&this.showDropdown()}
