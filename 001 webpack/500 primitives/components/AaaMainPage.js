@@ -5,8 +5,9 @@ import RadioButtons from './RadioButtons';
 import InputMasked from './InputMasked';
 class AaaMainPage extends PureComponent {
     state={
-        content:3,
-
+        content:1,
+        //Dropdown
+        isOpened: false,
         //RadioButtons
         selectedRadio: "1",
         selectedRadio2: "1",
@@ -15,15 +16,17 @@ class AaaMainPage extends PureComponent {
 
     }
     //Dropdown
-    radioButton=(e)=>{
-        return <span style={{border:"1px solid black"}}>
-            <span style={e.isChecked?{color:'red'}:{}}>button</span>
-        </span>
+    refBtn1=React.createRef();
+    refBtn2=React.createRef();
+    dropControlled=(e)=>{
+          this.setState({isOpened:e});
     }
     showDropdown=()=>{
         return <Fragment>
                 {/* typeof title = 'string' */}
-                <Dropdown title={'title'} dropContent={'content'}/>
+                <input ref={this.refBtn1} type={"button"} onClick={()=>{this.setState({isOpened:true})}} value="Force Open First"/>
+                <input ref={this.refBtn2} type={"button"} onClick={()=>{this.setState({isOpened:!this.state.isOpened})}} value="Toggle First"/>
+                <Dropdown title={'CONTROLED'} arrButtonsRef={[this.refBtn1,this.refBtn2]} dropContent={'CONTROLED'} isOpened={this.state.isOpened} controlFunction={(e)=>this.setState({isOpened:e})}/>
 
                 {/* typeof title = 'object' */}
                 <Dropdown
@@ -37,8 +40,6 @@ class AaaMainPage extends PureComponent {
                 {/* typeof title = 'function' */}
                 <Dropdown
                     title={(e)=>{
-                        console.log('e',e);
-                        
                         return <div>{e.isOpened?'открыто':'закрыто'}</div>
                     }}
                     dropContent={<div>content</div>}
@@ -46,6 +47,11 @@ class AaaMainPage extends PureComponent {
         </Fragment>
     }
     //Radio
+    radioButton=(e)=>{
+        return <span style={{border:"1px solid black"}}>
+            <span style={e.disabled?{color:'gray'}:(e.isChecked?{color:'red'}:{})}>button</span>
+        </span>
+    }
     setRadio2=(e)=>{
         this.setState({selectedRadio2:e})
     }
@@ -65,6 +71,7 @@ class AaaMainPage extends PureComponent {
                 value={"2"}
                 selectedValue={this.state.selectedRadio}
                 onChange={(e)=>this.setState({selectedRadio:e})}
+                disabled
                 
             />
             <RadioButtons
@@ -91,6 +98,7 @@ class AaaMainPage extends PureComponent {
                 selectedValue={this.state.selectedRadio2}
                 onChange={this.setRadio2}
                 customView={this.radioButton}
+                disabled
             />
             <RadioButtons
                 name="someBtns2"

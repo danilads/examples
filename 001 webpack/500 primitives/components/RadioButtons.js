@@ -19,7 +19,7 @@ class RadioButtons extends PureComponent {
     
 
     onChange: PropTypes.func.isRequired, // Возвращает выбранное значение props.value при выборе радио-кнопки.
-
+    disabled: PropTypes.bool,
 
     className: PropTypes.string, // Стиль.
     label: PropTypes.string, // Лэйбел. (Если присылаем свое отображение props.customView label не отображается)
@@ -33,13 +33,14 @@ class RadioButtons extends PureComponent {
     //console.log('--it works?',this.props.value);
     this.props.onChange(this.props.value);
   }
+
   render() {
-    let {value,className,name,selectedValue,label,customView} = this.props;
+    let {value,className,name,selectedValue,label,customView,disabled} = this.props;
     let isChecked = (value === selectedValue);
     return (
         <div className={classNames(customView?'RadioButtons-custom':'RadioButtons',className)}>
-          <label className={isChecked?"ButtonSelected":"ButtonDeselected"}>
-            <input onChange={this.changeRadio} type="radio" name={name} checked={isChecked} value={selectedValue}/>
+          <label className={disabled?"ButtonDisabled":(isChecked?"ButtonSelected":"ButtonDeselected")}>
+            <input onChange={this.changeRadio} disabled={disabled} type="radio" name={name} checked={isChecked} value={selectedValue}/>
               {/* {customView?customView(isChecked):label} */}
               {customView ? React.createElement(customView, {
                 ...this.props,
