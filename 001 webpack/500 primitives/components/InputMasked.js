@@ -76,8 +76,8 @@ class InputMasked extends PureComponent {
 
       // console.log('--start',this.cursorPosStart);
       // console.log('--end',this.cursorPosEnd);
-      if(this.valueIn.length===this.preValueInInput.length+1){
-        console.log('-НАБОР ИЛИ ВСТАВКА ОДНОГО СИМВОЛА');
+      if(this.valueIn.length===this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd){
+        console.log('-НАБОР ОДНОГО СИМВОЛА');
         if((this.cursorPosStart+1)%5===0){
           // console.log('--смещаем на 1');
           this.containerRef.current.selectionStart=this.cursorPosStart+2;
@@ -89,8 +89,8 @@ class InputMasked extends PureComponent {
           this.containerRef.current.selectionEnd=this.cursorPosStart+1;
         }
       }
-      else if(this.valueIn.length+1===this.preValueInInput.length){
-        console.log('-УДАЛЕНИЕ ИЛИ УДАЛЕНИЕ ОДНОГО СИМВОЛА ВЫДЕЛЕНИЕМ');
+      else if(this.valueIn.length+1===this.preValueInInput.length&&this.cursorPosStart===this.cursorPosEnd){
+        console.log('-УДАЛЕНИЕ ОДНОГО СИМВОЛА ВЫДЕЛЕНИЕМ');
         if(this.cursorPosStart!==this.cursorPosEnd){
           // console.log('--удаление одного символа выделением');
           if((this.cursorPosStart+1)%5===0){
@@ -187,16 +187,26 @@ class InputMasked extends PureComponent {
     return (<React.Fragment>
       <div><input onSelect={this.selectText} onChange={(e)=>this.change(e.target.value,value)} value={value} ref={this.containerRef} /></div>
       <br/>
+      <div>КЕЙСЫ</div>
+      <br/>
       <div>-1234 12xx xx34</div>
       <div>-вместо "xx xx" - вставляем "БОРР"</div>
 
-
+      br/>
       <div>-1234 123x 3334</div>
       <div>-вместо "x "" - вставляем "Б"</div>
 
       <br/>
-      <div>КЕЙСЫ</div>
+      <div>кейс с кнопокой delete</div>
+      
     </React.Fragment>);
+  }
+  componentDidMount() { 
+    document.addEventListener("keydown", console.log);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", console.log);
   }
 }
 

@@ -32,28 +32,58 @@ function memoizeOne(r, n) {
 <body>
 	<div id="container"></div> 
 	<script type="text/babel">
+	class Parent extends React.Component {
+		state={
+			someArr:[0]
+		}
+		render() {
+			return (<div>
+						<div><List arr={this.state.someArr}/></div>
+						<div><input type="button" value="change state for memo 3" onClick={()=>this.setState({someArr:[Math.random()]})}/></div>
+			</div>);
+		}
+	}
 	class List extends React.Component {
 		state={
-			res:''
-		}
-		cnt=(a,b)=>{
-			console.log('--count');
-			this.setState({res:a+b})
-		}
-		
+			res1:0,
+			res2:0,
+			res3:0
+		};
 
-		memo = memoizeOne(this.cnt)
+		//memo1
+		cnt=(a,b)=>{
+			console.log('--memo1');
+			this.setState({res1:a+b})
+		};
+		memo1 = memoizeOne(this.cnt);
+
+		//memo2
+		memo2 = memoizeOne((a,b,c)=>{
+			console.log('--memo2');
+			this.setState({res2:a+b+c})
+		});
+
+		//memo3
+		//сравнивает ссылку на объект
+		memo3 = memoizeOne((a,b)=>{
+			console.log('--memo3');
+			this.setState({res3:a+b})
+		});
 
 		render() {
 			return (<div>
-						<input type="button" value="memo" onClick={()=>this.memo(1,2)} />
-						{this.state.res}
+						<div>
+						<div> <input type="button" value="memo1" onClick={()=>this.memo1(1,2)} /> <span>{this.state.res1}</span></div>
+						<div> <input type="button" value="memo2" onClick={()=>this.memo2(33,44,11)} /> <span>{this.state.res2}</span></div>
+						<div> <input type="button" value="memo3" onClick={()=>this.memo3(7,this.props.arr[0])} /> <span>{this.state.res3}</span></div>
+						</div>
+						
 			</div>);
 		}
 	}
 	////////////////App Js
 		ReactDOM.render(
-			<List/>
+			<Parent/>
 			,document.getElementById('container')
 		);
 	</script>
