@@ -113,7 +113,7 @@ class InputMasked extends PureComponent {
     this.pasteCounter+=1;
   };
  
-  input=(e)=>{
+  inputData=(e)=>{
     if(e.nativeEvent.inputType==='deleteContentBackward'){
       this.deleteType='backward'
     }
@@ -138,7 +138,7 @@ class InputMasked extends PureComponent {
   render() {
     let value = this.formMask(this.props.value);
     return (<React.Fragment>
-      <div><input onInput={this.input} onPaste={this.pasteData} onSelect={this.selectText} onChange={(e)=>this.change(e.target.value,value)} value={value} ref={this.containerRef} /></div>
+      <div><input onInput={this.inputData} onPaste={this.pasteData} onSelect={this.selectText} onChange={(e)=>this.change(e.target.value,value)} value={value} ref={this.containerRef} /></div>
       <br/>
       <div>КЕЙСЫ</div>
       <br/>
