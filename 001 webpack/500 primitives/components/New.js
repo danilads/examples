@@ -234,9 +234,11 @@ class New extends PureComponent {
       else if(this.prevPasteCounter!==this.pasteCounter && this.cursorPosStart!==this.cursorPosEnd){
         console.log("-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ Paste'ом")
 
+
       }
       else if(this.prevPasteCounter!==this.pasteCounter){
         console.log("-ОБЫЧНЫЙ Paste")
+        
       }
     }
      this.prevPasteCounter=this.pasteCounter;
