@@ -6,7 +6,7 @@ class New extends PureComponent {
 
   static defaultProps = {};
   state={
-    text: "",
+    text: ""
   };
   containerRef=React.createRef();
 
@@ -27,6 +27,11 @@ class New extends PureComponent {
 
   deleteType= undefined; // 'backward' - если backspace, 'forward' - если dell
 
+  //счетчик paste чтобы понимать в componentDidUpdate когда мы делаем вставление
+  prevPasteCounter=0;
+  pasteCounter=1;
+
+  pastedText="";
 
 
   formMask=(val)=>{
@@ -104,18 +109,11 @@ class New extends PureComponent {
   };
   
   pasteData=(e)=>{
-    //console.log('--pasteData',e.clipboardData.getData('Text'));
-    console.log('-ВСТАВЛЯЕМ ТЕКСТ');
-    if(this.valueIn.length>this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd){
-      
-      this.containerRef.current.selectionStart=this.cursorPosStart+(this.valueIn.length-this.valueInInput.length);
-      this.containerRef.current.selectionEnd=this.cursorPosStart+(this.valueIn.length-this.valueInInput.length);
-      
-    }
+    this.pastedText=e.clipboardData.getData('Text')
+    this.pasteCounter+=1;
   };
  
   input=(e)=>{
-    console.log('--e',e.nativeEvent.data)
     if(e.nativeEvent.inputType==='deleteContentBackward'){
       this.deleteType='backward'
     }
@@ -123,7 +121,6 @@ class New extends PureComponent {
       this.deleteType='forward'
     }
 
-    //console.log('--actionIn',e.nativeEvent.data)
     this.actionIn = e.nativeEvent.data;
   };
   render() {
@@ -160,6 +157,7 @@ class New extends PureComponent {
 
       // console.log('--start',this.cursorPosStart);
       // console.log('--end',this.cursorPosEnd);
+
       if(this.valueIn.length===this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd&&typeof this.actionIn === 'string'){
         console.log('-НАБОР ОДНОГО СИМВОЛА');
         if((this.cursorPosStart+1)%5===0){
@@ -207,28 +205,41 @@ class New extends PureComponent {
           this.containerRef.current.selectionEnd=this.cursorPosStart;
         }
       }
-      else if(this.valueIn.length+1<this.preValueInInput.length && this.cursorPosStart!==this.cursorPosEnd){
+      else if(this.valueIn.length+1<=this.preValueInInput.length && this.cursorPosStart!==this.cursorPosEnd && this.actionIn===null && this.prevPasteCounter===this.pasteCounter ){
         console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ (но не ввод текста)')
         if(this.actionIn === null && this.deleteType === 'backward'){
-          console.log('--использую backspace');
-          this.containerRef.current.selectionStart=this.cursorPosStart+1;
-          this.containerRef.current.selectionEnd=this.cursorPosStart+1;
+          // console.log('--использую backspace');
+          this.containerRef.current.selectionStart=this.cursorPosStart;
+          this.containerRef.current.selectionEnd=this.cursorPosStart;
         }
         else if(this.actionIn === null && this.deleteType === 'forward'){
-          console.log('--использую dell');
+          // console.log('--использую dell');
           this.containerRef.current.selectionStart=this.cursorPosStart+1;
           this.containerRef.current.selectionEnd=this.cursorPosStart+1;
         }
         
       }
-      else if(this.cursorPosStart!==this.cursorPosEnd&&typeof this.actionIn === 'string'){
-        console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ')
-          //this.cursorPosStart -базовая точка
-          // TODO
-          // console.log('--text before',newArr.slice(0,this.props.maxLength+8).join('');)
-          // console.log(this.preValueInInput);
+      else if(this.cursorPosStart!==this.cursorPosEnd && typeof this.actionIn === 'string' && this.prevPasteCounter===this.pasteCounter){
+        console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ ОДНИМ СИВОЛОМ')
+        if((this.cursorPosStart+1)%5===0){
+          this.containerRef.current.selectionStart=this.cursorPosStart+2;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+2;
+        }
+        else{
+          this.containerRef.current.selectionStart=this.cursorPosStart+1;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+1;
+        }
+       
+      }
+      else if(this.prevPasteCounter!==this.pasteCounter && this.cursorPosStart!==this.cursorPosEnd){
+        console.log("-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ Paste'ом")
+
+      }
+      else if(this.prevPasteCounter!==this.pasteCounter){
+        console.log("-ОБЫЧНЫЙ Paste")
       }
     }
+     this.prevPasteCounter=this.pasteCounter;
   }
 
 }
