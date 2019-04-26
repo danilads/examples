@@ -3,6 +3,7 @@ import React, {Fragment ,PureComponent} from 'react';
 import Dropdown from './Dropdown';
 import RadioButtons from './RadioButtons';
 import InputMasked from './InputMasked';
+import New from './New';
 class AaaMainPage extends PureComponent {
     state={
         content:3,
@@ -116,7 +117,7 @@ class AaaMainPage extends PureComponent {
     }
     showInputMasked=()=>{
         return <Fragment>
-            <InputMasked onChange={this.setInputMaskedText} value={this.state.inputMaskedText} maxLength={12}/>
+            <New onChange={this.setInputMaskedText} value={this.state.inputMaskedText} maxLength={12}/>
         </Fragment>
     }
   	render() {
