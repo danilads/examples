@@ -6,29 +6,38 @@ class InputMasked extends PureComponent {
 
   static defaultProps = {};
   state={
-    text: "",
+    text: ""
   };
   containerRef=React.createRef();
 
   cursorPosStart="";
   cursorPosEnd="";
-  valueInInput =""; // актуальное значение в инпуте 
 
-
-  //здесь новый цикл форматирования еще не отработал (formatSpaces)
+  //здесь новый цикл форматирования еще не отработал (formMask)
   valueIn = ""; // текущее введенное значение  --valueIn 1234 56789
   prevValueIn = ""; // предыдущее текущее введенное значение  --prevValueIn 1234 56
 
-  //после форматирования (formatSpaces)
+  //после форматирования (formMask)
   valueInInput =""; // актуальное значение в инпуте  --valueInInput 1234 5678 9
   preValueInInput = ""; //актуальное значение в инпуте (до нажатия клавиши) --preValueInInput 1234 56
 
+  actionIn = undefined; // null - если backspace dell или вставка даже если один символ
+                        // один символ (строка) - если ввод одного сивола
 
 
-  formatSpaces=(val)=>{
+  deleteType= undefined; // 'backward' - если backspace, 'forward' - если dell
+
+  //счетчик paste чтобы понимать в componentDidUpdate когда мы делаем вставление
+  prevPasteCounter=0;
+  pasteCounter=1;
+
+  pastedText="";
+
+
+  formMask=(val)=>{
     if(typeof val==='string'){
       let text = val;
-
+        
       //удаляем сиволы которые превышают maxLength
       if(typeof this.props.maxLength==="number"&&this.props.maxLength<val.replace(/\s+/g, '').length){
         let cutLength = text.replace(/\s+/g, '').length-this.props.maxLength;
@@ -57,104 +66,14 @@ class InputMasked extends PureComponent {
 
   };
 
-  //поиск смещения
-  findPhantomOffset=()=>{
-
-  };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
 
 
-    if(this.containerRef.current&&this.containerRef.current.selectionStart&&typeof this.containerRef.current.selectionStart === 'number'){
-      // console.log('----------------------');
 
-      // console.log('--valueIn',this.valueIn);
-      // console.log('--prevValueIn',this.prevValueIn);
-
-      // console.log('--valueInInput',this.valueInInput);
-      // console.log('--preValueInInput',this.preValueInInput);
-
-      // console.log('--start',this.cursorPosStart);
-      // console.log('--end',this.cursorPosEnd);
-      if(this.valueIn.length===this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd){
-        console.log('-НАБОР ОДНОГО СИМВОЛА');
-        if((this.cursorPosStart+1)%5===0){
-          // console.log('--смещаем на 1');
-          this.containerRef.current.selectionStart=this.cursorPosStart+2;
-          this.containerRef.current.selectionEnd=this.cursorPosStart+2;
-        }
-        else{
-          // console.log('--не смещаем');
-          this.containerRef.current.selectionStart=this.cursorPosStart+1;
-          this.containerRef.current.selectionEnd=this.cursorPosStart+1;
-        }
-      }
-      else if(this.valueIn.length+1===this.preValueInInput.length&&this.cursorPosStart===this.cursorPosEnd){
-        console.log('-УДАЛЕНИЕ ОДНОГО СИМВОЛА ВЫДЕЛЕНИЕМ');
-        if(this.cursorPosStart!==this.cursorPosEnd){
-          // console.log('--удаление одного символа выделением');
-          if((this.cursorPosStart+1)%5===0){
-            // console.log('--удаление пробела');
-            this.containerRef.current.selectionStart=this.cursorPosStart;
-            this.containerRef.current.selectionEnd=this.cursorPosStart;
-          }
-          else{
-            // console.log('--удаление символа');
-            this.containerRef.current.selectionStart=this.cursorPosStart;
-            this.containerRef.current.selectionEnd=this.cursorPosStart;
-          }
-        }
-        else if((this.cursorPosStart%5===0&&this.valueInInput.length+1===this.cursorPosStart)||(this.valueInInput.length>this.cursorPosStart||this.valueInInput.length===this.cursorPosStart)){
-          // console.log('--удаление не в конце строки');
-          if(this.cursorPosStart%5===0){
-            // console.log('--удаляем символ с пробелом');
-            this.containerRef.current.selectionStart=this.cursorPosStart-2;
-            this.containerRef.current.selectionEnd=this.cursorPosStart-2;
-          }
-          else{
-            // console.log('--удаляем символ');
-            this.containerRef.current.selectionStart=this.cursorPosStart-1;
-            this.containerRef.current.selectionEnd=this.cursorPosStart-1;
-          }
-        }
-        else{
-          // console.log('--удаление в конце строки');
-          this.containerRef.current.selectionStart=this.cursorPosStart;
-          this.containerRef.current.selectionEnd=this.cursorPosStart;
-        }
-      }
-      else if(this.valueIn.length>this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd){
-        console.log('-ВСТАВЛЯЕМ ТЕКСТ');
-        this.containerRef.current.selectionStart=this.cursorPosStart+(this.valueIn.length-this.valueInInput.length);
-        this.containerRef.current.selectionEnd=this.cursorPosStart+(this.valueIn.length-this.valueInInput.length);
-        
-      }
-      else if(this.valueIn.length+1<this.preValueInInput.length && this.cursorPosEnd-this.cursorPosStart === this.preValueInInput.length-this.valueIn.length){
-        console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ')
-        this.containerRef.current.selectionStart=this.cursorPosStart;
-        this.containerRef.current.selectionEnd=this.cursorPosStart;
-      }
-      else if(this.cursorPosStart!==this.cursorPosEnd){
-        console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ')
-          //this.cursorPosStart -базовая точка
-          // TODO
-          // console.log('--text before',newArr.slice(0,this.props.maxLength+8).join('');)
-          // console.log(this.preValueInInput);
-      }
-    }
-  }
   selectText=()=>{
     this.cursorPosStart = this.containerRef.current&&this.containerRef.current.selectionStart;
     this.cursorPosEnd = this.containerRef.current&&this.containerRef.current.selectionEnd;
-    // TODO
-    // console.log('--Потенциально удаленные символы')
-
-    // console.log('--valueIn',this.valueIn);
-    // console.log('--prevValueIn',this.prevValueIn);
-
-    // console.log('--valueInInput',this.valueInInput);
-    // console.log('--preValueInInput',this.preValueInInput);
   };
+
   change=(currentValue,prevValue)=>{
     
     let text = currentValue;
@@ -163,13 +82,20 @@ class InputMasked extends PureComponent {
     this.prevValueIn = this.valueIn;
     this.valueIn = currentValue;
     
+ 
     //удаление выделением
     if(this.cursorPosStart!==this.cursorPosEnd){
       // console.log('--удаление выделением');
     }
-    //если курсор стоит перед пробелом и мы удаляем, то нужно удалить и пробел и перд символ
-    else if(this.valueIn.length+1===this.preValueInInput.length && this.cursorPosStart%5===0){
-      text=text.slice(0,this.cursorPosStart-2)+text.slice(this.cursorPosStart-1);
+    //если курсор стоит перед пробелом или после -  мы удаляем пробел и символ
+    else if(this.valueIn.length+1===this.preValueInInput.length){
+      if(this.cursorPosStart%5===0 && this.deleteType === 'backward'){
+        text=text.slice(0,this.cursorPosStart-2)+text.slice(this.cursorPosStart-1);
+      }
+      else if((this.cursorPosStart+1)%5===0 && this.deleteType === 'forward'){
+        text=text.slice(0,this.cursorPosStart)+text.slice(this.cursorPosStart+1);
+      }
+      
     }
  
 
@@ -181,11 +107,38 @@ class InputMasked extends PureComponent {
     this.props.onChange(text.replace(/\s+/g, ''));
     //здесь можно вернуть текст с форматированием
   };
+  
+  pasteData=(e)=>{
+    this.pastedText=e.clipboardData.getData('Text')
+    this.pasteCounter+=1;
+  };
+ 
+  input=(e)=>{
+    if(e.nativeEvent.inputType==='deleteContentBackward'){
+      this.deleteType='backward'
+    }
+    else if(e.nativeEvent.inputType==='deleteContentForward'){
+      this.deleteType='forward'
+    }
 
+    this.actionIn = e.nativeEvent.data;
+  };
+
+  //считает на сколько нужно сместить слово
+  countOffset=(startLetter,wordLength)=>{
+    let offset=0;
+    
+    for(let i=startLetter; i<startLetter+wordLength;i++ ){
+      if(i%4===0){
+        offset+=1;
+      }
+    }
+    return offset;
+  };
   render() {
-    let value = this.formatSpaces(this.props.value);
+    let value = this.formMask(this.props.value);
     return (<React.Fragment>
-      <div><input onSelect={this.selectText} onChange={(e)=>this.change(e.target.value,value)} value={value} ref={this.containerRef} /></div>
+      <div><input onInput={this.input} onPaste={this.pasteData} onSelect={this.selectText} onChange={(e)=>this.change(e.target.value,value)} value={value} ref={this.containerRef} /></div>
       <br/>
       <div>КЕЙСЫ</div>
       <br/>
@@ -201,13 +154,110 @@ class InputMasked extends PureComponent {
       
     </React.Fragment>);
   }
-  componentDidMount() { 
-    document.addEventListener("keydown", console.log);
+  
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
+    //проверка на существование рефки
+    if(this.containerRef.current&&this.containerRef.current.selectionStart&&typeof this.containerRef.current.selectionStart === 'number'){
+      // console.log('----------------------');
+
+      // console.log('--valueIn',this.valueIn);
+      // console.log('--prevValueIn',this.prevValueIn);
+
+      // console.log('--valueInInput',this.valueInInput);
+      // console.log('--preValueInInput',this.preValueInInput);
+
+      // console.log('--start',this.cursorPosStart);
+      // console.log('--end',this.cursorPosEnd);
+
+      if(this.valueIn.length===this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd&&typeof this.actionIn === 'string'){
+        // console.log('-НАБОР ОДНОГО СИМВОЛА');
+        if((this.cursorPosStart+1)%5===0){
+          // console.log('--смещаем на 1');
+          this.containerRef.current.selectionStart=this.cursorPosStart+2;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+2;
+        }
+        else{
+          // console.log('--не смещаем');
+          this.containerRef.current.selectionStart=this.cursorPosStart+1;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+1;
+        }
+      }
+      else if(this.valueIn.length+1===this.preValueInInput.length&&this.cursorPosStart===this.cursorPosEnd&&this.actionIn===null){
+        // console.log('-УДАЛЕНИЕ ОДНОГО СИМВОЛА ');
+        if(((this.cursorPosStart%5===0&&this.valueInInput.length+1===this.cursorPosStart)||(this.valueInInput.length>this.cursorPosStart||this.valueInInput.length===this.cursorPosStart))&&this.deleteType === 'backward'){
+          // console.log('--удаление не в конце строки backward)');
+          if(this.cursorPosStart%5===0){
+            // console.log('--удаляем символ с пробелом');
+            this.containerRef.current.selectionStart=this.cursorPosStart-2;
+            this.containerRef.current.selectionEnd=this.cursorPosStart-2;
+          }
+          else{
+            // console.log('--удаляем символ');
+            this.containerRef.current.selectionStart=this.cursorPosStart-1;
+            this.containerRef.current.selectionEnd=this.cursorPosStart-1;
+          }
+        }
+        else if(((this.cursorPosStart%5===0&&this.valueInInput.length+1===this.cursorPosStart)||(this.valueInInput.length>this.cursorPosStart||this.valueInInput.length===this.cursorPosStart))&&this.deleteType === 'forward'){
+          // console.log('--удаление не в конце строки forward)');
+          if((this.cursorPosStart+1)%5===0){
+            // console.log('--удаляем символ с пробелом');
+            this.containerRef.current.selectionStart=this.cursorPosStart;
+            this.containerRef.current.selectionEnd=this.cursorPosStart;
+          }
+          else{
+            // console.log('--удаляем символ');
+            this.containerRef.current.selectionStart=this.cursorPosStart;
+            this.containerRef.current.selectionEnd=this.cursorPosStart;
+          }
+        }
+        else{
+          // console.log('--удаление в конце строки');
+          this.containerRef.current.selectionStart=this.cursorPosStart;
+          this.containerRef.current.selectionEnd=this.cursorPosStart;
+        }
+      }
+      else if(this.valueIn.length+1<=this.preValueInInput.length && this.cursorPosStart!==this.cursorPosEnd && this.actionIn===null && this.prevPasteCounter===this.pasteCounter ){
+        // console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ (но не ввод текста)')
+        if(this.actionIn === null && this.deleteType === 'backward'){
+          // console.log('--использую backspace');
+          this.containerRef.current.selectionStart=this.cursorPosStart;
+          this.containerRef.current.selectionEnd=this.cursorPosStart;
+        }
+        else if(this.actionIn === null && this.deleteType === 'forward'){
+          // console.log('--использую dell');
+          this.containerRef.current.selectionStart=this.cursorPosStart+1;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+1;
+        }
+        
+      }
+      else if(this.cursorPosStart!==this.cursorPosEnd && typeof this.actionIn === 'string' && this.prevPasteCounter===this.pasteCounter){
+        // console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ ОДНИМ СИВОЛОМ')
+        if((this.cursorPosStart+1)%5===0){
+          this.containerRef.current.selectionStart=this.cursorPosStart+2;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+2;
+        }
+        else{
+          this.containerRef.current.selectionStart=this.cursorPosStart+1;
+          this.containerRef.current.selectionEnd=this.cursorPosStart+1;
+        }
+       
+      }
+      else if(this.prevPasteCounter!==this.pasteCounter && this.cursorPosStart!==this.cursorPosEnd){
+        // console.log("-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ Paste'ом",this.pastedText.length);
+        this.containerRef.current.selectionStart=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
+        this.containerRef.current.selectionEnd=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
+
+      }
+      else if(this.prevPasteCounter!==this.pasteCounter){
+        // console.log("-ОБЫЧНЫЙ Paste",this.pastedText.length);
+        this.containerRef.current.selectionStart=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
+        this.containerRef.current.selectionEnd=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
+      }
+    }
+     this.prevPasteCounter=this.pasteCounter;
   }
 
-  componentWillUnmount(){
-    document.removeEventListener("keydown", console.log);
-  }
 }
 
 export default InputMasked;
