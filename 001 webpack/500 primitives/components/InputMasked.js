@@ -90,11 +90,14 @@ class InputMasked extends PureComponent {
     }
     //если курсор стоит перед пробелом или после -  мы удаляем пробел и символ
     else if(this.valueIn.length+1===this.preValueInInput.length){
+      console.log('--wtf is here', this.deleteType);
       if(this.cursorPosStart%5===0 && this.deleteType === 'backward'){
         text=text.slice(0,this.cursorPosStart-2)+text.slice(this.cursorPosStart-1);
+        this.actionIn=null;
       }
       else if((this.cursorPosStart+1)%5===0 && this.deleteType === 'forward'){
         text=text.slice(0,this.cursorPosStart)+text.slice(this.cursorPosStart+1);
+        this.actionIn=null;
       }
       
     }
@@ -169,7 +172,7 @@ class InputMasked extends PureComponent {
       <div>-1234 12xx xx34</div>
       <div>-вместо "xx xx" - вставляем "БОРР"</div>
 
-      br/>
+      <br/>
       <div>-1234 123x 3334</div>
       <div>-вместо "x "" - вставляем "Б"</div>
 
@@ -204,7 +207,6 @@ class InputMasked extends PureComponent {
 
       // console.log('--start',this.cursorPosStart);
       // console.log('--end',this.cursorPosEnd);
-
       if(this.valueIn.length===this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd&&typeof this.actionIn === 'string'){
         // console.log('-НАБОР ОДНОГО СИМВОЛА');
         if((this.cursorPosStart+1)%5===0){
@@ -234,7 +236,7 @@ class InputMasked extends PureComponent {
           }
         }
         else if(((this.cursorPosStart%5===0&&this.valueInInput.length+1===this.cursorPosStart)||(this.valueInInput.length>this.cursorPosStart||this.valueInInput.length===this.cursorPosStart))&&this.deleteType === 'forward'){
-          // console.log('--удаление не в конце строки forward)');
+          // console.log('--удаление не в конце строки forward');
           if((this.cursorPosStart+1)%5===0){
             // console.log('--удаляем символ с пробелом');
             this.containerRef.current.selectionStart=this.cursorPosStart;
