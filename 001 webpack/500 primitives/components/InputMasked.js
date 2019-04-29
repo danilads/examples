@@ -23,7 +23,7 @@ class InputMasked extends PureComponent {
 
   actionIn = undefined; // null - если backspace dell или вставка даже если один символ
                         // один символ (строка) - если ввод одного сивола
-  keyPressed = "" //если e.nativeEvent.data и  e.nativeEvent.inputType - неработает
+  keyPressed = ""; //если e.nativeEvent.data и  e.nativeEvent.inputType - неработает
 
 
   deleteType = undefined; // 'backward' - если backspace, 'forward' - если dell
@@ -185,7 +185,7 @@ class InputMasked extends PureComponent {
  
   keydownEvent=(e)=>{
     this.keyPressed=e.key.toLowerCase();
-  }
+  };
  
   componentDidMount() { 
     document.addEventListener("keydown", this.keydownEvent);
@@ -208,7 +208,7 @@ class InputMasked extends PureComponent {
       // console.log('--start',this.cursorPosStart);
       // console.log('--end',this.cursorPosEnd);
       if(this.valueIn.length===this.preValueInInput.length+1&&this.cursorPosStart===this.cursorPosEnd&&typeof this.actionIn === 'string'){
-        console.log('-НАБОР ОДНОГО СИМВОЛА');
+        // console.log('-НАБОР ОДНОГО СИМВОЛА');
         if((this.cursorPosStart+1)%5===0){
           // console.log('--смещаем на 1');
           this.containerRef.current.selectionStart=this.cursorPosStart+2;
@@ -221,7 +221,7 @@ class InputMasked extends PureComponent {
         }
       }
       else if(this.valueIn.length+1===this.preValueInInput.length&&this.cursorPosStart===this.cursorPosEnd&&this.actionIn===null){
-        console.log('-УДАЛЕНИЕ ОДНОГО СИМВОЛА ');
+        // console.log('-УДАЛЕНИЕ ОДНОГО СИМВОЛА ');
         if(((this.cursorPosStart%5===0&&this.valueInInput.length+1===this.cursorPosStart)||(this.valueInInput.length>this.cursorPosStart||this.valueInInput.length===this.cursorPosStart))&&this.deleteType === 'backward'){
           // console.log('--удаление не в конце строки backward)');
           if(this.cursorPosStart%5===0){
@@ -255,12 +255,12 @@ class InputMasked extends PureComponent {
         }
       }
       else if(this.valueIn.length+1<=this.preValueInInput.length && this.cursorPosStart!==this.cursorPosEnd && this.actionIn===null && this.prevPasteCounter===this.pasteCounter ){
-        console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ (но не ввод текста)');
+        // console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ (но не ввод текста)');
         this.containerRef.current.selectionStart=this.cursorPosStart;
         this.containerRef.current.selectionEnd=this.cursorPosStart;
       }
       else if(this.cursorPosStart!==this.cursorPosEnd && typeof this.actionIn === 'string' && this.prevPasteCounter===this.pasteCounter){
-        console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ ОДНИМ СИВОЛОМ')
+        // console.log('-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ ТЕКСТ ОДНИМ СИВОЛОМ')
         if((this.cursorPosStart+1)%5===0){
           this.containerRef.current.selectionStart=this.cursorPosStart+2;
           this.containerRef.current.selectionEnd=this.cursorPosStart+2;
@@ -272,13 +272,13 @@ class InputMasked extends PureComponent {
        
       }
       else if(this.prevPasteCounter!==this.pasteCounter && this.cursorPosStart!==this.cursorPosEnd){
-        console.log("-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ Paste'ом",this.pastedText.length);
+        // console.log("-ЗАМЕНЯЕМ ВЫДЕЛЕННЫЙ Paste'ом",this.pastedText.length);
         this.containerRef.current.selectionStart=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
         this.containerRef.current.selectionEnd=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
 
       }
       else if(this.prevPasteCounter!==this.pasteCounter){
-        console.log("-ОБЫЧНЫЙ Paste",this.pastedText.length);
+        // console.log("-ОБЫЧНЫЙ Paste",this.pastedText.length);
         this.containerRef.current.selectionStart=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
         this.containerRef.current.selectionEnd=this.cursorPosStart+this.pastedText.length+this.countOffset(this.cursorPosStart,this.pastedText.length);
       }
