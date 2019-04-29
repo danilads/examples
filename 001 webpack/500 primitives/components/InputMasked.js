@@ -23,9 +23,10 @@ class InputMasked extends PureComponent {
 
   actionIn = undefined; // null - если backspace dell или вставка даже если один символ
                         // один символ (строка) - если ввод одного сивола
+  keyPressed = "" //если e.nativeEvent.data и  e.nativeEvent.inputType - неработает
 
 
-  deleteType= undefined; // 'backward' - если backspace, 'forward' - если dell
+  deleteType = undefined; // 'backward' - если backspace, 'forward' - если dell
 
   //счетчик paste чтобы понимать в componentDidUpdate когда мы делаем вставление
   prevPasteCounter=0;
@@ -114,14 +115,37 @@ class InputMasked extends PureComponent {
   };
  
   inputData=(e)=>{
-    if(e.nativeEvent.inputType==='deleteContentBackward'){
-      this.deleteType='backward'
+    //если e.nativeEvent.inputType поддерживается браузером
+    if(e.nativeEvent.inputType){
+      if(e.nativeEvent.inputType==='deleteContentBackward'){
+        this.deleteType='backward'
+      }
+      else if(e.nativeEvent.inputType==='deleteContentForward'){
+        this.deleteType='forward'
+      }
     }
-    else if(e.nativeEvent.inputType==='deleteContentForward'){
-      this.deleteType='forward'
+    else{
+      if(this.keyPressed==='backspace'){
+        this.deleteType='backward'
+      }
+      else if(this.keyPressed==='delete'){
+        this.deleteType='forward'
+      }
     }
 
+   //если e.nativeEvent.data поддерживается браузером
+   if(e.nativeEvent.data){
     this.actionIn = e.nativeEvent.data;
+   }
+   else{
+     if(typeof this.keyPressed === 'string' && this.keyPressed.length === 1){
+      this.actionIn=this.keyPressed;
+     }
+     else{
+      this.actionIn=null;
+     }
+   }
+    
   };
 
   //считает на сколько нужно сместить слово
@@ -154,9 +178,20 @@ class InputMasked extends PureComponent {
       
     </React.Fragment>);
   }
-  
-  componentDidUpdate(prevProps, prevState, snapshot) {
 
+ 
+  keydownEvent=(e)=>{
+    this.keyPressed=e.key.toLowerCase();
+  }
+ 
+  componentDidMount() { 
+    document.addEventListener("keydown", this.keydownEvent);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.keydownEvent);
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
     //проверка на существование рефки
     if(this.containerRef.current&&this.containerRef.current.selectionStart&&typeof this.containerRef.current.selectionStart === 'number'){
       // console.log('----------------------');
@@ -219,12 +254,12 @@ class InputMasked extends PureComponent {
       }
       else if(this.valueIn.length+1<=this.preValueInInput.length && this.cursorPosStart!==this.cursorPosEnd && this.actionIn===null && this.prevPasteCounter===this.pasteCounter ){
         // console.log('-УДАЛЯЕМ ВЫДЕЛЕНИЕМ (но не ввод текста)')
-        if(this.actionIn === null && this.deleteType === 'backward'){
+        if(this.deleteType === 'backward'){
           // console.log('--использую backspace');
           this.containerRef.current.selectionStart=this.cursorPosStart;
           this.containerRef.current.selectionEnd=this.cursorPosStart;
         }
-        else if(this.actionIn === null && this.deleteType === 'forward'){
+        else if(this.deleteType === 'forward'){
           // console.log('--использую dell');
           this.containerRef.current.selectionStart=this.cursorPosStart+1;
           this.containerRef.current.selectionEnd=this.cursorPosStart+1;
