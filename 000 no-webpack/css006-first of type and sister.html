@@ -17,10 +17,19 @@
 			.border:first-of-type {
 				border-top: 1px solid #e5e5e5;
 			}
+			
+			span ~ div {
+				color: red;
+			}
+			span + div {
+				color: green;
+			}
+			
 		</style>
 	</head>
 <body>
 <div class="wrap">
+	<span></span>
 	<div class="border"> HELLO </div>
 	<div class="border"> HELLO </div>
 	<div class="border"> HELLO </div>
