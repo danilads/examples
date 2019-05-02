@@ -8,7 +8,8 @@
 	<script src="000-react-dom.production.min.js"></script>
 	<script src="000-babel.min.js"></script>
 	<script src="three.min.js"></script>
-	<style>
+	<style>	
+			html{ background-color: black; }
 			body { margin: 0; }
 			canvas { width: 100%!important; height: 100%!important }
 		</style>
@@ -50,6 +51,7 @@
 			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 			var cube = new THREE.Mesh( geometry, material );
+
 			scene.add( cube );
 
 			camera.position.z = 5;
