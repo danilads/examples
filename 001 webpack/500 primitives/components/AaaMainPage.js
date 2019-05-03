@@ -6,28 +6,30 @@ import InputMasked from './InputMasked';
 import CheckboxToggle from './CheckboxToggle';
 class AaaMainPage extends PureComponent {
     state={
-        content:4,
-        //Dropdown
-        isOpened: false,
-        //RadioButtons
+        content: 104,
+        //01 Dropdown
+        isDropdownOpened: false,
+        //02 RadioButtons
         selectedRadio: "1",
         selectedRadio2: "1",
-        //InputMasked
+        //03 InputMasked
         inputMaskedText: "",
+        //04 CheckboxToggle
+        isCheckboxToggleSelected: false,
 
     }
-    //Dropdown
+    //01 Dropdown
     refBtn1=React.createRef();
     refBtn2=React.createRef();
     dropControlled=(e)=>{
-          this.setState({isOpened:e});
+          this.setState({isDropdownOpened:e});
     }
     showDropdown=()=>{
         return <Fragment>
                 {/* typeof title = 'string' */}
-                <input ref={this.refBtn1} type={"button"} onClick={()=>{this.setState({isOpened:true})}} value="Force Open First"/>
-                <input ref={this.refBtn2} type={"button"} onClick={()=>{this.setState({isOpened:!this.state.isOpened})}} value="Toggle First"/>
-                <Dropdown title={'CONTROLED'} arrButtonsRef={[this.refBtn1,this.refBtn2]} dropContent={'CONTROLED'} isOpened={this.state.isOpened} controlFunction={(e)=>this.setState({isOpened:e})}/>
+                <input ref={this.refBtn1} type={"button"} onClick={()=>{this.setState({isDropdownOpened:true})}} value="Force Open First"/>
+                <input ref={this.refBtn2} type={"button"} onClick={()=>{this.setState({isDropdownOpened:!this.state.isOpened})}} value="Toggle First"/>
+                <Dropdown title={'CONTROLED'} arrButtonsRef={[this.refBtn1,this.refBtn2]} dropContent={'CONTROLED'} isOpened={this.state.isOpened} controlFunction={(e)=>this.setState({isDropdownOpened:e})}/>
 
                 {/* typeof title = 'object' */}
                 <Dropdown
@@ -47,7 +49,7 @@ class AaaMainPage extends PureComponent {
                 />
         </Fragment>
     }
-    //Radio
+    //02 RadioButtons
     radioButton=(e)=>{
         return <span style={{border:"1px solid black"}}>
             <span style={e.disabled?{color:'gray'}:(e.isChecked?{color:'red'}:{})}>button</span>
@@ -111,7 +113,7 @@ class AaaMainPage extends PureComponent {
             />
         </Fragment>
     }
-    //InputMasked
+    //03 InputMasked
     setInputMaskedText=(e)=>{
         this.setState({inputMaskedText:e});
     }
@@ -120,24 +122,24 @@ class AaaMainPage extends PureComponent {
             <InputMasked onChange={this.setInputMaskedText} value={this.state.inputMaskedText} maxLength={12}/>
         </Fragment>
     }
-    //checkboxToggle
+    //04 CheckboxToggle
     showCheckboxToggle=()=>{
-        return <CheckboxToggle label="Избранное"/>
+        return <CheckboxToggle onChange={()=>this.setState({isCheckboxToggleSelected:!this.state.isCheckboxToggleSelected})} isChecked={this.state.isCheckboxToggleSelected} label="Избранное"/>
     }
   	render() {
 		return (
             <Fragment>
                 <div style={{marginBottom:"20px"}}>
-                    <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
-                    <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
-                    <button onClick={()=>{this.setState({content:3})}}>InputMasked</button>
-                    <button onClick={()=>{this.setState({content:4})}}>checkboxToggle</button>
+                    <button onClick={()=>{this.setState({content:101})}}>Dropdown</button>
+                    <button onClick={()=>{this.setState({content:102})}}>RadioButtons</button>
+                    <button onClick={()=>{this.setState({content:103})}}>InputMasked</button>
+                    <button onClick={()=>{this.setState({content:104})}}>checkboxToggle</button>
                 </div>
                 <div>
-                    {this.state.content===1&&this.showDropdown()}
-                    {this.state.content===2&&this.showRadioButtons()}
-                    {this.state.content===3&&this.showInputMasked()}
-                    {this.state.content===4&&this.showCheckboxToggle()}
+                    {this.state.content===101&&this.showDropdown()}
+                    {this.state.content===102&&this.showRadioButtons()}
+                    {this.state.content===103&&this.showInputMasked()}
+                    {this.state.content===104&&this.showCheckboxToggle()}
                 </div>
             </Fragment>
 		);
