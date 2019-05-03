@@ -15,7 +15,7 @@ class CheckboxToggle extends PureComponent {
     const {className, isChecked, label} = this.props;
 
     return (
-      <div className={classNames(className, "ToggleButton", isChecked ? style.btnRadioChecked : style.btnRadioChecked)}>
+      <div className={classNames(className, "CheckboxToggle", isChecked ? style.btnRadioChecked : style.btnRadioChecked)}>
         <label>
             <input type={'checkbox'} onChange={console.log}/>
             <div>{label}</div>
