@@ -3,9 +3,10 @@ import React, {Fragment ,PureComponent} from 'react';
 import Dropdown from './Dropdown';
 import RadioButtons from './RadioButtons';
 import InputMasked from './InputMasked';
+import CheckboxToggle from './CheckboxToggle';
 class AaaMainPage extends PureComponent {
     state={
-        content:3,
+        content:4,
         //Dropdown
         isOpened: false,
         //RadioButtons
@@ -119,6 +120,10 @@ class AaaMainPage extends PureComponent {
             <InputMasked onChange={this.setInputMaskedText} value={this.state.inputMaskedText} maxLength={12}/>
         </Fragment>
     }
+    //checkboxToggle
+    showCheckboxToggle=()=>{
+        return <CheckboxToggle label="Избранное"/>
+    }
   	render() {
 		return (
             <Fragment>
@@ -126,11 +131,13 @@ class AaaMainPage extends PureComponent {
                     <button onClick={()=>{this.setState({content:1})}}>Dropdown</button>
                     <button onClick={()=>{this.setState({content:2})}}>RadioButtons</button>
                     <button onClick={()=>{this.setState({content:3})}}>InputMasked</button>
+                    <button onClick={()=>{this.setState({content:4})}}>checkboxToggle</button>
                 </div>
                 <div>
                     {this.state.content===1&&this.showDropdown()}
                     {this.state.content===2&&this.showRadioButtons()}
                     {this.state.content===3&&this.showInputMasked()}
+                    {this.state.content===4&&this.showCheckboxToggle()}
                 </div>
             </Fragment>
 		);
