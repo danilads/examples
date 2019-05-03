@@ -15,10 +15,11 @@
 <body>
 <body>
     <canvas id="webgl"></canvas>
-  <script>	
+  <script>	   
+            //001 index
             const scene = new THREE.Scene();
             
-	          const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
           
             const renderer = new THREE.WebGLRenderer({
               canvas: document.querySelector('#webgl'),
@@ -50,7 +51,7 @@
             const interaction = new THREE.Interaction(renderer, scene, camera);
             
             
-            //ивенты
+            //002 interaction
             cube.cursor = 'pointer';
             cube.on('click', function(ev) {
               console.log('click')
@@ -64,20 +65,23 @@
             cube.on('mouseover', function(ev) {});
             cube.on('mousemove', function(ev) {});
             cube.on('mouseup', function(ev) {});
-            // and so on ...
-            
-            /**
-             * you can also listen on parent-node or any display-tree node,
-             * source event will bubble up along with display-tree.
-             * you can stop the bubble-up by invoke ev.stopPropagation function.
-             */
+           
             scene.on('touchstart', ev => {
             console.log(ev);
             })
             scene.on('touchmove', ev => {
             console.log(ev);
             })
+            
+            //resizer
+            window.addEventListener('resize', onWindowResize, false);
 
+            function onWindowResize() {
+                console.log('--ratio', window.innerWidth / window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
 	</script>
 </body>
 </html>
