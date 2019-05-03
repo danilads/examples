@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>MobileList</title>
+	<script src="000 - three.min.js"></script>
+	<script src="000 - three.interaction.js"></script>
+	<style>
+			html{ background-color: black; }
+			body { margin: 0; }
+			canvas { width: 100%!important; height: 100%!important }
+		</style>
+</head>
+<body>
+<body>
+    <canvas id="webgl"></canvas>
+  <script>	
+            const scene = new THREE.Scene();
+            
+	          const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+          
+            const renderer = new THREE.WebGLRenderer({canvas: document.querySelector('#webgl'), antialias: true,});
+      
+
+
+            const cube = new THREE.Mesh(
+              new THREE.BoxGeometry(1, 1, 1),
+              new THREE.MeshBasicMaterial({ color: 0xffffff }),
+            );
+
+            scene.add( cube );
+            camera.position.z = 5;
+            var animate = function () {
+              requestAnimationFrame( animate );
+
+              cube.rotation.x += 0.01;
+              cube.rotation.y += 0.01;
+
+              renderer.render( scene, camera );
+            };
+
+            animate();
+
+            // new a interaction, then you can add interaction-event with your free style
+            const interaction = new THREE.Interaction(renderer, scene, camera);
+            
+            //здесь неработает!
+            cube.cursor = 'pointer';
+            cube.on('click', function(ev) {});
+            cube.on('touchstart', function(ev) {});
+            cube.on('touchcancel', function(ev) {});
+            cube.on('touchmove', function(ev) {});
+            cube.on('touchend', function(ev) {});
+            cube.on('mousedown', function(ev) {});
+            cube.on('mouseout', function(ev) {});
+            cube.on('mouseover', function(ev) {});
+            cube.on('mousemove', function(ev) {});
+            cube.on('mouseup', function(ev) {});
+            // and so on ...
+            
+            /**
+             * you can also listen on parent-node or any display-tree node,
+             * source event will bubble up along with display-tree.
+             * you can stop the bubble-up by invoke ev.stopPropagation function.
+             */
+            scene.on('touchstart', ev => {
+            console.log(ev);
+            })
+            scene.on('touchmove', ev => {
+            console.log(ev);
+            })
+
+	</script>
+</body>
+</html>
