@@ -4,3 +4,8 @@ sudo renice # -p 98765
 
 //установка brew https://brew.sh/
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+
+
+//Отоброжение в finder полного пути сверху
+defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
