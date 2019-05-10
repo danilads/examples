@@ -4,6 +4,7 @@
 00c iZIp - app store
 00e OpenEmu - ps1 psp nes games
 00f transmission - bit torrent
+00g elmedia video player
 
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
