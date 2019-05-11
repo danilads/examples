@@ -1,22 +1,94 @@
 для версии amazon kindle 2015 v 5.9.6.1
 серийник G090G105...
 01 Сделайте заводской сброс (factory reset) устройства и установите язык English (US).
-02 отключите обновление
-03 отключите wifi
-04 в корне создайте папку с именем update.bin.tmp.partial
+02 включаем airplane mode
+03 в корне создайте папку с именем update.bin.tmp.partial
 
 
-05 установите заводскую прошивку update_kindle_all_new_paperwhite_5.9.6.1.bin - закинув ее в корень  и отключив от компа в setting сделать обновление
+04 установите заводскую прошивку update_kindle_all_new_paperwhite_5.9.6.1.bin - закинув ее в корень  и отключив от компа в setting сделать обновление
 проверить хэш в когда скинули в корень
-Windows
-certutil -hashfile update_kindle_all_new_paperwhite_5.9.6.1.bin MD5
-Mac
-/usr/bin/openssl md5 /Volumes/Kindle/update_kindle_all_new_paperwhite_5.9.6.1.bin
+    Windows (в темринале)
+    certutil -hashfile update_kindle_all_new_paperwhite_5.9.6.1.bin MD5
+    Mac (в темринале)
+    /usr/bin/openssl md5 /Volumes/Kindle/update_kindle_all_new_paperwhite_5.9.6.1.bin
 
 == хэш должен быть 57 b0 c3 92 2a 93 3d 44 bf e3 be a8 07 fd d1 47
+
+
+
+05 закинте в корень update_pw3_5.9.6.1_factory.bin
+06 проверить хэш в когда скинули в корень
+	Windows (в темринале)
+	certutil -hashfile update_pw3_5.9.6.1_factory.bin MD5
+	Mac (в темринале)
+    /usr/bin/openssl md5 /Volumes/Kindle/update_pw3_5.9.6.1_factory.bin
+    
+
+== хэш должен быть a5 46 0e 69 8a 53 1c 77 70 ba 2b 1a c3 16 67 b0
+
+
+07 отключаемся от компа (безопасным извлечением)
+08 отключите wifi
+09 в setting сделать обновление
+-сначала один прогрузчик
+-потом экран с киндле без прогрузчика
+-потом второй прогрузчие
+(общее время не больше часа)
+
+
+
+
+10 Скопируйте загруженный файл main-htmlviewer.tar.gz в корень устройства, отключите устройство от компьютера.
+В строке поиска на домашнем экране введите команду ;installHtml (точка с запятой нужна, регистр имеет значение) и нажмите Enter.
+Устройство должно перезагрузиться, в списке книг должна появиться книга под названием "You are Jailbroken".
+
+11 копируем все из папки JailBreak-1.15.N-FW-5.x-hotfix
+утсанавливаем как обновление
+
+
+
+12 Установка  Kual
+Из папки kual-mrinstaller-1.7.N-r15920 в extensions
+Из папки kual-mrinstaller-1.7.N-r15920 папку кидаем в корень mrpackages
+Из папки KUAL-v2.7 в documents копируем KUAL-KDK-2.0.azw2
+Из папки KUAL-v2.7 в mrpackages копируем Update_KUALBooklet_v2.7_install.bin
+Из папки kual-helper-0.5.N в extensions
+Из папки kual-kual-plus-0.2.N в extensions
+Из папки kual-gawk-1.5.N в extensions
+;log mrpi 
+
+13 KUAL => install gawk
+
+14 Из папки kindle-kpvbooklet-0.6.6 в mrpackages копируем update_kpvbooklet_0.6.6_install.bin
+;log mrpi 
+
+15 Из папки koreader копируем koreader в корень, extensions в extensions
+
+=====================================
+Установка пакетов обновлений bin
+
+1. Обычный способ
+Запишите пакет обновления *.bin в корень устройства и запустите процесс обновления через меню Настройки - Меню - Обновить.
+
+2. Способ mrpi (MobileRead Package Installer)
+Если пункт меню остается недоступным (серым) или обычная установка завершилась с ошибкой, используйте способ mrpi:
+- распакуйте архив (kual-mrinstaller-1.7.N-r15920) в корень устройства (если стояла старая версия mrpi, перед этим удалите папку extensions\MRInstaller)
+- запишите пакет обновления *.bin в папку mrpackages в корне устройства
+- в строке поиска на главном экране устройства введите команду ;log mrpi (точка с запятой в начале, регистр имеет значение)
+- проверьте лог-файл установки mrpi.log в корне устройства на наличие ошибок
+Этот способ позволяет одновременно устанавливать несколько пакетов обновлений bin.
+=====================================
+
+---> <------
 
 (сделано)
 (заводскую скачал, лежит в download пункт 7)
 
 -гайд
 https://4pda.ru/forum/index.php?showtopic=541019&st=880#entry51085326
+
+-kual
+https://4pda.ru/forum/index.php?showtopic=541019&st=1420#entry55594326
+
+-другие программы
+https://4pda.ru/forum/index.php?showtopic=541019&st=360#entry46977933
