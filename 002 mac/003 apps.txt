@@ -16,7 +16,7 @@
 07 Skype
 08 Telegram
 09 VS code
-10 Sublime
+10 Sublime text 2
 11 Webstorm(?)
 12 Piskel
 13 Blender
