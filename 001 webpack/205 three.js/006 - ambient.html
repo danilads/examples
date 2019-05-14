@@ -32,7 +32,7 @@
             const cube = new THREE.Mesh(
               new THREE.BoxGeometry(1, 1, 1),
               //new THREE.MeshBasicMaterial({ color: 0xffffff }),
-              new THREE.MeshPhongMaterial({ color: 0x41b882 })
+              new THREE.MeshPhongMaterial({ color: 0x41b882 , precision: 'lowp' })
             );
             scene.add(cube);
 
