@@ -10,11 +10,27 @@
 			html{ background-color: black; }
 			body { margin: 0; }
 			canvas { width: 100%!important; height: 100%!important }
+      #container {
+        position: relative;   /* needed so child elements use this as their base */
+      }
+      #hud {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        background: rgba(0, 0, 0, 0.5);  /* 50% opaque black */
+        color: white;
+        padding: .5em;
+        font-family: monospace;
+        border-radius: .5em;
+      }
 		</style>
 </head>
 <body>
 <body>
-    <canvas id="webgl"></canvas>
+    <div id="container">
+        <canvas id="c"></canvas>
+        <div id="hud">fps: <span id="fps"></span></div>
+    </div>
   <script>	 
             //001 index
             const scene = new THREE.Scene();
@@ -22,7 +38,7 @@
             const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
           
             const renderer = new THREE.WebGLRenderer({
-              canvas: document.querySelector('#webgl'),
+              canvas: document.querySelector('#c'),
               antialias: true,
             });
             renderer.setClearColor(0xffffff);
@@ -32,6 +48,10 @@
             const cube = new THREE.Mesh(
               new THREE.BoxGeometry(1, 1, 1),
               //new THREE.MeshBasicMaterial({ color: 0xffffff }),
+
+              //006 Настройки графики
+              //precision "highp", "mediump" or "lowp"
+              //
               new THREE.MeshPhongMaterial({ color: 0x41b882 , precision: 'lowp' })
             );
             scene.add(cube);
@@ -102,7 +122,26 @@
             var light = new THREE.PointLight(0xffffff);
             light.position.set(20, 50, 10);
             scene.add(light);
+
+
+            //007 fps
+            const fpsElem = document.querySelector("#fps");
+
+            let then = 0;
+            function render(now) {
+              now *= 0.001;                          // convert to seconds
+              const deltaTime = now - then;          // compute time since last frame
+              then = now;                            // remember time for next frame
+              const fps = 1 / deltaTime;             // compute frames per second
+              fpsElem.textContent = fps.toFixed(1);  // update fps display
+              
             
+              requestAnimationFrame(render);
+            }
+            requestAnimationFrame(render);
+
+
+
 	</script>
 </body>
 </html>
