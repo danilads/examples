@@ -57,17 +57,49 @@
             scene.add(cube);
 
             
-
-            var animate = function () {
-              requestAnimationFrame( animate );
-
+  
+            // animation
+            // readme
+            // 60 - это 60 кадров в секунду будет проходить основная анимация
+            var timerId = setInterval(function() {
+              // console.log('----ТИК');
               cube.rotation.x += 0.01;
               cube.rotation.y += 0.01;
 
               renderer.render( scene, camera );
-            };
+            }, 1000/ 60);
 
+            // главный render
+            // readme
+            // 60 - это 60 кадров в секунду будет проходить перерисовка сцены
+            const fpsElem = document.querySelector("#fps");
+            let then = 0;
+            function animate(now) {
+              //лимит кадров в секунду
+              setTimeout( function() {
+                // now *= 0.001;                          // convert to seconds
+                // const deltaTime = now - then;          // compute time since last frame
+                // then = now;                            // remember time for next frame
+                // const fps = 1 / deltaTime;             // compute frames per second
+                // fpsElem.textContent = fps.toFixed(1);  // update fps display
+                
+                // requestAnimationFrame( animate );
+              }, 1000 / 60 );
+              
+              now *= 0.001;                          // convert to seconds
+              const deltaTime = now - then;          // compute time since last frame
+              then = now;                            // remember time for next frame
+              const fps = 1 / deltaTime;             // compute frames per second
+              fpsElem.textContent = fps.toFixed(1);  // update fps display
+              
+              requestAnimationFrame( animate );
+
+              renderer.render( scene, camera );
+
+            }
+           
             animate();
+
 
             // new a interaction, then you can add interaction-event with your free style
             const interaction = new THREE.Interaction(renderer, scene, camera);
@@ -122,23 +154,6 @@
             var light = new THREE.PointLight(0xffffff);
             light.position.set(20, 50, 10);
             scene.add(light);
-
-
-            //007 fps
-            const fpsElem = document.querySelector("#fps");
-
-            let then = 0;
-            function render(now) {
-              now *= 0.001;                          // convert to seconds
-              const deltaTime = now - then;          // compute time since last frame
-              then = now;                            // remember time for next frame
-              const fps = 1 / deltaTime;             // compute frames per second
-              fpsElem.textContent = fps.toFixed(1);  // update fps display
-              
-            
-              requestAnimationFrame(render);
-            }
-            requestAnimationFrame(render);
 
 
 
