@@ -77,24 +77,17 @@
             function animate(now) {
               //лимит кадров в секунду
               setTimeout( function() {
-                // now *= 0.001;                          // convert to seconds
-                // const deltaTime = now - then;          // compute time since last frame
-                // then = now;                            // remember time for next frame
-                // const fps = 1 / deltaTime;             // compute frames per second
-                // fpsElem.textContent = fps.toFixed(1);  // update fps display
+                now *= 0.001;                          // convert to seconds
+                const deltaTime = now - then;          // compute time since last frame
+                then = now;                            // remember time for next frame
+                const fps = 1 / deltaTime;             // compute frames per second
+                console.log('---fps',fps);
+                fpsElem.textContent = fps.toFixed(1);  // update fps display
                 
-                // requestAnimationFrame( animate );
-              }, 1000 / 60 );
-              
-              now *= 0.001;                          // convert to seconds
-              const deltaTime = now - then;          // compute time since last frame
-              then = now;                            // remember time for next frame
-              const fps = 1 / deltaTime;             // compute frames per second
-              fpsElem.textContent = fps.toFixed(1);  // update fps display
-              
-              requestAnimationFrame( animate );
-
-              renderer.render( scene, camera );
+                requestAnimationFrame( animate );
+                renderer.render( scene, camera );
+              }, 1000 / 80 );
+            
 
             }
            
