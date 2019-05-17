@@ -137,7 +137,7 @@ class InputMasked extends PureComponent {
     }
 
    //если e.nativeEvent.data поддерживается браузером
-   if(e.nativeEvent.data && e.nativeEvent.data===null){
+   if(e.nativeEvent.data || e.nativeEvent.data===null){
     this.actionIn = e.nativeEvent.data;
    }
    else{
