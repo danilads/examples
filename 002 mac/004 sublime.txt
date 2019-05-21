@@ -1,9 +1,12 @@
-Tools
 
-Build System
-
-New Build System
-
-{
-	"cmd": ["open", "-a", "Google Chrome", "$file"]
-}
+1) command + shift + b - открыть в хроме
+	Tools => Build System => New Build System
+	сохраняем как Chrome
+	используем по умолчанию
+	{
+		"cmd": ["open", "-a", "Google Chrome", "$file"]
+	}
+2)Отключение notifications licence
+	preferences => settings User
+	добавляем
+	"update_check": false
