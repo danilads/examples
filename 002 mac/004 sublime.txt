@@ -10,3 +10,16 @@
 	preferences => settings User
 	добавляем
 	"update_check": false
+3)Copy the script from (004 sublime 3 killer.py)
+In ST3, open "Tools --> Developer --> New Plugin ...."
+Paste the script in the new file created.
+Save changes. Put ANY name just adding "killer.py" extension.
+You're done.
+You can check in the console if the plugin has been loaded by ST3 using the console. For example I used "killer.py" and you can see in the console:
+reloading plugin User.killer
+killer.py is incorrect when typing, but the response is correct.
+
+>>>import sublime_plugin
+>>> sublime_plugin.reload_plugin('User.killer')
+console output:
+reloading plugin User.killer
