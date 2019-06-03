@@ -6,12 +6,7 @@ import PropTypes from 'prop-types';
 
 class Dropdown extends PureComponent {
   static propTypes = {
-    className: PropTypes.shape({
-      container: PropTypes.string,
-      containerMenu: PropTypes.string,
-      content: PropTypes.string,
-
-}), //стиль
+    className: PropTypes.string, //стиль
     cbClose: PropTypes.func, //колбек срабатывает при закрытии
     title: PropTypes.oneOfType([
       PropTypes.func,
@@ -101,15 +96,15 @@ class Dropdown extends PureComponent {
     let {title,dropContent,className} = this.props;
     let {isOpened} = this.state;
     return (
-      <div className={classNames('Dropdown', className&&className.container)}>
-        <div className={classNames('D_content', className&&className.content ) } style={isOpened?{border: "1px solid #313c47!important"}:{}} ref={this.mainContainer} onClick={this.openCloseFunc}>
+      <div className={classNames('Dropdown', className)}>
+        <div className={'D_content'} style={isOpened?{border: "1px solid #313c47!important"}:{}} ref={this.mainContainer} onClick={this.openCloseFunc}>
           <div className={'D_head'}>
             {typeof title === 'function'?title({isOpened,openCloseFunc:this.openCloseFunc}):title}
           </div>
           <div className={isOpened?'D_chevron':'D_chevron-down'}>{this._renderSVG()}</div>
         </div>
         {isOpened &&
-        <div className={classNames('D_dropContainer', className&&className.containerMenu)} ref={this.dropContainer}>
+        <div className={'D_dropContainer'} ref={this.dropContainer}>
           <div className={"D_dropContent"}>
             {isOpened && (typeof dropContent === 'function' ? dropContent({
               isOpened,
