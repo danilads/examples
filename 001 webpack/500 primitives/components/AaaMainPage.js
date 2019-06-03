@@ -6,7 +6,7 @@ import InputMasked from './InputMasked';
 import CheckboxToggle from './CheckboxToggle';
 class AaaMainPage extends PureComponent {
     state={
-        content: 104,
+        content: 101,
         //01 Dropdown
         isDropdownOpened: false,
         //02 RadioButtons
