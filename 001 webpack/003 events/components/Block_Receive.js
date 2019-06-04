@@ -3,7 +3,9 @@ import {myEvent} from './events';
 
 
 class Block_Receive extends React.PureComponent {
-	
+	state={
+		item: "",
+	}
 	//включаем слушателя
 	componentDidMount = () => {
 		myEvent.addListener('Send1',this.receive);
@@ -11,13 +13,16 @@ class Block_Receive extends React.PureComponent {
 	
 	  
 	receive = (e) => {
-		console.log(e);
+		if(e){
+			console.log('---e',e);
+			this.setState({item:e});
+		}
 	}
 
   	render() {
 		return (
 			<div>
-				
+				{this.state.item}
 			</div>
 		);
 

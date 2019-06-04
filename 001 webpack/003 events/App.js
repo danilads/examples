@@ -2,12 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Block_Send from './components/Block_Send';
+import Main from './components/Main';
 //css
 import './scss/main.scss';
 
 ReactDOM.render(
-	<Block_Send/>
+	<Main/>
 	, document.getElementById('container') 
 );
 

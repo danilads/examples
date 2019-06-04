@@ -2,7 +2,7 @@ import React from 'react';
 import {myEvent} from './events';
 
 
-import Block_Receive from './Block_Receive';
+import Block_Mounted from './Block_Mounted';
 
 
 
@@ -10,7 +10,7 @@ class Block_Send extends React.PureComponent {
 	
 	//отправляем
 	send = () => {
-		myEvent.emit('Send1', "hello");
+		myEvent.emit('Send1', <Block_Mounted text="sometext"/>);
 	}
 
   	render() {
@@ -18,7 +18,6 @@ class Block_Send extends React.PureComponent {
 		return (
 			<div>
 				<input type="button" value="send" onClick={this.send}/>
-				<Block_Receive/>
 			</div>
 		);
 
