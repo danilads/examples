@@ -14,7 +14,7 @@
         numbers.sort(function(a, b) {
           return a - b;
         });
-        console.log(numbers); // [1, 2, 3, 4, 5]
+        console.log('---numbers',numbers); // [1, 2, 3, 4, 5]
         
         ////
         //01 сортировка объекта если у низ один тип(то есть всегда с большой буквы, нет пробелов)
@@ -36,7 +36,7 @@
           // a должно быть равным b
           return 0;
         });
-        console.log(items)
+        console.log('---items',items)
           
         ////
         //02 сортировка по алфавитному порядку
@@ -71,7 +71,7 @@
             return 0;
           }
         }
-        console.log(arr2.sort(sort2));
+        console.log('---arr2',arr2.sort(sort2));
         
         ////
         //03 сложная сортировка текста с приведением к маленьким буквам
@@ -98,7 +98,16 @@
           }
           return ans
         });
-        console.log(items3)
+        console.log('---items3',items3)
+        
+        ////
+        //04 сложная сортировка текста с приведением к маленьким буквам
+        let items4 = [{i:1},{i:3},{i:0},{i:10},{i:11},{i:2},{i:4}];
+		
+		
+        items4.sort((a,b) => (a.i > b.i) ? 1 : ((b.i > a.i) ? -1 : 0));
+
+        console.log('---items4',items4);
     </script>		
 </body>
 </html>
