@@ -2,6 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import {load,save} from "../redux/actions";
 
+//import store
+import store from '../redux/store'
+
+//можно экспортировать store в функцию
+const somefun = () => {
+	console.log('---store', store.getState());
+};
 
 class Block_MainPage extends React.PureComponent {
 	
@@ -15,7 +22,7 @@ class Block_MainPage extends React.PureComponent {
 		this.props.save(this.state.text);
 	}
   	render() {
-		console.log(this.state.text);
+		somefun();
 		return (
 			<div>
 				<div>
