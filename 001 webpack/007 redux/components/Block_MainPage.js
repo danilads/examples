@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {load,save} from "../redux/actions";
 
+//01
 //import store
 import store from '../redux/store'
 
@@ -9,6 +10,13 @@ import store from '../redux/store'
 const somefun = () => {
 	console.log('---store', store.getState());
 };
+
+//02
+const somefunc2 = () => (dispatch, getState) => {
+	console.log('---somefunc2')
+	console.log(getState())
+	
+}
 
 class Block_MainPage extends React.PureComponent {
 	
@@ -23,6 +31,8 @@ class Block_MainPage extends React.PureComponent {
 	}
   	render() {
 		somefun();
+		this.props.somefunc2();
+		this.props.somefunc3();
 		return (
 			<div>
 				<div>
@@ -43,4 +53,14 @@ class Block_MainPage extends React.PureComponent {
 export default connect((state) => ({
 	reducer: state.reducer
 }),
-{load,save})(Block_MainPage);
+(dispatch)=>{
+	return{
+		load,
+		save,
+		somefunc2: somefunc2,
+		somefunc3: () => {
+			console.log('---func 3');
+			//dispatch();
+		}
+	}
+})(Block_MainPage);
