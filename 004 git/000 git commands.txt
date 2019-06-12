@@ -135,5 +135,11 @@
 
 	//форс пуш срежет все до данного комита
 	git push --force
+
+
+	////////////////
+	//INVALID user.email
+	////////////////
+	git config user.email "danilads@github.com"
 </body>
 </html>
