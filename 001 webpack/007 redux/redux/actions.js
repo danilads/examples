@@ -49,3 +49,7 @@ export const load = () => async (dispatch, getState) => {
 	
 	
 };
+
+export const some3 = () => async (dispatch, getState) => {
+	console.log('---some3 state',getState());
+}

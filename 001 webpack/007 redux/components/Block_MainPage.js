@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {load,save} from "../redux/actions";
+import {load,save,some3} from "../redux/actions";
 
 //01
 //import store
@@ -60,7 +60,7 @@ export default connect((state) => ({
 		somefunc2: somefunc2,
 		somefunc3: () => {
 			console.log('---func 3');
-			//dispatch();
+			dispatch(some3());
 		}
 	}
 })(Block_MainPage);
