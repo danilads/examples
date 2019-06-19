@@ -1,0 +1,60 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class List extends React.Component {
+		multiple=()=>{
+			//first file
+			let filename = 'hello.p7b';
+			let text = '123';
+			let element = document.createElement('a');
+
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
+			element.style.display = 'none';
+			document.body.appendChild(element);
+			console.log('---element',element);
+			element.click();
+			document.body.removeChild(element);
+
+			//second file
+			let filename2 = 'hello2.p7b';
+			let text2 = '321';
+			let element2 = document.createElement('a');
+
+			element2.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text2));
+			element2.setAttribute('download', filename);
+			element2.style.display = 'none';
+			document.body.appendChild(element2);
+			console.log('---element2',element2);
+			element2.click();
+			document.body.removeChild(element2);
+		};
+		//в a href - сохранение(download.jpeg) работает только если собрать webpack
+		render() {
+			return (<div>
+				<div onClick={this.multiple}>
+					download multiple
+				</div>
+				<a href="download.jpeg" onClick={this.multiple} download>file</a>
+			</div>
+				);
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<List/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
