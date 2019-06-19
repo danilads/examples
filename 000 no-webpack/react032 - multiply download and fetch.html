@@ -39,15 +39,17 @@
 					// response.text()
 					// response.formData()
 					return response.arrayBuffer();
-
-					// считать хэдеры
+					
+					// headers <-----------------------
 					// console.log('---response.headers',response.headers);
 					// чтобы из считать нужно чтобы в Response Headers от бэка приходил
 					// Access-Control-Expose-Headers или Access-Control-Allow-Headers
 					// с разрешенными для чтения хэдерами
+					// или используем библиотеку axios - там можно сразу считывать headers
 				}).then (data =>{
 
 					let a = document.createElement( 'a' );
+					// "type" если бэк нам присылает бинарник(то есть - просто тело файла)
 					const url = window.URL.createObjectURL( new Blob( [data], { type: 'application/octet-stream' } ) );
 					a.style = 'display: none';
 					a.href = url;
