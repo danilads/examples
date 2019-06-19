@@ -40,6 +40,26 @@
 			console.log('---element2',element2);
 			element2.click();
 			document.body.removeChild(element2);
+
+			//third file
+			try {
+				let answer = await fetch("http://localhost:8080/api/crypto/cryptoCertificate/getP7BFile", {
+					method: 'POST',
+				}).then( response => {
+					return response.arrayBuffer();
+				}).then (data =>{
+					let a = document.createElement( 'a' );
+					const url = window.URL.createObjectURL( new Blob( [data], { type: 'application/octet-stream' } ) );
+					a.style = 'display: none';
+					a.href = url;
+					a.download = `Выписка по счету.p7b`;
+					document.body.appendChild( a );
+					a.click();
+					window.URL.revokeObjectURL( url );
+				});
+				}catch (e) {
+					console.log('error', e);
+				}
 		};
 		//в a href - сохранение(download.jpeg) работает только если собрать webpack
 		render() {
