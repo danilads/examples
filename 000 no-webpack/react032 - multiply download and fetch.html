@@ -26,28 +26,27 @@
 			element.click();
 			document.body.removeChild(element);
 
+		
 			//second file
-			let filename2 = 'hello2.p7b';
-			let text2 = '321';
-			let element2 = document.createElement('a');
-
-
-			//кодировка
-			element.setAttribute('href', 'data:text/plain;charset=utf-8,'+text);
-			element2.setAttribute('download', filename);
-			element2.style.display = 'none';
-			document.body.appendChild(element2);
-			console.log('---element2',element2);
-			element2.click();
-			document.body.removeChild(element2);
-
-			//third file
 			try {
 				let answer = await fetch("http://localhost:8080/api/crypto/cryptoCertificate/getP7BFile", {
 					method: 'POST',
 				}).then( response => {
+					// возможные варианты
+					// response.arrayBuffer()
+					// response.blob()
+					// response.json()
+					// response.text()
+					// response.formData()
 					return response.arrayBuffer();
+
+					// считать хэдеры
+					// console.log('---response.headers',response.headers);
+					// чтобы из считать нужно чтобы в Response Headers от бэка приходил
+					// Access-Control-Expose-Headers или Access-Control-Allow-Headers
+					// с разрешенными для чтения хэдерами
 				}).then (data =>{
+
 					let a = document.createElement( 'a' );
 					const url = window.URL.createObjectURL( new Blob( [data], { type: 'application/octet-stream' } ) );
 					a.style = 'display: none';
