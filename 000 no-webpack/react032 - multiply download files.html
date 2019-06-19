@@ -31,7 +31,9 @@
 			let text2 = '321';
 			let element2 = document.createElement('a');
 
-			element2.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text2));
+
+			//кодировка
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,'+text);
 			element2.setAttribute('download', filename);
 			element2.style.display = 'none';
 			document.body.appendChild(element2);
