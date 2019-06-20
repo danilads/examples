@@ -41,15 +41,13 @@
 					return response.arrayBuffer();
 					
 					// headers <-----------------------
-					// console.log('---response.headers',response.headers);
-					// чтобы из считать нужно чтобы в Response Headers от бэка приходил
-					// Access-Control-Expose-Headers или Access-Control-Allow-Headers
-					// с разрешенными для чтения хэдерами
-					// или используем библиотеку axios - там можно сразу считывать headers
+					// в get должно быть имя хэдера из Response Headers
+					// чтобы считать хэдеры бэк должен разрешить нам это сделать прислав - access-control-allow-origin: *
+					// console.log('---response.headers',response.headers.get("content-disposition")); 
 				}).then (data =>{
 
 					let a = document.createElement( 'a' );
-					// "type" если бэк нам присылает бинарник(то есть - просто тело файла)
+					// "type" если бэк нам присылает бинарник(то есть - просто тело файла) - исполльзуем 'application/octet-stream'
 					const url = window.URL.createObjectURL( new Blob( [data], { type: 'application/octet-stream' } ) );
 					a.style = 'display: none';
 					a.href = url;
@@ -62,6 +60,7 @@
 					console.log('error', e);
 				}
 		};
+		//multiply загрузка работает только в хроме!!!!!!
 		//в a href - сохранение(download.jpeg) работает только если собрать webpack
 		render() {
 			return (<div>
