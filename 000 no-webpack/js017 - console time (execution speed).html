@@ -8,13 +8,22 @@
 <body>
 	
 	<script>
+		// performance.now() более точный чем setInteval/setTimeout
+		// это очень точный счетчик времени, который запускается после старта страницы
+
 		function one (){
 			console.time('T1');
+			let StarTime = performance.now();
 			for(let i=0;i<99999;i++){
 
 			}
+			let EndTime = performance.now();
+			console.log('---Stamp',EndTime-StarTime);
 			console.timeEnd('T1')
 			console.log('one finished')
+			let EndTime2 = performance.now();
+			console.log('---Stamp',EndTime2-StarTime);
+			console.log('-------------------');
 		}
 		function two (){
 				console.time('T');

@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>MobileList</title>
+	<style>
+        html{ background-color: black; }
+        body { margin: 0; }
+        canvas { width: 100%!important; height: 100%!important }
+    </style>
+</head>
+<body>
+    <canvas id='canv' style='position:absolute; left:0px; top:0px;'></canvas>
+    <div id="hud">fps: <span id="fps"></span></div>
+    <script>
+        (function() {
+            {/*  state  */
+                // canvas
+                var htmlCanvas = document.getElementById('canv');
+                
+                // context
+                var context = htmlCanvas.getContext('2d');
+            }
+
+            initialize();
+
+            function initialize() {
+                // Register an event listener to call the resizeCanvas() function 
+                // each time the window is resized.
+                window.addEventListener('resize', resizeCanvas, false);
+                // Draw canvas border for the first time.
+                resizeCanvas();
+            }
+
+            // Resizer
+            function resizeCanvas() {
+                    console.log('---resize')
+                    htmlCanvas.width = window.innerWidth;
+                    htmlCanvas.height = window.innerHeight;
+                    redraw();
+            }
+
+            // Display custom canvas. In this case it's a blue, 5 pixel 
+            // border that resizes along with the browser window.
+            function redraw() {
+
+                context.strokeStyle = 'red';
+                context.lineWidth = '1';
+                context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+
+            }
+        })();
+    </script>
+</body>
+</html>

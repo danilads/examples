@@ -1,0 +1,153 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>MobileList</title>
+	<style>
+        html{ background-color: gray; }
+        body { margin: 0; }
+        canvas { width: 100%!important; height: 100%!important }
+    </style>
+</head>
+<body>
+    <div class="holder">
+        <canvas id="my-canvas" width="1000" height="800">
+      </div>
+    <script>
+var PI2 = 2 * Math.PI;
+
+var config = {
+  fade: 0.8,
+  opacity: 0.2,
+  num: 30,
+  spacing: 5,
+  speed: .5,
+  zoom: 0.004,
+  rotation: -0.001,
+  bgcolor: '#000',
+  color1: '#d8127d',
+  color2: '#00a3da',
+  color3: '#fff101',
+  fill: true,
+  stroke: false,
+  lineWidth: 5,
+  dotSize: 50
+
+}; 
+
+
+(function() {
+
+  // our canvas and drawing context
+  var canvas = document.getElementById('my-canvas');
+  var mainCtx = canvas.getContext('2d');
+  var bufferCanvas = document.createElement('canvas');
+  var bufferCtx = bufferCanvas.getContext('2d');
+
+  // our veritable height and width constants
+  var W = canvas.width;
+  var H = canvas.height;
+  var CX = W / 2;
+  var CY = H / 2;
+
+  // double-resolution on retina displays
+  bufferCanvas.width = canvas.width = W;
+  bufferCanvas.height = canvas.height = H;
+  
+
+  
+  render(0);
+
+  function draw(ctx, t, n) {
+        
+    var color_index = (n % 3) + 1;
+    var color = config['color'+color_index];
+    var rotation = t/2000;
+    
+    var x = Math.sin(t/(1111+n*7)) * CX * .45;
+    var y = Math.cos(t/(777+n*11)) * CX * .15;
+    var size = config.dotSize + (n % 5)  * 10;
+    
+    ctx.save();
+    ctx.translate(CX, CY);
+    ctx.rotate(rotation);    
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = config.lineWidth;    
+    
+    //drawTriangle(ctx, x, y, size);
+    drawCircle(ctx, x, y, size);
+           
+    if(config.fill) 
+      ctx.fill();
+    
+    if(config.stroke) 
+      ctx.stroke();
+    
+    ctx.restore();
+  }
+
+  function drawCircle(ctx, x, y, r) {
+    r = Math.abs(r);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, PI2);
+    ctx.restore();
+  }
+
+  function drawTriangle(ctx, x, y, r) {
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.beginPath();
+    ctx.moveTo(0, r);
+    ctx.lineTo(r / 2, 0);
+    ctx.lineTo(-r / 2, 0);
+    ctx.lineTo(0, r);
+    ctx.restore();
+  }
+
+
+  
+  function render(t) {
+    console.log(t);
+    // clear the buffer
+    bufferCtx.clearRect(0, 0, bufferCanvas.width, bufferCanvas.height);
+
+    // draw the last frame back at semi-opacity (for trails)
+    bufferCtx.globalAlpha = config.fade;
+    
+    // capture last frame to buffer
+    bufferCtx.drawImage(canvas, 0, 0);
+
+    // draw to the buffer at desired opacity level
+    bufferCtx.globalAlpha = config.opacity;
+    
+    // Do some drawing of things
+    var num = config.num;
+    for(var n=0; n<num; n++) {
+      draw(bufferCtx, (t+n*config.spacing*500) * config.speed, n);
+    }
+
+    // clear the main canvas and draw to screen
+    mainCtx.fillStyle = config.bgcolor;
+    mainCtx.fillRect(0, 0, canvas.width, canvas.height);
+   
+    // zoom and rotate the buffer around the center as we draw it back
+    mainCtx.save();
+    mainCtx.translate(CX, CY);
+    mainCtx.scale(1 + config.zoom, 1 + config.zoom);
+    mainCtx.rotate(config.rotation);
+    mainCtx.translate(-CX, -CY);
+    
+    // draw the buffer
+    mainCtx.drawImage(bufferCanvas, 0, 0);    
+    mainCtx.restore();
+  
+    requestAnimationFrame(render);
+  }
+
+})();
+    </script>
+</body>
+</html>
