@@ -22,6 +22,8 @@
 	class MobileList extends React.Component {
 		//объявляем контейнер для реф (1 способ)
 		containerRef1 = {};
+
+		//!данный способ лучше, т.к. рефка будет видна в первый рендер
 		//объявляем контейнер для реф (2 способ)
 		containerRef2 = React.createRef();
 
