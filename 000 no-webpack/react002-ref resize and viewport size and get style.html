@@ -20,15 +20,23 @@
 	<script type="text/babel">
 	/////MobileList
 	class MobileList extends React.Component {
-		//объявляем контейнер для реф (1 способ)
-		containerRef1 = {};
+		state={
+			ref1:{},
+			ref2:{},
+			ref3:{},
+		};
+		//объявляем контейнер для реф (1 способ) (СТАРЫЙ)
+		containerRef1 = null;
 
-		//!данный способ лучше, т.к. рефка будет видна в первый рендер
-		//объявляем контейнер для реф (2 способ)
-		containerRef2 = React.createRef();
+		//объявляем контейнер для реф (2 способ) (ЛУЧШЕ)
+		containerRef2 = null;
+  		setRef2 = ref => this.containerRef2 = ref;
+
+		//объявляем контейнер для реф (3 способ) (САМЫЙ ЛУЧШИЙ)
+		containerRef3 = React.createRef();
 
 
-		 myResize = () => {
+		myResize = () => {
 		 	//ширина рефки
 			console.log('1', this.containerRef1.offsetWidth);
 			//ширина viewport'a
@@ -40,11 +48,11 @@
 
 			//рефки
 			console.log('--1',this.containerRef1);
-			console.log('--2',this.containerRef2.current);
+			console.log('--2',this.containerRef3.current);
 
 			//Получаем стили
 			console.log(window.getComputedStyle(this.containerRef1).getPropertyValue("font-size"));
-			console.log(window.getComputedStyle(this.containerRef2.current).getPropertyValue("font-weight"));
+			console.log(window.getComputedStyle(this.containerRef3.current).getPropertyValue("font-weight"));
 		}
 		//Объявляем
 		componentDidMount() {
@@ -52,13 +60,24 @@
 			myResize();
 			
 			window.addEventListener('resize', myResize);
+
+			
+			//Рефка будет здесь( а не в рендере ) при первом запуске
+			console.log('ref1',this.containerRef1)
+			console.log('ref2',this.containerRef2)
+			console.log('ref3',this.containerRef3)
+	
 		}
 		render() {
+			
 			
 			return (
 				<div>
 					<div ref = {(el) => this.containerRef1 = el}>объявляем рефку 1</div>
-					<div ref={this.containerRef2} className={'one'}>объявляем рефку 2</div>
+					<div ref={this.setRef2}>объявляем рефку 2</div>
+					<div ref={this.containerRef3} className={'one'}>объявляем рефку 3</div>
+					
+					
 				</div>
 			);
 		}
