@@ -108,6 +108,13 @@
         items4.sort((a,b) => (a.i > b.i) ? 1 : ((b.i > a.i) ? -1 : 0));
 
         console.log('---items4',items4);
+        ////
+        //05 еще более маленький вариант
+        let items5 = [{i:1},{i:3},{i:0},{i:10},{i:11},{i:2},{i:4}];
+		
+        items5.sort((a,b) => (a.i - b.i));
+
+        console.log('---items5',items5);
     </script>		
 </body>
 </html>
