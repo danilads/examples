@@ -17,116 +17,126 @@
 	<div style="display: inline-block; position: absolute; left: 0; top: 0;"class="anim" id='block1'>1</div>
 <script>
 //таски:
-// 01 лимит fps(FrameLimit) сделать в цифрах
-// 02 сделать подсчет fps более точным( рассчитывать разницу между самыми медленными кадрами и вставлять это число)
-// 03 при ресайзе что запускать redraw или gameMech
+// 01 сделать подсчет fps более точным( рассчитывать разницу между самыми медленными кадрами и вставлять это число)
+// 02 при ресайзе что запускать redraw или gameMech
+
+/*--------*/
+/* State */
+	let MyGame= {};
+	//canvas
+	let htmlCanvas = document.getElementById('canv');
+
+	// context
+	let context = htmlCanvas.getContext('2d');
+
+	//настройки производительности
+	//если поставить больше герцовки монитора то - не будет отрисовывать больше
+	let FrameLimitFPS = 100;
+	//если true - используем рендер с лимитом кадров(можно включить больше герцовки монитора)
+	//если false - рендер использует все возможности компьютера(включать только на мощных компьютерах)
+	let useFrameLimitRender = true;
 
 
-/* state */
-let MyGame= {};
-//canvas
-var htmlCanvas = document.getElementById('canv');
-
-// context
-var context = htmlCanvas.getContext('2d');
-
-//настройки производительности
-//10-[100fps], 25-[40fps], 50-[20fps] (если поставить больше герцовки монитора будет не будет отрисовывать больше)
-let FrameLimit = 10;
-//если true - используем рендер с лимитом кадров(можно включить больше герцовки монитора)
-//если false - рендер использует все возможности компьютера(включать только на мощных компьютерах)
-let useFrameLimitRender = true;
+	//рассчет fps
+	let fpsArr = [];
+	let fpsCurSec = 0;
+	let fpsNowBlock = document.getElementById("fpsNow");
 
 
-//рассчет fps
-let fpsArr = [];
-let fpsCurSec = 0;
-let fpsNowBlock = document.getElementById("fpsNow");
+	//игровой предмет(только для дэмо - УДАЛИТЬ)
+	let block1 = document.getElementById("block1");
+
+/*---------*/
+/* Engine */
+	(function () {
+		function main( tFrame ) {
+			//запускать requestAnimationFrame нужно именно здесь(чтобы браузер получил кадр вовремя)
+		MyGame.stopMain = window.requestAnimationFrame( main );
+
+		let nextTick = MyGame.lastTick + MyGame.tickLength;
+		let numTicks = 0;
+
+		if (tFrame > nextTick) {
+			let timeSinceTick = tFrame - MyGame.lastTick;
+			numTicks = Math.floor( timeSinceTick / MyGame.tickLength );
+		}
 
 
-//игровой предмет(только для дэмо - УДАЛИТЬ)
-let block1 = document.getElementById("block1");
+		if(!useFrameLimitRender){
+		  	render( tFrame );
+		}
+		else{
+			if(numTicks){
+				MyGame.lastTick = MyGame.lastTick + MyGame.tickLength; // Now lastTick is this tick.
+		  		render(tFrame);
+			}
+		}
 
-(function () {
-  function main( tFrame ) {
-  	//запускать requestAnimationFrame нужно именно здесь(чтобы браузер получил кадр вовремя)
-    MyGame.stopMain = window.requestAnimationFrame( main );
+		}
 
-    let nextTick = MyGame.lastTick + MyGame.tickLength;
-    let numTicks = 0;
+		//если useFrameLimitRender = true
+		MyGame.lastTick = performance.now();
+		MyGame.tickLength = 1000/FrameLimitFPS;
 
-    if (tFrame > nextTick) {
-      let timeSinceTick = tFrame - MyGame.lastTick;
-      numTicks = Math.floor( timeSinceTick / MyGame.tickLength );
-    }
-
-    
-    if(!useFrameLimitRender){
-      	render( tFrame );
-    }
-    else{
-    	if(numTicks){
-    		MyGame.lastTick = MyGame.lastTick + MyGame.tickLength; // Now lastTick is this tick.
-      		render(tFrame);
-    	}
-    }
-
-  }
-
-  //если useFrameLimitRender = true
-  MyGame.lastTick = performance.now();
-  MyGame.tickLength = FrameLimit;
-  
-  setInitialState();
-  main(performance.now()); // Start the cycle
-})();
+		setInitialState();
+		main(performance.now()); // Start the cycle
+	})();
 
 
+/*----------------*/
+/* Initial State */
+	function setInitialState(){
+		//console.log('start once');
+		window.addEventListener('resize', resizeCanvas, false);
+		resizeCanvas();
+	};
 
-
-function setInitialState(){
-	//console.log('start once');
-  window.addEventListener('resize', resizeCanvas, false);
-  resizeCanvas();
-};
-
-
-// Resizer
-function resizeCanvas() {
-  console.log('---resize')
-  htmlCanvas.width = window.innerWidth;
-  htmlCanvas.height = window.innerHeight;
-  redraw();
-}
+/*----------*/
+/* Resizer */
+	function resizeCanvas() {
+		console.log('---resize')
+		htmlCanvas.width = window.innerWidth;
+		htmlCanvas.height = window.innerHeight;
+		redraw();
+	}
  
 
-function fps(tick){
-  //console.log(Math.floor(tick/1000));
-  if(Math.floor(tick/1000)===fpsCurSec){
-    fpsArr.push('');
-  }
-  else{
-    fpsNowBlock.innerHTML = fpsArr.length;
-    fpsArr = [''];
-    fpsCurSec = Math.floor(tick/1000);
-  }
-}
+/*------*/
+/* FPS */
+	function fps(tick){
+		let prevTick;
 
+		//console.log(Math.floor(tick/1000));
+		if(Math.floor(tick/1000)===fpsCurSec){
+			fpsArr.push('');
+		}
+		else{
+			fpsNowBlock.innerHTML = fpsArr.length;
+			fpsArr = [''];
+			fpsCurSec = Math.floor(tick/1000);
+		}
+	}
 
-function render(tick){
-	gameMech(tick);
-	fps(tick);
-};
+/*---------*/
+/* Render */
+	function render(tick){
+		gameMech(tick);
+		fps(tick);
+	};
 
-function gameMech(tick){
-  block1.style.transform = "rotate("+tick/1.3+"deg)";
-}
+/*----------------*/
+/* Game Mechanic */
+	function gameMech(tick){
+		block1.style.transform = "rotate("+tick/1.3+"deg)";
+	}
 
-function redraw() {
-  context.strokeStyle = 'red';
-  context.lineWidth = '1';
-  context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
-}
+/*-------*/
+/* Draw */
+	function redraw() {
+		context.strokeStyle = 'red';
+		context.lineWidth = '1';
+		context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+	}
 
 </script>
 
