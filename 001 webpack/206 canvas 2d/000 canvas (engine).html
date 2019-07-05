@@ -18,6 +18,9 @@
 <script>
 //таски:
 // 01 сделать подсчет fps более точным( рассчитывать разницу между самыми медленными кадрами и вставлять это число)
+//      сделать два счетчика 
+// 		- раз в пол секунды (старый)
+// 		- находим интервал межде самыми медленными 
 // 02 при ресайзе что запускать redraw или gameMech
 
 
@@ -42,6 +45,8 @@ let useFrameLimitRender = true;
 let fpsArr = [];
 let fpsCurSec = 0;
 let fpsNowBlock = document.getElementById("fpsNow");
+let prevTick = null;
+let mostLowerInterval = 0;
 
 
 //игровой предмет(только для дэмо - УДАЛИТЬ)
@@ -106,17 +111,26 @@ function resizeCanvas() {
 /*------*/
 /* FPS */
 function fps(tick){
-	let prevTick;
-	let mostLowerInterval;
+	console.log(tick);
+	//Находит самое медленное значение между кадрами 
+	if(prevTick){
 
-	//console.log(Math.floor(tick/1000));
-	if(Math.floor(tick/1000)===fpsCurSec){
+	}
+	else{
+
+	}
+
+	//Находит среднее число
+	//если 1000 то умножаем на 0 (раз в секунду)
+	//если 500 то умножаем на 2 (два раза в секунду)
+	//console.log(Math.floor(tick/500));
+	if(Math.floor(tick/500)===fpsCurSec){
 		fpsArr.push('');
 	}
 	else{
-		fpsNowBlock.innerHTML = fpsArr.length;
+		fpsNowBlock.innerHTML = fpsArr.length*2;
 		fpsArr = [''];
-		fpsCurSec = Math.floor(tick/1000);
+		fpsCurSec = Math.floor(tick/500);
 	}
 }
 
