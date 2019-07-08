@@ -17,6 +17,8 @@
 	<div style="display: inline-block; position: absolute; left: 0; top: 0;"class="anim" id='block1'>1</div>
 <script>
 //таски:
+// 00b БАГ - если подставить 49 фпс, то иногда прилетает 25 кадров (25*2=50)
+
 // 01 сделать подсчет fps более точным( рассчитывать разницу между самыми медленными кадрами и вставлять это число)
 //      сделать два счетчика 
 // 		- раз в пол секунды (старый)
@@ -35,7 +37,7 @@ let context = htmlCanvas.getContext('2d');
 
 //настройки производительности
 //если поставить больше герцовки монитора то - не будет отрисовывать больше
-let FrameLimitFPS = 100;
+let FrameLimitFPS = 49;
 //если true - используем рендер с лимитом кадров(можно включить больше герцовки монитора)
 //если false - рендер использует все возможности компьютера(включать только на мощных компьютерах)
 let useFrameLimitRender = true;
@@ -46,6 +48,7 @@ let fpsArr = [];
 let fpsCurSec = 0;
 let fpsNowBlock = document.getElementById("fpsNow");
 let prevTick = null;
+let fpsCompensationFrame = 0;
 let mostLowerInterval = 0;
 
 
@@ -58,34 +61,38 @@ let block1 = document.getElementById("block1");
 	(function () {
 		function main( tFrame ) {
 			//запускать requestAnimationFrame нужно именно здесь(чтобы браузер получил кадр вовремя)
-		MyGame.stopMain = window.requestAnimationFrame( main );
+			MyGame.stopMain = window.requestAnimationFrame( main );
 
-		let nextTick = MyGame.lastTick + MyGame.tickLength;
-		let numTicks = 0;
+			let nextTick = MyGame.lastTick + MyGame.tickLength;
+			let numTicks = 0;
 
-		if (tFrame > nextTick) {
-			let timeSinceTick = tFrame - MyGame.lastTick;
-			numTicks = Math.floor( timeSinceTick / MyGame.tickLength );
-		}
-
-
-		if(!useFrameLimitRender){
-		  	render( tFrame );
-		}
-		else{
-			if(numTicks){
-				MyGame.lastTick = MyGame.lastTick + MyGame.tickLength; // Now lastTick is this tick.
-		  		render(tFrame);
+			if (tFrame > nextTick) {
+				let timeSinceTick = tFrame - MyGame.lastTick;
+				numTicks = Math.floor( timeSinceTick / MyGame.tickLength );
 			}
-		}
+
+
+			if(!useFrameLimitRender){
+			  	render( tFrame );
+			}
+			else{
+				if(numTicks===1){
+					MyGame.lastTick = MyGame.lastTick + MyGame.tickLength; // Now lastTick is this tick.
+			  		render(tFrame);
+				}
+				//был баг - если перейти на другую вкладку а потом вернуться - ограничение фпс слетало
+				else if(numTicks>1){
+					MyGame.lastTick = performance.now();
+				}
+			}
 
 		}
 
-		//если useFrameLimitRender = true
+		setInitialState();
 		MyGame.lastTick = performance.now();
 		MyGame.tickLength = 1000/FrameLimitFPS;
 
-		setInitialState();
+		
 		main(performance.now()); // Start the cycle
 	})();
 
@@ -111,26 +118,30 @@ function resizeCanvas() {
 /*------*/
 /* FPS */
 function fps(tick){
-	console.log(tick);
-	//Находит самое медленное значение между кадрами 
-	if(prevTick){
-
-	}
-	else{
-
-	}
-
 	//Находит среднее число
 	//если 1000 то умножаем на 0 (раз в секунду)
 	//если 500 то умножаем на 2 (два раза в секунду)
-	//console.log(Math.floor(tick/500));
-	if(Math.floor(tick/500)===fpsCurSec){
+
+	console.log(Math.floor(tick/500));
+	let roundTick = Math.floor(tick/500);
+
+	if(roundTick===fpsCurSec){
 		fpsArr.push('');
 	}
 	else{
 		fpsNowBlock.innerHTML = fpsArr.length*2;
 		fpsArr = [''];
-		fpsCurSec = Math.floor(tick/500);
+		fpsCurSec = roundTick;
+	}
+
+	
+	// console.log(tick);
+	//Находит самое медленное значение между кадрами 
+	if(roundTick===fpsCurSec){
+		
+	}
+	else{
+
 	}
 }
 
