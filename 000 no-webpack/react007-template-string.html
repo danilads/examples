@@ -20,6 +20,7 @@
 	<script type="text/babel">
 	/////MobileList
 	class MobileList extends React.Component {
+		let a = <div className={`${(true) ? 'activeFrame' : ''} breakWords`}></div>;
 		render() {
 			let output = this.props.n.map(i=>{
 				return (<div style={{width:`${100/this.props.n.length}%`}}>{i}</div>)

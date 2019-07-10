@@ -1,47 +1,34 @@
 import React,{Fragment} from 'react';
-import {Table} from 'antd';
+import {Row, Col, Table} from 'antd';
+
 
 const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
-    render: text => <a href="javascript:;">{text}</a>,
+    width: '30%',
   },
   {
     title: 'Age',
     dataIndex: 'age',
+    width: '15%',
   },
   {
     title: 'Address',
     dataIndex: 'address',
   },
 ];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
+
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    name: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
     age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Disabled User',
-    age: 99,
-    address: 'Sidney No. 1 Lake Park',
-  },
-];
+    address: `London32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
+  });
+}
+
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -55,13 +42,20 @@ const rowSelection = {
 };
 
 class AntdTable extends React.PureComponent {
-	
-
 
   	render() {
+    //wordBreak: 'break-all' !нуже обязательно
 		return (<Fragment>
               <div>Table</div>
-              <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+              <div style={{width:'400px', wordBreak: 'break-all'}}>
+                <Table
+                  bordered={ true }
+                  columns={columns}
+                  dataSource={data}
+                  rowSelection={rowSelection}
+                  pagination={{ pageSize: 50 }}
+                  scroll={{ y: 240 }} />,
+                </div>
             </Fragment>);
 
   	}
