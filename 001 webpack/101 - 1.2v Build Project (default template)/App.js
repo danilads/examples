@@ -11,7 +11,10 @@ import { Provider } from 'react-redux';
 
 //route
 import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+
+//layout
+import Layout from './01_pages/Layout';
 
 //components
 import Page_Main from './01_pages/Page_Main';
@@ -21,16 +24,21 @@ import Page_About from './01_pages/Page_About';
 import store from './redux/store';
 
 //css
-import './scss/main.scss';
+import './style/main.scss';
+
 
 ReactDOM.render(
 	
 	<Provider store={store}>
 		<BrowserRouter>
-			<React.Fragment>
+			<Switch>
 				<Route path="/" exact component={Page_Main} />
-				<Route path="/about" component={Page_About} />
-			</React.Fragment>
+				<Layout>
+					<Switch>
+						<Route path="/about" component={Page_About} />
+					</Switch>
+				</Layout>
+			</Switch>
 		</BrowserRouter>
 	</Provider>
 	
