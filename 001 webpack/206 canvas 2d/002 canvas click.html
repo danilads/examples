@@ -20,6 +20,8 @@ let htmlCanvas = document.getElementById('canv');
 // context
 let ctx = htmlCanvas.getContext('2d');
 
+// circle
+const circle = new Path2D();
 
 /*---------*/
 /* Engine */
@@ -38,26 +40,34 @@ let ctx = htmlCanvas.getContext('2d');
 /*---------*/
 /* Render */
 function render(tick){
-	console.log('---tick',tick);
-	//01 - [fillRect] - заполненный прямоугольник - (x, y, width, height);
-	ctx.fillStyle = "#cef";
-    ctx.fillRect (0, 0, 100, 100);
+	// Create circle
+	
+	
 
-	ctx.fillStyle = "rgb(200,0,0)";
-    ctx.fillRect (10, 10, 55, 50);
 
-    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-    ctx.fillRect (30, 30, 55, 50);
-
-    //02 - [strokeRect] - пустой прямоугольник с контуром 1px -  (x, y, width, height);
-    ctx.strokeStyle = "red";
-    ctx.strokeRect (0, 0, 150, 150);
-
-	//03 - [clearRect] - очистка прямоугольной области, -  (x, y, width, height);
-    ctx.clearRect(45,45,60,60);
 
 };
 
+circle.arc(150, 75, 50, 0, 2 * Math.PI);
+ctx.fillStyle = '#cef';
+ctx.fill(circle);
+
+// Listen for mouse moves
+htmlCanvas.addEventListener('mousemove', function(event) {
+	console.log('--move',ctx.isPointInPath(circle, event.clientX, event.clientY));
+  // Check whether point is inside circle
+  if (ctx.isPointInPath(circle, event.clientX, event.clientY)) {
+	
+    ctx.fillStyle = 'gray';
+  }
+  else {
+    ctx.fillStyle = '#cef';
+  }
+
+  // Draw circle
+  ctx.clearRect(0, 0, htmlCanvas.width, htmlCanvas.height);
+  ctx.fill(circle);
+});
 
 
 </script>

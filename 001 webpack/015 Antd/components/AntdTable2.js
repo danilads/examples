@@ -6,16 +6,17 @@ const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
-    width: '30%',
+    width: 150,
   },
   {
     title: 'Age',
     dataIndex: 'age',
-    width: '15%',
+    width: 150,
   },
   {
     title: 'Address',
     dataIndex: 'address',
+    width: 150,
   },
 ];
 
@@ -24,8 +25,8 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
-    age: 32,
-    address: `London32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
+    age: i,
+    address: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
   });
 }
 
@@ -41,10 +42,10 @@ const rowSelection = {
   }),
 };
 
-class AntdTable extends React.PureComponent {
+class AntdTable2 extends React.PureComponent {
 
   	render() {
-    //wordBreak: 'break-all' !нуже обязательно
+    //wordBreak: 'break-all' !нужен обязательно
 		return (<Fragment>
               <div>Table</div>
               <div style={{width:'400px', wordBreak: 'break-all'}}>
@@ -53,8 +54,8 @@ class AntdTable extends React.PureComponent {
                   columns={columns}
                   dataSource={data}
                   rowSelection={rowSelection}
-                  pagination={{ pageSize: 50 }}
-                  scroll={{ y: 240 }} />,
+                  pagination={{ pageSize: 2 }} //на сколько разбивать
+                  scroll={{ y: 240, x:450 }} />,
                 </div>
             </Fragment>);
 
@@ -64,4 +65,4 @@ class AntdTable extends React.PureComponent {
 
 
 
-export default AntdTable;
+export default AntdTable2;
