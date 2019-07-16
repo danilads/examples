@@ -1,6 +1,7 @@
 import React, { Children, cloneElement } from "react";
 import { ReactTableDefaults } from "react-table";
 import { List, AutoSizer } from "react-virtualized";
+import './TableStyleFix.scss';
 
 const elementIsGroup = element =>
   element.type === ReactTableDefaults.TrGroupComponent;

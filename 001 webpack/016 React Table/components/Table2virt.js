@@ -2,6 +2,7 @@ import React,{Fragment} from 'react';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
+
 import disablePaginationHOC from './disablePaginationHOC';
 import virtualizedTableHOC from './virtualizedTableHOC';
 const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
@@ -23,27 +24,33 @@ class Table2virt extends React.PureComponent {
 		 
 		  return <div style={{width:'500px'}}>
 				<VirtualizedTable
+                    className={'ReactTable'}
                     data={data}
                     columns={[
                         {
-                        Header: "First Name",
-                        accessor: "firstName"
+                            Header: "First Name",
+                            accessor: "firstName",
+                            width: 150,
                         },
                         {
-                        Header: "Last Name",
-                        accessor: "lastName"
+                            Header: "Last Name",
+                            accessor: "lastName",
+                            width: 150,
                         },
                         {
-                        Header: "Age",
-                        accessor: "age"
+                            Header: "Age",
+                            accessor: "age",
+                            width: 150,
                         },
                         {
-                        Header: "Status",
-                        accessor: "status"
+                            Header: "Status",
+                            accessor: "status",
+                            width: 150,
                         },
                         {
-                        Header: "Visits",
-                        accessor: "visits"
+                            Header: "Visits",
+                            accessor: "visits",
+                            width: 150,
                         }
                     ]}
                     

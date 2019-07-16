@@ -1,16 +1,33 @@
 import React,{Fragment} from 'react';
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import ReactTable from 'react-table';
+import withFixedColumns from "react-table-hoc-fixed-columns";
+
+import 'react-table/react-table.css';
+import 'react-table-hoc-fixed-columns/lib/styles.css'; // important: this line must be placed after react-table css import
 import './TableStyleFix.scss';
 
-class Table1 extends React.PureComponent {
+const ReactTableFixedColumns = withFixedColumns(ReactTable);
+
+class Table3fixedCol extends React.PureComponent {
 	state={
 		selected: '',
 		doubleClickTimeStamp: 0
 
 	}
   	render() {
-		const data = [];
+		const data = [{
+			name: 'Tanner Linsley Tanner Linsley Tanner Linsley Tanner Linsley Tanner Linsley Tanner Linsley Tanner Linsley',
+			age: 322,
+			friend: {
+				name: 'Jason Maurer',
+				age: 23,
+			},
+			checkbox: <input type={'checkbox'} onClick={e=>{
+				e.preventDefault();
+                e.stopPropagation();
+                console.log('---e',e.currentTarget);
+			}}/>
+		}];
 		for(let i=0;i<21;i++){
 
 			data.push({
@@ -30,16 +47,17 @@ class Table1 extends React.PureComponent {
 		
 		 
 		  const columns = [
-			  {
-				Header: (props) => {
-					return <input style={{float: 'left'}} type={'checkbox'}/>
-				},
-				accessor: 'checkbox',
-				sortable: false,
-       			filterable: false,
-				resizable:false,
-				width: 50
-			  },
+        {
+            Header: (props) => {
+                return <input style={{float: 'left'}} type={'checkbox'}/>
+            },
+            accessor: 'checkbox',
+            sortable: false,
+            filterable: false,
+            resizable:false,
+            width: 50,
+            fixed: "left",
+        },
 			{
 			Header: 'Name',
 			accessor: 'name', // String-based value accessors!
@@ -62,13 +80,12 @@ class Table1 extends React.PureComponent {
 		  }]
 		 
 		  return <div>
-				<ReactTable
+				<ReactTableFixedColumns
 					className={'ReactTable'}
 					data={data}
 					columns={columns}
 					minRows={1} //если перешли на последнюю страницу - не будут отображаться "фантомные" пустые строки
 					defaultPageSize={20}
-					
 					noDataText="Oh Noes!" //если нету данных
 					showPagination ={data.length>20} //можно убрать если данных мало
 					style={{
@@ -120,4 +137,4 @@ class Table1 extends React.PureComponent {
 
 
 
-export default Table1;
+export default Table3fixedCol;
