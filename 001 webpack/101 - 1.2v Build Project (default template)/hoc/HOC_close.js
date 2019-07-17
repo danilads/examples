@@ -1,7 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AC_modalOpen,AC_modalClose} from "../redux/actions";
+import {AC_modalOpen,AC_modalClose} from "../redux/actions/acModal";
+
+
 export const  HOC_close = (BaseComponent) => {
+
     class HOC_close extends React.Component {
         state = {
 		

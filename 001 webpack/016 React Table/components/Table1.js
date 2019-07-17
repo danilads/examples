@@ -1,7 +1,12 @@
 import React,{Fragment} from 'react';
 import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import withFixedColumns from "react-table-hoc-fixed-columns";
+
+import 'react-table/react-table.css';
+import 'react-table-hoc-fixed-columns/lib/styles.css'; // important: this line must be placed after react-table css import
 import './TableStyleFix.scss';
+
+const ReactTableFixedColumns = withFixedColumns(ReactTable);
 
 class Table1 extends React.PureComponent {
 	state={
@@ -14,7 +19,10 @@ class Table1 extends React.PureComponent {
 		for(let i=0;i<21;i++){
 
 			data.push({
-				name: 'Tanner Linsley',
+				name: <div>
+						<div>Tanner</div>
+						<div>Linsley</div>
+					</div>,
 				age: i,
 				friend: {
 					name: 'Jason Maurer',
@@ -62,7 +70,7 @@ class Table1 extends React.PureComponent {
 		  }]
 		 
 		  return <div>
-				<ReactTable
+				<ReactTableFixedColumns
 					className={'ReactTable'}
 					data={data}
 					columns={columns}

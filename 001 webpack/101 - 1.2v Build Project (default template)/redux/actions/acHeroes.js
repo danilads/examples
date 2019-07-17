@@ -1,5 +1,5 @@
 //backup если не загрузятся данные
-import heroesBackUpJson from "../jsonBackUp/heroes";
+import heroesBackUpJson from "../../jsonBackUp/heroes";
 
 
 //в асинхронной функции все работает по порядку
@@ -62,17 +62,3 @@ export const AC_loadHeroes = () => async (dispatch, getState) => {
 	}
 	
 };
-
-export const AC_modalOpen = (e) => (dispatch, getState) => {
-	document.body.style.overflow = 'hidden';
-	dispatch({
-		type: 'MODAL_OPEN',
-		payload: e
-	});
-}
-export const AC_modalClose = () => (dispatch, getState) => {
-	document.body.style.overflow = 'auto';
-	dispatch({
-        type: 'MODAL_CLOSED'
-	});
-}

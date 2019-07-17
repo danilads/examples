@@ -7,6 +7,8 @@ import disablePaginationHOC from './disablePaginationHOC';
 import virtualizedTableHOC from './virtualizedTableHOC';
 const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
 
+
+
 class Table2virt extends React.PureComponent {
 
   	render() {

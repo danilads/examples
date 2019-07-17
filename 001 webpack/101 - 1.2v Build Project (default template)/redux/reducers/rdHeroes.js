@@ -1,3 +1,7 @@
+import {
+    HEROES_LOADING,
+    HEROES_LOADED,
+} from "../constants"
 import heroesVerify from "../../jsonBackUp/heroesVerify";
 
 let initialState = {
@@ -9,13 +13,13 @@ let initialState = {
 //export default (state = initialState, {type,payload}) - сокращенная запись
 export default (state = initialState, action) => {
 	switch(action.type) {
-		case "HEROES_LOADING": {
+		case HEROES_LOADING: {
 			return {
 				...state,
 				loading: true,
 			}
 		}
-		case "HEROES_LOADED": {
+		case HEROES_LOADED: {
 			let arr = action.payload;
 			let result = [];
 			let cnt = 0;

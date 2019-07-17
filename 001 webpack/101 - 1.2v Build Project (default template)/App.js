@@ -14,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 
 //layout
-import Layout from './01_pages/Layout';
+import Layout from './02_components/Layout';
 
 //components
 import Page_Main from './01_pages/Page_Main';

@@ -6,7 +6,7 @@ import Spiner from '../03_primitives/Spiner';
 //import Page_Main from './01_pages/Page_Main';
 
 import {connect} from "react-redux";
-import {AC_loadHeroes} from "../redux/actions";
+import {AC_loadHeroes} from "../redux/actions/acHeroes";
 class Page_Main extends React.PureComponent {
 	
 	state = {
