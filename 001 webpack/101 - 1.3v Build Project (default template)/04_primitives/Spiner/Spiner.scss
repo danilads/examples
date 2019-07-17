@@ -1,0 +1,29 @@
+@import "../../style/_variables"; //переменные
+.Spiner{
+	overflow: hidden;
+	.spinnerOff{
+		display: flex;
+		justify-content: center;
+		opacity: 0;
+	}
+	.spinner{
+		display: flex;
+		justify-content: center;
+		&-none{
+			@extend .spinnerOff;
+			display: none;
+		}
+		&-in{
+			@extend .spinner;
+			animation: o-in 1s;
+		}
+		&-out{
+			@extend .spinnerOff;
+			animation: o-out 1s;
+		}
+		&-on{
+			@extend .spinner;
+		}
+	}
+}
+
