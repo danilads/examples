@@ -1,10 +1,10 @@
 import React,{Fragment} from 'react';
 
 import { List } from 'react-virtualized';
-import './Block_MainPage.scss';
+
 import ReactResizeDetector from 'react-resize-detector';
 
-class Block_MainPage extends React.PureComponent {
+class VListDetect extends React.PureComponent {
 	
 	state = {
 		arr:["э0","э1","э2","э3","э4","э5","э6","э7","э8","э10","э11","э12","э13","э14","э15","э16","э17","э18","э20","э21","э22","э23","э24","э25","э26","э27","э28","э29","э30","э31","э32","э33","э34","э35","э36","э37","э38","э39","э40"],
@@ -25,7 +25,7 @@ class Block_MainPage extends React.PureComponent {
 		  
 		let {width, height} = this.state;
 		return (
-			<div className={"Block_Filter"}>
+			<div style={{width:'500px',height:'500px'}}>
 				{/* rowHeight в пикселях !должна совпадать с блоком */}
 				<List
 					width={width}
@@ -45,4 +45,4 @@ class Block_MainPage extends React.PureComponent {
 
 
 
-export default Block_MainPage;
+export default VListDetect;

@@ -2,9 +2,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+
 import Block_MainPage from './components/Block_MainPage';
+
+
+
 //css
-import './scss/main.scss';
+import './style/main.scss';
 
 ReactDOM.render(
 	<Block_MainPage/>

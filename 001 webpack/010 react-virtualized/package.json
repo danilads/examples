@@ -25,12 +25,14 @@
     "sass-loader": "^7.0.1",
     "node-sass": "^4.9.0",
     "babel-polyfill": "^6.26.0",
-    "cross-env": "^5.2.0"
+    "redux-devtools-extension": "^2.13.7",
+    "cross-env": "^5.2.0",
+    "prop-types": "^15.6.2"
   },
   "dependencies": {
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-virtualized": "^9.21.0",
+    "react-virtualized": "^9.21.1",
     "react-resize-detector": "^3.2.0"
   }
 }
