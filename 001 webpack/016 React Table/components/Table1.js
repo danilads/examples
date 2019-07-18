@@ -1,9 +1,12 @@
 import React,{Fragment} from 'react';
 import ReactTable from 'react-table'
-import withFixedColumns from "react-table-hoc-fixed-columns";
 
+//fix col plugin
+import withFixedColumns from "./ReactTableHocFixCol/index.js";
+
+//styles in such direction
 import 'react-table/react-table.css';
-import 'react-table-hoc-fixed-columns/lib/styles.css'; // important: this line must be placed after react-table css import
+import './ReactTableHocFixCol/styles.css';
 import './TableStyleFix.scss';
 
 const ReactTableFixedColumns = withFixedColumns(ReactTable);
@@ -15,14 +18,26 @@ class Table1 extends React.PureComponent {
 
 	}
   	render() {
-		const data = [];
-		for(let i=0;i<21;i++){
+		const data = [{
+			name: <div>
+					<div>Tanner</div>
+					<div>Linsley</div>
+				</div>,
+			age: 32,
+			friend: {
+				name: 'Jason Maurer',
+				age: 23,
+			},
+			checkbox: <input type={'checkbox'} onClick={e=>{
+				e.preventDefault();
+				e.stopPropagation();
+				console.log('---e',e);
+			}}/>
+		}];
+		for(let i=0;i<20;i++){
 
 			data.push({
-				name: <div>
-						<div>Tanner</div>
-						<div>Linsley</div>
-					</div>,
+				name: 'Tanner Linsley',
 				age: i,
 				friend: {
 					name: 'Jason Maurer',
@@ -38,7 +53,7 @@ class Table1 extends React.PureComponent {
 		
 		 
 		  const columns = [
-			  {
+			{
 				Header: (props) => {
 					return <input style={{float: 'left'}} type={'checkbox'}/>
 				},
@@ -46,28 +61,30 @@ class Table1 extends React.PureComponent {
 				sortable: false,
        			filterable: false,
 				resizable:false,
-				width: 50
-			  },
+				width: 50,
+				fixed: 'left'
+				
+			},
 			{
-			Header: 'Name',
-			accessor: 'name', // String-based value accessors!
-			width: 150
-		  }, {
-			Header: 'Age',
-			accessor: 'age',
-			width: 150,
-			Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-		  }, {
-			id: 'friendName', // Required because our accessor is not a string
-			Header: 'Friend Name',
-			width: 150,
-			accessor: d => d.friend.name // Custom value accessors!
-		  },
-		  {
-			Header: props => <span>Friend Age</span>, // Custom header components!
-			accessor: 'friend.age',
-			width: 150
-		  }]
+				Header: 'Name',
+				accessor: 'name', // String-based value accessors!
+				width: 150,
+			}, {
+				Header: 'Age',
+				accessor: 'age',
+				width: 150,
+				Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+			}, {
+				id: 'friendName', // Required because our accessor is not a string
+				Header: 'Friend Name',
+				width: 150,
+				accessor: d => d.friend.name // Custom value accessors!
+			},
+			{
+				Header: props => <span>Friend Age</span>, // Custom header components!
+				accessor: 'friend.age',
+				width: 150
+			}]
 		 
 		  return <div>
 				<ReactTableFixedColumns

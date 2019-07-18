@@ -1,11 +1,21 @@
 import React,{Fragment} from 'react';
 import ReactTable from 'react-table'
-import 'react-table/react-table.css'
 
 
-import disablePaginationHOC from './disablePaginationHOC';
-import virtualizedTableHOC from './virtualizedTableHOC';
-const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
+//styles in such direction
+import 'react-table/react-table.css';
+import './ReactTableHocFixCol/styles.css';
+import './TableStyleFix.scss';
+
+//fix col plugin
+import withFixedColumns from "./ReactTableHocFixCol/index.js";
+
+//virtualized plugin
+import disablePaginationHOC from './ReactTableVirt/disablePaginationHOC';
+import virtualizedTableHOC from './ReactTableVirt/virtualizedTableHOC';
+
+//const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
+const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(withFixedColumns(ReactTable)));
 
 
 
@@ -33,6 +43,7 @@ class Table2virt extends React.PureComponent {
                             Header: "First Name",
                             accessor: "firstName",
                             width: 150,
+                            fixed: "left",
                         },
                         {
                             Header: "Last Name",
