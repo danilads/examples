@@ -61,6 +61,7 @@ export default (ReactTable) => {
     }
 
     getLeftOffsetColumns(columns, index) {
+      console.log('---case2');
       let offset = 0;
       for (let i = 0; i < index; i += 1) {
         const column = columns[i];
@@ -75,6 +76,7 @@ export default (ReactTable) => {
     }
 
     getRightOffsetColumns(columns, index) {
+      console.log('---case1');
       let offset = 0;
       for (let i = index + 1; i < columns.length; i += 1) {
         const column = columns[i];

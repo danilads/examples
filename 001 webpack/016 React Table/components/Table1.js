@@ -14,9 +14,50 @@ const ReactTableFixedColumns = withFixedColumns(ReactTable);
 class Table1 extends React.PureComponent {
 	state={
 		selected: '',
-		doubleClickTimeStamp: 0
+		doubleClickTimeStamp: 0,
+		columns:[
+			{
+				Header: props => <input style={{float: 'left'}} type={'checkbox'}/>,
+				accessor: 'checkbox',
+				sortable: false,
+       			filterable: false,
+				resizable:false,
+				width: 50,
+				
+			},
+			{
+				Header: props => <div onClick={this.setFixed}>Name(setFixed)</div>,
+				accessor: 'name', // String-based value accessors!
+				width: 150,
+			}, {
+				Header: 'Age',
+				accessor: 'age',
+				width: 150,
+				Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+			}, {
+				id: 'friendName', // Required because our accessor is not a string
+				Header: 'Friend Name',
+				width: 150,
+				accessor: d => d.friend.name // Custom value accessors!
+			},
+			{
+				Header: props => <span>Friend Age</span>, // Custom header components!
+				accessor: 'friend.age',
+				width: 150
+			}]
 
 	}
+	setFixed=(e)=>{
+		e.preventDefault();
+		e.stopPropagation();
+		console.log('click')
+		this.setState({columns:this.state.columns.map((it,ind)=>{
+			if(ind===1){
+				return {...it, fixed:'left'}
+			}
+			return it;
+		})})
+	};
   	render() {
 		const data = [{
 			name: <div>
@@ -51,46 +92,12 @@ class Table1 extends React.PureComponent {
 			})
 		}
 		
-		 
-		  const columns = [
-			{
-				Header: (props) => {
-					return <input style={{float: 'left'}} type={'checkbox'}/>
-				},
-				accessor: 'checkbox',
-				sortable: false,
-       			filterable: false,
-				resizable:false,
-				width: 50,
-				fixed: 'left'
-				
-			},
-			{
-				Header: 'Name',
-				accessor: 'name', // String-based value accessors!
-				width: 150,
-			}, {
-				Header: 'Age',
-				accessor: 'age',
-				width: 150,
-				Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-			}, {
-				id: 'friendName', // Required because our accessor is not a string
-				Header: 'Friend Name',
-				width: 150,
-				accessor: d => d.friend.name // Custom value accessors!
-			},
-			{
-				Header: props => <span>Friend Age</span>, // Custom header components!
-				accessor: 'friend.age',
-				width: 150
-			}]
-		 
+	
 		  return <div>
 				<ReactTableFixedColumns
 					className={'ReactTable'}
 					data={data}
-					columns={columns}
+					columns={this.state.columns}
 					minRows={1} //если перешли на последнюю страницу - не будут отображаться "фантомные" пустые строки
 					defaultPageSize={20}
 					

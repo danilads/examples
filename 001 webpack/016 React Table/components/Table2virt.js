@@ -43,12 +43,13 @@ class Table2virt extends React.PureComponent {
                             Header: "First Name",
                             accessor: "firstName",
                             width: 150,
-                            fixed: "left",
+                            
                         },
                         {
                             Header: "Last Name",
                             accessor: "lastName",
                             width: 150,
+                            fixed: "left",
                         },
                         {
                             Header: "Age",
