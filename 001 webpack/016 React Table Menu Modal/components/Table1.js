@@ -1,7 +1,15 @@
 import React,{Fragment} from 'react';
 import ReactTable from 'react-table'
+
+//fix col plugin
+import withFixedColumns from "./ReactTableHocFixCol/index.js";
+
+//styles in such direction
 import 'react-table/react-table.css';
+import './ReactTableHocFixCol/styles.css';
 import './TableStyleFix.scss';
+
+const ReactTableFixedColumns = withFixedColumns(ReactTable);
 
 class Table1 extends React.PureComponent {
 	state={
@@ -86,7 +94,7 @@ class Table1 extends React.PureComponent {
 		
 	
 		  return <div>
-				<ReactTable
+				<ReactTableFixedColumns
 					className={'ReactTable'}
 					data={data}
 					columns={this.state.columns}
