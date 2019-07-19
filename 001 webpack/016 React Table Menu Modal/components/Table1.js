@@ -17,7 +17,7 @@ class Table1 extends React.PureComponent {
 		doubleClickTimeStamp: 0,
 		columns:[
 			{
-				Header: props => <input style={{float: 'left'}} type={'checkbox'}/>,
+				Header: props => <input style={{float:'right'}} type={'checkbox'}/>,
 				accessor: 'checkbox',
 				sortable: false,
        			filterable: false,
@@ -69,13 +69,13 @@ class Table1 extends React.PureComponent {
 				name: 'Jason Maurer',
 				age: 23,
 			},
-			checkbox: <input type={'checkbox'} onClick={e=>{
+			checkbox: <input style={{float:'right'}} type={'checkbox'} onClick={e=>{
 				e.preventDefault();
 				e.stopPropagation();
 				console.log('---e',e);
 			}}/>
 		}];
-		for(let i=0;i<20;i++){
+		for(let i=0;i<2000;i++){
 
 			data.push({
 				name: 'Tanner Linsley',
@@ -84,7 +84,7 @@ class Table1 extends React.PureComponent {
 					name: 'Jason Maurer',
 					age: 23,
 				},
-				checkbox: <input type={'checkbox'} onClick={e=>{
+				checkbox: <input style={{float:'right'}} type={'checkbox'} onClick={e=>{
 					e.preventDefault();
 					e.stopPropagation();
 					console.log('---e',i);

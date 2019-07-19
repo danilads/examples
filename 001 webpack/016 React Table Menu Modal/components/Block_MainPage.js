@@ -10,7 +10,7 @@ import Menu1 from './Menu1';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:1
+		pos:3
 	} 
 	
   	render() {

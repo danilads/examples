@@ -1,3 +1,30 @@
+.Menu{
+    .rc-menu-submenu-selected {
+        background-color: #fec;
+        color: red;
+        border-color: red;
+    }
+    .rc-menu-submenu-active{
+        >div{
+            background-color: #dec;
+        }
+        color: green;
+        border-color: green;
+    }
+
+    .rc-menu-item-selected{
+        background-color: #fec;
+        color: red;
+     
+    }
+    .rc-menu-item-active{
+        background-color: #dec;
+        color: green;
+        
+    }
+}
+
+
 .scrollConent{
     overflow-x: auto !important;
     height: 100vh;
@@ -5,3 +32,4 @@
     z-index: 99999!important;
     
 }
+

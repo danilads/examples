@@ -16,7 +16,7 @@ const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
 
 
 
-
+//react table hoc fix - неработает с virtualized
 class Table2virt extends React.PureComponent {
  
   	render() {
