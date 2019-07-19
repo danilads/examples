@@ -18,15 +18,11 @@ class Menu1 extends React.PureComponent {
     handleSelect=(e)=>{
       console.log('---handleSelect',e);
       //закрываем меню
+      this.setState({selected:[e.key]});
       this.setState({openedArr:[]});
       
     }
-    handleClick=(e)=>{
-      console.log('---handleClick',e);
-      //закрываем меню
-      this.setState({openedArr:[]});
-      
-    }
+   
     //состояние открытого в массиве
     handleOpenChange=(e)=>{
       console.log('---handleOpenChange',e);
@@ -46,7 +42,7 @@ class Menu1 extends React.PureComponent {
             openKeys={this.state.openedArr}
 
             onSelect={this.handleSelect}
-            onClick={this.handleClick}
+            // onClick={this.handleClick}
           >
             <SubMenu
               popupClassName={'Menu-styles'}
