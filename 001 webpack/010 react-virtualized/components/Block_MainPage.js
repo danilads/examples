@@ -34,7 +34,7 @@ class Block_MainPage extends React.PureComponent {
 					this.setState({pos:5});
 				}}>VScrollSync</button>
 			
-
+ 
 
 				{this.state.pos===1&&<VList/>}
 				{this.state.pos===2&&<VListDetect/>}

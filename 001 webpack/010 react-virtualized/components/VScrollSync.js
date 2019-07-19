@@ -10,14 +10,14 @@ class VScrollSync extends React.PureComponent {
 	};
 	componentDidMount(){
 		let list1=[];
-		for(let i=0;200>i;i++){
+		for(let i=0;50>i;i++){
 			list1.push('Brian '+i);
 		}
 		this.setState({list1:list1});
 
 
 		let list2=[];
-		for(let i=0;200>i;i++){
+		for(let i=0;50>i;i++){
             list2.push([i,
                 <div>David</div>,
                 "John",Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]);
@@ -58,20 +58,24 @@ class VScrollSync extends React.PureComponent {
 				
 				<ScrollSync>
         {({ clientHeight, clientWidth, onScroll, scrollHeight, scrollLeft, scrollTop, scrollWidth }) => (
-          <div className='Table' style={{display:'flex'}}>
-            <div className='LeftColumn' style={{overflow:'vissible'}}>
+          <div style={{display:'flex'}}>
+            <div style={{overflow:'hidden'}}>
               <List
+			  	style={{overflow: "hidden"}}
+				onScroll={onScroll}
                 scrollTop={scrollTop}
-                width={300}
+                width={500}
 				height={300}
 				rowCount={this.state.list1.length}
 				rowHeight={30}
 				rowRenderer={this.rowRenderer}
               />
             </div>
-            <div className='RightColumn'>
+            <div>
               <Grid
-                onScroll={onScroll}
+			  	style={{paddingLeft: '300px', marginLeft: '-500px'}}
+				onScroll={onScroll}
+				scrollTop={scrollTop}
                 cellRenderer={this.cellRenderer}
 				columnCount={this.state.list2[0].length}
 				columnWidth={150}

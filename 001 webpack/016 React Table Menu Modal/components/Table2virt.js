@@ -4,23 +4,21 @@ import ReactTable from 'react-table'
 
 //styles in such direction
 import 'react-table/react-table.css';
-import './ReactTableHocFixCol/styles.css';
+
 import './TableStyleFix.scss';
 
-//fix col plugin
-import withFixedColumns from "./ReactTableHocFixCol/index.js";
 
 //virtualized plugin
 import disablePaginationHOC from './ReactTableVirt/disablePaginationHOC';
 import virtualizedTableHOC from './ReactTableVirt/virtualizedTableHOC';
 
-//const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
-const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(withFixedColumns(ReactTable)));
+const VirtualizedTable = virtualizedTableHOC(disablePaginationHOC(ReactTable));
+
 
 
 
 class Table2virt extends React.PureComponent {
-
+ 
   	render() {
 		const data = [];
 		for(let i=0;i<2000;i++){
