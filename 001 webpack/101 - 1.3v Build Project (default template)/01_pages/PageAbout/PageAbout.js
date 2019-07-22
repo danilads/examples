@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from "react-redux";
+import { NavLink } from 'react-router-dom';
 import {HocClose} from '../../03_hoc/HocClose/HocClose';
 import ward from '../../05_images/images/ward.gif';
 import myFile from '../../06_files/myFile.pdf';
@@ -52,6 +52,7 @@ class PageAbout extends React.PureComponent {
 						<div className="title col-12"><div>About</div></div>
 						<div className="col-12"><hr/></div>
 						<a href={myFile} download>скачать pdf</a>
+						<NavLink className="btnLevel1" to="/some" activeClassName="SActivated">some</NavLink>
 					</div>
 				</div>
 				<BlockAboutContent/>

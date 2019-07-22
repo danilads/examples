@@ -10,7 +10,8 @@ class Layout extends React.PureComponent {
 		return (
 			
 			<div className="Layout">
-				{this.props.children}
+				<div style={{color:'red'}}>LAYOUT</div>
+				<div>{this.props.children}</div>
 			</div>
 		);
   	}
