@@ -8,11 +8,9 @@ import "babel-polyfill";
 
 //redux
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 //route
-import { Router, Switch, Route } from 'react-router';
-import { createBrowserHistory } from 'history';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 //layout
 import Layout from './02_components/Layout/Layout';
@@ -25,9 +23,6 @@ import PageSome from './01_pages/PageSome/PageSome';
 //store
 import store from './redux/store';
 
-// Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(createBrowserHistory(), store);
-
 
 //css
 import './style/main.scss';
@@ -36,7 +31,7 @@ import './style/main.scss';
 ReactDOM.render(
 	
 	<Provider store={store}>
-		<Router history={history}>
+		<BrowserRouter>
 			<Switch>
 				<Route path="/" exact component={PageMain} />
 				<Layout>
@@ -44,7 +39,7 @@ ReactDOM.render(
 					<Route path="/some" component={PageSome} />
 				</Layout>
 			</Switch>
-		</Router>
+		</BrowserRouter>
 	</Provider>
 	
 	, document.getElementById('container') 
