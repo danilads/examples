@@ -39,12 +39,9 @@ ReactDOM.render(
 		<Router history={history}>
 			<Switch>
 				<Route path="/" exact component={PageMain} />
-				
 				<Layout>
-					<Switch>
-						<Route path="/about" component={PageAbout} />
-						<Route path="/some" component={PageSome} />
-					</Switch>
+					<Route path="/about" component={PageAbout} />
+					<Route path="/some" component={PageSome} />
 				</Layout>
 			</Switch>
 		</Router>
