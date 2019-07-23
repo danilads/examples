@@ -5,13 +5,13 @@ import AntdTable2withCheckbox from './AntdTable2withCheckbox';
 import AntdTable3resize from './AntdTable3resize';
 import AntdTable4ellipsisWordWrap from './AntdTable4ellipsisWordWrap';
 import AntdTable5attachment from './AntdTable5attachment';
-import AntdMenu from './AntdMenu';
+import AntdMenuScroll from './AntdMenuScroll';
 
 
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:5
+		pos:0
 	}
 	
   	render() {
@@ -19,7 +19,7 @@ class Block_MainPage extends React.PureComponent {
 			<div className={"Block_Filter"}>
 				<button style={this.state.pos===0?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:0});
-				}}>AntdMenu</button>
+				}}>AntdMenuScroll</button>
 
 				<button style={this.state.pos===1?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:1});
@@ -46,7 +46,7 @@ class Block_MainPage extends React.PureComponent {
 					this.setState({pos:1111});
 				}}>Modal</button>
 
-				{this.state.pos===0&&<AntdMenu/>}
+				{this.state.pos===0&&<AntdMenuScroll/>}
 				{this.state.pos===1&&<AntdTable1scroll/>}
 				{this.state.pos===2&&<AntdTable2withCheckbox/>}
 				{this.state.pos===3&&<AntdTable3resize/>}

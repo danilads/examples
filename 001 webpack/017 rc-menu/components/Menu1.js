@@ -95,7 +95,7 @@ class Menu1 extends React.PureComponent {
                   <MenuItem key="5-2-2-1"><span>inner inner</span></MenuItem>
                   <MenuItem key="5-2-2-2"><span>inner inner2</span></MenuItem>
                 </SubMenu>
-                {/* если много конента добавляем данный стиль */}
+                {/* если много конента добавляем данный стиль */} 
                 <SubMenu popupClassName={'scrollConent'} title={<span>sub menu 3</span>} key="5-2-3">
                   {arr.map(it=>{
                     return <MenuItem key={"5-2-3-"+it}><span>{"inner inner"+it}</span></MenuItem>

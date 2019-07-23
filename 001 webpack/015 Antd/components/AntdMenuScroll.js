@@ -3,6 +3,7 @@ import React,{Fragment} from 'react';
 import { Menu, Icon } from 'antd';
 
 const { SubMenu } = Menu;
+import './AntdMenuScroll.less';
 
 class AntdMenu extends React.PureComponent {
 
@@ -40,7 +41,7 @@ class AntdMenu extends React.PureComponent {
                     >
                     <Menu.Item key="5">Option 5</Menu.Item>
                     <Menu.Item key="6">Option 6</Menu.Item>
-                    <SubMenu key="sub3" title="Submenu">
+                    <SubMenu className="ScrollMenu" key="sub3" title="Submenu">
                         <Menu.Item key="7">Option 7</Menu.Item>
                         <Menu.Item key="8">Option 8</Menu.Item>
                         <Menu.Item key="9">Option 9</Menu.Item>
@@ -56,7 +57,6 @@ class AntdMenu extends React.PureComponent {
                         <Menu.Item key="19">Option 19</Menu.Item>
                         <Menu.Item key="20">Option 20</Menu.Item>
                         <Menu.Item key="21">Option 21</Menu.Item>
-
                     </SubMenu>
                     </SubMenu>
                     <SubMenu
