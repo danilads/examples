@@ -1,13 +1,32 @@
 import React,{Fragment} from 'react';
 
 import { Menu, Icon } from 'antd';
-
+import ReactResizeDetector from 'react-resize-detector';
 const { SubMenu } = Menu;
 import './AntdMenuScroll.less';
 
 class AntdMenu extends React.PureComponent {
 
+    state = {
+		height: 0,
+        isNeedScroll: false
+	};
+ 
+   onResize = (w,h) => {
+        this.setState({height:h})
+    };
+    componentDidUpdate(prevProps, prevState){
+        if(window.innerHeight<this.state.height && this.state.height!==prevState.height){
+            this.setState({isNeedScroll:true})
+        }
+        if(window.innerHeight>this.state.height && this.state.height!==prevState.height){
+            this.setState({isNeedScroll:false})
+        }
+        
+    }
+  
   	render() {
+        console.log(this.state.isNeedScroll);
 		return (<Fragment>
                 <div style={{height: '1000px'}}>Table</div>
                 <div style={{position: 'fixed', top: '16px'}}>
@@ -41,7 +60,8 @@ class AntdMenu extends React.PureComponent {
                     >
                     <Menu.Item key="5">Option 5</Menu.Item>
                     <Menu.Item key="6">Option 6</Menu.Item>
-                    <SubMenu className="ScrollMenu" key="sub3" title="Submenu">
+                    <SubMenu className={this.state.isNeedScroll?'ScrollMenu':'111111'} key="sub3" title="Submenu">
+                        
                         <Menu.Item key="7">Option 7</Menu.Item>
                         <Menu.Item key="8">Option 8</Menu.Item>
                         <Menu.Item key="9">Option 9</Menu.Item>
@@ -57,6 +77,7 @@ class AntdMenu extends React.PureComponent {
                         <Menu.Item key="19">Option 19</Menu.Item>
                         <Menu.Item key="20">Option 20</Menu.Item>
                         <Menu.Item key="21">Option 21</Menu.Item>
+                        <ReactResizeDetector handleWidth handleHeight onResize={this.onResize}/>
                     </SubMenu>
                     </SubMenu>
                     <SubMenu
