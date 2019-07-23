@@ -42,7 +42,7 @@ const rowSelection = {
   }),
 };
 
-class AntdTable2 extends React.PureComponent {
+class AntdTable2withCheckbox extends React.PureComponent {
 
   	render() {
     //wordBreak: 'break-all' !нужен обязательно
@@ -65,4 +65,4 @@ class AntdTable2 extends React.PureComponent {
 
 
 
-export default AntdTable2;
+export default AntdTable2withCheckbox;

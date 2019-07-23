@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
-import './AntdTable3.less';
+import './AntdTable5attachment.less';
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -28,7 +28,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-class AntdTable3 extends React.PureComponent {
+class AntdTable5attachment extends React.PureComponent {
 
   state = {
     columns: [
@@ -36,6 +36,7 @@ class AntdTable3 extends React.PureComponent {
         title: 'Date',
         dataIndex: 'date',
         width: 100,
+        className: 'DisableWordWrap'
       },
       {
         title: 'Amount',
@@ -46,6 +47,7 @@ class AntdTable3 extends React.PureComponent {
         title: 'Type',
         dataIndex: 'type',
         width: 100,
+        className: 'Ellipsis'
       },
       {
         title: 'Note',
@@ -67,14 +69,51 @@ class AntdTable3 extends React.PureComponent {
     },
   };
 
- 
+
+  //вынести в отдельную функцию
+  //запоминает предыдущее состояние
+  remmberPrev=(func)=>{
+    var prev=[];
+    //Замыкание
+    return function() {
+      let result
+      if(prev[arguments[2]]===void 0){
+        result=arguments[0]-arguments[1];
+      }
+      else{
+        result=arguments[0]-prev[arguments[2]];
+      }
+      prev[arguments[2]]=arguments[0];
+      arguments[0]=result;
+  
+      return func.apply(this, arguments);
+    }
+  }
+
+  
+  countDifference = this.remmberPrev(e=>e);
 
   handleResize = index => (e, { size }) => {
-    this.setState(({ columns }) => {
+    
+    this.setState(({ columns }) => {3
       const nextColumns = [...columns];
+
+      //Данная функция фиксит баг с ресайзом
+      let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
+
+      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
+
+      if(updatedSize<100){
+        updatedSize=100;
+      }
+      if(updatedSize>1000){
+        updatedSize=1000;
+      }
+      
+
       nextColumns[index] = {
         ...nextColumns[index],
-        width: size.width,
+        width: updatedSize,
       };
       return { columns: nextColumns };
     });
@@ -89,13 +128,15 @@ class AntdTable3 extends React.PureComponent {
       }),
     }));
 
-    return (<div style={{wordBreak: 'break-all'}}>
+    return (<div style={{width:'400px'}}>
         <Table
+          className={'TableDefault'}
           bordered
           components={this.components}
           columns={columns}
           dataSource={data}
-          scroll={{ y: 240, x:600 }}
+          rowSelection={{}}
+          scroll={{ y: 240, x:500 }}
         />
       </div>);
   }
@@ -104,4 +145,4 @@ class AntdTable3 extends React.PureComponent {
 
 
 
-export default AntdTable3;
+export default AntdTable5attachment;

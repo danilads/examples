@@ -1,29 +1,36 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table, Divider, Tag} from 'antd';
 
-import './AntdTable1.less';
+import './AntdTable1scroll.less';
+//README 
+//общая длинна  (scroll={{x: 500}})
+//должна быть равна, либо больше суммы (columns width: 100)
 
 const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
+    width: 100,
     render: text => <a href="javascript:;">{text}</a>,
   },
   {
     title: 'Age',
     dataIndex: 'age',
     key: 'age',
+    width: 100,
   },
   {
     title: 'Address',
     dataIndex: 'address',
     key: 'address',
+    width: 100,
   },
   {
     title: 'Tags',
     key: 'tags',
     dataIndex: 'tags',
+    width: 100,
     render: tags => (
       <span>
         {tags.map(tag => {
@@ -43,6 +50,7 @@ const columns = [
   {
     title: 'Action',
     key: 'action',
+    width: 100,
     render: (text, record) => (
       <span>
         <a href="javascript:;">Invite {record.name}</a>
@@ -53,29 +61,7 @@ const columns = [
   },
 ];
 
-// const data = [
-//   {
-//     key: '1',
-//     name: 'John Brown',
-//     age: 32,
-//     address: 'New York No. 1 Lake Park',
-//     tags: ['nice', 'developer'],
-//   },
-//   {
-//     key: '2',
-//     name: 'Jim Green',
-//     age: 42,
-//     address: 'London No. 1 Lake Park',
-//     tags: ['loser'],
-//   },
-//   {
-//     key: '3',
-//     name: 'Joe Black',
-//     age: 32,
-//     address: 'Sidney No. 1 Lake Park',
-//     tags: ['cool', 'teacher'],
-//   },
-// ];
+
 const data = [];
 for (let i = 0; i < 100; i++) {
   data.push({
@@ -88,21 +74,20 @@ for (let i = 0; i < 100; i++) {
 }
 
 
-class AntdTable1 extends React.PureComponent {
+class AntdTable1scroll extends React.PureComponent {
 
   	render() {
-    // горизонтальный скорл нельзя использовать scroll={{ x:450 }}, вместо него используем оберкту с {overflow:'auto'} т.к. в библиотеке есть баг с шириной колонок
-    // 
 		return (<Fragment>
               <div>Table</div>
-              <div style={{ width: '500px'}}>
+              <div style={{ width: '400px'}}>
                 <Table
                   className={'TableDefault'}
                   bordered={ true }
                   columns={columns}
                   dataSource={data}
                   pagination={{ pageSize: 50 }} //на сколько разбивать
-                  scroll={{y:700, x: false}}
+                  scroll={{y:700, x: 500}}
+                  rowSelection={{}}
                   />
                 </div>
             </Fragment>);
@@ -113,4 +98,4 @@ class AntdTable1 extends React.PureComponent {
 
 
 
-export default AntdTable1;
+export default AntdTable1scroll;
