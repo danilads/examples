@@ -78,7 +78,7 @@ class AntdTable1scroll extends React.PureComponent {
 
   	render() {
 		return (<Fragment>
-              <div>Table</div>
+              <h2>Скрол</h2>
               <div style={{ width: '400px'}}>
                 <Table
                   className={'TableDefault'}

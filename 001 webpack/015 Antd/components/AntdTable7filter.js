@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
-import './AntdTable5attachment.less';
+import './AntdTable7filter.less';
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -24,14 +24,14 @@ for (let i = 0; i < 100; i++) {
     date: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
     amount: i,
     type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
-    note: 'teacher',
+    note: Math.round(1 - 0.5 + Math.random() * (9999 - 1 + 1)),
     description: <div>ВЛОЖЕННОСТЬ</div>
   });
 }
 
-class AntdTable5attachment extends React.PureComponent {
-
+class AntdTable7filter extends React.PureComponent {
   state = {
+    selectedRowKeys:[],
     columns: [
       {
         title: 'Date',
@@ -43,6 +43,7 @@ class AntdTable5attachment extends React.PureComponent {
         title: 'Amount',
         dataIndex: 'amount',
         width: 100,
+        sorter: (a, b) => a.amount - b.amount,
       },
       {
         title: 'Type',
@@ -54,6 +55,26 @@ class AntdTable5attachment extends React.PureComponent {
         title: 'Note',
         dataIndex: 'note',
         width: 100,
+        sorter: (a, b) => a.note - b.note,
+        filters: [
+          {
+            text: 'x',
+            value: 1,
+          },
+          {
+            text: 'xx',
+            value: 2,
+          },
+          {
+            text: 'xxx',
+            value: 3,
+          },{
+            text: 'xxxx',
+            value: 4,
+          },
+        ],
+        filterMultiple: false,
+        onFilter: (value, data) => data.note.toString().length === value,
       },
       {
         title: 'Action',
@@ -64,6 +85,7 @@ class AntdTable5attachment extends React.PureComponent {
     ],
   };
 
+  //resize
   components = {
     header: {
       cell: ResizeableTitle,
@@ -91,9 +113,9 @@ class AntdTable5attachment extends React.PureComponent {
     }
   }
 
-  
+  //resize count diff
   countDifference = this.remmberPrev(e=>e);
-
+  //resize
   handleResize = index => (e, { size }) => {
     
     this.setState(({ columns }) => {3
@@ -101,6 +123,8 @@ class AntdTable5attachment extends React.PureComponent {
 
       //Данная функция фиксит баг с ресайзом
       let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
+
+      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
 
       if(updatedSize<100){
         updatedSize=100;
@@ -117,8 +141,20 @@ class AntdTable5attachment extends React.PureComponent {
       return { columns: nextColumns };
     });
   };
+  //row click
+  onRowClick=(data)=>{
+    return {
+      onClick: () => {
+        console.log('single click');
+      },
+      onDoubleClick: () => {
+        console.log('double click');
+      }
+    };
+  };
 
   render() {
+    //resize
     const columns = this.state.columns.map((col, index) => ({
       ...col,
       onHeaderCell: column => ({
@@ -126,9 +162,28 @@ class AntdTable5attachment extends React.PureComponent {
         onResize: this.handleResize(index),
       }),
     }));
+    //row select
+    const rowSelection={
+      selectedRowKeys: this.state.selectedRowKeys, //массив с выбранными сюда, а не в props
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.setState({selectedRowKeys:selectedRowKeys});
+      },
+      hideDefaultSelections: true,
+      selections: [
+        {
+          key: 'diselect all',
+          text: 'Diselect All',
+          onSelect: (e) => {
+            console.log('-e',e);
+            this.setState({selectedRowKeys: []});
+          },
+        },
+      ],
+    }
 
-    return (<div style={{width:'400px'}}>
-        <h2>вложеность строки</h2>
+    return (<div style={{width:'600px'}}>
+        <h2>фильтр в колонке</h2>
         <Table
           className={'TableDefault'}
           bordered
@@ -136,8 +191,11 @@ class AntdTable5attachment extends React.PureComponent {
           columns={columns}
           dataSource={data}
           rowSelection={{}}
-          scroll={{ y: 240, x:500 }}
+          scroll={{ y: 240, x:700 }}
           expandedRowRender={data => data.description}
+
+          rowSelection={rowSelection}
+          onRow={this.onRowClick}
         />
       </div>);
   }
@@ -146,4 +204,4 @@ class AntdTable5attachment extends React.PureComponent {
 
 
 
-export default AntdTable5attachment;
+export default AntdTable7filter;

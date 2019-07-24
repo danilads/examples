@@ -1,17 +1,22 @@
 import React,{Fragment} from 'react';
 
+import AntdMenuScroll from './AntdMenuScroll';
+
 import AntdTable1scroll from './AntdTable1scroll';
-import AntdTable2withCheckbox from './AntdTable2withCheckbox';
+import AntdTable2withCheckboxClicks from './AntdTable2withCheckboxClicks';
 import AntdTable3resize from './AntdTable3resize';
 import AntdTable4ellipsisWordWrap from './AntdTable4ellipsisWordWrap';
 import AntdTable5attachment from './AntdTable5attachment';
-import AntdMenuScroll from './AntdMenuScroll';
+import AntdTable6sorting from './AntdTable6sorting';
+import AntdTable7filter from './AntdTable7filter';
+import AntdTable8outerFilter from './AntdTable8outerFilter';
+
 
 
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:0
+		pos:8
 	}
 	
   	render() {
@@ -27,7 +32,7 @@ class Block_MainPage extends React.PureComponent {
 				
 				<button style={this.state.pos===2?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:2});
-				}}>AntdTable2withCheckbox</button>
+				}}>AntdTable2withCheckboxClicks</button>
 
 				<button style={this.state.pos===3?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:3});
@@ -40,6 +45,18 @@ class Block_MainPage extends React.PureComponent {
 				<button style={this.state.pos===5?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:5});
 				}}>AntdTable5attachment</button>
+
+				<button style={this.state.pos===6?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:6});
+				}}>AntdTable6sorting</button>
+
+				<button style={this.state.pos===7?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:7});
+				}}>AntdTable7filter</button>
+
+				<button style={this.state.pos===8?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:8});
+				}}>AntdTable8outerFilter</button>
 				
 
 				<button style={this.state.pos===1111?{backgroundColor: 'wheat'}:{}} onClick={()=>{
@@ -48,10 +65,13 @@ class Block_MainPage extends React.PureComponent {
 
 				{this.state.pos===0&&<AntdMenuScroll/>}
 				{this.state.pos===1&&<AntdTable1scroll/>}
-				{this.state.pos===2&&<AntdTable2withCheckbox/>}
+				{this.state.pos===2&&<AntdTable2withCheckboxClicks/>}
 				{this.state.pos===3&&<AntdTable3resize/>}
 				{this.state.pos===4&&<AntdTable4ellipsisWordWrap/>}
 				{this.state.pos===5&&<AntdTable5attachment/>}
+				{this.state.pos===6&&<AntdTable6sorting/>}
+				{this.state.pos===7&&<AntdTable7filter/>}
+				{this.state.pos===8&&<AntdTable8outerFilter/>}
 				
 			
 				

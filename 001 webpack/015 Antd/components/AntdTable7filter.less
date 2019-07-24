@@ -1,4 +1,5 @@
 .TableDefault{
+    
     table{
         table-layout: fixed;
     }
@@ -6,7 +7,7 @@
         word-break: break-all;
         white-space: pre-line;
     }
-
+    
     .Ellipsis{
         white-space: nowrap !important;
         overflow: hidden !important;
@@ -16,8 +17,11 @@
         word-break: normal;
         overflow: hidden;
     }
+        
+    
+        
 }
-
+//resize
 .react-resizable {
     position: relative;
     background-clip: padding-box;
@@ -33,3 +37,26 @@
     z-index: 1;
 }
 
+//fitler кастомизация кнопок
+.ant-table-filter-dropdown-link.confirm{
+    position: relative;
+    color: rgba(0,0,0,0);
+    &:before{
+        content: "Ок";
+        color: black;
+        position: absolute;
+        top:0;
+        left: 0;
+    }
+}
+.ant-table-filter-dropdown-link.clear{
+    position: relative;
+    color: rgba(0,0,0,0);
+    &:before{
+        content: "Сброс";
+        color: black;
+        position: absolute;
+        top:0;
+        left: -2px;
+    }
+}

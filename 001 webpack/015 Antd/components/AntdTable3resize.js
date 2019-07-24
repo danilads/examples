@@ -106,8 +106,8 @@ class AntdTable3resize extends React.PureComponent {
       if(updatedSize<100){
         updatedSize=100;
       }
-      if(updatedSize>1000){
-        updatedSize=1000;
+      if(updatedSize>500){
+        updatedSize=500;
       }
       
 
@@ -129,6 +129,7 @@ class AntdTable3resize extends React.PureComponent {
     }));
 
     return (<div style={{width:'700px'}}>
+        <h2>Ресайз колонок</h2>
         <Table
           className={'TableDefault'}
           bordered

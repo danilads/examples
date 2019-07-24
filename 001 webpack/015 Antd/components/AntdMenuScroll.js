@@ -60,7 +60,7 @@ class AntdMenu extends React.PureComponent {
                     >
                     <Menu.Item key="5">Option 5</Menu.Item>
                     <Menu.Item key="6">Option 6</Menu.Item>
-                    <SubMenu className={this.state.isNeedScroll?'ScrollMenu':'111111'} key="sub3" title="Submenu">
+                    <SubMenu className={this.state.isNeedScroll?'ScrollMenu':''} key="sub3" title="Submenu">
                         
                         <Menu.Item key="7">Option 7</Menu.Item>
                         <Menu.Item key="8">Option 8</Menu.Item>

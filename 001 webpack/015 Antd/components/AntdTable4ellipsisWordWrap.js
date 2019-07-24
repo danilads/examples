@@ -45,11 +45,11 @@ const rowSelection = {
 };
 
 class AntdTable4ellipsisWordWrap extends React.PureComponent {
-
+    
   	render() {
     //wordBreak: 'break-all' !нужен обязательно
 		return (<Fragment>
-              <div>Table</div>
+              <h2>Многоточие & Отключение переноса слов</h2>
               <div style={{width:'400px'}}>
                 <Table
                   className={'TableDefault'}
