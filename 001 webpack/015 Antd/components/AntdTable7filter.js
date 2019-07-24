@@ -191,7 +191,7 @@ class AntdTable7filter extends React.PureComponent {
           columns={columns}
           dataSource={data}
           rowSelection={{}}
-          scroll={{ y: 240, x:700 }}
+          scroll={{ y: 240, x:1 }}
           expandedRowRender={data => data.description}
 
           rowSelection={rowSelection}

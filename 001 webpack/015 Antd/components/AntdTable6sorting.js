@@ -172,7 +172,7 @@ class AntdTable6sorting extends React.PureComponent {
           columns={columns}
           dataSource={data}
           rowSelection={{}}
-          scroll={{ y: 240, x:500 }}
+          scroll={{ y: 240, x:1 }}
           expandedRowRender={data => data.description}
 
           rowSelection={rowSelection}

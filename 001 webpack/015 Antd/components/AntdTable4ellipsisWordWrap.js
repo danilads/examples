@@ -58,7 +58,7 @@ class AntdTable4ellipsisWordWrap extends React.PureComponent {
                   dataSource={data}
                   rowSelection={rowSelection}
                   pagination={{ pageSize: 2 }} //на сколько разбивать
-                  scroll={{ y: 240, x:450 }} />,
+                  scroll={{ y: 240, x:1 }} />,
                 </div>
             </Fragment>);
 

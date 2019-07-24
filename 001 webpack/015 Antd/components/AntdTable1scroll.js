@@ -86,7 +86,7 @@ class AntdTable1scroll extends React.PureComponent {
                   columns={columns}
                   dataSource={data}
                   pagination={{ pageSize: 50 }} //на сколько разбивать
-                  scroll={{y:700, x: 500}}
+                  scroll={{y:700, x: 1}}
                   rowSelection={{}}
                   />
                 </div>

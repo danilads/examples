@@ -37,7 +37,19 @@ class AntdTable8outerFilter extends React.PureComponent {
       {
         title: 'Name',
         dataIndex: 'name',
-        width: 100
+        width: 100,
+        filters: [
+          {
+            text: 'Jim',
+            value: 'Jim',
+          },
+          {
+            text: 'John',
+            value: 'John',
+          }
+        ],
+        filterMultiple: false,
+        onFilter: (value, data) => data.name === value,
       },
       {
         title: 'Date',
@@ -49,6 +61,7 @@ class AntdTable8outerFilter extends React.PureComponent {
         title: 'Amount',
         dataIndex: 'amount',
         width: 100,
+        sortOrder: null, // 'ascend'/'descend'/null !сортировка может работать только на одном поле
         sorter: (a, b) => a.amount - b.amount,
       },
       {
@@ -61,6 +74,7 @@ class AntdTable8outerFilter extends React.PureComponent {
         title: 'Note',
         dataIndex: 'note',
         width: 100,
+        sortOrder: 'ascend',
         sorter: (a, b) => a.note - b.note,
         filters: [
           {
@@ -79,6 +93,7 @@ class AntdTable8outerFilter extends React.PureComponent {
             value: 4,
           },
         ],
+        filteredValue: [4], //умолчательное состояние - массив value  [value,value]
         filterMultiple: false,
         onFilter: (value, data) => data.note.toString().length === value,
       },
@@ -161,6 +176,13 @@ class AntdTable8outerFilter extends React.PureComponent {
     };
   };
 
+  //изменение пагинации/фильтра/сортировки
+  handleTableChange = (pagination, filters, sorter) => {
+    console.log('---pagination',pagination);
+    console.log('---filters',filters);
+    console.log('---sorter',sorter);
+  };
+
   render() {
     //resize
     const columns = this.state.columns.map((col, index) => ({
@@ -190,8 +212,9 @@ class AntdTable8outerFilter extends React.PureComponent {
       ],
     }
 
-    return (<div style={{width:'600px'}}>
+    return (<div style={{width:'1000px'}}>
         <h2>кнопки внешнего фильтра</h2>
+        <div>для сортировки нужно мутировать state.columns - для встроеной в antd есть props onChange</div>
         <Table
           className={'TableDefault'}
           bordered
@@ -199,11 +222,13 @@ class AntdTable8outerFilter extends React.PureComponent {
           columns={columns}
           dataSource={data}
           rowSelection={{}}
-          scroll={{ y: 240, x:700 }}
+          scroll={{ y: 240, x:1 }}
           expandedRowRender={data => data.description}
+          pagination={{defaultCurrent:2}} //объект пагинации
 
           rowSelection={rowSelection}
           onRow={this.onRowClick}
+          onChange={this.handleTableChange}
         />
       </div>);
   }
