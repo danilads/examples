@@ -24,6 +24,7 @@ for (let i = 0; i < 100; i++) {
     date: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
     amount: i,
     type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
+    name: Math.round(1 - 0.5 + Math.random() * (2 - 1 + 1))===1?"Jim":"John",
     note: Math.round(1 - 0.5 + Math.random() * (9999 - 1 + 1)),
     description: <div>ВЛОЖЕННОСТЬ</div>
   });
@@ -33,6 +34,11 @@ class AntdTable8outerFilter extends React.PureComponent {
   state = {
     selectedRowKeys:[],
     columns: [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 100
+      },
       {
         title: 'Date',
         dataIndex: 'date',
@@ -84,6 +90,8 @@ class AntdTable8outerFilter extends React.PureComponent {
       },
     ],
   };
+  
+
 
   //resize
   components = {
