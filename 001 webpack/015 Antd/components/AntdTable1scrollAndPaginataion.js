@@ -59,6 +59,10 @@ const columns = [
       </span>
     ),
   },
+  {
+    title: '',
+    dataIndex: 'empty', //заглушка при использовнии fixed
+  }
 ];
 
 

@@ -60,6 +60,10 @@ class AntdTable3resize extends React.PureComponent {
         render: () => <a href="javascript:;">Delete</a>,
         width: 100,
       },
+      {
+        title: '',
+        dataIndex: 'empty', //заглушка при использовнии fixed
+      }
     ],
   };
 

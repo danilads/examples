@@ -1,11 +1,17 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
-import './AntdTable8outerFilter.less';
+import './AntdTable9fixed.less';
 //README
-//фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
-//sortOrder:null ('ascend'/'descend'/null)
-//filteredValue: null  ([4] (значения береться из filters value))
+//AntdTable8outerFilter (внешние кнопки фильтра)
+// - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
+// - sortOrder:null ('ascend'/'descend'/null)
+// - filteredValue: null  ([4] (значения береться из filters value))
+
+//AntdTable9fixed (фиксированная колонка)
+// - обязательно справа в columns должна быть "заглушка"
+// - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
+
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -33,7 +39,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-class AntdTable8outerFilter extends React.PureComponent {
+class AntdTable9fixed extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
@@ -56,11 +62,12 @@ class AntdTable8outerFilter extends React.PureComponent {
         filterMultiple: false,
         onFilter: (value, data) => data.name === value,
       },
+      
       {
         title: 'Date',
         dataIndex: 'date',
         width: 100,
-        className: 'DisableWordWrap'
+        className: 'DisableWordWrap',
       },
       {
         title: 'Amount',
@@ -106,7 +113,7 @@ class AntdTable8outerFilter extends React.PureComponent {
         title: 'Action',
         key: 'action',
         render: () => <a href="javascript:;">Delete</a>,
-        width: 100,
+        width: 100
       },
       {
         title: '',
@@ -249,7 +256,7 @@ class AntdTable8outerFilter extends React.PureComponent {
       ],
     }
 
-    return (<div style={{width:'1000px'}}>
+    return (<div >
         <h2>кнопки внешнего фильтра</h2>
         <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
         <div>
@@ -300,23 +307,28 @@ class AntdTable8outerFilter extends React.PureComponent {
             this.setState({columns:updatedColumns});
           }}>set Filter Name Jim</button>
         </div>
+
+        <div>
         <Table
           className={'TableDefault'}
           bordered
           components={this.components}
           columns={columns}
           dataSource={data}
-          rowSelection={{}}
           scroll={{ y: 240, x:1 }}
-          expandedRowRender={data => data.description}
+          
           pagination={{current:this.state.paginationCurrent}} //объект пагинации
 
           rowSelection={rowSelection}
+          expandedRowRender={data => data.description}
+
+          
           onRow={this.onRowClick}
           onChange={this.handleTableChange}
 
-    
+          
         />
+        </div>
       </div>);
   }
 
@@ -324,4 +336,4 @@ class AntdTable8outerFilter extends React.PureComponent {
 
 
 
-export default AntdTable8outerFilter;
+export default AntdTable9fixed;

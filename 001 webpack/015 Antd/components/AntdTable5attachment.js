@@ -61,6 +61,10 @@ class AntdTable5attachment extends React.PureComponent {
         render: () => <a href="javascript:;">Delete</a>,
         width: 100,
       },
+      {
+        title: '',
+        dataIndex: 'empty', //заглушка при использовнии fixed
+      }
     ],
   };
 

@@ -20,6 +20,10 @@ const columns = [
     width: 150,
     className: 'DisableWordWrap'
   },
+  {
+    title: '',
+    dataIndex: 'empty', //заглушка при использовнии fixed
+  }
 ];
 
 const data = [];

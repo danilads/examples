@@ -10,13 +10,14 @@ import AntdTable5attachment from './AntdTable5attachment';
 import AntdTable6sorting from './AntdTable6sorting';
 import AntdTable7filter from './AntdTable7filter';
 import AntdTable8outerFilter from './AntdTable8outerFilter';
+import AntdTable9fixed from './AntdTable9fixed';
 
 
 
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:8
+		pos:9
 	}
 	
   	render() {
@@ -57,6 +58,10 @@ class Block_MainPage extends React.PureComponent {
 				<button style={this.state.pos===8?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:8});
 				}}>AntdTable8outerFilter</button>
+
+				<button style={this.state.pos===9?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:9});
+				}}>AntdTable9fixed</button>
 				
 
 				<button style={this.state.pos===1111?{backgroundColor: 'wheat'}:{}} onClick={()=>{
@@ -72,6 +77,7 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===6&&<AntdTable6sorting/>}
 				{this.state.pos===7&&<AntdTable7filter/>}
 				{this.state.pos===8&&<AntdTable8outerFilter/>}
+				{this.state.pos===9&&<AntdTable9fixed/>}
 				
 			
 				

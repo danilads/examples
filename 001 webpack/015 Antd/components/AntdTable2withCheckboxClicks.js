@@ -18,6 +18,10 @@ const columns = [
     dataIndex: 'address',
     width: 150,
   },
+  {
+    title: '',
+    dataIndex: 'empty', //заглушка при использовнии fixed
+  }
 ];
 
 const data = [];
