@@ -58,10 +58,6 @@ const columns = [
         <a href="javascript:;">Delete</a>
       </span>
     ),
-  },
-  {
-    title: '',
-    dataIndex: 'empty', //заглушка при использовнии fixed
   }
 ];
 

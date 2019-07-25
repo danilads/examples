@@ -81,10 +81,6 @@ class AntdTable7filter extends React.PureComponent {
         key: 'action',
         render: () => <a href="javascript:;">Delete</a>,
         width: 100,
-      },
-      {
-        title: '',
-        dataIndex: 'empty', //заглушка при использовнии fixed
       }
     ],
   };
@@ -166,6 +162,7 @@ class AntdTable7filter extends React.PureComponent {
         onResize: this.handleResize(index),
       }),
     }));
+    columns.push({}); //заглушка при использовнии fixed
     //row select
     const rowSelection={
       selectedRowKeys: this.state.selectedRowKeys, //массив с выбранными сюда, а не в props

@@ -60,10 +60,6 @@ class AntdTable5attachment extends React.PureComponent {
         key: 'action',
         render: () => <a href="javascript:;">Delete</a>,
         width: 100,
-      },
-      {
-        title: '',
-        dataIndex: 'empty', //заглушка при использовнии fixed
       }
     ],
   };
@@ -130,6 +126,7 @@ class AntdTable5attachment extends React.PureComponent {
         onResize: this.handleResize(index),
       }),
     }));
+    columns.push({}); //заглушка при использовнии fixed
 
     return (<div style={{width:'400px'}}>
         <h2>вложеность строки</h2>

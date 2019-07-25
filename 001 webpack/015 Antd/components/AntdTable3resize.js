@@ -59,10 +59,6 @@ class AntdTable3resize extends React.PureComponent {
         key: 'action',
         render: () => <a href="javascript:;">Delete</a>,
         width: 100,
-      },
-      {
-        title: '',
-        dataIndex: 'empty', //заглушка при использовнии fixed
       }
     ],
   };
@@ -131,7 +127,7 @@ class AntdTable3resize extends React.PureComponent {
         onResize: this.handleResize(index),
       }),
     }));
-
+    columns.push({}); //заглушка при использовнии fixed
     return (<div style={{width:'700px'}}>
         <h2>Ресайз колонок</h2>
         <Table

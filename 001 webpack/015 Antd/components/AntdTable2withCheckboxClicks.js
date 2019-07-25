@@ -17,10 +17,6 @@ const columns = [
     title: 'Address',
     dataIndex: 'address',
     width: 150,
-  },
-  {
-    title: '',
-    dataIndex: 'empty', //заглушка при использовнии fixed
   }
 ];
 

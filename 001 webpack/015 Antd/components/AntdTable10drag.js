@@ -1,7 +1,8 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
-import './AntdTable9fixed.less';
+import ReactResizeDetector from 'react-resize-detector';
+import './AntdTable9fixedSetDefSize.less';
 //README
 //AntdTable8outerFilter (внешние кнопки фильтра)
 // - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
@@ -38,11 +39,19 @@ for (let i = 0; i < 100; i++) {
     description: <div>ВЛОЖЕННОСТЬ</div>
   });
 }
+function setTitle(title){
+  return <span><button onClick={(e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('LOCK');
+  }}>U</button>{title}</span>
+};
 
-class AntdTable9fixed extends React.PureComponent {
+class AntdTable9fixedSetDefSize extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
+    tableWidth: 0,
     columns: [
       {
         title: 'Name',
@@ -114,14 +123,17 @@ class AntdTable9fixed extends React.PureComponent {
         key: 'action',
         render: () => <a href="javascript:;">Delete</a>,
         width: 100
-      },
-      {
-        title: '',
-        dataIndex: 'empty', //заглушка при использовнии fixed
       }
     ],
   };
   
+  //setFixed
+  setTitle=(title)=>{
+    return <span><button onClick={(e)=>{
+      e.stopPropagation()
+      console.log('LOCK');
+    }}>U</button>{title}</span>
+  };
 
 
   //resize
@@ -202,7 +214,7 @@ class AntdTable9fixed extends React.PureComponent {
     let updatedColumns = [...this.state.columns];
     for(let i=0;updatedColumns.length>i;i++){
       //Если в позиции columns содержится filteredValue 
-      if(Object.keys(updatedColumns[i]).includes('filteredValue')){
+      if(updatedColumns[i].hasOwnProperty('filteredValue')){
         for(let key in filters){
           if(key===updatedColumns[i].dataIndex){
             updatedColumns[i].filteredValue = filters[key];
@@ -211,7 +223,7 @@ class AntdTable9fixed extends React.PureComponent {
         }
       }
       //Если в позиции колонки содержится sortOrder
-      if(Object.keys(updatedColumns[i]).includes('sortOrder')){
+      if(updatedColumns[i].hasOwnProperty('sortOrder')){
           if(sorter.field===updatedColumns[i].dataIndex){
             updatedColumns[i].sortOrder = sorter.order
           }
@@ -224,18 +236,76 @@ class AntdTable9fixed extends React.PureComponent {
     console.log('---updatedColumns',updatedColumns);
     this.setState({paginationCurrent:pagination.current,columns:updatedColumns});
   };
+  //setFixed
+  setFixed=(e,dataIndex)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('LOCK',dataIndex);
+    //модифицируем state
+    let fixedPos = [];
+    let modifiedColumns = [];
+    for(let i=0;this.state.columns.length>i;i++){
+      if(this.state.columns[i] && this.state.columns[i].dataIndex===dataIndex){
+        let obj = {...this.state.columns[i]};
+        if(obj.hasOwnProperty('fixed')){
+          delete obj['fixed'];
+          fixedPos.push(obj);
+        }
+        else{
+          obj.fixed = 'left';
+          fixedPos.push(obj);
+        }
+        
+        
+      }
+      else{
+        let obj = {...this.state.columns[i]};
+        if(obj.hasOwnProperty('fixed')){
+          delete obj['fixed'];
+        }
+        modifiedColumns.push(obj);
+        
+      }
+    }
 
+    let result = fixedPos.concat(modifiedColumns);
+    console.log('---Lock result',result);
+    this.setState({columns:result});
+  };
+
+  //SET DEFAULT SIZE OF COLUMNS
+  setDeafaultSizeWidth=()=>{
+    //вычитаем ширину неподконтрольных блоков
+    //50 - длинна блока с вложенностью
+    //60 - длинна блока с чекбоксами
+    console.log('---setDefaultSizeOfColumns',(this.state.tableWidth-60-50)/this.state.columns.length);
+    let result = [];
+    for(let i=0;this.state.columns.length>i;i++){
+      result.push({...this.state.columns[i],width:(this.state.tableWidth-60-50)/this.state.columns.length})
+    }
+    this.setState({columns:result});
+  };
+  onResizeScreen=(w,h) => {
+      this.setState({tableWidth:w});
+  };
   render() {
-   
+    
 
-    //resize
-    const columns = this.state.columns.map((col, index) => ({
-      ...col,
-      onHeaderCell: column => ({
+    //resize +  add "Fix button" to title
+    const columns = this.state.columns.map((obj, index) => {
+      let modify = {...obj};
+      if(obj.hasOwnProperty('title')){
+        modify.title = <div><button style={obj.hasOwnProperty('fixed')?{background:'red'}:{}} onClick={(e)=>this.setFixed(e,obj.dataIndex)}>U</button>{obj.title}</div>;
+      }
+      modify.onHeaderCell = column => ({
         width: column.width,
         onResize: this.handleResize(index),
-      }),
-    }));
+      });
+      return modify;
+    });
+   
+    columns.push({}); //заглушка при использовнии fixed
+
     //row select
     const rowSelection={
       selectedRowKeys: this.state.selectedRowKeys, //массив с выбранными сюда, а не в props
@@ -259,12 +329,13 @@ class AntdTable9fixed extends React.PureComponent {
     return (<div >
         <h2>кнопки внешнего фильтра</h2>
         <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
+        <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('sortOrder')){
+              if(updatedColumns[i].hasOwnProperty('sortOrder')){
                 updatedColumns[i].sortOrder=null;
               }
             }
@@ -275,7 +346,7 @@ class AntdTable9fixed extends React.PureComponent {
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('filteredValue')){
+              if(updatedColumns[i].hasOwnProperty('filteredValue')){
                 updatedColumns[i].filteredValue=null;
               }
             }
@@ -286,7 +357,7 @@ class AntdTable9fixed extends React.PureComponent {
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('sortOrder') && updatedColumns[i].dataIndex === 'amount'){
+              if(updatedColumns[i].hasOwnProperty('sortOrder') && updatedColumns[i].dataIndex === 'amount'){
                 updatedColumns[i].sortOrder='ascend';
               }
               else{
@@ -300,7 +371,7 @@ class AntdTable9fixed extends React.PureComponent {
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('filteredValue') && updatedColumns[i].dataIndex === 'name'){
+              if(updatedColumns[i].hasOwnProperty('filteredValue') && updatedColumns[i].dataIndex === 'name'){
                 updatedColumns[i].filteredValue=['Jim'];
               }
             }
@@ -328,6 +399,7 @@ class AntdTable9fixed extends React.PureComponent {
 
           
         />
+        <ReactResizeDetector handleWidth onResize={this.onResizeScreen}/>
         </div>
       </div>);
   }
@@ -336,4 +408,4 @@ class AntdTable9fixed extends React.PureComponent {
 
 
 
-export default AntdTable9fixed;
+export default AntdTable9fixedSetDefSize;
