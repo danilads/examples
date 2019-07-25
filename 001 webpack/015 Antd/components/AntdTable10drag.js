@@ -2,7 +2,8 @@ import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
 import ReactResizeDetector from 'react-resize-detector';
-import './AntdTable9fixedSetDefSize.less';
+import ReactDragListView from "react-drag-listview";
+import './AntdTable10drag.less';
 //README
 //AntdTable8outerFilter (внешние кнопки фильтра)
 // - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
@@ -47,7 +48,7 @@ function setTitle(title){
   }}>U</button>{title}</span>
 };
 
-class AntdTable9fixedSetDefSize extends React.PureComponent {
+class AntdTable10drag extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
@@ -276,8 +277,8 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
   //SET DEFAULT SIZE OF COLUMNS
   setDeafaultSizeWidth=()=>{
     //вычитаем ширину неподконтрольных блоков
-    //50 - длинна блока с вложенностью
-    //60 - длинна блока с чекбоксами
+    //50 - длинна блока с "вложенностью"
+    //60 - длинна блока с "чекбоксами"
     console.log('---setDefaultSizeOfColumns',(this.state.tableWidth-60-50)/this.state.columns.length);
     let result = [];
     for(let i=0;this.state.columns.length>i;i++){
@@ -285,8 +286,23 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
     }
     this.setState({columns:result});
   };
+
+  //react-resize-detector
   onResizeScreen=(w,h) => {
       this.setState({tableWidth:w});
+  };
+
+  //drag columns 
+  onDragEnd=(fromIndex, toIndex)=>{
+    //-проблема перетаскивание в пустую колонку
+    //-проблема смещения индексов из-за колонки "вложенность" и "чекбоксы"
+    //-проблема когда фиксированна колонка - по другому считать
+    const columnsCopy = this.state.columns.slice();
+    
+    const item = columnsCopy.splice(fromIndex, 1)[0];
+    columnsCopy.splice(toIndex, 0, item);
+    console.log('---drag result',columnsCopy);
+    this.setState({ columns: columnsCopy });
   };
   render() {
     
@@ -380,7 +396,10 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
         </div>
 
         <div>
-        <Table
+        <ReactDragListView.DragColumn
+            onDragEnd={this.onDragEnd}
+            nodeSelector="th"
+        ><Table
           className={'TableDefault'}
           bordered
           components={this.components}
@@ -398,7 +417,7 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
           onChange={this.handleTableChange}
 
           
-        />
+        /></ReactDragListView.DragColumn>
         <ReactResizeDetector handleWidth onResize={this.onResizeScreen}/>
         </div>
       </div>);
@@ -408,4 +427,4 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
 
 
 
-export default AntdTable9fixedSetDefSize;
+export default AntdTable10drag;
