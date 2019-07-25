@@ -2,7 +2,10 @@ import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
 import './AntdTable8outerFilter.less';
-
+//README
+//фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
+//sortOrder:null ('ascend'/'descend'/null)
+//filteredValue: null  ([4] (значения береться из filters value))
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -32,6 +35,7 @@ for (let i = 0; i < 100; i++) {
 
 class AntdTable8outerFilter extends React.PureComponent {
   state = {
+    paginationCurrent:0,
     selectedRowKeys:[],
     columns: [
       {
@@ -48,6 +52,7 @@ class AntdTable8outerFilter extends React.PureComponent {
             value: 'John',
           }
         ],
+        filteredValue: null,
         filterMultiple: false,
         onFilter: (value, data) => data.name === value,
       },
@@ -61,7 +66,7 @@ class AntdTable8outerFilter extends React.PureComponent {
         title: 'Amount',
         dataIndex: 'amount',
         width: 100,
-        sortOrder: null, // 'ascend'/'descend'/null !сортировка может работать только на одном поле
+        sortOrder: 'descend', // 'ascend'/'descend'/null !сортировка может работать только на одном поле
         sorter: (a, b) => a.amount - b.amount,
       },
       {
@@ -74,7 +79,7 @@ class AntdTable8outerFilter extends React.PureComponent {
         title: 'Note',
         dataIndex: 'note',
         width: 100,
-        sortOrder: 'ascend',
+        sortOrder: null,
         sorter: (a, b) => a.note - b.note,
         filters: [
           {
@@ -177,13 +182,41 @@ class AntdTable8outerFilter extends React.PureComponent {
   };
 
   //изменение пагинации/фильтра/сортировки
+  //в этой функции мутируем
   handleTableChange = (pagination, filters, sorter) => {
     console.log('---pagination',pagination);
     console.log('---filters',filters);
     console.log('---sorter',sorter);
+
+    let updatedColumns = [...this.state.columns];
+    for(let i=0;updatedColumns.length>i;i++){
+      //Если в позиции columns содержится filteredValue 
+      if(Object.keys(updatedColumns[i]).includes('filteredValue')){
+        for(let key in filters){
+          if(key===updatedColumns[i].dataIndex){
+            updatedColumns[i].filteredValue = filters[key];
+            break;
+          }
+        }
+      }
+      //Если в позиции колонки содержится sortOrder
+      if(Object.keys(updatedColumns[i]).includes('sortOrder')){
+          if(sorter.field===updatedColumns[i].dataIndex){
+            updatedColumns[i].sortOrder = sorter.order
+          }
+          else{
+            updatedColumns[i].sortOrder = null;
+          }
+      }
+    }
+
+    console.log('---updatedColumns',updatedColumns);
+    this.setState({paginationCurrent:pagination.current,columns:updatedColumns});
   };
 
   render() {
+   
+
     //resize
     const columns = this.state.columns.map((col, index) => ({
       ...col,
@@ -214,7 +247,55 @@ class AntdTable8outerFilter extends React.PureComponent {
 
     return (<div style={{width:'1000px'}}>
         <h2>кнопки внешнего фильтра</h2>
-        <div>для сортировки нужно мутировать state.columns - для встроеной в antd есть props onChange</div>
+        <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
+        <div>
+          {/* мутируем state.columns (везде ставим sortOrder=null) */}
+          <button onClick={()=>{
+            let updatedColumns = [...this.state.columns];
+            for(let i=0;updatedColumns.length>i;i++){
+              if(Object.keys(updatedColumns[i]).includes('sortOrder')){
+                updatedColumns[i].sortOrder=null;
+              }
+            }
+            this.setState({columns:updatedColumns});
+          }}>clear Sorting</button>
+
+          {/* мутируем state.columns (везде ставим filteredValue=null) */}
+          <button onClick={()=>{
+            let updatedColumns = [...this.state.columns];
+            for(let i=0;updatedColumns.length>i;i++){
+              if(Object.keys(updatedColumns[i]).includes('filteredValue')){
+                updatedColumns[i].filteredValue=null;
+              }
+            }
+            this.setState({columns:updatedColumns});
+          }}>clear Filters</button>
+
+          {/* мутируем state.columns (везде ставим sortOrder=null, кроме нужной позиции sortOrder='ascend') */}
+          <button onClick={()=>{
+            let updatedColumns = [...this.state.columns];
+            for(let i=0;updatedColumns.length>i;i++){
+              if(Object.keys(updatedColumns[i]).includes('sortOrder') && updatedColumns[i].dataIndex === 'amount'){
+                updatedColumns[i].sortOrder='ascend';
+              }
+              else{
+                updatedColumns[i].sortOrder=null;
+              }
+            }
+            this.setState({columns:updatedColumns});
+          }}>set Sort Amount Ascend</button>
+
+          {/* мутируем state.columns (ставим фильтр только в нужной позиции filteredValue=["Jim"]) */}
+          <button onClick={()=>{
+            let updatedColumns = [...this.state.columns];
+            for(let i=0;updatedColumns.length>i;i++){
+              if(Object.keys(updatedColumns[i]).includes('filteredValue') && updatedColumns[i].dataIndex === 'name'){
+                updatedColumns[i].filteredValue=['Jim'];
+              }
+            }
+            this.setState({columns:updatedColumns});
+          }}>set Filter Name Jim</button>
+        </div>
         <Table
           className={'TableDefault'}
           bordered
@@ -224,11 +305,13 @@ class AntdTable8outerFilter extends React.PureComponent {
           rowSelection={{}}
           scroll={{ y: 240, x:1 }}
           expandedRowRender={data => data.description}
-          pagination={{defaultCurrent:2}} //объект пагинации
+          pagination={{current:this.state.paginationCurrent}} //объект пагинации
 
           rowSelection={rowSelection}
           onRow={this.onRowClick}
           onChange={this.handleTableChange}
+
+    
         />
       </div>);
   }

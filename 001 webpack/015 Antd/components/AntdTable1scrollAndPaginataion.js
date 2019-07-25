@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table, Divider, Tag} from 'antd';
 
-import './AntdTable1scroll.less';
+import './AntdTable1scrollAndPaginataion.less';
 //README 
 //общая длинна  (scroll={{x: 500}})
 //должна быть равна, либо больше суммы (columns width: 100)
@@ -74,7 +74,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 
-class AntdTable1scroll extends React.PureComponent {
+class AntdTable1scrollAndPaginataion extends React.PureComponent {
 
   	render() {
 		return (<Fragment>
@@ -85,7 +85,7 @@ class AntdTable1scroll extends React.PureComponent {
                   bordered={ true }
                   columns={columns}
                   dataSource={data}
-                  pagination={{ pageSize: 50 }} //на сколько разбивать
+                  pagination={{ pageSize: 50, defaultCurrent:2 }} //на сколько разбивать
                   scroll={{y:700, x: 1}}
                   rowSelection={{}}
                   />
@@ -98,4 +98,4 @@ class AntdTable1scroll extends React.PureComponent {
 
 
 
-export default AntdTable1scroll;
+export default AntdTable1scrollAndPaginataion;
