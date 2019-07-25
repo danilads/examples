@@ -14,6 +14,10 @@ import './AntdTable10drag.less';
 // - обязательно справа в columns должна быть "заглушка"
 // - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
 
+//AntdTable10drag (drag columns)
+// - onDragEnd - функция пересчета state.columns
+// - nodeSelector="th" - что перетаскивается
+// - handleSelector=".dragItem" - за что "хватаем"
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -296,7 +300,7 @@ class AntdTable10drag extends React.PureComponent {
   onDragEnd=(fromIndex, toIndex)=>{
     //-проблема перетаскивание в пустую колонку
     //-проблема смещения индексов из-за колонки "вложенность" и "чекбоксы"
-    //-проблема когда фиксированна колонка - по другому считать
+    //-проблема когда фиксированна колонка - по другому считать?
     const columnsCopy = this.state.columns.slice();
     
     const item = columnsCopy.splice(fromIndex, 1)[0];
@@ -311,7 +315,7 @@ class AntdTable10drag extends React.PureComponent {
     const columns = this.state.columns.map((obj, index) => {
       let modify = {...obj};
       if(obj.hasOwnProperty('title')){
-        modify.title = <div><button style={obj.hasOwnProperty('fixed')?{background:'red'}:{}} onClick={(e)=>this.setFixed(e,obj.dataIndex)}>U</button>{obj.title}</div>;
+        modify.title = <div><button className={"dragItem"} style={obj.hasOwnProperty('fixed')?{background:'red'}:{}} onClick={(e)=>this.setFixed(e,obj.dataIndex)}>U</button>{obj.title}</div>;
       }
       modify.onHeaderCell = column => ({
         width: column.width,
@@ -399,6 +403,7 @@ class AntdTable10drag extends React.PureComponent {
         <ReactDragListView.DragColumn
             onDragEnd={this.onDragEnd}
             nodeSelector="th"
+            handleSelector=".dragItem"
         ><Table
           className={'TableDefault'}
           bordered
