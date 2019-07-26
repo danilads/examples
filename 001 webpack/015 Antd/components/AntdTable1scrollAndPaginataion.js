@@ -78,7 +78,7 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
 
   	render() {
 		return (<Fragment>
-              <h2>Скрол</h2>
+              <h2>Скрол и Пагинация</h2>
               <div style={{ width: '400px'}}>
                 <Table
                   className={'TableDefault'}

@@ -53,7 +53,7 @@ function setTitle(title){
   }}>U</button>{title}</span>
 };
 
-class AntdTable10drag extends React.PureComponent {
+class AntdTable12fin extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
@@ -351,8 +351,7 @@ class AntdTable10drag extends React.PureComponent {
     }
 
     return (<div >
-        <h2>кнопки внешнего фильтра</h2>
-        <div>Drag and Drop колонок</div>
+        <h2>Финальная Версия (включающая все изменения)</h2>
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}
@@ -436,4 +435,4 @@ class AntdTable10drag extends React.PureComponent {
 
 
 
-export default AntdTable10drag;
+export default AntdTable12fin;

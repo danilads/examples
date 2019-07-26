@@ -248,7 +248,7 @@ class AntdTable8outerFilter extends React.PureComponent {
     }
 
     return (<div style={{width:'1000px'}}>
-        <h2>кнопки внешнего фильтра</h2>
+        <h2>Кнопки внешнего фильтра</h2>
         <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}

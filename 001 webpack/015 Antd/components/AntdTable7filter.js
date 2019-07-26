@@ -184,7 +184,7 @@ class AntdTable7filter extends React.PureComponent {
     }
 
     return (<div style={{width:'600px'}}>
-        <h2>фильтр в колонке</h2>
+        <h2>Фильтр в колонке</h2>
         <Table
           className={'TableDefault'}
           bordered

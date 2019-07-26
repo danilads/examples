@@ -129,7 +129,7 @@ class AntdTable5attachment extends React.PureComponent {
     columns.push({}); //заглушка при использовнии fixed
 
     return (<div style={{width:'400px'}}>
-        <h2>вложеность строки</h2>
+        <h2>Вложеность строки</h2>
         <Table
           className={'TableDefault'}
           bordered

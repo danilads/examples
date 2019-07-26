@@ -327,7 +327,7 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
     }
 
     return (<div >
-        <h2>кнопки внешнего фильтра</h2>
+        <h2>Фиксированная колонка слева + установоить по ширине экрана все колонки</h2>
         <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>

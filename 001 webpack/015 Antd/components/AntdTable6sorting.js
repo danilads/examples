@@ -165,7 +165,7 @@ class AntdTable6sorting extends React.PureComponent {
     }
 
     return (<div style={{width:'400px'}}>
-        <h2>сортировка в колонке</h2>
+        <h2>Сортировка в колонке</h2>
         <Table
           className={'TableDefault'}
           bordered

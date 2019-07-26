@@ -53,7 +53,7 @@ function setTitle(title){
   }}>U</button>{title}</span>
 };
 
-class AntdTable11fin extends React.PureComponent {
+class AntdTable11saveInLocalStorage extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
@@ -351,8 +351,7 @@ class AntdTable11fin extends React.PureComponent {
     }
 
     return (<div >
-        <h2>кнопки внешнего фильтра</h2>
-        <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
+        <h2>Сохранения фильтров/сортировки/порядок колонок/ширина колонок - в localStorage</h2>
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}
@@ -436,4 +435,4 @@ class AntdTable11fin extends React.PureComponent {
 
 
 
-export default AntdTable11fin;
+export default AntdTable11saveInLocalStorage;
