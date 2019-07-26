@@ -6,6 +6,7 @@ import './AntdTable.less';
 
 //README
 //AntdTable3resize (Ресайз колонок)
+//если оставить дэфолтный ресайз - есть баг (нажмаем ресайзить - тянем и отпускам в месте где есть фильтр - отрабатет еще и нажатие фильтра)
 //handle - компонент ресайза
 
 const ResizeableTitle = props => {
@@ -68,6 +69,7 @@ class AntdTable3resize extends React.PureComponent {
     ],
   };
 
+  //resize
   components = {
     header: {
       cell: ResizeableTitle,
@@ -95,9 +97,10 @@ class AntdTable3resize extends React.PureComponent {
     }
   }
 
-  
+  //resize count diff
   countDifference = this.remmberPrev(e=>e);
 
+  //resize
   handleResize = index => (e, { size }) => {
     
     this.setState(({ columns }) => {3
@@ -106,8 +109,9 @@ class AntdTable3resize extends React.PureComponent {
       //Данная функция фиксит баг с ресайзом
       let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
 
-      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
 
+      //TODO вынести в константы
+      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
       if(updatedSize<100){
         updatedSize=100;
       }
@@ -125,14 +129,22 @@ class AntdTable3resize extends React.PureComponent {
   };
 
   render() {
-    const columns = this.state.columns.map((col, index) => ({
-      ...col,
-      onHeaderCell: column => ({
+    //resize +  add "Fix button" to title
+    const columns = this.state.columns.map((obj, index) => {
+      let modify = {...obj};
+      if(obj.hasOwnProperty('title')){
+        modify.title = obj.title;
+      }
+      modify.onHeaderCell = column => ({
         width: column.width,
         onResize: this.handleResize(index),
-      }),
-    }));
+      });
+      return modify;
+    });
+   
     columns.push({}); //заглушка при использовнии fixed
+
+
     return (<div style={{width:'700px'}}>
         <h2>Ресайз колонок</h2>
         <Table
