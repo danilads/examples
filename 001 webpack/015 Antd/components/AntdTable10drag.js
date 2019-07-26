@@ -3,7 +3,7 @@ import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
 import ReactResizeDetector from 'react-resize-detector';
 import ReactDragListView from "react-drag-listview";
-import './AntdTable10drag.less';
+import './AntdTable.less';
 //README
 //AntdTable8outerFilter (внешние кнопки фильтра)
 // - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
@@ -18,6 +18,7 @@ import './AntdTable10drag.less';
 // - onDragEnd - функция пересчета state.columns
 // - nodeSelector="th" - что перетаскивается
 // - handleSelector=".dragItem" - за что "хватаем"
+// при смещении нужно учитывать кол-во доп-полей (checkbox и "вложеность") dragOffset
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -33,7 +34,7 @@ const ResizeableTitle = props => {
 };
 
 const data = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
   data.push({
     key: i,
     date: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
@@ -180,8 +181,9 @@ class AntdTable10drag extends React.PureComponent {
       //Данная функция фиксит баг с ресайзом
       let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
 
-      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
 
+      //TODO вынести в константы
+      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
       if(updatedSize<100){
         updatedSize=100;
       }
@@ -283,6 +285,7 @@ class AntdTable10drag extends React.PureComponent {
     //вычитаем ширину неподконтрольных блоков
     //50 - длинна блока с "вложенностью"
     //60 - длинна блока с "чекбоксами"
+    //TODO вынести в константы
     console.log('---setDefaultSizeOfColumns',(this.state.tableWidth-60-50)/this.state.columns.length);
     let result = [];
     for(let i=0;this.state.columns.length>i;i++){
@@ -298,13 +301,14 @@ class AntdTable10drag extends React.PureComponent {
 
   //drag columns 
   onDragEnd=(fromIndex, toIndex)=>{
-    //-проблема перетаскивание в пустую колонку
-    //-проблема смещения индексов из-за колонки "вложенность" и "чекбоксы"
-    //-проблема когда фиксированна колонка - по другому считать?
+    //TODO вынести в константы (смещение из-за полей checkbox и "вложеность")
+    let fIndex = fromIndex-2;
+    let tIndex = toIndex-2;
+
     const columnsCopy = this.state.columns.slice();
     
-    const item = columnsCopy.splice(fromIndex, 1)[0];
-    columnsCopy.splice(toIndex, 0, item);
+    const item = columnsCopy.splice(fIndex, 1)[0];
+    columnsCopy.splice(tIndex, 0, item);
     console.log('---drag result',columnsCopy);
     this.setState({ columns: columnsCopy });
   };
@@ -412,7 +416,7 @@ class AntdTable10drag extends React.PureComponent {
           dataSource={data}
           scroll={{ y: 240, x:1 }}
           
-          pagination={{current:this.state.paginationCurrent}} //объект пагинации
+          pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
 
           rowSelection={rowSelection}
           expandedRowRender={data => data.description}

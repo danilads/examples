@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
-import './AntdTable6sorting.less';
+import './AntdTable.less';
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -175,6 +175,8 @@ class AntdTable6sorting extends React.PureComponent {
           rowSelection={{}}
           scroll={{ y: 240, x:1 }}
           expandedRowRender={data => data.description}
+
+          pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
 
           rowSelection={rowSelection}
           onRow={this.onRowClick}

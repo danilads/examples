@@ -1,6 +1,6 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
-
+import './AntdTable.less';
 
 const columns = [
   {
@@ -89,6 +89,7 @@ class AntdTable2withCheckboxClicks extends React.PureComponent {
                     dataSource={data}
                     pagination={{ pageSize: 2 }} //на сколько разбивать
                     scroll={{ y: 240, x:1}}
+                    pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
 
                     rowSelection={rowSelection}
                     onRow={this.onRowClick}

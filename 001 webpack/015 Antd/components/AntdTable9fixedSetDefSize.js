@@ -2,7 +2,7 @@ import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
 import ReactResizeDetector from 'react-resize-detector';
-import './AntdTable9fixedSetDefSize.less';
+import './AntdTable.less';
 //README
 //AntdTable8outerFilter (внешние кнопки фильтра)
 // - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
@@ -388,7 +388,7 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
           dataSource={data}
           scroll={{ y: 240, x:1 }}
           
-          pagination={{current:this.state.paginationCurrent}} //объект пагинации
+          pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
 
           rowSelection={rowSelection}
           expandedRowRender={data => data.description}

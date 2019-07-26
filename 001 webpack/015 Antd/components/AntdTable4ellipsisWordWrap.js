@@ -1,6 +1,6 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
-import './AntdTable4ellipsisWordWrap.less';
+import './AntdTable.less';
 
 const columns = [
   {
@@ -57,7 +57,8 @@ class AntdTable4ellipsisWordWrap extends React.PureComponent {
                   columns={columns}
                   dataSource={data}
                   rowSelection={rowSelection}
-                  pagination={{ pageSize: 2 }} //на сколько разбивать
+                
+                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
                   scroll={{ y: 240, x:1 }} />,
                 </div>
             </Fragment>);

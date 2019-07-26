@@ -1,11 +1,24 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
+import ReactResizeDetector from 'react-resize-detector';
+import ReactDragListView from "react-drag-listview";
 import './AntdTable.less';
 //README
-//фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
-//sortOrder:null ('ascend'/'descend'/null)
-//filteredValue: null  ([4] (значения береться из filters value))
+//AntdTable8outerFilter (внешние кнопки фильтра)
+// - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
+// - sortOrder:null ('ascend'/'descend'/null)
+// - filteredValue: null  ([4] (значения береться из filters value))
+
+//AntdTable9fixed (фиксированная колонка)
+// - обязательно справа в columns должна быть "заглушка"
+// - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
+
+//AntdTable10drag (drag columns)
+// - onDragEnd - функция пересчета state.columns
+// - nodeSelector="th" - что перетаскивается
+// - handleSelector=".dragItem" - за что "хватаем"
+// при смещении нужно учитывать кол-во доп-полей (checkbox и "вложеность") dragOffset
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -21,7 +34,7 @@ const ResizeableTitle = props => {
 };
 
 const data = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
   data.push({
     key: i,
     date: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
@@ -32,11 +45,19 @@ for (let i = 0; i < 100; i++) {
     description: <div>ВЛОЖЕННОСТЬ</div>
   });
 }
+function setTitle(title){
+  return <span><button onClick={(e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('LOCK');
+  }}>U</button>{title}</span>
+};
 
-class AntdTable8outerFilter extends React.PureComponent {
+class AntdTable11fin extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
+    tableWidth: 0,
     columns: [
       {
         title: 'Name',
@@ -56,11 +77,12 @@ class AntdTable8outerFilter extends React.PureComponent {
         filterMultiple: false,
         onFilter: (value, data) => data.name === value,
       },
+      
       {
         title: 'Date',
         dataIndex: 'date',
         width: 100,
-        className: 'DisableWordWrap'
+        className: 'DisableWordWrap',
       },
       {
         title: 'Amount',
@@ -106,11 +128,18 @@ class AntdTable8outerFilter extends React.PureComponent {
         title: 'Action',
         key: 'action',
         render: () => <a href="javascript:;">Delete</a>,
-        width: 100,
+        width: 100
       }
     ],
   };
   
+  //setFixed
+  setTitle=(title)=>{
+    return <span><button onClick={(e)=>{
+      e.stopPropagation()
+      console.log('LOCK');
+    }}>U</button>{title}</span>
+  };
 
 
   //resize
@@ -152,8 +181,9 @@ class AntdTable8outerFilter extends React.PureComponent {
       //Данная функция фиксит баг с ресайзом
       let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
 
-      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
 
+      //TODO вынести в константы
+      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
       if(updatedSize<100){
         updatedSize=100;
       }
@@ -191,7 +221,7 @@ class AntdTable8outerFilter extends React.PureComponent {
     let updatedColumns = [...this.state.columns];
     for(let i=0;updatedColumns.length>i;i++){
       //Если в позиции columns содержится filteredValue 
-      if(Object.keys(updatedColumns[i]).includes('filteredValue')){
+      if(updatedColumns[i].hasOwnProperty('filteredValue')){
         for(let key in filters){
           if(key===updatedColumns[i].dataIndex){
             updatedColumns[i].filteredValue = filters[key];
@@ -200,7 +230,7 @@ class AntdTable8outerFilter extends React.PureComponent {
         }
       }
       //Если в позиции колонки содержится sortOrder
-      if(Object.keys(updatedColumns[i]).includes('sortOrder')){
+      if(updatedColumns[i].hasOwnProperty('sortOrder')){
           if(sorter.field===updatedColumns[i].dataIndex){
             updatedColumns[i].sortOrder = sorter.order
           }
@@ -213,18 +243,91 @@ class AntdTable8outerFilter extends React.PureComponent {
     console.log('---updatedColumns',updatedColumns);
     this.setState({paginationCurrent:pagination.current,columns:updatedColumns});
   };
+  //setFixed
+  setFixed=(e,dataIndex)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('LOCK',dataIndex);
+    //модифицируем state
+    let fixedPos = [];
+    let modifiedColumns = [];
+    for(let i=0;this.state.columns.length>i;i++){
+      if(this.state.columns[i] && this.state.columns[i].dataIndex===dataIndex){
+        let obj = {...this.state.columns[i]};
+        if(obj.hasOwnProperty('fixed')){
+          delete obj['fixed'];
+          fixedPos.push(obj);
+        }
+        else{
+          obj.fixed = 'left';
+          fixedPos.push(obj);
+        }
+        
+        
+      }
+      else{
+        let obj = {...this.state.columns[i]};
+        if(obj.hasOwnProperty('fixed')){
+          delete obj['fixed'];
+        }
+        modifiedColumns.push(obj);
+        
+      }
+    }
 
+    let result = fixedPos.concat(modifiedColumns);
+    console.log('---Lock result',result);
+    this.setState({columns:result});
+  };
+
+  //SET DEFAULT SIZE OF COLUMNS
+  setDeafaultSizeWidth=()=>{
+    //вычитаем ширину неподконтрольных блоков
+    //50 - длинна блока с "вложенностью"
+    //60 - длинна блока с "чекбоксами"
+    //TODO вынести в константы
+    console.log('---setDefaultSizeOfColumns',(this.state.tableWidth-60-50)/this.state.columns.length);
+    let result = [];
+    for(let i=0;this.state.columns.length>i;i++){
+      result.push({...this.state.columns[i],width:(this.state.tableWidth-60-50)/this.state.columns.length})
+    }
+    this.setState({columns:result});
+  };
+
+  //react-resize-detector
+  onResizeScreen=(w,h) => {
+      this.setState({tableWidth:w});
+  };
+
+  //drag columns 
+  onDragEnd=(fromIndex, toIndex)=>{
+    //TODO вынести в константы (смещение из-за полей checkbox и "вложеность")
+    let fIndex = fromIndex-2;
+    let tIndex = toIndex-2;
+
+    const columnsCopy = this.state.columns.slice();
+    
+    const item = columnsCopy.splice(fIndex, 1)[0];
+    columnsCopy.splice(tIndex, 0, item);
+    console.log('---drag result',columnsCopy);
+    this.setState({ columns: columnsCopy });
+  };
   render() {
-   
+    
 
-    //resize
-    const columns = this.state.columns.map((col, index) => ({
-      ...col,
-      onHeaderCell: column => ({
+    //resize +  add "Fix button" to title
+    const columns = this.state.columns.map((obj, index) => {
+      let modify = {...obj};
+      if(obj.hasOwnProperty('title')){
+        modify.title = <div><button className={"dragItem"} style={obj.hasOwnProperty('fixed')?{background:'red'}:{}} onClick={(e)=>this.setFixed(e,obj.dataIndex)}>U</button>{obj.title}</div>;
+      }
+      modify.onHeaderCell = column => ({
         width: column.width,
         onResize: this.handleResize(index),
-      }),
-    }));
+      });
+      return modify;
+    });
+   
     columns.push({}); //заглушка при использовнии fixed
 
     //row select
@@ -247,15 +350,16 @@ class AntdTable8outerFilter extends React.PureComponent {
       ],
     }
 
-    return (<div style={{width:'1000px'}}>
+    return (<div >
         <h2>кнопки внешнего фильтра</h2>
         <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
+        <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('sortOrder')){
+              if(updatedColumns[i].hasOwnProperty('sortOrder')){
                 updatedColumns[i].sortOrder=null;
               }
             }
@@ -266,7 +370,7 @@ class AntdTable8outerFilter extends React.PureComponent {
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('filteredValue')){
+              if(updatedColumns[i].hasOwnProperty('filteredValue')){
                 updatedColumns[i].filteredValue=null;
               }
             }
@@ -277,7 +381,7 @@ class AntdTable8outerFilter extends React.PureComponent {
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('sortOrder') && updatedColumns[i].dataIndex === 'amount'){
+              if(updatedColumns[i].hasOwnProperty('sortOrder') && updatedColumns[i].dataIndex === 'amount'){
                 updatedColumns[i].sortOrder='ascend';
               }
               else{
@@ -291,30 +395,40 @@ class AntdTable8outerFilter extends React.PureComponent {
           <button onClick={()=>{
             let updatedColumns = [...this.state.columns];
             for(let i=0;updatedColumns.length>i;i++){
-              if(Object.keys(updatedColumns[i]).includes('filteredValue') && updatedColumns[i].dataIndex === 'name'){
+              if(updatedColumns[i].hasOwnProperty('filteredValue') && updatedColumns[i].dataIndex === 'name'){
                 updatedColumns[i].filteredValue=['Jim'];
               }
             }
             this.setState({columns:updatedColumns});
           }}>set Filter Name Jim</button>
         </div>
-        <Table
+
+        <div>
+        <ReactDragListView.DragColumn
+            onDragEnd={this.onDragEnd}
+            nodeSelector="th"
+            handleSelector=".dragItem"
+        ><Table
           className={'TableDefault'}
           bordered
           components={this.components}
           columns={columns}
           dataSource={data}
-          rowSelection={{}}
           scroll={{ y: 240, x:1 }}
-          expandedRowRender={data => data.description}
+          
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
 
           rowSelection={rowSelection}
+          expandedRowRender={data => data.description}
+
+          
           onRow={this.onRowClick}
           onChange={this.handleTableChange}
 
-    
-        />
+          
+        /></ReactDragListView.DragColumn>
+        <ReactResizeDetector handleWidth onResize={this.onResizeScreen}/>
+        </div>
       </div>);
   }
 
@@ -322,4 +436,4 @@ class AntdTable8outerFilter extends React.PureComponent {
 
 
 
-export default AntdTable8outerFilter;
+export default AntdTable11fin;

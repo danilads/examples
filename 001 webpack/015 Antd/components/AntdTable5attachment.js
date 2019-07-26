@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import { Resizable } from 'react-resizable';
-import './AntdTable5attachment.less';
+import './AntdTable.less';
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -139,6 +139,8 @@ class AntdTable5attachment extends React.PureComponent {
           rowSelection={{}}
           scroll={{ y: 240, x:1 }}
           expandedRowRender={data => data.description}
+
+          pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
         />
       </div>);
   }

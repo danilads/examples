@@ -1,7 +1,7 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table, Divider, Tag} from 'antd';
 
-import './AntdTable1scrollAndPaginataion.less';
+import './AntdTable.less';
 //README 
 //общая длинна  (scroll={{x: 500}})
 //должна быть равна, либо больше суммы (columns width: 100)
@@ -85,7 +85,8 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
                   bordered={ true }
                   columns={columns}
                   dataSource={data}
-                  pagination={{ pageSize: 50, defaultCurrent:2 }} //на сколько разбивать
+                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
+
                   scroll={{y:700, x: 1}}
                   rowSelection={{}}
                   />
