@@ -13,7 +13,7 @@ import AntdTable8outerFilter from './AntdTable8outerFilter';
 import AntdTable9fixed from './AntdTable9fixedSetDefSize';
 import AntdTable10drag from './AntdTable10drag';
 import AntdTable11saveInLocalStorage from './AntdTable11saveInLocalStorage';
-import AntdTable12fin from './AntdTable12fin';
+
 
 
 
@@ -70,13 +70,11 @@ class Block_MainPage extends React.PureComponent {
 					this.setState({pos:10});
 				}}>AntdTable10drag</button>
 
-				<button style={this.state.pos===10?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+				<button style={this.state.pos===11?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:11});
 				}}>AntdTable11saveInLocalStorage</button>
 
-				<button style={this.state.pos===10?{backgroundColor: 'wheat'}:{}} onClick={()=>{
-					this.setState({pos:12});
-				}}>AntdTable12fin</button>
+				
 				
 
 				<button style={this.state.pos===1111?{backgroundColor: 'wheat'}:{}} onClick={()=>{
@@ -95,7 +93,7 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===9&&<AntdTable9fixed/>}
 				{this.state.pos===10&&<AntdTable10drag/>}
 				{this.state.pos===11&&<AntdTable11saveInLocalStorage/>}
-				{this.state.pos===12&&<AntdTable12fin/>}
+				
 				
 			
 				

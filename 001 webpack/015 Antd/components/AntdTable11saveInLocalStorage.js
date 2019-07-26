@@ -27,7 +27,7 @@ const ResizeableTitle = props => {
   }
 
   return (
-    <Resizable width={width} height={0} onResize={onResize}>
+    <Resizable width={width} onClick={(e)=>{e.preventDefault();e.stopPropagation();}} height={0} onResize={onResize}>
       <th {...restProps} />
     </Resizable>
   );
