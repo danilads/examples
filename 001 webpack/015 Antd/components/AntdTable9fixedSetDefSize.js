@@ -10,6 +10,8 @@ import './AntdTable.less';
 // - filteredValue: null  ([4] (значения береться из filters value))
 
 //AntdTable9fixed (фиксированная колонка)
+//для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange={this.handleTableChange}
+//в котором есть 3 аргумента (pagination, filters, sorter)
 // - обязательно справа в columns должна быть "заглушка"
 // - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
 
@@ -328,7 +330,6 @@ class AntdTable9fixedSetDefSize extends React.PureComponent {
 
     return (<div >
         <h2>Фиксированная колонка слева + установоить по ширине экрана все колонки</h2>
-        <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}

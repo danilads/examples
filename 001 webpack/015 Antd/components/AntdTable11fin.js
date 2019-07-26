@@ -11,6 +11,8 @@ import './AntdTable.less';
 // - filteredValue: null  ([4] (значения береться из filters value))
 
 //AntdTable9fixed (фиксированная колонка)
+//для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange={this.handleTableChange}
+//в котором есть 3 аргумента (pagination, filters, sorter)
 // - обязательно справа в columns должна быть "заглушка"
 // - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
 
@@ -27,7 +29,7 @@ const ResizeableTitle = props => {
   }
 
   return (
-    <Resizable width={width} onClick={(e)=>{e.preventDefault();e.stopPropagation();}} height={0} onResize={onResize}>
+    <Resizable width={width} height={0} onClick={(e)=>{e.preventDefault();e.stopPropagation();}} onResize={onResize}>
       <th {...restProps} />
     </Resizable>
   );
@@ -53,7 +55,7 @@ function setTitle(title){
   }}>U</button>{title}</span>
 };
 
-class AntdTable11saveInLocalStorage extends React.PureComponent {
+class AntdTable11fin extends React.PureComponent {
   state = {
     paginationCurrent:0,
     selectedRowKeys:[],
@@ -351,7 +353,8 @@ class AntdTable11saveInLocalStorage extends React.PureComponent {
     }
 
     return (<div >
-        <h2>Сохранения фильтров/сортировки/порядок колонок/ширина колонок - в localStorage</h2>
+        <h2>Финальная версия</h2>
+
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}
@@ -435,4 +438,4 @@ class AntdTable11saveInLocalStorage extends React.PureComponent {
 
 
 
-export default AntdTable11saveInLocalStorage;
+export default AntdTable11fin;

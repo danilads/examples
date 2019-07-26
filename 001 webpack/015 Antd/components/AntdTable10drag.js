@@ -351,8 +351,7 @@ class AntdTable10drag extends React.PureComponent {
     }
 
     return (<div >
-        <h2>кнопки внешнего фильтра</h2>
-        <div>Drag and Drop колонок</div>
+        <h2>Drag and Drop колонок</h2>
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}

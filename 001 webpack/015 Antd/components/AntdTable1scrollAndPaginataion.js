@@ -63,7 +63,7 @@ const columns = [
 
 
 const data = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
   data.push({
     key: i,
     name: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
@@ -85,8 +85,8 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
                   bordered={ true }
                   columns={columns}
                   dataSource={data}
-                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-
+                  //pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
+                  pagination={false} //для маленьких таблиц
                   scroll={{y:700, x: 1}}
                   rowSelection={{}}
                   />
