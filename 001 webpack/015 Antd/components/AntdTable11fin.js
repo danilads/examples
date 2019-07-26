@@ -20,7 +20,8 @@ import './AntdTable.less';
 // - onDragEnd - функция пересчета state.columns
 // - nodeSelector="th" - что перетаскивается
 // - handleSelector=".dragItem" - за что "хватаем"
-// при смещении нужно учитывать кол-во доп-полей (checkbox и "вложеность") dragOffset
+//при смещении нужно учитывать кол-во доп-полей (checkbox и "вложеность") dragOffset
+
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -29,7 +30,7 @@ const ResizeableTitle = props => {
   }
 
   return (
-    <Resizable width={width} height={0} onClick={(e)=>{e.preventDefault();e.stopPropagation();}} onResize={onResize}>
+    <Resizable width={width} height={0} onResize={onResize} handle={<div onClick={e=>{e.preventDefault();e.stopPropagation();}} style={{border:'1px dashed red',width:"100%",position:'absolute',bottom:'0',left:'0',height:'10px'}}></div>}>
       <th {...restProps} />
     </Resizable>
   );
@@ -416,9 +417,10 @@ class AntdTable11fin extends React.PureComponent {
           components={this.components}
           columns={columns}
           dataSource={data}
-          scroll={{ y: 240, x:1 }}
+          scroll={{ y: 240, x:true }}
           
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
+          //pagination={false}
 
           rowSelection={rowSelection}
           expandedRowRender={data => data.description}

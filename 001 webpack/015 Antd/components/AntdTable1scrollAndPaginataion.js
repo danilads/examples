@@ -2,9 +2,18 @@ import React,{Fragment} from 'react';
 import {Row, Col, Table, Divider, Tag} from 'antd';
 
 import './AntdTable.less';
-//README 
-//общая длинна  (scroll={{x: 500}})
-//должна быть равна, либо больше суммы (columns width: 100)
+//README
+//AntdTable1scrollAndPaginataion (Скрол и Пагинация)
+//Cкрол
+//scroll={{y:700, x: true}}
+//x - всегда по умолчанию true (иначе будет баг с кривыми колнками)
+//y - высота таблицы
+//Пагинация
+//используем стандартную для всего сайта
+//pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}}
+//если нужно убрать пагинация (но если таблица очень большая - будут лаги)
+//pagination={false} //для маленьких таблиц
+
 
 const columns = [
   {
@@ -63,7 +72,7 @@ const columns = [
 
 
 const data = [];
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
@@ -87,7 +96,7 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
                   dataSource={data}
                   //pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
                   pagination={false} //для маленьких таблиц
-                  scroll={{y:700, x: 1}}
+                  scroll={{y:700, x: true}}
                   rowSelection={{}}
                   />
                 </div>

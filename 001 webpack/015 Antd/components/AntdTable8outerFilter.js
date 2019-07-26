@@ -14,7 +14,7 @@ const ResizeableTitle = props => {
   }
 
   return (
-    <Resizable width={width} height={0} onClick={(e)=>{e.preventDefault();e.stopPropagation();}} onResize={onResize}>
+    <Resizable width={width} height={0} onResize={onResize} handle={<div onClick={e=>{e.preventDefault();e.stopPropagation();}} style={{border:'1px dashed red',width:"100%",position:'absolute',bottom:'0',left:'0',height:'10px'}}></div>}>
       <th {...restProps} />
     </Resizable>
   );
@@ -305,7 +305,7 @@ class AntdTable8outerFilter extends React.PureComponent {
           columns={columns}
           dataSource={data}
           rowSelection={{}}
-          scroll={{ y: 240, x:1 }}
+          scroll={{ y: 240, x:true }}
           expandedRowRender={data => data.description}
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
 

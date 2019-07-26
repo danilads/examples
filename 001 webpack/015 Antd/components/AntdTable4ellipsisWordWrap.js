@@ -59,7 +59,7 @@ class AntdTable4ellipsisWordWrap extends React.PureComponent {
                   rowSelection={rowSelection}
                 
                   pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-                  scroll={{ y: 240, x:1 }} />,
+                  scroll={{ y: 240, x:true }} />,
                 </div>
             </Fragment>);
 

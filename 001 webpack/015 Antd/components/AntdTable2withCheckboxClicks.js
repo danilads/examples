@@ -88,7 +88,7 @@ class AntdTable2withCheckboxClicks extends React.PureComponent {
                     columns={columns}
                     dataSource={data}
                     pagination={{ pageSize: 2 }} //на сколько разбивать
-                    scroll={{ y: 240, x:1}}
+                    scroll={{ y: 240, x:true}}
                     pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
 
                     rowSelection={rowSelection}
