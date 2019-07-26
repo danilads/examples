@@ -411,11 +411,10 @@ class AntdTable10drag extends React.PureComponent {
         ><Table
           className={'TableDefault'}
           bordered
-          components={this.components}
           columns={columns}
           dataSource={data}
+          components={this.components}
           scroll={{ y: 240, x:true }}
-          
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
 
           rowSelection={rowSelection}

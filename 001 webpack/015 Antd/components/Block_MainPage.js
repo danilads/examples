@@ -20,7 +20,7 @@ import AntdTable11fin from './AntdTable11fin';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:3
+		pos:2
 	}
 	
   	render() {

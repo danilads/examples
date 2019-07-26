@@ -169,14 +169,14 @@ class AntdTable6sorting extends React.PureComponent {
         <Table
           className={'TableDefault'}
           bordered
-          components={this.components}
           columns={columns}
           dataSource={data}
-          rowSelection={{}}
+          components={this.components}
+          pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
           scroll={{ y: 240, x:true }}
+          rowSelection={{}}
           expandedRowRender={data => data.description}
 
-          pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
 
           rowSelection={rowSelection}
           onRow={this.onRowClick}

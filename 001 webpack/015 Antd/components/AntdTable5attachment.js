@@ -133,14 +133,14 @@ class AntdTable5attachment extends React.PureComponent {
         <Table
           className={'TableDefault'}
           bordered
-          components={this.components}
           columns={columns}
           dataSource={data}
-          rowSelection={{}}
           scroll={{ y: 240, x:true }}
+          pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
+          rowSelection={{}}
+          components={this.components}
           expandedRowRender={data => data.description}
 
-          pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
         />
       </div>);
   }

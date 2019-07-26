@@ -150,13 +150,11 @@ class AntdTable3resize extends React.PureComponent {
         <Table
           className={'TableDefault'}
           bordered
-          components={this.components}
           columns={columns}
           dataSource={data}
-      
           scroll={{ y: 240, x:true}}
           pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-
+          components={this.components}
         />
       </div>);
   }

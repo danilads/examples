@@ -15,61 +15,6 @@ import './AntdTable.less';
 //pagination={false} //для маленьких таблиц
 
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    width: 100,
-    render: text => <a href="javascript:;">{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-    width: 100,
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-    width: 100,
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    width: 100,
-    render: tags => (
-      <span>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    width: 100,
-    render: (text, record) => (
-      <span>
-        <a href="javascript:;">Invite {record.name}</a>
-        <Divider type="vertical" />
-        <a href="javascript:;">Delete</a>
-      </span>
-    ),
-  }
-];
-
 
 const data = [];
 for (let i = 0; i < 100; i++) {
@@ -84,8 +29,65 @@ for (let i = 0; i < 100; i++) {
 
 
 class AntdTable1scrollAndPaginataion extends React.PureComponent {
-
+    state={
+      columns : [
+        {
+          title: 'Name',
+          dataIndex: 'name',
+          key: 'name',
+          width: 100,
+          render: text => <a href="javascript:;">{text}</a>,
+        },
+        {
+          title: 'Age',
+          dataIndex: 'age',
+          key: 'age',
+          width: 100,
+        },
+        {
+          title: 'Address',
+          dataIndex: 'address',
+          key: 'address',
+          width: 100,
+        },
+        {
+          title: 'Tags',
+          key: 'tags',
+          dataIndex: 'tags',
+          width: 100,
+          render: tags => (
+            <span>
+              {tags.map(tag => {
+                let color = tag.length > 5 ? 'geekblue' : 'green';
+                if (tag === 'loser') {
+                  color = 'volcano';
+                }
+                return (
+                  <Tag color={color} key={tag}>
+                    {tag.toUpperCase()}
+                  </Tag>
+                );
+              })}
+            </span>
+          ),
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          width: 100,
+          render: (text, record) => (
+            <span>
+              <a href="javascript:;">Invite {record.name}</a>
+              <Divider type="vertical" />
+              <a href="javascript:;">Delete</a>
+            </span>
+          ),
+        }
+      ]
+    };
   	render() {
+    const columns = this.state.columns;
+
 		return (<Fragment>
               <h2>Скрол и Пагинация</h2>
               <div style={{ width: '400px'}}>
@@ -94,9 +96,9 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
                   bordered={ true }
                   columns={columns}
                   dataSource={data}
+                  scroll={{y:700, x: true}}
                   //pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
                   pagination={false} //для маленьких таблиц
-                  scroll={{y:700, x: true}}
                   rowSelection={{}}
                   />
                 </div>

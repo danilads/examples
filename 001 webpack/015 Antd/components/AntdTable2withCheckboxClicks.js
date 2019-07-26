@@ -2,23 +2,11 @@ import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
 import './AntdTable.less';
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    width: 150,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    width: 150,
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    width: 150,
-  }
-];
+
+//README
+//AntdTable2withCheckboxClicks (Чекбоксы & Клик по строке)
+//Чекбоксы
+
 
 const data = [];
 for (let i = 0; i < 100; i++) {
@@ -33,39 +21,50 @@ for (let i = 0; i < 100; i++) {
 
 class AntdTable2withCheckboxClicks extends React.PureComponent {
     state={
-      selectedRowKeys:[]
+      selectedRowKeys:[],
+      columns:[
+        {
+          title: 'Name',
+          dataIndex: 'name',
+          width: 150,
+        },
+        {
+          title: 'Age',
+          dataIndex: 'age',
+          width: 150,
+        },
+        {
+          title: 'Address',
+          dataIndex: 'address',
+          width: 150,
+        }
+      ]
     };
     
+    //row click
     onRowClick=(data)=>{
       return {
         onClick: () => {
           console.log('single click');
-          // if (selectedRowKeys.indexOf(record.key) >= 0) {
-          //   selectedRowKeys.splice(selectedRowKeys.indexOf(record.key), 1);
-          // } else {
-          //   selectedRowKeys.push(record.key);
-          // }
-          // this.setState({ selectedRowKeys });
         },
         onDoubleClick: () => {
           console.log('double click');
-          // this.setState({ visible: true });
         }
       };
     };
+
   	render() {
       console.log('---выбранные позиции',this.state.selectedRowKeys);
-      //wordBreak: 'break-all' !нужен обязательно
+      
+      const columns = this.state.columns;
+
+      //row select
       const rowSelection={
         selectedRowKeys: this.state.selectedRowKeys, //массив с выбранными сюда, а не в props
         onChange: (selectedRowKeys, selectedRows) => {
           console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
           this.setState({selectedRowKeys:selectedRowKeys});
         },
-        getCheckboxProps: record => ({
-          disabled: record.name === 'Disabled User', // Column configuration not to be checked
-          name: record.name,
-        }),
         hideDefaultSelections: true,
         selections: [
           {
@@ -73,24 +72,22 @@ class AntdTable2withCheckboxClicks extends React.PureComponent {
             text: 'Diselect All',
             onSelect: (e) => {
               console.log('-e',e);
-              this.setState({
-                selectedRowKeys: []
-              });
+              this.setState({selectedRowKeys: []});
             },
           },
         ],
       }
+
       return (<Fragment>
                 <h2>Чекбоксы & Клик по строке</h2>
-                <div style={{width:'400px', wordBreak: 'break-all'}}>
+                <div style={{width:'700px'}}>
                   <Table
+                    className={'TableDefault'}
                     bordered={ true }
                     columns={columns}
                     dataSource={data}
-                    pagination={{ pageSize: 2 }} //на сколько разбивать
                     scroll={{ y: 240, x:true}}
                     pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-
                     rowSelection={rowSelection}
                     onRow={this.onRowClick}
                   />,

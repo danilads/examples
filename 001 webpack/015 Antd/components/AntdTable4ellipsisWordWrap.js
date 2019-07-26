@@ -50,16 +50,17 @@ class AntdTable4ellipsisWordWrap extends React.PureComponent {
     //wordBreak: 'break-all' !нужен обязательно
 		return (<Fragment>
               <h2>Многоточие & Отключение переноса слов</h2>
-              <div style={{width:'400px'}}>
+              <div style={{width:'700px'}}>
                 <Table
                   className={'TableDefault'}
                   bordered={ true }
                   columns={columns}
                   dataSource={data}
+                  scroll={{ y: 240, x:true }}
+                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
                   rowSelection={rowSelection}
                 
-                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-                  scroll={{ y: 240, x:true }} />,
+                />,
                 </div>
             </Fragment>);
 

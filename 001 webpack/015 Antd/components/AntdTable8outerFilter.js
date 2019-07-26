@@ -301,13 +301,13 @@ class AntdTable8outerFilter extends React.PureComponent {
         <Table
           className={'TableDefault'}
           bordered
-          components={this.components}
           columns={columns}
           dataSource={data}
-          rowSelection={{}}
+          components={this.components}
           scroll={{ y: 240, x:true }}
-          expandedRowRender={data => data.description}
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
+          rowSelection={{}}
+          expandedRowRender={data => data.description}
 
           rowSelection={rowSelection}
           onRow={this.onRowClick}
