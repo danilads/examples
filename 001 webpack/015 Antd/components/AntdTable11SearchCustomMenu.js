@@ -180,7 +180,7 @@ class AntdTable11SearchCustomMenu extends React.PureComponent {
     return (<div style={{width:'700px'}}>
         <h2>Поиск & Кастомное меню</h2>
         <Table
-          className={'TableDefault'}
+          className={'TableDefault TableBlockSort'}
           bordered
           columns={columns}
           dataSource={data}

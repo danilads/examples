@@ -13,7 +13,7 @@ import AntdTable8outerFilter from './AntdTable8outerFilter';
 import AntdTable9fixed from './AntdTable9fixedSetDefSize';
 import AntdTable10drag from './AntdTable10drag';
 import AntdTable11SearchCustomMenu from './AntdTable11SearchCustomMenu';
-import AntdTable12fin from './AntdTable12fin';
+import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
 
 
 
@@ -21,7 +21,7 @@ import AntdTable12fin from './AntdTable12fin';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:3
+		pos:8
 	}
 	
   	render() {
@@ -77,7 +77,7 @@ class Block_MainPage extends React.PureComponent {
 
 				<button style={this.state.pos===12?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:12});
-				}}>AntdTable12fin</button>
+				}}>AntdTable12finExceptCustomMenu</button>
 
 				
 				
@@ -98,7 +98,7 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===9&&<AntdTable9fixed/>}
 				{this.state.pos===10&&<AntdTable10drag/>}
 				{this.state.pos===11&&<AntdTable11SearchCustomMenu/>}
-				{this.state.pos===12&&<AntdTable12fin/>}
+				{this.state.pos===12&&<AntdTable12finExceptCustomMenu/>}
 				
 				
 			

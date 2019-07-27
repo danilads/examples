@@ -45,7 +45,7 @@ class AntdTable4ellipsisWordWrap extends React.PureComponent {
   	render() {
       const columns = this.state.columns;
 
-      columns.push({}); //заглушка при использовнии fixed
+      columns.push({empty:true}); //заглушка при использовнии fixed
     
 		  return (<Fragment>
               <h2>Многоточие & Отключение переноса слов</h2>

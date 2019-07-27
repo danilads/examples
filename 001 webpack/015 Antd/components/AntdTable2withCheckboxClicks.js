@@ -77,7 +77,7 @@ class AntdTable2withCheckboxClicks extends React.PureComponent {
       console.log('---выбранные позиции',this.state.selectedRowKeys);
       
       const columns = this.state.columns;
-      columns.push({}); //заглушка при использовнии fixed
+      columns.push({empty:true}); //заглушка при использовнии fixed
 
       //row select
       const rowSelection={

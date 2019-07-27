@@ -5,22 +5,7 @@ import ReactResizeDetector from 'react-resize-detector';
 import ReactDragListView from "react-drag-listview";
 import './AntdTable.less';
 //README
-//AntdTable8outerFilter (внешние кнопки фильтра)
-// - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
-// - sortOrder:null ('ascend'/'descend'/null)
-// - filteredValue: null  ([4] (значения береться из filters value))
-
-//AntdTable9fixed (фиксированная колонка)
-//для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange={this.handleTableChange}
-//в котором есть 3 аргумента (pagination, filters, sorter)
-// - обязательно справа в columns должна быть "заглушка"
-// - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
-
-//AntdTable10drag (drag columns)
-// - onDragEnd - функция пересчета state.columns
-// - nodeSelector="th" - что перетаскивается
-// - handleSelector=".dragItem" - за что "хватаем"
-//при смещении нужно учитывать кол-во доп-полей (checkbox и "вложеность") dragOffset
+//читать в отдельных компонентах
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -56,7 +41,7 @@ function setTitle(title){
   }}>U</button>{title}</span>
 };
 
-class AntdTable12fin extends React.PureComponent {
+class AntdTable12finExceptCustomMenu extends React.PureComponent {
   state = {
     paginationCurrent:0, //текущая страницы
     selectedRowKeys:[], //выбранные чекбоксами строки
@@ -372,7 +357,7 @@ class AntdTable12fin extends React.PureComponent {
     }
 
     return (<div >
-        <h2>Финальная версия</h2>
+        <h2>Финальная версия(Кроме кастомного меню)</h2>
 
         <div><button onClick={this.setDeafaultSizeWidth}>SET DEFAULT SIZE OF COLUMNS</button></div>
         <div>
@@ -459,4 +444,4 @@ class AntdTable12fin extends React.PureComponent {
 
 
 
-export default AntdTable12fin;
+export default AntdTable12finExceptCustomMenu;

@@ -140,7 +140,7 @@ class AntdTable3resize extends React.PureComponent {
       return modify;
     });
    
-    columns.push({}); //заглушка при использовнии fixed
+    columns.push({empty:true}); //заглушка при использовнии fixed
 
 
     return (<div style={{width:'700px'}}>

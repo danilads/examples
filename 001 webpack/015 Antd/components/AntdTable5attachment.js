@@ -16,7 +16,7 @@ for (let i = 0; i < 100; i++) {
     amount: i,
     type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
     note: 'teacher',
-    description: <div>ВЛОЖЕННОСТЬ</div>
+
   });
 }
 
@@ -60,7 +60,7 @@ class AntdTable5attachment extends React.PureComponent {
   render() {
     const columns = this.state.columns;
 
-    columns.push({}); //заглушка при использовнии fixed
+    columns.push({empty:true}); //заглушка при использовнии fixed
 
     return (<div style={{width:'400px'}}>
         <h2>Вложеность строки</h2>
@@ -71,9 +71,8 @@ class AntdTable5attachment extends React.PureComponent {
           dataSource={data}
           scroll={{ y: 240, x:true }}
           pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-          components={this.components}
-          expandedRowRender={data => data.description}
-
+         
+        
         />
       </div>);
   }

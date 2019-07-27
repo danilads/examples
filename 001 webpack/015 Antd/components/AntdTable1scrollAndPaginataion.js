@@ -92,7 +92,7 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
     };
   	render() {
     const columns = this.state.columns;
-    columns.push({}); //заглушка при использовнии fixed
+    columns.push({empty:true}); //заглушка при использовнии fixed
 
 		return (<Fragment>
               <h2>Скрол и Пагинация</h2>
