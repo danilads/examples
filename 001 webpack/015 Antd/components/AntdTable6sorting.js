@@ -17,6 +17,7 @@ for (let i = 0; i < 100; i++) {
     amount: i,
     type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
     note: Math.round(1 - 0.5 + Math.random() * (9999 - 1 + 1)),
+    
   });
 }
 

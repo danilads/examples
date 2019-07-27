@@ -10,6 +10,12 @@ import './AntdTable.less';
 //handleTableChange = (pagination, filters, sorter) =>{}
 //в которую прелетаю все наши изменения
 
+//AntdTable8outerFilter (внешние кнопки фильтра)
+// - фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
+// - sortOrder:null ('ascend'/'descend'/null)
+// - filteredValue: null  ([4] (значения береться из filters value))
+
+
 const data = [];
 for (let i = 0; i < 100; i++) {
   data.push({
@@ -206,7 +212,7 @@ class AntdTable8outerFilter extends React.PureComponent {
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
          
           onChange={this.handleTableChange}
-
+          
     
         />
       </div>);
