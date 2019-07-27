@@ -308,9 +308,13 @@ class AntdTable12finExceptCustomMenu extends React.PureComponent {
   //drag columns 
   onDragEnd=(fromIndex, toIndex)=>{
     //TODO вынести в константы (смещение из-за полей checkbox и "вложеность")
+    //учитываем смещение
     let fIndex = fromIndex-2;
     let tIndex = toIndex-2;
-
+    //блокируем перетаскивание в колонки (checkbox и "вложеность")
+    if(toIndex<2){
+      return;
+    }
     const columnsCopy = this.state.columns.slice();
     
     const item = columnsCopy.splice(fIndex, 1)[0];

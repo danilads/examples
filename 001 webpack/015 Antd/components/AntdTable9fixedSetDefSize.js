@@ -4,10 +4,9 @@ import ReactResizeDetector from 'react-resize-detector';
 import './AntdTable.less';
 
 //AntdTable9fixed (фиксированная колонка)
-//для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange={this.handleTableChange}
-//в котором есть 3 аргумента (pagination, filters, sorter)
-// - обязательно справа в columns должна быть "заглушка"
-// - при включении фиксированной клонки ее нужно переместить влево в массиве state.columns
+//для сортировки колонок нужно мутировать state.columns
+// - обязательно справа в columns должна быть "заглушка" (columns.push({}); //заглушка при использовнии fixed)
+
 
 
 
