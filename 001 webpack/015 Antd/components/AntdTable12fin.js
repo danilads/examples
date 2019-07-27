@@ -56,11 +56,12 @@ function setTitle(title){
   }}>U</button>{title}</span>
 };
 
-class AntdTable11fin extends React.PureComponent {
+class AntdTable12fin extends React.PureComponent {
   state = {
-    paginationCurrent:0,
-    selectedRowKeys:[],
-    tableWidth: 0,
+    paginationCurrent:0, //текущая страницы
+    selectedRowKeys:[], //выбранные чекбоксами строки
+    tableWidth: 0, //для кнопки авто-ресайза колонок
+    rowOnFocus: null, //кликнутая позиция
     columns: [
       {
         title: 'Name',
@@ -202,17 +203,34 @@ class AntdTable11fin extends React.PureComponent {
       return { columns: nextColumns };
     });
   };
-  //row click
+  //02 - row click
   onRowClick=(data)=>{
     return {
       onClick: () => {
-        console.log('single click');
+        console.log('single click',data.key);
+        //устанавливаем стили
+        if(data.key===this.state.rowOnFocus){
+          this.setState({rowOnFocus:null});
+        }
+        else{
+          this.setState({rowOnFocus:data.key});
+        }
       },
       onDoubleClick: () => {
-        console.log('double click');
+        console.log('double click',data.key);
+        //устанавливаем стили
+        this.setState({rowOnFocus:data.key});
       }
     };
   };
+  //02 - return row className
+  selectRow=(e)=>{
+    let {rowOnFocus} = this.state;
+    //ставит стиль выбранной позиции
+    if(rowOnFocus===e.key){
+      return "focusedRow"
+    }
+  }
 
   //изменение пагинации/фильтра/сортировки
   //в этой функции мутируем
@@ -333,7 +351,7 @@ class AntdTable11fin extends React.PureComponent {
    
     columns.push({}); //заглушка при использовнии fixed
 
-    //row select
+    //02 row select
     const rowSelection={
       selectedRowKeys: this.state.selectedRowKeys, //массив с выбранными сюда, а не в props
       onChange: (selectedRowKeys, selectedRows) => {
@@ -418,14 +436,16 @@ class AntdTable11fin extends React.PureComponent {
           dataSource={data}
           components={this.components}
           scroll={{ y: 240, x:true }}
-          pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
+          pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //01 объект пагинации
 
 
           rowSelection={rowSelection}
+          rowClassName={this.selectRow}
+          onRow={this.onRowClick}
+
           expandedRowRender={data => data.description}
 
           
-          onRow={this.onRowClick}
           onChange={this.handleTableChange}
 
           
@@ -439,4 +459,4 @@ class AntdTable11fin extends React.PureComponent {
 
 
 
-export default AntdTable11fin;
+export default AntdTable12fin;

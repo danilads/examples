@@ -7,8 +7,8 @@ import './AntdTable.less';
 //README
 //AntdTable3resize (Ресайз колонок)
 //если оставить дэфолтный ресайз - есть баг (нажмаем ресайзить - тянем и отпускам в месте где есть фильтр - отрабатет еще и нажатие фильтра)
-//handle - компонент ресайза
-
+//handle - компонент ресайза (Необязательный - тогда ресайз будет по бокам)
+// countDifference = this.remmberPrev(e=>e); - нужна т.к. есть баг ресайза
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -132,9 +132,7 @@ class AntdTable3resize extends React.PureComponent {
     //resize +  add "Fix button" to title
     const columns = this.state.columns.map((obj, index) => {
       let modify = {...obj};
-      if(obj.hasOwnProperty('title')){
-        modify.title = obj.title;
-      }
+     
       modify.onHeaderCell = column => ({
         width: column.width,
         onResize: this.handleResize(index),

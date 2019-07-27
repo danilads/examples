@@ -18,6 +18,39 @@
         word-break: normal;
         overflow: hidden;
     }
+    //02 checkbox select
+    .ant-table-row-selected{
+        >td{
+            background: #fec!important;
+        }
+    }
+    //02 clicked
+    .ant-table-tbody{
+        .focusedRow{
+            >td{
+                background: #cef!important;
+            }
+        }
+    }
+    
+
+    //even odd rows
+    .ant-table-body .ant-table-tbody tr:nth-child(even){
+        background-color: #f0f3f5;
+    }
+    .ant-table-body .ant-table-tbody tr:nth-child(odd){
+        background-color: #fff;
+    }
+    
+    //убираем цвет hover
+    .ant-table-body .ant-table-tbody .ant-table-row{
+        &:hover{
+            >td{
+                background: inherit;
+            }
+        }
+    }
+
         
     //resize
     .react-resizable {

@@ -4,15 +4,20 @@ import {Row, Col, Table, Divider, Tag} from 'antd';
 import './AntdTable.less';
 //README
 //AntdTable1scrollAndPaginataion (Скрол и Пагинация)
+
 //Cкрол
 //scroll={{y:700, x: true}}
 //x - всегда по умолчанию true (иначе будет баг с кривыми колнками)
 //y - высота таблицы
+
 //Пагинация
 //используем стандартную для всего сайта
-//pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}}
+//pagination={{ pageSize: 10 , size:'small', showQuickJumper:true, position: 'top'}}
+// pageSize - сколько позиций на странице
+// position - где будет пагинация (top, bottom);
 //если нужно убрать пагинация (но если таблица очень большая - будут лаги)
 //pagination={false} //для маленьких таблиц
+
 
 
 
@@ -87,6 +92,7 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
     };
   	render() {
     const columns = this.state.columns;
+    columns.push({}); //заглушка при использовнии fixed
 
 		return (<Fragment>
               <h2>Скрол и Пагинация</h2>
@@ -97,8 +103,8 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
                   columns={columns}
                   dataSource={data}
                   scroll={{y:700, x: true}}
-                  //pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-                  pagination={false} //для маленьких таблиц
+                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true, position: 'bottom'}} //объект пагинации
+                  // pagination={false} //для маленьких таблиц
                   rowSelection={{}}
                   />
                 </div>

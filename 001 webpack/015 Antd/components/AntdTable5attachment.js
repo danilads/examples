@@ -1,21 +1,12 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
-import { Resizable } from 'react-resizable';
+
 import './AntdTable.less';
 
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
-
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable width={width} height={0} onResize={onResize} handle={<div onClick={e=>{e.preventDefault();e.stopPropagation();}} style={{border:'1px dashed red',width:"100%",position:'absolute',bottom:'0',left:'0',height:'10px'}}></div>}>
-      <th {...restProps} />
-    </Resizable>
-  );
-};
+//README
+//AntdTable5attachment (Вложеность строки)
+//прокидывается в data.description
+//<Table expandedRowRender={data => data.description}/>
 
 const data = [];
 for (let i = 0; i < 100; i++) {
@@ -64,68 +55,11 @@ class AntdTable5attachment extends React.PureComponent {
     ],
   };
 
-  components = {
-    header: {
-      cell: ResizeableTitle,
-    },
-  };
-
-
-  //вынести в отдельную функцию
-  //запоминает предыдущее состояние
-  remmberPrev=(func)=>{
-    var prev=[];
-    //Замыкание
-    return function() {
-      let result
-      if(prev[arguments[2]]===void 0){
-        result=arguments[0]-arguments[1];
-      }
-      else{
-        result=arguments[0]-prev[arguments[2]];
-      }
-      prev[arguments[2]]=arguments[0];
-      arguments[0]=result;
   
-      return func.apply(this, arguments);
-    }
-  }
-
-  
-  countDifference = this.remmberPrev(e=>e);
-
-  handleResize = index => (e, { size }) => {
-    
-    this.setState(({ columns }) => {3
-      const nextColumns = [...columns];
-
-      //Данная функция фиксит баг с ресайзом
-      let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
-
-      if(updatedSize<100){
-        updatedSize=100;
-      }
-      if(updatedSize>500){
-        updatedSize=500;
-      }
-      
-
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: updatedSize,
-      };
-      return { columns: nextColumns };
-    });
-  };
 
   render() {
-    const columns = this.state.columns.map((col, index) => ({
-      ...col,
-      onHeaderCell: column => ({
-        width: column.width,
-        onResize: this.handleResize(index),
-      }),
-    }));
+    const columns = this.state.columns;
+
     columns.push({}); //заглушка при использовнии fixed
 
     return (<div style={{width:'400px'}}>
@@ -137,7 +71,6 @@ class AntdTable5attachment extends React.PureComponent {
           dataSource={data}
           scroll={{ y: 240, x:true }}
           pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
-          rowSelection={{}}
           components={this.components}
           expandedRowRender={data => data.description}
 

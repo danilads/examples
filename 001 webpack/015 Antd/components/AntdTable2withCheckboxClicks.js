@@ -22,6 +22,7 @@ for (let i = 0; i < 100; i++) {
 class AntdTable2withCheckboxClicks extends React.PureComponent {
     state={
       selectedRowKeys:[],
+      rowOnFocus: null,
       columns:[
         {
           title: 'Name',
@@ -45,18 +46,38 @@ class AntdTable2withCheckboxClicks extends React.PureComponent {
     onRowClick=(data)=>{
       return {
         onClick: () => {
-          console.log('single click');
+          console.log('single click',data.key);
+          //устанавливаем стили
+          if(data.key===this.state.rowOnFocus){
+            this.setState({rowOnFocus:null});
+          }
+          else{
+            this.setState({rowOnFocus:data.key});
+          }
         },
         onDoubleClick: () => {
-          console.log('double click');
+          console.log('double click',data.key);
+          //устанавливаем стили
+          this.setState({rowOnFocus:data.key});
         }
       };
     };
+
+    //return row className
+    selectRow=(e)=>{
+      let {rowOnFocus} = this.state;
+      //ставит стиль выбранной позиции
+      if(rowOnFocus===e.key){
+        return "focusedRow"
+      }
+    }
+
 
   	render() {
       console.log('---выбранные позиции',this.state.selectedRowKeys);
       
       const columns = this.state.columns;
+      columns.push({}); //заглушка при использовнии fixed
 
       //row select
       const rowSelection={
@@ -89,6 +110,7 @@ class AntdTable2withCheckboxClicks extends React.PureComponent {
                     scroll={{ y: 240, x:true}}
                     pagination={{ pageSize: 10 , size:'small', showQuickJumper:true}} //объект пагинации
                     rowSelection={rowSelection}
+                    rowClassName={this.selectRow}
                     onRow={this.onRowClick}
                   />,
                   </div>
