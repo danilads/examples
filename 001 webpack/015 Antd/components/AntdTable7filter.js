@@ -78,12 +78,8 @@ class AntdTable7filter extends React.PureComponent {
  
 
   render() {
-    //resize
-    const columns = this.state.columns;
-
-    columns.push({empty:true}); //заглушка при использовнии fixed
-   
-
+    const columns = [...this.state.columns];
+    columns.push({}); //заглушка при использовнии fixed
 
     return (<div style={{width:'600px'}}>
         <h2>Фильтр в колонке (некотнролиреумый)</h2>

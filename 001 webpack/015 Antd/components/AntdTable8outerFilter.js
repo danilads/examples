@@ -1,24 +1,14 @@
 import React,{Fragment} from 'react';
 import {Row, Col, Table} from 'antd';
-import { Resizable } from 'react-resizable';
+
 import './AntdTable.less';
 //README
-//фильтруемые и сортируемые позиции должны обязательно содержать поля sortOrder / filteredValue
-//sortOrder:null ('ascend'/'descend'/null)
-//filteredValue: null  ([4] (значения береться из filters value))
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
+//AntdTable8outerFilter (Контролиреумая фильтраця/сортировка/пагинация)
+//для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации есть onChange
 
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable width={width} height={0} onResize={onResize} handle={<div onClick={e=>{e.preventDefault();e.stopPropagation();}} style={{border:'1px dashed red',width:"100%",position:'absolute',bottom:'0',left:'0',height:'10px'}}></div>}>
-      <th {...restProps} />
-    </Resizable>
-  );
-};
+//при изменении pagination/filters/sorter вызывается функция эта функция <Table onChange={this.handleTableChange}
+//handleTableChange = (pagination, filters, sorter) =>{}
+//в которую прелетаю все наши изменения
 
 const data = [];
 for (let i = 0; i < 100; i++) {
@@ -29,7 +19,6 @@ for (let i = 0; i < 100; i++) {
     type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
     name: Math.round(1 - 0.5 + Math.random() * (2 - 1 + 1))===1?"Jim":"John",
     note: Math.round(1 - 0.5 + Math.random() * (9999 - 1 + 1)),
-    description: <div>ВЛОЖЕННОСТЬ</div>
   });
 }
 
@@ -113,73 +102,6 @@ class AntdTable8outerFilter extends React.PureComponent {
   
 
 
-  //resize
-  components = {
-    header: {
-      cell: ResizeableTitle,
-    },
-  };
-
-
-  //вынести в отдельную функцию
-  //запоминает предыдущее состояние
-  remmberPrev=(func)=>{
-    var prev=[];
-    //Замыкание
-    return function() {
-      let result
-      if(prev[arguments[2]]===void 0){
-        result=arguments[0]-arguments[1];
-      }
-      else{
-        result=arguments[0]-prev[arguments[2]];
-      }
-      prev[arguments[2]]=arguments[0];
-      arguments[0]=result;
-  
-      return func.apply(this, arguments);
-    }
-  }
-
-  //resize count diff
-  countDifference = this.remmberPrev(e=>e);
-  //resize
-  handleResize = index => (e, { size }) => {
-    
-    this.setState(({ columns }) => {3
-      const nextColumns = [...columns];
-
-      //Данная функция фиксит баг с ресайзом
-      let updatedSize = nextColumns[index].width + this.countDifference(size.width, nextColumns[index].width, index);
-
-      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
-
-      if(updatedSize<100){
-        updatedSize=100;
-      }
-      if(updatedSize>500){
-        updatedSize=500;
-      }
-      
-
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: updatedSize,
-      };
-      return { columns: nextColumns };
-    });
-  };
-  //row click
-  onRowClick=(data)=>{
-    return {
-      onClick: () => {
-        console.log('single click');
-      },
-      onDoubleClick: () => {
-        console.log('double click');
-      }
-    };
-  };
 
   //изменение пагинации/фильтра/сортировки
   //в этой функции мутируем
@@ -217,39 +139,14 @@ class AntdTable8outerFilter extends React.PureComponent {
   render() {
    
 
-    //resize
-    const columns = this.state.columns.map((col, index) => ({
-      ...col,
-      onHeaderCell: column => ({
-        width: column.width,
-        onResize: this.handleResize(index),
-      }),
-    }));
+
+    const columns = [...this.state.columns];
     columns.push({}); //заглушка при использовнии fixed
 
-    //row select
-    const rowSelection={
-      selectedRowKeys: this.state.selectedRowKeys, //массив с выбранными сюда, а не в props
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        this.setState({selectedRowKeys:selectedRowKeys});
-      },
-      hideDefaultSelections: true,
-      selections: [
-        {
-          key: 'diselect all',
-          text: 'Diselect All',
-          onSelect: (e) => {
-            console.log('-e',e);
-            this.setState({selectedRowKeys: []});
-          },
-        },
-      ],
-    }
+
 
     return (<div style={{width:'1000px'}}>
-        <h2>Кнопки внешнего фильтра</h2>
-        <div>для сортировки нужно мутировать state.columns - для встроеной в antd фильтрации  есть props onChange</div>
+        <h2>Контролиреумая фильтраця/сортировка/пагинация</h2>
         <div>
           {/* мутируем state.columns (везде ставим sortOrder=null) */}
           <button onClick={()=>{
@@ -298,6 +195,7 @@ class AntdTable8outerFilter extends React.PureComponent {
             this.setState({columns:updatedColumns});
           }}>set Filter Name Jim</button>
         </div>
+
         <Table
           className={'TableDefault'}
           bordered
@@ -306,11 +204,7 @@ class AntdTable8outerFilter extends React.PureComponent {
           components={this.components}
           scroll={{ y: 240, x:true }}
           pagination={{ pageSize: 10 ,current:this.state.paginationCurrent, size:'small', showQuickJumper:true}} //объект пагинации
-          rowSelection={{}}
-          expandedRowRender={data => data.description}
-
-          rowSelection={rowSelection}
-          onRow={this.onRowClick}
+         
           onChange={this.handleTableChange}
 
     

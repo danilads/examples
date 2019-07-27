@@ -91,26 +91,26 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
       ]
     };
   	render() {
-    const columns = this.state.columns;
-    columns.push({empty:true}); //заглушка при использовнии fixed
+      const columns = [...this.state.columns];
+      columns.push({}); //заглушка при использовнии fixedd
 
-		return (<Fragment>
-              <h2>Скрол и Пагинация</h2>
-              <div style={{ width: '400px'}}>
-                <Table
-                  className={'TableDefault'}
-                  bordered={ true }
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{y:700, x: true}}
-                  pagination={{ pageSize: 10 , size:'small', showQuickJumper:true, position: 'bottom'}} //объект пагинации
-                  // pagination={false} //для маленьких таблиц
-                  rowSelection={{}}
-                  />
-                </div>
-            </Fragment>);
+      return (<Fragment>
+                <h2>Скрол и Пагинация</h2>
+                <div style={{ width: '400px'}}>
+                  <Table
+                    className={'TableDefault'}
+                    bordered={ true }
+                    columns={columns}
+                    dataSource={data}
+                    scroll={{y:700, x: true}}
+                    pagination={{ pageSize: 10 , size:'small', showQuickJumper:true, position: 'bottom'}} //объект пагинации
+                    // pagination={false} //для маленьких таблиц
+                    rowSelection={{}}
+                    />
+                  </div>
+              </Fragment>);
 
-  	}
+      }
 
 }
 
