@@ -41,6 +41,13 @@
     .ant-table-body .ant-table-tbody tr:nth-child(odd){
         background-color: #fff;
     }
+    //even odd rows (fixed
+    .ant-table-fixed .ant-table-tbody tr:nth-child(even){
+        background-color: #f0f3f5;
+    }
+    .ant-table-fixed .ant-table-tbody tr:nth-child(odd){
+        background-color: #fff;
+    }
     
     //убираем цвет hover
     .ant-table-body .ant-table-tbody .ant-table-row{
@@ -49,6 +56,20 @@
                 background: inherit;
             }
         }
+    }
+    //убираем цвет hover у fixed
+    .ant-table-fixed .ant-table-tbody .ant-table-row{
+        &:hover{
+            >td{
+                background: inherit;
+            }
+        }
+    }
+    //убираем цвет hover у зависимого поля
+    .ant-table-fixed .ant-table-tbody .ant-table-row-hover{
+        >td{
+            background: inherit;
+        }   
     }
 
         

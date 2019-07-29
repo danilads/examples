@@ -18,6 +18,8 @@ import './AntdTable.less';
 //если нужно убрать пагинация (но если таблица очень большая - будут лаги)
 //pagination={false} //для маленьких таблиц
 
+//Ajax
+//<Table loading - отображает спинер загрузки
 
 
 
@@ -38,76 +40,83 @@ class AntdTable1scrollAndPaginataionAjax extends React.PureComponent {
       data: [],
       pagination: {},
       loading: false,
+
       columns : [
         {
           title: 'Name',
-          dataIndex: 'name',
+          dataIndex: 'name.first',
           key: 'name',
           width: 100,
-          render: text => <a href="javascript:;">{text}</a>,
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          title: 'Surname',
+          dataIndex: 'name.last',
+          key: 'last',
           width: 100,
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
+          title: 'Gender',
+          dataIndex: 'gender',
+          key: 'gender',
           width: 100,
         },
         {
-          title: 'Tags',
-          key: 'tags',
-          dataIndex: 'tags',
+          title: 'Cell',
+          dataIndex: 'cell',
+          key: 'cell',
           width: 100,
-          render: tags => (
-            <span>
-              {tags.map(tag => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'loser') {
-                  color = 'volcano';
-                }
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </span>
-          ),
+          render: cell => <a href="javascript:;">{cell}</a>,
         },
         {
-          title: 'Action',
-          key: 'action',
+          title: 'Email',
+          dataIndex: 'email',
+          key: 'email',
           width: 100,
-          render: (text, record) => (
-            <span>
-              <a href="javascript:;">Invite {record.name}</a>
-              <Divider type="vertical" />
-              <a href="javascript:;">Delete</a>
-            </span>
-          ),
-        }
+        },
+        {
+          title: 'Login',
+          dataIndex: 'login.username',
+          key: 'login',
+          width: 100,
+        },
+        {
+          title: 'Password',
+          dataIndex: 'login.password',
+          key: 'password',
+          width: 100,
+        },
+        
+  
       ]
     };
     componentDidMount() {
-      console.log('---mount');
-      //this.fetch();
+      this.fetch();
     }
 
-    fetch = (params = {}) => {
-      console.log('params:', params);
+    fetch = () => {
       this.setState({ loading: true });
-      fetch('https://randomuser.me/api/?results=100');
+      setTimeout(()=>{
+        fetch('https://randomuser.me/api/?results=100').then(response=>{
+          return response.json();
+        }).then(data=>{
+          console.log('--data',data.results);
+          this.setState({
+            loading: false,
+            data: data.results
+          });
+        });
+      },2000);
     };
   
   	render() {
       const columns = [...this.state.columns];
       columns.push({}); //заглушка при использовнии fixedd
-
+      
+      //добавляем уникальный id
+      const data = this.state.data.map((obj, index) => {
+        return {...obj,key:index};
+      });
+  
       return (<Fragment>
                 <h2>Скрол & Пагинация & Ajax</h2>
                 <div style={{ width: '600px'}}>
@@ -120,6 +129,7 @@ class AntdTable1scrollAndPaginataionAjax extends React.PureComponent {
                     pagination={{ pageSize: 10 , size:'small', showQuickJumper:true, position: 'bottom'}} //объект пагинации
                     // pagination={false} //для маленьких таблиц
                     rowSelection={{}}
+                    loading={this.state.loading}
                     />
                   </div>
               </Fragment>);
