@@ -33,8 +33,11 @@ for (let i = 0; i < 100; i++) {
 }
 
 
-class AntdTable1scrollAndPaginataion extends React.PureComponent {
+class AntdTable1scrollAndPaginataionAjax extends React.PureComponent {
     state={
+      data: [],
+      pagination: {},
+      loading: false,
       columns : [
         {
           title: 'Name',
@@ -90,13 +93,24 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
         }
       ]
     };
+    componentDidMount() {
+      console.log('---mount');
+      //this.fetch();
+    }
+
+    fetch = (params = {}) => {
+      console.log('params:', params);
+      this.setState({ loading: true });
+      fetch('https://randomuser.me/api/?results=100');
+    };
+  
   	render() {
       const columns = [...this.state.columns];
       columns.push({}); //заглушка при использовнии fixedd
 
       return (<Fragment>
-                <h2>Скрол и Пагинация</h2>
-                <div style={{ width: '400px'}}>
+                <h2>Скрол & Пагинация & Ajax</h2>
+                <div style={{ width: '600px'}}>
                   <Table
                     className={'TableDefault'}
                     bordered={ true }
@@ -116,4 +130,4 @@ class AntdTable1scrollAndPaginataion extends React.PureComponent {
 
 
 
-export default AntdTable1scrollAndPaginataion;
+export default AntdTable1scrollAndPaginataionAjax;

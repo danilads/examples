@@ -1,9 +1,8 @@
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 
 const devMode = process.env.NODE_ENV === 'development';
-
 
 import { CustomTheme } from "./style/ANTDtheme";
 module.exports = {
@@ -73,10 +72,6 @@ module.exports = {
 		filename: "bundle.css"
     }),
     
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      inject: 'body'
-    })
-    
+  
 	]
 };

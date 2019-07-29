@@ -2,7 +2,7 @@ import React,{Fragment} from 'react';
 
 import AntdMenuScroll from './AntdMenuScroll';
 
-import AntdTable1scrollAndPaginataion from './AntdTable1scrollAndPaginataion';
+import AntdTable1scrollAndPaginataionAjax from './AntdTable1scrollAndPaginataionAjax';
 import AntdTable2withCheckboxClicks from './AntdTable2withCheckboxClicks';
 import AntdTable3resize from './AntdTable3resize';
 import AntdTable4ellipsisWordWrap from './AntdTable4ellipsisWordWrap';
@@ -21,9 +21,8 @@ import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:10
+		pos:1
 	}
-	
   	render() {
 		return (
 			<div className={"Block_Filter"}>
@@ -33,7 +32,7 @@ class Block_MainPage extends React.PureComponent {
 
 				<button style={this.state.pos===1?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:1});
-				}}>AntdTable1scrollAndPaginataion</button>
+				}}>AntdTable1scrollAndPaginataionAjax</button>
 				
 				<button style={this.state.pos===2?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:2});
@@ -87,7 +86,7 @@ class Block_MainPage extends React.PureComponent {
 				}}>Modal</button>
 
 				{this.state.pos===0&&<AntdMenuScroll/>}
-				{this.state.pos===1&&<AntdTable1scrollAndPaginataion/>}
+				{this.state.pos===1&&<AntdTable1scrollAndPaginataionAjax/>}
 				{this.state.pos===2&&<AntdTable2withCheckboxClicks/>}
 				{this.state.pos===3&&<AntdTable3resize/>}
 				{this.state.pos===4&&<AntdTable4ellipsisWordWrap/>}
