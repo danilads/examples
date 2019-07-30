@@ -172,7 +172,7 @@ class AntdTable12finExceptCustomMenu extends React.PureComponent {
 
 
       //TODO вынести в константы
-      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
+      //лимит ресайза
       if(updatedSize<100){
         updatedSize=100;
       }

@@ -21,8 +21,9 @@ import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:12
+		pos:1
 	}
+
   	render() {
 		return (
 			<div className={"Block_Filter"}>

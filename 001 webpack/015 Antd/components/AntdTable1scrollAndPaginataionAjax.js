@@ -130,6 +130,7 @@ class AntdTable1scrollAndPaginataionAjax extends React.PureComponent {
                     // pagination={false} //для маленьких таблиц
                     rowSelection={{}}
                     loading={this.state.loading}
+
                     />
                   </div>
               </Fragment>);

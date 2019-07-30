@@ -111,7 +111,7 @@ class AntdTable3resize extends React.PureComponent {
 
 
       //TODO вынести в константы
-      //лимит ресайза ТАКЖЕ нужно указать в стилях th,td min-width
+      //лимит ресайза
       if(updatedSize<100){
         updatedSize=100;
       }
@@ -129,7 +129,7 @@ class AntdTable3resize extends React.PureComponent {
   };
 
   render() {
-    //resize +  add "Fix button" to title
+    //resize
     const columns = this.state.columns.map((obj, index) => {
       let modify = {...obj};
      
