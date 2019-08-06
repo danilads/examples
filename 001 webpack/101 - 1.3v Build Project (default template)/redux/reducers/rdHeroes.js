@@ -6,7 +6,7 @@ import heroesVerify from "../../jsonBackUp/heroesVerify";
 
 let initialState = {
 	data: {},
-	loading: false,
+	isFetching: false,
 	isLoaded: false,
 };
 
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
 		case HEROES_LOADING: {
 			return {
 				...state,
-				loading: true,
+				isFetching: true,
 			}
 		}
 		case HEROES_LOADED: {
@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
 			}
 			return {
 				...state,
-				loading: false,
+				isFetching: false,
 				isLoaded: true,
 				data: result,
 			}
