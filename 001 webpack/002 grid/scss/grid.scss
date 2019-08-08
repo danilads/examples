@@ -1,4 +1,5 @@
 @import "_variables";
+
 //mixins
 @mixin make-grid-columns($columns: $grid-columns, $breakpoints: $grid-breakpoints) {
 	// Common properties for all breakpoints
