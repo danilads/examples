@@ -11,7 +11,7 @@ class Block_MainPage extends React.PureComponent {
 
 		return (
 			<div>
-				<div>
+				<div className={"col-md-1"}>
 					hello
 				</div>
 			</div>

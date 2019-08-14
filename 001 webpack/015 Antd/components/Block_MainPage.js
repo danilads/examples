@@ -21,7 +21,7 @@ import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:1
+		pos:7
 	}
 
   	render() {
