@@ -15,13 +15,15 @@ import AntdTable10drag from './AntdTable10drag';
 import AntdTable11SearchCustomMenu from './AntdTable11SearchCustomMenu';
 import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
 
+import AntdDatepicker from './AntdDatepicker';
+
 
 
 
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:7
+		pos:13
 	}
 
   	render() {
@@ -79,6 +81,9 @@ class Block_MainPage extends React.PureComponent {
 					this.setState({pos:12});
 				}}>AntdTable12finExceptCustomMenu</button>
 
+				<button style={this.state.pos===13?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:13});
+				}}>AntdDatepicker</button>
 				
 				
 
@@ -87,6 +92,7 @@ class Block_MainPage extends React.PureComponent {
 				}}>Modal</button>
 
 				{this.state.pos===0&&<AntdMenuScroll/>}
+
 				{this.state.pos===1&&<AntdTable1scrollAndPaginataionAjax/>}
 				{this.state.pos===2&&<AntdTable2withCheckboxClicks/>}
 				{this.state.pos===3&&<AntdTable3resize/>}
@@ -99,6 +105,8 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===10&&<AntdTable10drag/>}
 				{this.state.pos===11&&<AntdTable11SearchCustomMenu/>}
 				{this.state.pos===12&&<AntdTable12finExceptCustomMenu/>}
+
+				{this.state.pos===13&&<AntdDatepicker/>}
 				
 				
 			
