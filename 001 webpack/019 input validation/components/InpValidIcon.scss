@@ -1,0 +1,21 @@
+.InpValidIcon{
+    margin-right: 9px;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    
+   
+
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #e1e2e1;
+    box-sizing: content-box;
+    &:hover{
+        border: 1px solid #afb0af;;
+    }
+
+}

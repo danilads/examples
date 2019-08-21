@@ -1,0 +1,77 @@
+.InputValidation{
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    padding: 5px 0;
+    input{
+        border-radius: 4px;
+        padding: 5px 7px;
+        border: 1px solid #e1e2e1;
+        outline: none;
+        
+        &:focus{
+            border: 1px solid #afb0af;
+        }
+        &:hover{
+            border: 1px solid #afb0af;
+        }
+    }
+    .errorInput{
+        border-bottom: 1px solid #f5222d !important;
+        box-shadow: 0 0 5px #ff6358;
+    }
+    .labelBlock{
+        margin-left: 3px;
+        position: relative;
+        margin-bottom: 2px;
+        display: flex;
+        align-items: center;
+        .labelText{
+            line-height: 1em;
+            max-height: 1em;
+        }
+    }
+    .errorBlock{
+        min-height: 1em;
+        margin-left: 3px;
+        position: relative;
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        .errorText{
+            line-height: 1em;
+            max-height: 1em;
+        }
+        
+    }
+
+    .fullText{
+        position: absolute;
+        padding: 0 3px;
+        left: 19px;
+        top: -1px;
+        background: white;
+        z-index: 1000;
+        border: 1px solid #e1e2e1;
+        width: calc(100% - 18px);
+
+        &:after{
+            display: block;
+            position: absolute;
+
+            content: "";
+
+            top: 6px;
+            left: -.25em;
+
+            transform: rotate(315deg);
+            width: .5em;
+            height: .5em;
+
+            box-shadow: -1px -1px 0 0 rgba(34,36,38,.15);
+            background: #fff;
+            z-index: 2;
+        }
+    }
+   
+}
