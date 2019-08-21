@@ -13,6 +13,10 @@ class InputValidation extends React.PureComponent {
         errorOpacity: false,
         errorFullText: false,
 
+        isToched: false,
+        isFocused: false,
+        isValid: false,
+
     }
     containerRefLabel = React.createRef();
     containerRefError = React.createRef();
@@ -77,16 +81,17 @@ class InputValidation extends React.PureComponent {
   
 
   	render() {
+        let {labelOpacity, labelFullText, labelText, isFocused, isValid, errorOpacity, errorFullText, errorText} = this.state;
 		return (
 			<div className={"InputValidation"}>
                 <div className={'labelBlock'}>
-                    {this.state.labelOpacity&&<InpValidIcon name='label' cbShowText={this.showFullText}/>}
-                    {this.state.labelFullText&&<div className="fullText">{this.state.labelText}</div>}
+                    {labelOpacity&&<InpValidIcon name='label' cbShowText={this.showFullText}/>}
+                    {labelFullText&&<div className="fullText">{labelText}</div>}
                     <div className="labelText" ref={this.containerRefLabel}></div></div>
-                <input className={""} type={"input"}/>
+                <input className={!isValid&&!isFocused?"errorInput":""} type={"input"}/>
                 <div className={'errorBlock'}>
-                    {this.state.errorOpacity&&<InpValidIcon name='error' cbShowText={this.showFullText}  letter={"e"} lowerCase/>}
-                    {this.state.errorFullText&&<div className="fullText">{this.state.errorText}</div>}
+                    {errorOpacity&&<InpValidIcon name='error' cbShowText={this.showFullText}  letter={"e"} lowerCase/>}
+                    {errorFullText&&<div className="fullText">{errorText}</div>}
                     <div className="errorText" ref={this.containerRefError}></div>
                     
                 </div>
