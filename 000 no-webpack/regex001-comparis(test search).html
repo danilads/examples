@@ -34,7 +34,15 @@
 		var str4 = "321.gif";
 		var reg4 = ( /(\.(jpg|jpeg|png|gif)+$)/ ); //оканчивается на jpeg pnag jpg
 		console.log("str4",reg4.test(str4));
-			
+
+
+		var str5 = "f2";
+		var reg5 = ( /^.{2,3}$/ ); //минимальная длинна 2, максимальная 3
+		console.log("str5",reg5.test(str5));
+		
+		var str6 = "ggwp";
+		var reg6 = ( /^([A-Za-z]*)$/ ); //только латинские
+		console.log("str6",reg6.test(str6));
 	</script>
 </body> 
 </html>

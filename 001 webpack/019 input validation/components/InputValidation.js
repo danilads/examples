@@ -13,6 +13,8 @@ class InputValidation extends React.PureComponent {
         errorOpacity: false,
         errorFullText: false,
 
+        value:'',
+
         isToched: false,
         isFocused: false,
         isValid: false,
@@ -62,9 +64,14 @@ class InputValidation extends React.PureComponent {
 	}
 
     componentDidUpdate(prevProps, prevState){
+        //баг с опасити (из-за иконки слева(он исчезает))
         if(prevState.errorOpacity!==this.state.errorOpacity){
             this.recountOpacity();
         }
+        //здесь проверяем валидацию (валидация в регэксе)
+        
+        
+
     }
     componentWillUnmount(){
         window.removeEventListener('resize',this.recountOpacity);
@@ -77,23 +84,29 @@ class InputValidation extends React.PureComponent {
             this.setState({errorFullText:value});
         }
     };
-
+    handleFocus=(focus)=>{
+        this.setState({isToched:true, isFocused:focus});
+    }
   
-
+    handlerChange=(e)=>{
+        this.setState({value:e.target.value})
+    }
   	render() {
-        let {labelOpacity, labelFullText, labelText, isFocused, isValid, errorOpacity, errorFullText, errorText} = this.state;
-		return (
+        let {value, labelOpacity, labelFullText, labelText, isFocused, isValid, errorOpacity, errorFullText, errorText, isToched} = this.state;
+        console.log('---isToched',isToched);
+        return (
 			<div className={"InputValidation"}>
                 <div className={'labelBlock'}>
                     {labelOpacity&&<InpValidIcon name='label' cbShowText={this.showFullText}/>}
                     {labelFullText&&<div className="fullText">{labelText}</div>}
                     <div className="labelText" ref={this.containerRefLabel}></div></div>
-                <input className={!isValid&&!isFocused?"errorInput":""} type={"input"}/>
+
+                <input value={value} onChange={this.handlerChange} className={!isValid&&!isFocused&&isToched?"errorInput":""} type={"input"} onFocus={()=>this.handleFocus(true)} onBlur={()=>this.handleFocus(false)}/>
+                
                 <div className={'errorBlock'}>
                     {errorOpacity&&<InpValidIcon name='error' cbShowText={this.showFullText}  letter={"e"} lowerCase/>}
                     {errorFullText&&<div className="fullText">{errorText}</div>}
                     <div className="errorText" ref={this.containerRefError}></div>
-                    
                 </div>
                 
             </div>
