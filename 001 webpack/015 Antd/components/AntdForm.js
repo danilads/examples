@@ -10,13 +10,16 @@ class AntdForm extends React.PureComponent {
         e.preventDefault();
         this.props.form.validateFields();
     };
-    
+
     customVal=(params)=>{
         console.log('---customVal params',params);
+
         if(!/^([A-Za-z]*)$/.test(params.value)) {
+            console.log('---V1');
             params.callback('только латин');
         }
         else if(params.value===""||params.value===undefined){
+            console.log('---V2');
             params.callback('не должно быть пустым');
         }
     };
@@ -33,12 +36,12 @@ class AntdForm extends React.PureComponent {
                     {getFieldDecorator('username', {
                         rules: [
                             { 
-                                required: true, 
-                                validator: this.customVal
+                                validator: (rule, value, callback) => this.customVal({
+                                    rule, value, callback})
                             }
                         ],
                     })(
-                        <AntdFormInput name='username' cbFocus={this.changeFocusStatus}/>
+                        <AntdFormInput name='username'/>
                     )}
                 </Form.Item>
                 <Form.Item>
