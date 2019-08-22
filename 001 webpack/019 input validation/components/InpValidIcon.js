@@ -22,7 +22,7 @@ export default class InpValidIcon extends React.PureComponent {
 
 		return (
 			<div className={'InpValidIcon'} onClick={this.handlerClick} onMouseOut={this.handlerOut}>
-              <div style={{height:`${this.props.lowerCase?'17px':'16px'}`}}>{this.props.letter}</div>
+              <div style={{height:`${this.props.lowerCase?'17px':'16px'}`, textAlign: 'center', width: '12px'}}>{this.props.letter}</div>
 			</div>
 		);
 

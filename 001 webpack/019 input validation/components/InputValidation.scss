@@ -27,6 +27,8 @@
         display: flex;
         align-items: center;
         .labelText{
+            width: 100%;
+            word-break: break-all;
             line-height: 1em;
             max-height: 1em;
         }
@@ -39,6 +41,8 @@
         display: flex;
         align-items: center;
         .errorText{
+            width: 100%;
+            word-break: break-all;
             line-height: 1em;
             max-height: 1em;
         }

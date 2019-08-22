@@ -6,8 +6,8 @@ import InpValidIcon from './InpValidIcon.js';
 
 class InputValidation extends React.PureComponent {
     state={
-        labelText: 'Label text label text label text label text label text label text label text label text label text label text',
-        errorText: 'Error text error text error text error text error text error text error text error text error text error text',
+        labelText: 'Labeltextlabeltextlabeltext',
+        errorText: 'Errortexterrortexterrortext',
         labelOpacity: false,
         labelFullText: false,
         errorOpacity: false,
