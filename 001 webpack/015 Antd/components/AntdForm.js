@@ -5,26 +5,27 @@ import './AntdForm.less';
 
 class AntdForm extends React.PureComponent {
 
+
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-          }
-        });
+        this.props.form.validateFields();
     };
+    
     customVal=(params)=>{
         console.log('---customVal params',params);
         if(!/^([A-Za-z]*)$/.test(params.value)) {
             params.callback('только латин');
         }
-        else if(params.value===""){
-            params.callback('не должен быть пустым');
+        else if(params.value===""||params.value===undefined){
+            params.callback('не должно быть пустым');
         }
-    }
+    };
+
+
   	render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-        console.log('---getFieldError',getFieldError('username'));
+        console.log('---this.props',this.props);
+
 		return (<div className={'AntdForm'}>
             <div>AntdForm</div>
             <Form layout="inline" onSubmit={this.handleSubmit}>
@@ -33,15 +34,11 @@ class AntdForm extends React.PureComponent {
                         rules: [
                             { 
                                 required: true, 
-                                validator: (rule, value, callback) => this.customVal({
-                                    rule, value, callback,
-                                    message: 'Укажите Номер',
-                                    max: 30
-                                })
+                                validator: this.customVal
                             }
                         ],
                     })(
-                        <AntdFormInput/>
+                        <AntdFormInput name='username' cbFocus={this.changeFocusStatus}/>
                     )}
                 </Form.Item>
                 <Form.Item>
