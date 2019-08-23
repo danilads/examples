@@ -65,7 +65,7 @@ class InputValidation extends React.PureComponent {
 
     componentDidUpdate(prevProps, prevState){
         //баг с опасити (из-за иконки слева(он исчезает))
-        if(prevState.errorOpacity!==this.state.errorOpacity){
+        if(prevState.errorOpacity!==this.state.errorOpacity||prevState.labelOpacity!==this.state.labelOpacity){
             this.recountOpacity();
         }
         //здесь проверяем валидацию (валидация в регэксе)

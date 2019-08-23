@@ -1,0 +1,32 @@
+.TextareaResize {
+    display: block;
+    width: 100%;
+    padding: 5px 7px;
+    box-sizing: border-box;
+    border: 1px solid #e1e2e1;
+  
+    border-radius: 4px;
+  
+    color: rgba(27, 39, 51, 0.9);
+    transition: all .2s ease;
+    resize: none;
+  
+    outline: none;
+  
+    &:hover,
+    &:focus,
+    &:active {
+      border: 1px solid #afb0af;
+    }
+  
+    &:disabled {
+      border: 1px solid #e1e2e1;
+      background-color: #f5f5f5;;
+      &:hover{
+        border: 1px solid #e1e2e1;
+      }
+      color: #1b2733;
+    }
+  }
+  
+  

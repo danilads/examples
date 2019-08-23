@@ -4,9 +4,11 @@ import Dropdown from './Dropdown';
 import RadioButtons from './RadioButtons';
 import InputMasked from './InputMasked';
 import CheckboxToggle from './CheckboxToggle';
+import TextareaResize from './TextareaResize';
+
 class AaaMainPage extends PureComponent {
     state={
-        content: 101, //101 - Dropdown 
+        content: 105, //101 - Dropdown 
         //101 Dropdown
         isDropdownOpened: false,
         //102 RadioButtons
@@ -18,7 +20,7 @@ class AaaMainPage extends PureComponent {
         isCheckboxToggleSelected: false,
 
     }
-    //01 Dropdown
+    //101 Dropdown
     refBtn1=React.createRef();
     refBtn2=React.createRef();
     dropControlled=(e)=>{
@@ -49,7 +51,7 @@ class AaaMainPage extends PureComponent {
                 />
         </Fragment>
     }
-    //02 RadioButtons
+    //102 RadioButtons
     radioButton=(e)=>{
         return <span style={{border:"1px solid black"}}>
             <span style={e.disabled?{color:'gray'}:(e.isChecked?{color:'red'}:{})}>button</span>
@@ -126,6 +128,10 @@ class AaaMainPage extends PureComponent {
     showCheckboxToggle=()=>{
         return <CheckboxToggle onChange={()=>this.setState({isCheckboxToggleSelected:!this.state.isCheckboxToggleSelected})} isChecked={this.state.isCheckboxToggleSelected} label="Избранное"/>
     }
+    //05 TextareaResize
+    showTextareaResize=()=>{
+        return <TextareaResize maxRow={4} autosize={3}/>
+    }
   	render() {
 		return (
             <Fragment>
@@ -134,12 +140,14 @@ class AaaMainPage extends PureComponent {
                     <button onClick={()=>{this.setState({content:102})}}>RadioButtons</button>
                     <button onClick={()=>{this.setState({content:103})}}>InputMasked</button>
                     <button onClick={()=>{this.setState({content:104})}}>checkboxToggle</button>
+                    <button onClick={()=>{this.setState({content:105})}}>TextareaResize</button>
                 </div>
                 <div>
                     {this.state.content===101&&this.showDropdown()}
                     {this.state.content===102&&this.showRadioButtons()}
                     {this.state.content===103&&this.showInputMasked()}
                     {this.state.content===104&&this.showCheckboxToggle()}
+                    {this.state.content===105&&this.showTextareaResize()}
                 </div>
             </Fragment>
 		);

@@ -13,7 +13,7 @@ class AntdForm extends React.PureComponent {
 
     customVal=(params)=>{
         console.log('---customVal params',params);
-        if(params.rule.required1 && !/^([A-Za-z]*)$/.test(params.value)) {
+        if(params.rule.required && !/^([A-Za-z]*)$/.test(params.value)) {
             params.callback('только латин');
         }
         else if(params.value===""||params.value===undefined){
@@ -34,7 +34,7 @@ class AntdForm extends React.PureComponent {
                         initialValue: 'hello',
                         rules: [
                             { 
-                                required1: true,
+                                required: true,
                                 validator: (rule, value, callback) => this.customVal({
                                     rule, value, callback})
                             }
