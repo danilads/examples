@@ -66,15 +66,20 @@
 			console.log('ref1',this.containerRef1)
 			console.log('ref2',this.containerRef2)
 			console.log('ref3',this.containerRef3)
+
+
+			//если нужно достать вложенный класс(должен быть уникальным т.к. приходит массив)
+			console.log('---достаем вложенный элмент',this.containerRef2.getElementsByClassName('text')[0]);
 	
 		}
 		render() {
-			
-			
+	
 			return (
 				<div>
 					<div ref = {(el) => this.containerRef1 = el}>объявляем рефку 1</div>
-					<div ref={this.setRef2}>объявляем рефку 2</div>
+					<div ref={this.setRef2}>
+						<span className={'text'}>объявляем рефку 2</span>
+					</div>
 					<div ref={this.containerRef3} className={'one'}>объявляем рефку 3</div>
 					
 					
