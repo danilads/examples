@@ -5,10 +5,11 @@ import RadioButtons from './RadioButtons';
 import InputMasked from './InputMasked';
 import CheckboxToggle from './CheckboxToggle';
 import TextareaResize from './TextareaResize';
+import OpacityText from './OpacityText';
 
 class AaaMainPage extends PureComponent {
     state={
-        content: 105, //101 - Dropdown 
+        content: 106, //101 - Dropdown 
         //101 Dropdown
         isDropdownOpened: false,
         //102 RadioButtons
@@ -132,6 +133,10 @@ class AaaMainPage extends PureComponent {
     showTextareaResize=()=>{
         return <TextareaResize maxRow={4} autosize={3}/>
     }
+    //06 OpacityText
+    opacityText=()=>{
+        return <OpacityText/>
+    }
   	render() {
 		return (
             <Fragment>
@@ -141,6 +146,7 @@ class AaaMainPage extends PureComponent {
                     <button onClick={()=>{this.setState({content:103})}}>InputMasked</button>
                     <button onClick={()=>{this.setState({content:104})}}>checkboxToggle</button>
                     <button onClick={()=>{this.setState({content:105})}}>TextareaResize</button>
+                    <button onClick={()=>{this.setState({content:106})}}>OpacityText</button>
                 </div>
                 <div>
                     {this.state.content===101&&this.showDropdown()}
@@ -148,6 +154,7 @@ class AaaMainPage extends PureComponent {
                     {this.state.content===103&&this.showInputMasked()}
                     {this.state.content===104&&this.showCheckboxToggle()}
                     {this.state.content===105&&this.showTextareaResize()}
+                    {this.state.content===106&&this.opacityText()}
                 </div>
             </Fragment>
 		);
