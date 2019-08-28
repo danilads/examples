@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 
 class OpacityText extends Component {
     state = {
-        text: '',
         defaultText: 'some text some text some text some text some text some text some text some text some text some text some text some text',
         innerText: '',
     };
