@@ -16,3 +16,8 @@
 #кроме папки и всех подпапок и файлов содержащихся в ней
 !/components/
 !/components/**
+
+----------------------
+#стандартный git ignore
+node_modules/
+package-lock.json
