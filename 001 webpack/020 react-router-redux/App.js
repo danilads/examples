@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 //components
 import Block_MainPage from './components/Block_MainPage';
 import Block_PageOne from './components/Block_PageOne';
+import Layout from './components/Layout';
 
 //store
 import store from './redux/store';
@@ -30,12 +31,14 @@ ReactDOM.render(
 	
 	<Provider store={store}>
 		<Router history={history}>
-			<Route path="/">
-				<IndexRoute component={Block_MainPage}/>
-			</Route>
-			<Route path="/pageOne">
-				<IndexRoute component={Block_PageOne}/>	
-			</Route>
+			<Route path='/' component={ Layout }>
+                <IndexRoute component={ Block_MainPage }/>
+            </Route>
+
+			<Route path='/pageOne' component={ Layout }>
+                <IndexRoute component={ Block_PageOne }/>
+            </Route>
+
 		</Router>
 	</Provider>
 	
