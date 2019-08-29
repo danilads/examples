@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-//README 
+//README (лучше использовать no-webpack css004-font opacity.html)
 // !неработает с очень длинными словами (нужна доработка)
 // wordBreak: 'break-all' - иначе если одно слово - не будет  работать
 // lineHeight: '1em'  - обязятельный параметр
