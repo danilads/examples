@@ -1,7 +1,13 @@
 let initialState = {
+	//стандартные данные
 	data: {},
-	loading: false,
+	isFetching: false,
 	isLoaded: false,
+	//ошибки
+	errorMsg: '',
+    isError: false,
+
+	//доп
 	some: '',
 	innerObj: {
 		key: "",
@@ -16,13 +22,13 @@ export default (state = initialState, action) => {
 		case "ITEMS_LOADING": {
 			return {
 				...state,
-				loading: true,
+				isFetching: true,
 			}
 		}
 		case "ITEMS_LOADED": {
 			return {
 				...state,
-				loading: false,
+				isFetching: false,
 				isLoaded: true,
 				data: action.payload,
 			}
