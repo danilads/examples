@@ -2,7 +2,11 @@ let initialState = {
 	data: {},
 	loading: false,
 	isLoaded: false,
-	some: ''
+	some: '',
+	innerObj: {
+		key: "",
+		text: "",
+	}
 };
 
 //export default (state = initialState, {type,payload}) - сокращенная запись
@@ -24,9 +28,14 @@ export default (state = initialState, action) => {
 			}
 		}
 		case "ITEMS_WRITE_FROM_FUNC_TO_ITEMS": {
+			//вложенность
 			return {
 				...state,
 				some: action.payload,
+				innerObj:{
+					...state.innerObj,
+					text:action.payload,
+				}
 			}
 		}
 		default: return state;
