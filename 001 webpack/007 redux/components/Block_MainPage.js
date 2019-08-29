@@ -13,12 +13,10 @@ const somefun = () => {
 
 //--вызов редюсера
 const writeSome = () => {	
-	store.dispatch((()=>{
-			return {
+	store.dispatch({
 				type: 'ITEMS_WRITE_FROM_FUNC_TO_ITEMS',
 				payload:'hello'
 			}
-		})()
 	);
 		
 };
