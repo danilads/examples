@@ -1,8 +1,6 @@
 let initialState = {
-	text:{
-		data: {},
-        value: '',
-	},
+	data: {},
+	value: '',
 };
 
 //export default (state = initialState, {type,payload}) - сокращенная запись
@@ -11,10 +9,8 @@ export default (state = initialState, action) => {
 		case "SAVE_VALUE": {
 			return {
 				...state,
-				text:{
-					...state.text,
-					value: action.payload,
-				}
+				value: action.payload,
+				
 			}
 		}
 		default: return state;

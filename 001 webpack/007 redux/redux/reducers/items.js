@@ -1,9 +1,8 @@
 let initialState = {
-	items:{
-		data: {},
-		loading: false,
-		isLoaded: false,
-	},
+	data: {},
+	loading: false,
+	isLoaded: false,
+	some: ''
 };
 
 //export default (state = initialState, {type,payload}) - сокращенная запись
@@ -13,21 +12,21 @@ export default (state = initialState, action) => {
 		case "ITEMS_LOADING": {
 			return {
 				...state,
-				items:{
-					...state.items,
-					loading: true,
-				}
+				loading: true,
 			}
 		}
 		case "ITEMS_LOADED": {
 			return {
 				...state,
-				items:{
-					...state.items,
-					loading: false,
-					isLoaded: true,
-					data: action.payload,
-				}
+				loading: false,
+				isLoaded: true,
+				data: action.payload,
+			}
+		}
+		case "ITEMS_WRITE_FROM_FUNC_TO_ITEMS": {
+			return {
+				...state,
+				some: action.payload,
 			}
 		}
 		default: return state;
