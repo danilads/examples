@@ -22,7 +22,7 @@ module.exports = {
   devServer: {
     inline:true,
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
-    port: 8080
+    //port: 8080
   },
   entry: {
 		main: ['babel-polyfill', './app.js'] //для работы async / await

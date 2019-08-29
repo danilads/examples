@@ -17,7 +17,7 @@ module.exports = {
   devtool: devMode?'inline-source-map':undefined, //'source map' - для того чтобы в chrome в вкладке source можно было читать несобранный код
   devServer: {
     inline:true,
-    port: 8080,
+    //port: 8080,
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
   },
   entry: {
