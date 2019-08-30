@@ -116,7 +116,28 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===13&&<AntdDatepicker/>}
 				{this.state.pos===14&&<AntdForm/>}
 
-				{this.state.pos===15&&<AntdModal><div>hello</div></AntdModal>}
+				{this.state.pos===15&& 
+					<div>
+						<div onClick={()=>this.setState({modal:true})}>Открыть модалку</div>
+						<AntdModal className={"CLASSSS"}
+							visible={this.state.modal}
+							onCancel={()=>this.setState({modal:false})}
+							title={"someTitle someTitle someTitle"}
+							width={"min-content"}
+							footer={false}
+							resize
+						>
+							<div onClick={()=>this.setState({modal2:true})}>открыть еще модалку</div>
+							<AntdModal className={"CLASSSS"}
+										visible={this.state.modal2}
+										onCancel={()=>this.setState({modal2:false})}
+										title={"someTitle2 someTitle2 someTitle2"}
+										width={"50%"}
+										footer={false}
+							>"hello"</AntdModal>
+						</AntdModal>
+					</div>
+				}
 				
 				
 			

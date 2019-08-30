@@ -1,13 +1,34 @@
 import React from 'react';
-
 import { Modal } from 'antd';
 import DragM from "dragm";
+import { ResizableBox } from "react-resizable";
+import './AntdModal.less';
+//README
+//открытие и закрытие модалкой контролиреутся
+//props.visible - bool - true/false
+//props.onCancel - func - отрабатывает при нажатии на крестик/кнопка отмены(в футере)
+
+
+
+//props.className - string - добавить класс
+//props.title - string - заголовок
+//props.width - stirng - '80%'/'100px' ширина модалки
+
+
+//props.footer - string/jsx/false - футер
+//      props.onOk - func - отрабатывает при нажатии на ok
+//      props.onCancel - func - отрабатывает при нажатии на крестик/кнопка отмены(в футере)
+
+//resize (если использовать нужен resize - надо прислать props.width={"min-content"}
+//props.resize - bool - если true, будет индикатор resize
 
 const takeRight=(arr)=>{
     if(HTMLCollection.prototype.isPrototypeOf(arr)){
         return arr[arr.length-1];
     }
 }
+
+
 export class AntdModal extends React.Component{
     constructor(props){
         super(props);
@@ -16,16 +37,11 @@ export class AntdModal extends React.Component{
             modalVerticalCenter: false
         };
     }
-    static defaultProps = {
-        visible:true,
-        title:'someTitle',
-        width:"800px",
-        footer:""
-    }
+
     componentDidMount(){
         if(this.props.visible && !this.state.modalRef) {
-            
-            const modalRef = takeRight(document.getElementsByClassName("ant-modal-content"));
+
+            const modalRef = takeRight(document.getElementsByClassName("ant-modal-content"))[0];
 
             if(modalRef && !this.state.modalRef) {
                 this.setState({
@@ -67,14 +83,15 @@ export class AntdModal extends React.Component{
         } else {
             return false;
         }
-    }
+    };
 
 
     render() {
-        const modalTitle = (<ModalDrag title={this.props.title} />);
+      const modalTitle = (<ModalDrag title={this.props.title} />);
         const modalBodyStyle = this.setModalScroll();
         const modalProps = {
             ...this.props,
+            className: this.props.className+' AntdModal',
             title: modalTitle,
             destroyOnClose: true,
             maskClosable: false,
@@ -89,7 +106,14 @@ export class AntdModal extends React.Component{
         };
 
         return (
-            <Modal {...modalProps} />
+          <Modal  {...modalProps} >
+            {this.props.resize
+              ?
+                <ResizableBox className={'ResizableBox'} width={200} height={200} minConstraints={[150, 150]}  maxConstraints={[window.innerWidth, window.innerHeight]}>{this.props.children}</ResizableBox>
+              :
+                <React.Fragment>{this.props.children}</React.Fragment>
+            }
+          </Modal>
         );
     }
 }
@@ -101,7 +125,7 @@ export class ModalDrag extends React.Component{
     }
 
     componentDidMount() {
-        this.modalWrap = takeRight(document.getElementsByClassName("ant-modal-wrap"));
+        this.modalWrap = takeRight(document.getElementsByClassName("ant-modal-wrap"))[0];
     }
 
     updateTransform = (transform) => this.modalWrap.style.transform = transform;
