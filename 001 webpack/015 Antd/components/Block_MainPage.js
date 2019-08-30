@@ -18,13 +18,15 @@ import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
 import AntdDatepicker from './AntdDatepicker';
 import AntdForm from './AntdForm';
 
+import {AntdModal} from './AntdModal';
+
 
 
 
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:0
+		pos:15
 	}
 
   	render() {
@@ -92,8 +94,8 @@ class Block_MainPage extends React.PureComponent {
 				
 				
 
-				<button style={this.state.pos===1111?{backgroundColor: 'wheat'}:{}} onClick={()=>{
-					this.setState({pos:1111});
+				<button style={this.state.pos===15?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:15});
 				}}>Modal</button>
 
 				{this.state.pos===0&&<AntdMenuScroll/>}
@@ -113,6 +115,8 @@ class Block_MainPage extends React.PureComponent {
 
 				{this.state.pos===13&&<AntdDatepicker/>}
 				{this.state.pos===14&&<AntdForm/>}
+
+				{this.state.pos===15&&<AntdModal/>}
 				
 				
 			
