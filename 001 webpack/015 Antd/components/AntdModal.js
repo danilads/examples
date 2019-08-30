@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import DragM from "dragm";
 
 const takeRight=(arr)=>{
-    if(Array.isArray(arr)){
+    if(HTMLCollection.prototype.isPrototypeOf(arr)){
         return arr[arr.length-1];
     }
 }
