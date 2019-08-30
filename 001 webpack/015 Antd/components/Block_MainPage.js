@@ -116,7 +116,7 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===13&&<AntdDatepicker/>}
 				{this.state.pos===14&&<AntdForm/>}
 
-				{this.state.pos===15&&<AntdModal/>}
+				{this.state.pos===15&&<AntdModal><div>hello</div></AntdModal>}
 				
 				
 			
