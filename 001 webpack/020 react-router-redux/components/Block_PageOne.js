@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import { push } from "react-router-redux";
+import { browserHistory } from "react-router";
 
 class Block_PageOne extends React.PureComponent {
 	
@@ -11,6 +12,7 @@ class Block_PageOne extends React.PureComponent {
 			<div>
 				<div>PAGE ONE</div>
                 <div onClick={this.props.goto}>go to => PAGE MAIN</div>
+				<div onClick={()=>{ browserHistory.push('/');}}>go to (history) => PAGE MAIN</div>
 			</div>
 		);
 

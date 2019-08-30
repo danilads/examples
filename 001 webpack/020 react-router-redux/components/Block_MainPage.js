@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {load,save,some3} from "../redux/actions";
 import { push } from "react-router-redux";
+import { browserHistory } from "react-router";
 
 //01
 //import store
@@ -51,7 +52,8 @@ class Block_MainPage extends React.PureComponent {
 		return (
 			<div>
 				<div>PAGE MAIN</div>
-				<div onClick={this.props.goto}>go to => PAGE ONE</div>
+				<div onClick={this.props.goto}>go to (push) => PAGE ONE</div>
+				<div onClick={()=>{ browserHistory.push('/pageOne');}}>go to (history) => PAGE ONE</div>
 				<div>
 					<input type="button" value="getItems" onClick={this.load}/>
 					<input type="button" value="вызов редюсера из функции" onClick={writeSome}/>

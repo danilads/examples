@@ -24,7 +24,7 @@ import AntdForm from './AntdForm';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:14
+		pos:0
 	}
 
   	render() {
