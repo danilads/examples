@@ -31,7 +31,7 @@ export const NerworkApi = {
         }
         else{
           //используя обертку tryCatch можно самому выкинуть ошибку
-          throw('Error');
+          throw(response.error || 'Error');
         }
       });
     });
@@ -50,7 +50,7 @@ export const NerworkApi = {
         }
         else{
           //используя обертку tryCatch можно самому выкинуть ошибку
-          throw('Error');
+          throw(response.error || 'Error');
         }
       });
     });
