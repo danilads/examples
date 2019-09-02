@@ -6,11 +6,25 @@ import Spiner from '../../04_primitives/Spiner/Spiner';
 import logoAnim from '../../05_images/images/logoAnim.gif';
 import {connect} from "react-redux";
 import {acHeroesLoading} from "../../redux/actions/acHeroes";
+
+import {backendServiceHost} from 'config';
+import axios from "axios";
+
+
 class PageMain extends React.PureComponent {
-	
-	state = {
-		
+	//делает запрос на  '/api/': 'http://172.30.71.195:9080/SBOL-Business/', см. Webpack config
+	request  = async () => {
+		let answer;
+		answer = await axios({
+			url: `${backendServiceHost}api/currency/list`,
+			method: 'post'
+		  }).then(response => {
+			  return response;
+		  });
 	};
+	componentDidMount(){
+		this.request();
+	}
 	_renderSpiner=()=>{
 		let d = this.props.heroes;
 		let result;

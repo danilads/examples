@@ -25,6 +25,12 @@ module.exports = {
     inline:true,
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
     //port: 8080
+    proxy: { //для определенных запросов
+      '/api/': 'http://172.30.71.195:9080/SBOL-Business/',
+      '/remote/': 'http://172.30.71.195:9080/SBOL-Business/',
+      '/internal/': 'http://172.30.71.195:9080/SBOL-Business/',
+      '/logout': 'http://172.30.71.195:9080/SBOL-Business/',
+    }
   },
   entry: {
 		main: ['babel-polyfill', './app.js'] //для работы async / await
@@ -67,5 +73,11 @@ module.exports = {
 		// both options are optional
 		filename: "bundle.css"
 	  })
-	]
+  ],
+  //нужен для запросов
+  externals: {
+    'config': JSON.stringify({
+     "backendServiceHost": "/",
+    })
+  }
 };
