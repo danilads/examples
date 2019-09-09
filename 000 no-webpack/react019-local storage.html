@@ -28,23 +28,27 @@
 	addItem=()=>{
 		console.log('set');
 		localStorage.setItem('someKey', this.state.input)
+		//запись объекат
+		localStorage.setItem('someObj', JSON.stringify({data:1,str:'hello'}))
 	}
 	getItem=()=>{
 		console.log('get');
-		console.log('--get',localStorage.getItem('someKey'))
+		console.log('--get',localStorage.getItem('someKey'));
+		console.log('--get obj', JSON.parse(localStorage.getItem('someObj')));
 	}
 
 	set=(e)=>{
 		this.setState({input:e.target.value})
 	}
 	
+	
 	//не работает на странице, которая вносит изменения
-	//но срабатывает на открытых страницах домена в броузере
+	//но срабатывает на других открытых страницах (данного url'a)
 	componentDidMount(){
-		window.addEventListener('storage', function(e) { console.log('watafak') })
+		window.addEventListener('storage',(e)=> { console.log('watafak') })
 	}
 	componentWillUnmount(){
-		window.removeEventListener('storage', function(e) { console.log('watafak') })
+		window.removeEventListener('storage',(e)=> { console.log('watafak') })
 	}
 	
 	
