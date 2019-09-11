@@ -1,0 +1,6 @@
+1) cmd+space
+2) enter "Audio MIDI Setup"
+3) open it
+4) press "+" at the bottom => create Aggregate Device
+5) In the list of devices, on the left-hand side of the window, there will be a new 'Aggregate Device' option. Click it.
+6) Select checkboxes at  "Built-in Output"
