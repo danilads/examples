@@ -150,8 +150,10 @@ class AntdTable11SearchCustomMenu extends React.PureComponent {
         filterIcon: filtered => (
             <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
         ),
+        //хз зачем
         onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: visible => {
+            //отрабатывает при открытии
             if (visible) {
                 setTimeout(() => this.searchInput.select());
             }
