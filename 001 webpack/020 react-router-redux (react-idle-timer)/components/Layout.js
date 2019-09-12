@@ -1,6 +1,19 @@
 import React from 'react';
 
+//react-idle-timer
+import IdleTimer from 'react-idle-timer';
+import { browserHistory } from "react-router";
 
+//срабатывает когда таймер вышел
+function onIdle (){
+	console.log('---onIdle');
+	//logout
+	browserHistory.push('/pageOne')
+}
+//срабатывает при действиях
+function onAction (){
+	console.log('---onAction');
+}
 
 class Layout extends React.PureComponent {
 	constructor(props) {
@@ -50,21 +63,31 @@ class Graphic extends React.Component {
 	  context.save();
 	  context.translate(100, 100);
 	  context.rotate(rotation, 100, 100);
-	  context.fillStyle = "#F00";
+	  context.fillStyle = "#cefefe";
 	  context.fillRect(-50, -50, 100, 100);
 	  context.restore();
 	}
   
 	render() {
 	  const { width, height } = this.props;
-	  console.log('--rotation',Math.round(this.props.rotation));
+	  //console.log('--rotation',Math.round(this.props.rotation));
 	  return (
-		<canvas
-			style={{paddingLeft:`${this.props.rotation}px`}}
-			ref="canvas"
-			width={width}
-			height={height}
-		/>
+		  <React.Fragment>
+			<IdleTimer
+				element={document}
+			
+				onIdle={onIdle}
+				onAction={onAction}
+			
+				timeout={1000 * 5 * 1}
+			/>
+			<canvas
+				style={{paddingLeft:`${this.props.rotation}px`}}
+				ref="canvas"
+				width={width}
+				height={height}
+			/>
+		</React.Fragment>
 	  );
 	}
   }

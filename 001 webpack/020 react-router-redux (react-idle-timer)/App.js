@@ -27,6 +27,8 @@ import { syncHistoryWithStore } from 'react-router-redux'
 const history = syncHistoryWithStore(browserHistory, store);
 history.listen(location => console.log(location.pathname));
 
+
+//idle в компоненте layout
 ReactDOM.render(
 	
 	<Provider store={store}>
