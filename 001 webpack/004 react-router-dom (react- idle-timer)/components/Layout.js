@@ -49,14 +49,14 @@ class Graphic extends React.Component {
 	  context.save();
 	  context.translate(100, 100);
 	  context.rotate(rotation, 100, 100);
-	  context.fillStyle = "#F00";
+	  context.fillStyle = "gray";
 	  context.fillRect(-50, -50, 100, 100);
 	  context.restore();
 	}
   
 	render() {
 	  const { width, height } = this.props;
-	  console.log('--rotation',Math.round(this.props.rotation));
+	  //console.log('--rotation',Math.round(this.props.rotation));
 	  return (
 		<canvas
 			style={{paddingLeft:`${this.props.rotation}px`}}
