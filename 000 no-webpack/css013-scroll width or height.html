@@ -26,6 +26,16 @@
             height: 600px;
 			border:1px solid #cef;
         }
+		.cont{
+			outline: 1px solid black;
+			width: 200px;
+			height: 200px;
+			overflow: auto;
+		}
+		.over{
+			border: 1px solid blue;
+			height: 500px;
+		}
     </style>
 </head>
 <body>
@@ -39,6 +49,7 @@
 			clientHeight: 0,
 			clientWidth: 0,
 		}
+		container = React.createRef();
         scroll=()=>{
             console.log('--scroll');
             this.set();
@@ -60,6 +71,11 @@
     
         
         componentDidMount() {
+			//ставим скрол элементу div
+			this.container.current
+			console.log('current scroll',this.container.current.scrollTop);
+			this.container.current.scrollTo(0,1000);
+
 			this.setState({
                 innerHeight: window.innerHeight, 
                 innerWidth: window.innerWidth,
@@ -94,15 +110,20 @@
 					<div>Размер скролла</div>
 					<div><span>Размер вертикального скролла:</span><span>{this.state.innerWidth-this.state.clientWidth}</span></div>
 					<div><span>Размер горизонтального скролла:</span><span>{this.state.innerHeight-this.state.clientHeight}</span></div>
+				
+				{/* ставим скрол элементу div */}
+				<div ref={this.container}  class="cont">
+						<div class="over">
+
+						</div>
+				</div>
 				</div>
 			);
 		}
 	}
 	////////////////App Js
-	let contJson = [{id:12,fio:'Alex',balance:330},{id:11,fio:'Sam',balance:220}];
-	
 		ReactDOM.render(
-			<MobileList clients={contJson} />
+			<MobileList/>
 			,document.getElementById('container')
 		);
 	</script>
