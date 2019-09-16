@@ -87,7 +87,7 @@ class AntdTable13empty extends React.PureComponent {
       
 
       return (<Fragment>
-                <h2>Скрол & Пагинация & Ajax</h2>
+                <h2>Есди пустая таблица - баг с скролом</h2>
                 <div style={{ width: '600px'}} ref={this.container}>
                   <Table
                     className={'TableDefault'}
