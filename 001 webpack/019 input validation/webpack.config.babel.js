@@ -31,11 +31,14 @@ module.exports = {
   output:{ 
 	path: __dirname, // путь к каталогу выходных файлов
 	filename: "bundle.js",  // название создаваемого файла
-	}, 
+  }, 
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
   module: {
     rules: [
 		{
-      test: /\.js$/,
+      test: /\.(js|jsx)?$/,
       exclude: /node_modules/,
 			use: {
 				loader: "babel-loader"

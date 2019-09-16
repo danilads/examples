@@ -32,11 +32,14 @@ module.exports = {
   output:{ 
 	path: __dirname, // путь к каталогу выходных файлов
 	filename: "bundle.js",  // название создаваемого файла
-	}, 
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
   module: {
     rules: [
 		{
-      test: /\.js$/,
+      test: /\.(js|jsx)?$/,
       //для react-virtualized
       //исключаем обработку babel loader'ом 
       exclude: [
