@@ -4,7 +4,7 @@ import {
 } from "../constants"
 
 //backup если не загрузятся данные
-import heroesBackUpJson from "../../jsonBackUp/heroes";
+import heroesBackUpJson from "../../jsonBackUp/heroes.json";
 
 
 //в асинхронной функции все работает по порядку
