@@ -25,6 +25,13 @@
 			width: 50px;
 			height: 50px;
 		}
+		.block3{
+			break-inside: avoid-column;
+			display: block;
+			border: 1px solid greenyellow;
+			width: 49px;
+			height: 49px;
+		}
 	</style>
 </head>
 <body>
@@ -35,6 +42,10 @@
 	<div>break-inside: avoid-column</div>
 	<div class="wrapper2">
 		<span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span>
+	</div>
+	<div>последний блок меньше остальных</div>
+	<div class="wrapper2">
+		<span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block3"></span>
 	</div>
 </body>
 </html>
