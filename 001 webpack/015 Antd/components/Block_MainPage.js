@@ -87,7 +87,7 @@ class Block_MainPage extends React.PureComponent {
 
 				<button style={this.state.pos===13?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:13});
-				}}>AntdDatepicker</button>
+				}}>AntdTable13empty</button>
 
 				<button style={this.state.pos===14?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:14});
