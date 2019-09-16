@@ -14,6 +14,7 @@ import AntdTable9fixed from './AntdTable9fixedSetDefSize';
 import AntdTable10drag from './AntdTable10drag';
 import AntdTable11SearchCustomMenu from './AntdTable11SearchCustomMenu';
 import AntdTable12finExceptCustomMenu from './AntdTable12finExceptCustomMenu';
+import AntdTable13empty from './AntdTable13empty';
 
 import AntdDatepicker from './AntdDatepicker';
 import AntdForm from './AntdForm';
@@ -26,7 +27,7 @@ import {AntdModal} from './AntdModal';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:11
+		pos:13
 	}
 
   	render() {
@@ -90,12 +91,16 @@ class Block_MainPage extends React.PureComponent {
 
 				<button style={this.state.pos===14?{backgroundColor: 'wheat'}:{}} onClick={()=>{
 					this.setState({pos:14});
+				}}>AntdDatepicker</button>
+
+				<button style={this.state.pos===15?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:15});
 				}}>AntdForm</button>
 				
 				
 
-				<button style={this.state.pos===15?{backgroundColor: 'wheat'}:{}} onClick={()=>{
-					this.setState({pos:15});
+				<button style={this.state.pos===16?{backgroundColor: 'wheat'}:{}} onClick={()=>{
+					this.setState({pos:16});
 				}}>Modal</button>
 
 				{this.state.pos===0&&<AntdMenuScroll/>}
@@ -112,11 +117,12 @@ class Block_MainPage extends React.PureComponent {
 				{this.state.pos===10&&<AntdTable10drag/>}
 				{this.state.pos===11&&<AntdTable11SearchCustomMenu/>}
 				{this.state.pos===12&&<AntdTable12finExceptCustomMenu/>}
+				{this.state.pos===13&&<AntdTable13empty/>}
 
-				{this.state.pos===13&&<AntdDatepicker/>}
-				{this.state.pos===14&&<AntdForm/>}
+				{this.state.pos===14&&<AntdDatepicker/>}
+				{this.state.pos===15&&<AntdForm/>}
 
-				{this.state.pos===15&& 
+				{this.state.pos===16&& 
 					<div>
 						<div onClick={()=>this.setState({modal:true})}>Открыть модалку</div>
 						<AntdModal className={"CLASSSS"}
