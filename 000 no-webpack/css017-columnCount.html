@@ -21,16 +21,23 @@
 		.block2{
 			break-inside: avoid-column;
 			display: block;
-			border: 1px solid red;
+			outline: 1px solid red;
 			width: 50px;
 			height: 50px;
 		}
 		.block3{
 			break-inside: avoid-column;
 			display: block;
-			border: 1px solid greenyellow;
+			outline: 1px solid greenyellow;
 			width: 49px;
 			height: 49px;
+		}
+		.block4{
+			break-inside: avoid-column;
+			display: block;
+			outline: 1px solid darkgoldenrod;
+			width: 100px;
+			height: 100px;
 		}
 	</style>
 </head>
@@ -46,6 +53,10 @@
 	<div>последний блок меньше остальных</div>
 	<div class="wrapper2">
 		<span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block3"></span>
+	</div>
+	<div>первый блок в два раза больше остальных</div>
+	<div class="wrapper2">
+		<span class="block4"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span><span class="block2"></span>
 	</div>
 </body>
 </html>
