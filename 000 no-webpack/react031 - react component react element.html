@@ -13,12 +13,13 @@
 	<script type="text/babel">
 	class SomeComp extends React.Component {
 		render() {
-			return (<div>
-				hello
+			return (<div style={{border:'1px solid black', minHeight: "5px", minWidth:"5px"}}>
+				{this.props.text}
 			</div>);
 		}
 	}
 	class List extends React.Component {
+		//какие-то проверки
 		isClassComponent(component) {
 			return (
 				typeof component === 'function' && 
@@ -50,6 +51,7 @@
 			//компонент должен быть с большой буквы
 			let N1 = SomeComp;
 			let n2 = <SomeComp/>;
+			n2.props.text = "прокидываем пропсы";
 
 			//проверка что это компонент
 			console.log(typeof N1 === 'function' && !!N1.prototype.isReactComponent);
@@ -59,7 +61,7 @@
 			console.log(n2);
 
 			return (<div>
-					<N1/>
+					<N1 text="hello"/>
 					{n2}
 			</div>);
 		}
