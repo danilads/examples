@@ -50,8 +50,8 @@
 		render() {
 			//компонент должен быть с большой буквы
 			let N1 = SomeComp;
-			let n2 = <SomeComp/>;
-			n2.props.text = "прокидываем пропсы";
+			let n2 = <SomeComp text="прокидываем пропсы 1"/>;
+
 
 			//проверка что это компонент
 			console.log(typeof N1 === 'function' && !!N1.prototype.isReactComponent);
@@ -61,7 +61,7 @@
 			console.log(n2);
 
 			return (<div>
-					<N1 text="hello"/>
+					<N1 text="прокидываем пропсы 2"/>
 					{n2}
 			</div>);
 		}
