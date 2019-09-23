@@ -1,0 +1,516 @@
+//константы (их можно подменить прокинув в this.props.className)
+:root {
+    --TableOrigin-borderColor: #C8CED3;
+    --TableOrigin-titleBackground: #f5f5f6;
+  
+    --TableOrigin-rowClicked: #e0f2f1;
+    --TableOrigin-rowCheckboxClicked: #efebe9;
+  
+    --TableOrigin-rowEvenColor: #f5f5f6;
+    --TableOrigin-rowOddColor: #fff;
+  
+    --TableOrigin-menu-divider: #e1e1e1;
+  
+    --TableOrigin-menu-iconOff: #bfbfbf;
+    --TableOrigin-menu-iconHover: #575757;
+    --TableOrigin-menu-iconOn: #1DA57A;
+  }
+  
+  
+  //README
+  //секции (Icons/Pagination/Utils/Bugs)
+  //TODO порядок по секциям
+  //title
+  //body
+  //menu - стили для внешних компонентов меню (TableDocumentMenu/TableSimpleMenu)
+  //bugs
+  .TableSource {
+    font-family: 'Courier New', monospace;
+  
+    table {
+      table-layout: fixed;
+    }
+  
+  
+    //body cells
+    .ant-table-tbody > tr > td {
+      border-color: var(--TableOrigin-borderColor);
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+      white-space: pre-line;
+      overflow: hidden;
+    }
+  
+    //title cells
+    .ant-table-thead > tr > th {
+      border-color: var(--TableOrigin-borderColor);
+      padding-top: 15px !important;
+      padding-bottom: 15px !important;
+      vertical-align: middle;
+      overflow: hidden;
+  
+      .ant-table-header-column {
+        font-weight: 600;
+        width: 100%;
+        line-height: 1em;
+        vertical-align: middle !important;
+        overflow: hidden;
+      }
+  
+      &:hover {
+        .dragItem {
+          > i {
+            visibility: visible;
+          }
+        }
+  
+        .fixedIcon {
+          display: block;
+        }
+      }
+    }
+  
+  
+    //header color
+    .ant-table-header .ant-table-thead {
+      > tr {
+        > th {
+          background: var(--TableOrigin-titleBackground) !important;
+        }
+      }
+    }
+  
+  
+    //02 checkbox select
+    .ant-table-row-selected {
+      > td {
+        background: var(--TableOrigin-rowCheckboxClicked) !important;
+      }
+    }
+  
+    //02 clicked
+    .ant-table-tbody {
+      .focusedRow {
+        > td {
+          background: var(--TableOrigin-rowClicked) !important;
+        }
+      }
+    }
+  
+  
+    //even odd rows
+    .ant-table-body .ant-table-tbody tr:nth-child(even) {
+      background-color: var(--TableOrigin-rowEvenColor);
+  
+      > td {
+        background-color: var(--TableOrigin-rowEvenColor);
+      }
+    }
+  
+    .ant-table-body .ant-table-tbody tr:nth-child(odd) {
+      background-color: var(--TableOrigin-rowOddColor);
+  
+      > td {
+        background-color: var(--TableOrigin-rowOddColor);
+      }
+    }
+  
+    //even odd rows (fixed
+    .ant-table-fixed .ant-table-tbody tr:nth-child(even) {
+      background-color: var(--TableOrigin-rowEvenColor);
+  
+      > td {
+        background-color: var(--TableOrigin-rowEvenColor);
+      }
+    }
+  
+    .ant-table-fixed .ant-table-tbody tr:nth-child(odd) {
+      background-color: var(--TableOrigin-rowOddColor);
+  
+      > td {
+        background-color: var(--TableOrigin-rowOddColor);
+      }
+    }
+  
+    /////////
+    ////Icons
+    /////////
+  
+    //menu icon in title (th)
+    .ant-table-filter-open {
+      background: inherit !important;
+    }
+  
+    .ant-table-filter-icon {
+      //divider
+      &:after {
+        content: "";
+        background: var(--TableOrigin-menu-divider);
+        position: absolute;
+        bottom: 13%;
+        left: 0;
+        height: 74%;
+        width: 1px;
+      }
+  
+      svg {
+        fill: var(--TableOrigin-menu-iconOff);
+      }
+  
+      &:hover {
+        background: inherit !important;
+  
+        svg {
+          fill: var(--TableOrigin-menu-iconHover);
+        }
+      }
+    }
+  
+    .ant-table-filter-open {
+      svg {
+        fill: var(--TableOrigin-menu-iconHover);
+      }
+    }
+  
+    //dragItem icon
+    .dragItem {
+      margin-top: 2px;
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 10;
+  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      width: 28px;
+      height: 33%;
+  
+      >i{
+        cursor: grabbing;
+      }
+      &:hover {
+        > i {
+          color: var(--TableOrigin-menu-iconHover);
+        }
+      }
+  
+      > i {
+        color: var(--TableOrigin-menu-iconOff);
+      }
+    }
+  
+    .dragItemDis {
+      display: none;
+    }
+  
+    //title icons (fixed)
+    .fixedIcon {
+      display: none;
+      position: absolute;
+      cursor: pointer;
+      left: 2px;
+      top: calc(50% - 6px);
+  
+      > svg {
+        fill: var(--TableOrigin-menu-iconOff);
+  
+        &:hover {
+          fill: var(--TableOrigin-menu-iconHover);
+        }
+      }
+  
+      &-visible {
+        display: block;
+  
+        > svg {
+          fill: var(--TableOrigin-menu-iconOn);
+        }
+  
+      }
+    }
+  
+    //sort status icons wrapper
+    .sortStatus {
+      margin-top: 2px;
+  
+      width: 28px;
+      height: 33%;
+  
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      > svg {
+        stroke: var(--TableOrigin-menu-iconOn);
+        fill: var(--TableOrigin-menu-iconOn);
+      }
+    }
+  
+    //////////////
+    ////Pagination
+    //////////////
+  
+    .ant-pagination {
+      padding-top: 5px;
+    }
+  
+    //Пагинация
+    .ant-table-pagination.ant-pagination {
+      transform: scale(0.8);
+      margin: 0;
+      position: absolute;
+      right: 0;
+      top: -27px;
+    }
+  
+    //Пагинация
+    .ant-pagination-options-quick-jumper {
+      padding-left: 26px;
+      position: relative;
+      color: rgba(0, 0, 0, 0);
+  
+      &:before {
+        content: "Перейти:";
+        color: black;
+        position: absolute;
+        top: 0;
+        left: -2px;
+      }
+    }
+  
+    /////////
+    ////Utils
+    /////////
+  
+    //props.columns {className="TitleEllipsis/TitleWordBreak/BodyEllipsis/BodyWordBreak"}
+    //стили которые прокидывать в columns
+    .TitleEllipsis {
+      .ant-table-column-title {
+        > div {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  
+    //стили которые прокидывать в columns
+    .TitleWordBreak {
+      .ant-table-column-title {
+        > div {
+          word-break: break-all;
+          overflow: hidden;
+        }
+      }
+    }
+  
+    //стили которые прокидывать в columns
+    td.BodyEllipsis {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+  
+    //стили которые прокидывать в columns
+    td.BodyWordBreak {
+      word-break: break-all;
+      overflow: hidden;
+    }
+  
+  
+    //resize
+    .react-resizable {
+      position: relative;
+      background-clip: padding-box;
+    }
+  
+    .react-resizable-handle {
+      position: absolute;
+      width: 10px;
+      height: 100%;
+      bottom: 0;
+      right: -5px;
+      cursor: col-resize;
+      z-index: 100;
+    }
+    /////////
+    ////Menu  -  стили для внешних компонентов меню (TableDocumentMenu/TableSimpleMenu)
+    /////////
+  
+    .ant-table-filter-dropdown{
+      //главный контейнер меню
+      >div{
+        padding: 5px;
+  
+      }
+      .menuHeader{
+        font-weight: 600;
+      }
+      .menuTitle{
+        margin: 0;
+        font-size: 10px;
+        padding-top: 5px;
+      }
+      //для иконок в инпутах <Input suffix={<Icon className="menuIconInInput"/>
+      .menuIconInInput{
+        >svg{
+          fill: var(--TableOrigin-menu-iconOff);
+          &:hover{
+            fill: var(--TableOrigin-menu-iconHover);
+          }
+        }
+      }
+      .menuSearchBtn{
+        margin: 3px 0;
+      }
+      .menuBtnBlock{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  
+    /////////
+    ////Bugs (обязательно писать причину)
+    /////////
+  
+    //fixed баг с шириной
+    .ant-table-fixed {
+      width: 1px !important;
+    }
+  
+    //выпадающее меню фильтра
+    .ant-dropdown {
+      z-index: 10;
+    }
+  
+    //баг с resize
+    th.lastResize {
+      .react-resizable-handle {
+        width: 5px;
+        right: 0;
+      }
+    }
+  
+    //убираем цвет hover
+    .ant-table-body .ant-table-tbody .ant-table-row {
+      &:hover {
+        > td {
+          background: inherit;
+        }
+      }
+    }
+  
+    //убираем цвет hover у fixed
+    .ant-table-fixed .ant-table-tbody .ant-table-row {
+      &:hover {
+        > td {
+          background: inherit;
+        }
+      }
+    }
+  
+    //убираем цвет hover у зависимого поля
+    .ant-table-fixed .ant-table-tbody .ant-table-row-hover {
+      > td {
+        background: inherit;
+      }
+    }
+  
+    //ant-table-header фикс бага с непонятным отступом в хэдере (иногда появляется)
+    .ant-table-header {
+      overflow-x: hidden !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+  
+    //баг с отображением чекбокса
+    .ant-table-thead {
+      tr {
+        .ant-checkbox-wrapper {
+          line-height: 1.5;
+        }
+      }
+    }
+  
+    //баг с бордерами (двойные и отсутсвие бордров)
+    .ant-table-scroll {
+      &:before {
+        content: "";
+        height: 1px;
+        width: 100%;
+        background-color: var(--TableOrigin-borderColor);
+        position: absolute;
+        top: 0;
+        z-index: 10;
+      }
+  
+      &:after {
+        content: "";
+        height: 1px;
+        width: 100%;
+        background-color: var(--TableOrigin-borderColor);
+        position: absolute;
+        bottom: 0;
+        z-index: 10;
+      }
+    }
+  
+    .ant-table-content {
+      &:before {
+        content: "";
+        height: 100%;
+        width: 1px;
+        background-color: var(--TableOrigin-borderColor);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+      }
+  
+      &:after {
+        content: "";
+        height: 100%;
+        width: 1px;
+        background-color: var(--TableOrigin-borderColor);
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+      }
+    }
+  
+    //баг с пустой датой (убираем стандартный значек "нету даты")
+    .ant-table-placeholder{
+      display: none;
+    }
+  
+    // баг с скролом (нужно чтобы он был всегда)
+    .ant-table-body{
+      position: relative;
+      overflow: scroll!important;
+    }
+  
+    //баг на windows - в хэдере справа место для скрола
+    .ant-table-header{
+      background: #dcdcdc !important;
+    }
+  
+    //непонятно как, но данный костыль исправляет данную ошибку (данный костыль исправил баги данные баги)
+    //01 баг на windows chrome - при вертикальном скроле иногда не отренедериваются бордеры и заливка
+    //02 баг на windows chrome - при горизнтальном скроле "магическим путем" может появляться контейнер
+    // td{
+    //   outline: 10000px solid rgba(0,0,0,0);
+    // }
+    // th{
+    //   outline: 10000px solid rgba(0,0,0,0);
+    // }
+  }
+  
