@@ -51,7 +51,7 @@ class Block_MainPage extends PureComponent {
       render() {
         return (<div className="Block_MainPage">
            <div style={{height:'75px',outline:'1px solid red'}}></div>
-           <div style={{height:'75px'}}><TableMinimize
+           <div style={{position:'relative', overflow:'hidden',height:'75px'}}><TableMinimize
             tableId={'123'}
             columns={columns}
             data={this.state.data}
