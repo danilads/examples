@@ -3,13 +3,39 @@ import {Row, Col, Table, Divider, Tag} from 'antd';
 
 import './AntdTable.less';
 //README
+//AntdTable1scrollAndPaginataion (Скрол и Пагинация)
+
+//Cкрол
+//scroll={{y:700, x: true}}
+//x - всегда по умолчанию true (иначе будет баг с кривыми колнками)
+//y - высота таблицы
+
+//Пагинация
+//используем стандартную для всего сайта
+//pagination={{ pageSize: 10 , size:'small', showQuickJumper:true, position: 'top'}}
+// pageSize - сколько позиций на странице
+// position - где будет пагинация (top, bottom);
+//если нужно убрать пагинация (но если таблица очень большая - будут лаги)
+//pagination={false} //для маленьких таблиц
+
+//Ajax
+//<Table loading - отображает спинер загрузки
 
 
 
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    name: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
+    age: i,
+    address: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
+    tags: i%2===0?['cool', 'teacher']:['loser'],
+  });
+}
 
 
-
-class AntdTable13empty extends React.PureComponent {
+class AntdTable1scrollAndPaginataionAjax extends React.PureComponent {
     state={
       data: [],
       pagination: {},
@@ -63,45 +89,37 @@ class AntdTable13empty extends React.PureComponent {
   
       ]
     };
-
-    container=React.createRef();
-    componentDidMount(){
-      //чтобы в рендере был реф
-      this.setState({fixRefCOntainer:true});
+    componentDidMount() {
+      this.fetch();
     }
 
+    fetch = () => {
+      this.setState({ loading: true });
+      setTimeout(()=>{
+        fetch('https://randomuser.me/api/?results=100').then(response=>{
+          return response.json();
+        }).then(data=>{
+          console.log('--data',data.results);
+          this.setState({
+            loading: false,
+            data: data.results
+          });
+        });
+      },2000);
+    };
+  
   	render() {
       const columns = [...this.state.columns];
-      columns.push({}); //заглушка при использовнии fixed
+      columns.push({}); //заглушка при использовнии fixedd
       
       //добавляем уникальный id
       const data = this.state.data.map((obj, index) => {
         return {...obj,key:index};
       });
-
-      //если приходит пустая data (был баг - небыло горизонтального скрола)
-      //вставляем кастомную заглушку
-      if(data.length===0){
-        
-        let bodyElem = this.container.current && this.container.current.getElementsByClassName('ant-table-tbody')[0];
-        console.log('--case 1',this.container.current);
-        console.log('--case 1',bodyElem);
-        if(bodyElem && bodyElem.offsetWidth){
-          console.log('--case 1')
-          bodyElem.innerHTML = '<div class="emptyDivForAntdNoData"><br/></div>'
-        }
-      }
-      else{
-        let bodyElem = this.container.current && this.container.current.getElementsByClassName('emptyDivForAntdNoData')[0];
-        if(bodyElem && bodyElem.offsetWidth){
-          bodyElem.remove();
-        }
-      }
-      
-
+  
       return (<Fragment>
-                <h2>Если пустая таблица - баг с скролом(нужно в стилях убрать placeholder)</h2>
-                <div style={{ width: '600px'}} ref={this.container}>
+                <h2>Скрол & Пагинация & Ajax</h2>
+                <div style={{ width: '600px'}}>
                   <Table
                     className={'TableDefault'}
                     bordered={ true }
@@ -123,4 +141,4 @@ class AntdTable13empty extends React.PureComponent {
 
 
 
-export default AntdTable13empty;
+export default AntdTable1scrollAndPaginataionAjax;
