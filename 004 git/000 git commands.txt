@@ -74,10 +74,10 @@
 	////////////////
 
 	//создание
-	git checkout -b ИмяВетки develop
+	git checkout -b ИмяВетки someName
 
-	//закрытие (develop - ИмяВетки)
-	git checkout develop
+	//закрытие (someName - ИмяВетки)
+	git checkout someName
 
 	git pull
 	
@@ -87,7 +87,7 @@
 	
 	git add .
 	git commit -m "update123" //комит и комментарий
-	git push origin develop
+	git push origin someName
 
 	//удаление локальной ветки
 	git branch -d ИмяВетки
