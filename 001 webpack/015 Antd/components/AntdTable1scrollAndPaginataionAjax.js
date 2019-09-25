@@ -119,6 +119,7 @@ class AntdTable1scrollAndPaginataionAjax extends React.PureComponent {
   
       return (<Fragment>
                 <h2>Скрол & Пагинация & Ajax</h2>
+                <div onClick={()=>{this.setState({data:[]})}}>set empty</div>
                 <div style={{ width: '600px'}}>
                   <Table
                     className={'TableDefault'}

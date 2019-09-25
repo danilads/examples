@@ -22,17 +22,17 @@ const ResizeableTitle = props => {
 };
 
 const data = [];
-// for (let i = 0; i < 1000; i++) {
-//   data.push({
-//     key: i,
-//     date: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
-//     amount: i,
-//     type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
-//     name: Math.round(1 - 0.5 + Math.random() * (2 - 1 + 1))===1?"Jim":"John",
-//     note: Math.round(1 - 0.5 + Math.random() * (9999 - 1 + 1)),
-//     description: <div>ВЛОЖЕННОСТЬ</div>
-//   });
-// }
+for (let i = 0; i < 1000; i++) {
+  data.push({
+    key: i,
+    date: `Edward King21313 123123dwedwedwd131 123  123233 ${i}`,
+    amount: i,
+    type: `London London London 32131 23131dwdwdwedwedewdw312  13123 213 3 12313, Park Lane no. ${i}`,
+    name: Math.round(1 - 0.5 + Math.random() * (2 - 1 + 1))===1?"Jim":"John",
+    note: Math.round(1 - 0.5 + Math.random() * (9999 - 1 + 1)),
+    description: <div>ВЛОЖЕННОСТЬ</div>
+  });
+}
 function setTitle(title){
   return <span><button onClick={(e)=>{
     e.preventDefault();

@@ -27,7 +27,7 @@ import {AntdModal} from './AntdModal';
 
 class Block_MainPage extends React.PureComponent {
 	state={
-		pos:13
+		pos:1
 	}
 
   	render() {
