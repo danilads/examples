@@ -1,0 +1,29 @@
+@import "../scss/_variables";
+
+.Main{
+	.block{
+		border: $nj;
+	}
+	.Main{
+		font-style: italic;
+		color: green;
+		
+		&-bold{
+			@extend .Main;
+			order: 2;
+			font-style: normal;
+			font-weight: 900;
+		}
+		
+		@include respond-down(md){
+			background: #cef;
+		}
+		
+		@include respond-up(md){
+			background: grey;
+		}
+		
+		
+	}
+	
+}

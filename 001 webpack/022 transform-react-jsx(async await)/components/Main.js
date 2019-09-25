@@ -3,34 +3,25 @@ import './Main.scss';
 
 export default class App extends Component {
 	componentDidMount(){
-		console.log('---didMount');
+		console.log('---run');
 		this.request();
+
 	}
-	request=()=>{
-		// Создаётся объект promise
-		let promise = new Promise((resolve, reject) => {
-			
-			fetch("https://randomuser.me/api/?results=500", {
-					method: 'GET',
-				}).then( response => {
-					resolve(response);
+
+	request = async () =>{
+	
+		//second file (ссылка левая)
+		try {
+			let answer = await fetch("https://randomuser.me/api/?results=500", {
+				method: 'GET',
+			}).then( response => {
+				console.log('---response',response);
 			});
-		
-		});
-		
-		// promise.then навешивает обработчики на успешный результат или ошибку
-		promise
-			.then(
-			result => {
-				// первая функция-обработчик - запустится при вызове resolve
-				console.log(result); 
-			},
-			reject => {
-				// вторая функция - запустится при вызове reject
-				console.log(reject); 
-			}
-			);
-	};
+		}
+		catch(e){
+			console.error('---error',e);
+		}
+	}
   	render() {
 		
       return (

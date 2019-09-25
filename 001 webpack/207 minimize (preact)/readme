@@ -7,10 +7,11 @@ css - 17kb
 2)scss/custom grid
 
 
+//fonts
 
 //add PureComponent
 //opacity
 //add memoize
 
 //add redux
-//add await ('babel-polyfil - 100kb')
+
