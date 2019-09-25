@@ -1,4 +1,5 @@
 import { h, Component } from '../library/preact.js'
+import { memoizeOne } from '../library/memoizeOne.js'
 import './Main.scss';
 
 export default class App extends Component {
@@ -31,13 +32,18 @@ export default class App extends Component {
 			}
 			);
 	};
+
+	memo = memoizeOne((a,b)=>{
+		console.log('--memo3');
+		this.setState({res3:a+b})
+	});
   	render() {
 		
       return (
         <div className="Main">
 				<div className="container block">
 					<div className="row">
-						<div className="col-12"><div>Обычный контейнер</div></div>
+						<div className="col-12"><div onClick={()=>this.memo(1,2)}>Обычный контейнер memoizeOne</div></div>
 						<div className="col-md-3 Main-bold">1</div>
 						<div className="col-md-3 Main">2</div>
 						<div className="col-md-3 Main">3</div>
