@@ -1,8 +1,10 @@
-import { h, Component } from '../library/preact.js'
+import {h, Component } from 'preact';
 import { memoizeOne } from '../library/memoizeOne.js'
 import './Main.scss';
+import { connect } from 'preact-redux';
+import {load,save} from "../redux/actions";
 
-export default class App extends Component {
+class Main extends Component {
 	componentDidMount(){
 		console.log('---didMount');
 		this.request();
@@ -38,15 +40,15 @@ export default class App extends Component {
 		this.setState({res3:a+b})
 	});
   	render() {
-		
+		console.log('--this.props',this.props);
       return (
         <div className="Main">
 				<div className="container block">
 					<div className="row">
-						<div className="col-12"><div onClick={()=>this.memo(1,2)}>Обычный контейнер memoizeOne</div></div>
+						<div className="col-12"><div>Обычный контейнер </div></div>
 						<div className="col-md-3 Main-bold">1</div>
-						<div className="col-md-3 Main">2</div>
-						<div className="col-md-3 Main">3</div>
+						<div className="col-md-3 Main"  onClick={()=>this.memo(1,2)}>memoizeOne run</div>
+						<div className="col-md-3 Main"  onClick={()=>this.props.save(321)}>redux set</div>
 						<div className="col-md-3 Main">4</div>
 						<div className="col-md-3 Main">4</div>
 					</div>
@@ -86,3 +88,12 @@ export default class App extends Component {
 }
 
 
+export default connect((state) => ({
+	reducer: state.reducer
+}),
+(dispatch)=>{
+	return{
+		load: () => dispatch(load()),
+		save: (e) => dispatch(save(e)),
+	}
+})(Main);

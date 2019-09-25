@@ -1,7 +1,10 @@
 ﻿////---libraries
 //preact
-import {h, render } from './library/preact.js';
+import {h, render } from 'preact';
 
+//redux
+import { Provider } from 'preact-redux';
+import store from './redux/store';
 
 /////----scss
 import './scss/main.scss';
@@ -10,4 +13,4 @@ import './scss/main.scss';
 import Main from './components/Main';
 
 
-render(<Main/>, document.getElementById('container'));
+render(<Provider store={store}><Main/></Provider>, document.getElementById('container'));

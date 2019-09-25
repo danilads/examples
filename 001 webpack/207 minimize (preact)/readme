@@ -1,11 +1,13 @@
 minimal budle project
 
-js - 13kb
+js - 39kb
 css - 17kb
 
 1)preact
 2)scss/custom grid
 
+
+//add redux не приходит редюсер
 
 //fonts?
 
@@ -13,5 +15,5 @@ css - 17kb
 //opacity
 
 
-//add redux
+
 
