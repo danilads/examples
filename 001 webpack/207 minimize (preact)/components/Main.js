@@ -1,5 +1,5 @@
 import {h, Component } from 'preact';
-import { memoizeOne } from '../library/memoizeOne.js'
+import memoizeOne from 'memoize-one';
 import './Main.scss';
 import { connect } from 'preact-redux';
 import {load,save} from "../redux/actions";
