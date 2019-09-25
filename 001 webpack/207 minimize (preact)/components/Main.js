@@ -89,7 +89,7 @@ class Main extends Component {
 
 
 export default connect((state) => ({
-	reducer: state.reducer
+	redux: state
 }),
 (dispatch)=>{
 	return{
