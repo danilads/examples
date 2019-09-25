@@ -1,4 +1,4 @@
-проект с минимальным бандлом
+minimal budle project
 
 js - 13kb
 css - 17kb
@@ -7,6 +7,7 @@ css - 17kb
 2)scss/custom grid
 
 
-//нужно добавить минимальную сетку
-//нужно добавить минимальный редакс
-//минимальный memoize
+//add PureComponent
+//add redux
+//add memoize
+//add await ('babel-polyfil - 100kb')

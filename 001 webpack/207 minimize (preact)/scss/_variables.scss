@@ -1,4 +1,3 @@
-//название файла с нижнем подчеркиванием (sass будет использовать только нужные ему перменные, а не все подряд)
 
 //variables
 $primary-color: #333;
@@ -19,7 +18,7 @@ $nj: 1px dashed red;
 // xl big-desktop-up 1600px
 
 //GRID
-// Брэйк поинты
+
 $grid-breakpoints: (
         xxs: 0,
         xs: 480px,
@@ -29,11 +28,7 @@ $grid-breakpoints: (
         xl: 1600px
 ) !default;
 
-// на последнем breakpoint'е контейнер занимает 100% 
-// можно указывать в %
-// длинна учитывется с гаттером ( 400 = 10px 380px 10px)
-// также xs срабатывает на sm брейпоинте
-// xl - это все что выше xl брейпоинта
+
 $container-max-widths: (
 		xs: 70%,
         sm: 600px,
@@ -43,13 +38,10 @@ $container-max-widths: (
 ) !default;
 
 
-//Количество колонок
+
 $grid-columns: 12 !default;
 
-//Gutters
-// сумма левого и правого гатерсов
-// гатер xxs работает на брейкпоинте xs
-// xl - это все что выше xl брейпоинта
+
 $grid-gutter-width: (
 		xxs: 18px,
         xs: 30px,
