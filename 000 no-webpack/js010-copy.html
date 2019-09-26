@@ -13,6 +13,7 @@
 	  <textarea class="js-copytextarea">Hello I'm some text</textarea>
 	</p>
     <script>
+		//копировать в буфер извне
 		var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
 
 		copyTextareaBtn.addEventListener('click', function(event) {
@@ -28,6 +29,16 @@
 			console.log('Oops, unable to copy');
 		  }
 		});
+		
+
+		//контролируем копирование
+		document.addEventListener("copy", (event) => {
+				console.log('---MODIFY COPY EVENT');
+				const selection = document.getSelection();
+				event.clipboardData.setData('text/plain', selection.toString().toUpperCase());
+				event.preventDefault();
+			}
+		);
 	</script>
   </body>
 </html>
