@@ -31,14 +31,14 @@
 		});
 		
 
-		//контролируем копирование
-		document.addEventListener("copy", (event) => {
-				console.log('---MODIFY COPY EVENT');
-				const selection = document.getSelection();
-				event.clipboardData.setData('text/plain', selection.toString().toUpperCase());
-				event.preventDefault();
-			}
-		);
+		// //контролируем копирование
+		// document.addEventListener("copy", (event) => {
+		// 		console.log('---MODIFY COPY EVENT');
+		// 		const selection = document.getSelection();
+		// 		event.clipboardData.setData('text/plain', selection.toString().toUpperCase());
+		// 		event.preventDefault();
+		// 	}
+		// );
 	</script>
   </body>
 </html>
