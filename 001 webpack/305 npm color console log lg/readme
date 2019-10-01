@@ -1,0 +1,3 @@
+цветной консоль логер 
+console.log('---hello');
+lg('hello');

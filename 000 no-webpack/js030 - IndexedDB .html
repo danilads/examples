@@ -4,12 +4,51 @@
 	<meta charset="utf-8" />
 	<title></title>
 </head>
-<body>
-	
-	<script>
-		////----01
-		var openRequest = indexedDB.open('name', 1);
-	</script>
+<body>	
+<script>
+// ////----01 Создание базы
+// ////----01 Создание базы
+// //		 New1 - string - имя базы
+// //		 1 - number - версия базы
+
+// //Нельзя считывать старую версию
+// let openRequest = indexedDB.open('New1', 2);
+// let db = {};
+// openRequest.onupgradeneeded = function() {
+//   // срабатывает, если на клиенте нет базы данных
+//   // ...выполнить инициализацию...
+//   console.log('onupgradeneeded');
+// };
+
+// openRequest.onerror = function() {
+//   console.error("Error", openRequest.error);
+//   console.log('onerror');
+// };
+
+// openRequest.onsuccess = function() {
+//   db = openRequest.result;
+//   // продолжить работу с базой данных, используя объект db
+//   console.log('onsuccess',db);
+// };
+
+// ////----02 Создаём хранилище объектов для books, если ешё не существует
+// //В базе может быть несколько хранилищ
+// //Хранилище объектов можно создавать/изменять только при обновлении версии базы данных в обработчике upgradeneeded.
+// openRequest.onupgradeneeded = function(event) { 
+ 
+// };
+let openRequest = indexedDB.open("db1", 2);
+
+// создаём хранилище объектов для books, если ешё не существует
+openRequest.onupgradeneeded = function() {
+	console.log('---her');
+  let db = openRequest.result;
+  if (!db.objectStoreNames.contains('books')) { // if there's no "books" store
+    db.createObjectStore('books', {keyPath: 'id'}); // create it
+  }
+};
+
+</script>	
 <body>
 	
 </body>
