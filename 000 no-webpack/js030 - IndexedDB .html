@@ -16,12 +16,15 @@
 </div>
 <br/>
 <div>
-  <div>03 ТРАНЗАЦИЯ a) создать хранилище</div>
-  <div><input type="input" id="id3a" placeholder="название базы"/><input type="input" id="id3b" placeholder="название хранилища"/><button onclick="console.log()">открыть</button></div>
+  <div>03 ТРАНЗАКЦИЯ a) создать хранилище</div>
+  <div><input type="input" id="id3a" placeholder="название базы"/><input type="input" id="id3b" placeholder="название хранилища"/><button onclick="createObjectStore()">открыть</button></div>
 </div>
 
 <script>
+//----
 ////---- 01 <БАЗОВЫЕ ОПЕРАЦИИ>
+//----
+
   // a) открыть базу (версия должна быть целым числом)
   let openBase = window.indexedDB.open("db", 3);
   console.log('---01a',openBase);
@@ -56,7 +59,11 @@
       console.log("---01e Couldn't delete database due to the operation being blocked",event);
     };
   }
+
+//----
 ////---- 02 <СТАНДАРТНЫЙ КОНСТРУКТОР>
+//----
+
   // создать или открыть базу
 
   // a) получаем имя базы и версию (promise)
@@ -102,9 +109,19 @@
       console.log("---2b onsuccess", db);
     };
   }
-////---- 03 <ТРАНЗАЦИЯ>
-  
-  //function 
+
+//----
+////---- 03 <ТРАНЗАКЦИЯ>
+//----
+
+  // a) создать хранилище
+  function createObjectStore(){
+     // получаем имя базы
+     let baseName = document.getElementById('id3a').value;
+     let objectStoreName = document.getElementById('id3b').value;
+     console.log('---3a',baseName);
+     console.log('---3a',objectStoreName);
+  }
 
 
 
