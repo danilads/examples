@@ -4,49 +4,61 @@
 	<meta charset="utf-8" />
 	<title></title>
 </head>
-<body>	
+<body>
+<div>
+  <div>02 СТАНДАРТНЫЙ КОНСТРУКТОР</div>
+  <div><input type="input" id="id1" placeholder="название базы"/><button onclick="openBaseFunc()">открыть</button></div>
+</div>
 <script>
-// ////----01 Создание базы
-// ////----01 Создание базы
-// //		 New1 - string - имя базы
-// //		 1 - number - версия базы
+////---- 01 <БАЗОВЫЕ ОПЕРАЦИИ>
+  // a) открыть базу (версия должна быть целым числом)
+  let openBase = window.indexedDB.open("db", 3);
+  console.log('---01a',openBase);
 
-// //Нельзя считывать старую версию
-// let openRequest = indexedDB.open('New1', 2);
-// let db = {};
-// openRequest.onupgradeneeded = function() {
-//   // срабатывает, если на клиенте нет базы данных
-//   // ...выполнить инициализацию...
-//   console.log('onupgradeneeded');
-// };
+  // b) удалить базу
+  let baseDelete = window.indexedDB.deleteDatabase('db1');
+  console.log('---01b',baseDelete);
 
-// openRequest.onerror = function() {
-//   console.error("Error", openRequest.error);
-//   console.log('onerror');
-// };
+  // c) функция сравнения вернет версий (-1 первый меньше) (0 равный) (1 второй больше)
+  console.log('---01c',window.indexedDB.cmp(1,2));
 
-// openRequest.onsuccess = function() {
-//   db = openRequest.result;
-//   // продолжить работу с базой данных, используя объект db
-//   console.log('onsuccess',db);
-// };
+  // d) получить версии
+  const DBpromise = window.indexedDB.databases()
+  DBpromise.then(databases => {
+    console.log('---01d',databases)
+  })
 
-// ////----02 Создаём хранилище объектов для books, если ешё не существует
-// //В базе может быть несколько хранилищ
-// //Хранилище объектов можно создавать/изменять только при обновлении версии базы данных в обработчике upgradeneeded.
-// openRequest.onupgradeneeded = function(event) { 
- 
-// };
-let openRequest = indexedDB.open("db1", 2);
 
-// создаём хранилище объектов для books, если ешё не существует
-openRequest.onupgradeneeded = function() {
-	console.log('---her');
-  let db = openRequest.result;
-  if (!db.objectStoreNames.contains('books')) { // if there's no "books" store
-    db.createObjectStore('books', {keyPath: 'id'}); // create it
-  }
-};
+////---- 02 <СТАНДАРТНЫЙ КОНСТРУКТОР>
+
+function openBaseFunc(){
+  let baseName = document.getElementById('id1').value;
+  console.log('---open',baseName);
+  // let openBase = window.indexedDB.open("db", 3);
+  // openRequest.onupgradeneeded = function() {
+  //   // срабатывает, если на клиенте нет базы данных
+  //   // ...выполнить инициализацию...
+  //   console.error("---onupgradeneeded");
+  //   console.error("---onupgradeneeded", openRequest);
+  // };
+
+  // openRequest.onerror = function(e) {
+  //   console.log("---onerror");
+  //   console.log("---onerror openRequest", openRequest);
+  //   console.log("---onerror e", e);
+
+  // };
+
+  // openRequest.onsuccess = function() {
+  //   // продолжить работу с базой данных, используя объект db
+  //   console.log('---onsuccess');
+  //   console.log('---onsuccess version', openRequest);
+  // };
+}
+////---- 03 <ЧТЕНИЕ>
+////---- 04 <ЗАПИСЬ>
+
+
 
 </script>	
 <body>
