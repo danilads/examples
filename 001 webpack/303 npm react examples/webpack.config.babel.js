@@ -1,6 +1,7 @@
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -59,10 +60,22 @@ module.exports = {
     ]
   },
   plugins: [
-	new MiniCssExtractPlugin({
-		// Options similar to the same options in webpackOptions.output
-		// both options are optional
-		filename: "bundle.css"
-	  })
+	  //копирует папки fonts/images
+    new CopyWebpackPlugin([
+      {
+        from: 'fonts',
+        to: 'fonts'
+      }
+    ]),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "bundle.css"
+    }),
+    //копирует index.html в папку
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      inject: false
+    })
 	]
 };
