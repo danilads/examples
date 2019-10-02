@@ -2,7 +2,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from "html-webpack-plugin";
-
+const devMode = process.env.NODE_ENV === 'development';
 module.exports = {
 	//устанавливается в packaje.json (нужен cross-env)
   mode: process.env.NODE_ENV,
