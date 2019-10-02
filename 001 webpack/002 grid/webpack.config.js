@@ -1,6 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -24,8 +26,9 @@ module.exports = {
 		main: ['babel-polyfill', './app.js'] //для работы async / await
 	},
   output:{ 
-	path: __dirname, // путь к каталогу выходных файлов
-	filename: "bundle.js",  // название создаваемого файла
+    path: __dirname + '/public', // путь к каталогу выходных файлов
+    publicPath: '/',
+	  filename: "bundle.js",  // название создаваемого файла
   }, 
   resolve: {
     extensions: ['*', '.js', '.jsx']
@@ -59,10 +62,22 @@ module.exports = {
     ]
   },
   plugins: [
-	new MiniCssExtractPlugin({
-		// Options similar to the same options in webpackOptions.output
-		// both options are optional
-		filename: "bundle.css"
-	  })
+    //копирует папки
+    new CopyWebpackPlugin([
+      {
+        from: 'fonts',
+        to: 'fonts'
+      }
+    ]),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "bundle.css"
+    }),
+    //копирует index.html в папку
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      inject: false
+    })
 	]
 };
