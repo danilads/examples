@@ -6,9 +6,20 @@
 </head>
 <body>
 <div>
-  <div>02 СТАНДАРТНЫЙ КОНСТРУКТОР</div>
-  <div><input type="input" id="id1" placeholder="название базы"/><button onclick="openBaseFunc()">открыть</button></div>
+  <div>01 УДАЛИТЬ БАЗУ</div>
+  <div><input type="input" id="id1" placeholder="название базы"/><button onclick="deleteBase()">удалить</button></div>
 </div>
+<br/>
+<div>
+  <div>02 СТАНДАРТНЫЙ КОНСТРУКТОР (создание / открытие)</div>
+  <div><input type="input" id="id2" placeholder="название базы"/><button onclick="getNameAndVersion()">создание / открытие</button></div>
+</div>
+<br/>
+<div>
+  <div>03 ТРАНЗАЦИЯ a) создать хранилище</div>
+  <div><input type="input" id="id3a" placeholder="название базы"/><input type="input" id="id3b" placeholder="название хранилища"/><button onclick="console.log()">открыть</button></div>
+</div>
+
 <script>
 ////---- 01 <БАЗОВЫЕ ОПЕРАЦИИ>
   // a) открыть базу (версия должна быть целым числом)
@@ -28,35 +39,74 @@
     console.log('---01d',databases)
   })
 
+  // e) удалить базу
+  function deleteBase(){
+    // получаем имя базы
+    let baseName = document.getElementById('id1').value;
 
+    var DBDeleteRequest = window.indexedDB.deleteDatabase(baseName);
+
+    DBDeleteRequest.onerror = function(event) {
+      console.log("---01e Error deleting database",event);
+    };
+    DBDeleteRequest.onsuccess = function(event) {
+      console.log("---01e Database deleted successfully",event);
+    };
+    DBDeleteRequest.onblocked = function(event) {
+      console.log("---01e Couldn't delete database due to the operation being blocked",event);
+    };
+  }
 ////---- 02 <СТАНДАРТНЫЙ КОНСТРУКТОР>
+  // создать или открыть базу
 
-function openBaseFunc(){
-  let baseName = document.getElementById('id1').value;
-  console.log('---open',baseName);
-  // let openBase = window.indexedDB.open("db", 3);
-  // openRequest.onupgradeneeded = function() {
-  //   // срабатывает, если на клиенте нет базы данных
-  //   // ...выполнить инициализацию...
-  //   console.error("---onupgradeneeded");
-  //   console.error("---onupgradeneeded", openRequest);
-  // };
+  // a) получаем имя базы и версию (promise)
+  function getNameAndVersion(){
+    // получаем имя базы
+    let baseName = document.getElementById('id2').value;
 
-  // openRequest.onerror = function(e) {
-  //   console.log("---onerror");
-  //   console.log("---onerror openRequest", openRequest);
-  //   console.log("---onerror e", e);
+    // получем версию базы
+    const DBpromise = window.indexedDB.databases()
+    DBpromise.then(databases => {
+      // если база есть - получим версию
+      for(let i=0;databases.length>i;i++){
+        if(baseName===databases[i].name){
+          openBaseFunc(baseName,databases[i].version);
+        }
+      }
+      // если база не создана - ставим версию - 1
+      openBaseFunc(baseName,1);
 
-  // };
+    })
+  }
 
-  // openRequest.onsuccess = function() {
-  //   // продолжить работу с базой данных, используя объект db
-  //   console.log('---onsuccess');
-  //   console.log('---onsuccess version', openRequest);
-  // };
-}
-////---- 03 <ЧТЕНИЕ>
-////---- 04 <ЗАПИСЬ>
+  // b) конструктор
+  function openBaseFunc(name, version){
+    console.log('---02b name', name);
+    console.log('---02b version', version);
+
+    let openRequest = indexedDB.open(name, version);
+
+    openRequest.onupgradeneeded = function() {
+      // срабатывает, если на клиенте нет базы данных
+      // ...выполнить инициализацию...
+      console.log("---2b onupgradeneeded", openRequest);
+    };
+
+    openRequest.onerror = function() {
+      console.log("---2b onerror", openRequest.error);
+    };
+
+    openRequest.onsuccess = function() {
+      let db = openRequest.result;
+      // продолжить работу с базой данных, используя объект db
+      console.log("---2b onsuccess", db);
+    };
+  }
+////---- 03 <ТРАНЗАЦИЯ>
+  
+  //function 
+
+
 
 
 
