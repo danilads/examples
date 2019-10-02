@@ -1,4 +1,4 @@
-import itemsVerify from "../../jsonBackUp/itemsVerify";
+import itemsVerify from "../../jsonBackUp/itemsVerify.json";
 
 let initialState = {
 	data: {},

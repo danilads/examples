@@ -1,8 +1,8 @@
 //backup если не загрузятся данные
-import heroesBackUpJson from "../jsonBackUp/heroes";
-import itemsBackUpJson from "../jsonBackUp/items";
-import newsBackUpJson from "../jsonBackUp/news";
-import abilitiesBackUpJason from "../jsonBackUp/abilities";
+import heroesBackUpJson from "../jsonBackUp/heroes.json";
+import itemsBackUpJson from "../jsonBackUp/items.json";
+import newsBackUpJson from "../jsonBackUp/news.json";
+import abilitiesBackUpJason from "../jsonBackUp/abilities.json";
 /*
 export const gg = () => dispatch => {
 	setTimeout(() => {

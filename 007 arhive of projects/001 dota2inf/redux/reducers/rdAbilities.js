@@ -1,5 +1,5 @@
-import abilitiesVerify from "../../jsonBackUp/abilitiesVerify";
-import abilitiesExtend from "../../jsonBackUp/abilitiesExtend";
+import abilitiesVerify from "../../jsonBackUp/abilitiesVerify.json";
+import abilitiesExtend from "../../jsonBackUp/abilitiesExtend.json";
 
 let initialState = {
 	data: {},

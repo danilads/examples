@@ -1,4 +1,4 @@
-import heroesVerify from "../../jsonBackUp/heroesVerify";
+import heroesVerify from "../../jsonBackUp/heroesVerify.json";
 
 let initialState = {
 	data: {},
