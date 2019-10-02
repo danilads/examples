@@ -62,7 +62,7 @@ module.exports = {
     ]
   },
   plugins: [
-    //копирует папки
+    //копирует папки fonts/images
     new CopyWebpackPlugin([
       {
         from: 'fonts',

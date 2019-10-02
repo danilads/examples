@@ -21,3 +21,4 @@
 #стандартный git ignore
 node_modules/
 package-lock.json
+public/
