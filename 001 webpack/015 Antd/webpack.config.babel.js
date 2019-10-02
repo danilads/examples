@@ -33,8 +33,9 @@ module.exports = {
 		main: ['./app.js'] //для работы async / await
 	},
   output:{ 
-	path: __dirname, // путь к каталогу выходных файлов
-	filename: "bundle.js",  // название создаваемого файла
+    path: __dirname + '/public', // путь к каталогу выходных файлов
+    publicPath: '/',
+	  filename: "bundle.js",  // название создаваемого файла
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']

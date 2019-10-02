@@ -24,8 +24,9 @@ module.exports = {
 		main: './App.js'
 	},
   output:{ 
-	path: __dirname, 
-	filename: "bundle.js", 
+    path: __dirname + '/public', // путь к каталогу выходных файлов
+    publicPath: '/',
+	  filename: "bundle.js",  // название создаваемого файла
   }, 
   resolve: {
     extensions: ['*', '.js', '.jsx']
