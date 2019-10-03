@@ -69,13 +69,13 @@ class LineBreaker extends PureComponent {
     let line = ""
     for(let i=0;preResult.length>i;i++){		
       if(preResult[i]==='\n'){
-        result.push(<Fragment><div className={'line'}>{line}</div><br/></Fragment>)
+        result.push(<Fragment key={i}><div className={'line'}>{line}</div><br/></Fragment>)
         line=[];
         continue;
       }
       else if(preResult.length-1===i){
         line+=preResult[i];
-        result.push(<Fragment><div className={'line'}>{line}</div><br/></Fragment>)
+        result.push(<Fragment key={i}><div className={'line'}>{line}</div><br/></Fragment>)
         line=[];
         continue;
       }
