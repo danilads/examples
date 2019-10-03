@@ -21,13 +21,18 @@
 </div>
 <br/>
 <div>
+  <div>03 ТРАНЗАКЦИЯ b) чтение из хранилище</div>
+  <div><input type="input" id="id3b1" placeholder="название базы"/><input type="input" id="id3b2" placeholder="название хранилища"/><input type="input" id="id3b3" placeholder="ключ"/><button onclick="readFromStore()">читать</button></div>
+</div>
+<br/>
+<div>
   <div>03 ТРАНЗАКЦИЯ c) запись в хранилище (можно только в созданное хранилище) (только запись)</div>
   <div><input type="input" id="id3c1" placeholder="название базы"/><input type="input" id="id3c2" placeholder="название хранилища"/><input type="input" id="id3c3" placeholder="key"/><input type="input" id="id3c4" placeholder="value"/><button onclick="WriteData()">записать</button></div>
 </div>
 <br/>
 <div>
   <div>03 ТРАНЗАКЦИЯ d) запись в хранилище (можно только в созданное хранилище) (запись и перезапись)</div>
-  <div><input type="input" id="id3d1" placeholder="название базы"/><input type="input" id="id3d2" placeholder="название хранилища"/><input type="input" id="id3d3" placeholder="key"/><input type="input" id="i3d4" placeholder="value"/><button onclick="WriteAndRewriteData()">записать</button></div>
+  <div><input type="input" id="id3d1" placeholder="название базы"/><input type="input" id="id3d2" placeholder="название хранилища"/><input type="input" id="id3d3" placeholder="key"/><input type="input" id="id3d4" placeholder="value"/><button onclick="WriteAndRewriteData()">записать</button></div>
 </div>
 
 <script>
@@ -176,14 +181,90 @@
     };
   }
   // b) чтение
+  async function readFromStore(){
+    // получаем имя базы и хранилища
+    let baseName = document.getElementById('id3b1').value;
+    let objectStoreName = document.getElementById('id3b2').value;
+    let key = document.getElementById('id3b3').value;
+    
+    // получем версию базы
+    let version;
+    const DBpromise = window.indexedDB.databases();
+    await DBpromise.then(databases => {
+      // если база есть - получим версию
+      for(let i=0;databases.length>i;i++){
+        if(baseName===databases[i].name){
+          version = databases[i].version;
+        }
+      }
+      // если база не создана - ставим версию - 1
+      version = 1;
+    });
+    console.log('---3b имя базы',baseName);
+    console.log('---3b имя хранилища',objectStoreName);
+    console.log('---3b версия базы',version);
+    console.log('---3b версия базы',key);
 
+    let openRequest = indexedDB.open(baseName, version);
+
+    // создаём хранилище объектов, если ешё не существует
+    openRequest.onupgradeneeded = function() {
+       // срабатывает, если на клиенте нет базы данных
+      // ...выполнить инициализацию...
+      console.log("---03b onupgradeneeded", openRequest);
+    };
+    openRequest.onerror = function() {
+      console.log("---03b onerror", openRequest.error);
+    };
+
+    openRequest.onsuccess = function() {
+      let db = openRequest.result;
+      // продолжить работу с базой данных, используя объект db
+      console.log("---03b onsuccess", db);
+      
+      //перебираем objectStoreNames есть ли такое хранилище
+      const array = [ ...db.objectStoreNames ];
+      if(!array.includes(objectStoreName)){
+        console.log('---03b такого хранилища нету');
+        return;
+      }
+
+      var transaction = db.transaction(objectStoreName);
+      
+  
+     
+      var objectStore = transaction.objectStore(objectStoreName);
+      var request = objectStore.get(key);
+      request.onerror = function(event) {
+        // Handle errors!
+        console.log("---03b error",request);
+        console.log("---03b error",event);
+      };
+      request.onsuccess = function() {
+        // Do something with the request.result!
+        
+        if(request.result){
+          console.log("---03b answer",request.result);
+        }
+        else{
+          console.log("---03b answer такого ключа нету");
+        }
+      };
+
+    };
+
+    openRequest.onblocked = function(event) {
+      console.log("---03b Couldn't create",event);
+    };
+    
+  }
   // c) запись (можно только в созданное хранилище)
   async function WriteData(){
     // получаем имя базы и хранилища
-    let baseName = document.getElementById('id3с1').value;
-    let objectStoreName = document.getElementById('id3с2').value;
-    let key = document.getElementById('id3с3').value;
-    let value = document.getElementById('id3с4').value;
+    let baseName = document.getElementById('id3c1').value;
+    let objectStoreName = document.getElementById('id3c2').value;
+    let key = document.getElementById('id3c3').value;
+    let value = document.getElementById('id3c4').value;
     
     // получем версию базы
     let version;
@@ -206,8 +287,8 @@
 
     let openRequest = indexedDB.open(baseName, version);
 
-  // создаём хранилище объектов для books, если ешё не существует
-  openRequest.onupgradeneeded = function() {
+    // создаём хранилище объектов, если ешё не существует
+    openRequest.onupgradeneeded = function() {
        // срабатывает, если на клиенте нет базы данных
       // ...выполнить инициализацию...
       console.log("---03с onupgradeneeded", openRequest);
@@ -272,6 +353,8 @@
     console.log('---3d версия базы',version);
     console.log('---3d под каким ключом храним',key);
     console.log('---3d что храним',value);
+
+
   }
 
 
