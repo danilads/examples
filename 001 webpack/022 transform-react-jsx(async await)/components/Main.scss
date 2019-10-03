@@ -1,8 +1,7 @@
-@import "../scss/_variables";
-
+@import "../scss/_variables"; //переменные
 .Main{
 	.block{
-		border: $nj;
+		border: 1px solid gray;
 	}
 	.Main{
 		font-style: italic;

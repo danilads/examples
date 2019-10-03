@@ -61,13 +61,6 @@ module.exports = {
     ]
   },
   plugins: [
-	  //копирует папки fonts/images
-    new CopyWebpackPlugin([
-      {
-        from: 'fonts',
-        to: 'fonts'
-      }
-    ]),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
