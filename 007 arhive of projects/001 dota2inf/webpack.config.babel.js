@@ -79,6 +79,10 @@ module.exports = {
         to: 'fonts'
       },
       {
+        from: 'jsonBackUp',
+        to: 'jsonBackUp'
+      },
+      {
         from: '04_images',
         to: '04_images'
       },

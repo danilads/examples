@@ -87,6 +87,22 @@ module.exports = {
       {
         from: 'fonts',
         to: 'fonts'
+      },
+      {
+        from: 'jsonBackUp',
+        to: 'jsonBackUp'
+      },
+      {
+        from: '04_images',
+        to: '04_images'
+      },
+      {
+        from: '05_svg',
+        to: '05_svg'
+      },
+      {
+        from: '06_files',
+        to: '06_files'
       }
     ]),
     new MiniCssExtractPlugin({
