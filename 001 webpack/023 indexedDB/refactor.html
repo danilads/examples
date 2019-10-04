@@ -1,0 +1,133 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<div>Базу можно посмотреть в консоли - Application !но нужно после каждого изменения обновлять</div>
+<br/>
+
+<div>
+  <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ a) создать или открыть базу</div>
+  <div><input type="input" id="id1a1" placeholder="название базы"/><button onclick="openOrCreateBase()">создание / открытие</button></div>
+</div>
+<br/>
+
+<div>
+  <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ b) удалить базу</div>
+  <div><input type="input" id="id1b1" placeholder="название базы"/><button onclick="deleteBase()">удалить</button></div>
+</div>
+<br/>
+
+<script>
+//----
+////---- <БАЗОВЫЕ ОПЕРАЦИИ>
+//----
+  // открыть базу (версия должна быть целым числом)
+  // let openBase = window.indexedDB.open("db", 3);
+
+
+  // удалить базу
+  // let baseDelete = window.indexedDB.deleteDatabase('db1');
+
+
+  // функция сравнения - вернет версий (-1 первый меньше) (0 равный) (1 второй больше)
+  // window.indexedDB.cmp(1,2));
+
+  // получить версии
+  // const DBpromise = window.indexedDB.databases()
+  // DBpromise.then(databases => {
+  //   console.log('---01d',databases);
+  // });
+
+
+//----
+////---- <УТИЛИТЫ>
+//----
+    // получем версию базы
+    async function getVersion(baseName){
+      let version;
+      let databases = await window.indexedDB.databases();
+      
+      // если база есть - получим версию
+      for(let i=0;databases.length>i;i++){
+        if(baseName===databases[i].name){
+          version = databases[i].version;
+        }
+      }
+      if(version===undefined){
+        // если база не создана - ставим версию - 1
+        version = 1;
+      }
+      return version;
+    }
+
+//----
+////---- 01 <СТАНДАРТНЫЕ ОПЕРАЦИИ>
+//----
+
+  // a) создать или открыть базу
+  async function openOrCreateBase(){
+    // получаем имя базы и хранилища
+    let baseName = document.getElementById('id1a1').value;
+    let version = await getVersion(baseName);
+    console.log('-----------------------');
+    console.log('---Создать Базу');
+    console.log('---01a имя базы',baseName);
+    console.log('---01a версия базы',version);
+    
+    // откроет или создаст базу
+    let openRequest = indexedDB.open(baseName, version);
+    console.log('---01a openRequest',openRequest)
+    // срабатывает, если на клиенте нет базы данны либо мы поменяли версию
+    openRequest.onupgradeneeded = function(event) {
+      console.log("---01a onupgradeneeded", event);
+    };
+
+    openRequest.onerror = function(event) {
+      console.log("---01a onerror", event);
+    };
+
+    openRequest.onsuccess = function(event) {
+      console.log("---01a onsuccess", event);
+
+      // продолжить работу с базой данных, используя объект db
+      let db = openRequest.result;
+      
+      // всегда закрываем базу после каких-либо действий
+      db.close();
+    };
+      
+  }
+
+  // b) удалить базу
+  async function deleteBase(){
+    // получаем имя базы и хранилища
+    let baseName = document.getElementById('id1b1').value;
+
+    console.log('-----------------------');
+    console.log('---Удалить Базу');
+    console.log('---01b имя базы',baseName);
+
+    
+    let DBDeleteRequest = await indexedDB.deleteDatabase(baseName);
+    console.log('---01b DBDeleteRequest',DBDeleteRequest);
+    
+    DBDeleteRequest.onerror = function(event) {
+      console.log("---01b Error deleting database", event);
+    };
+    DBDeleteRequest.onsuccess = function(event) {
+      console.log("---01b Database deleted successfully", event);
+    };
+    DBDeleteRequest.onblocked = function(event) {
+      console.warn("---01b It's blocked Couldn't delete database due to the operation being blocked", event);
+    };
+
+      
+  }
+</script>	
+<body>
+	
+</body>
+</html>

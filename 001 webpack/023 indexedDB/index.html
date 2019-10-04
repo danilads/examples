@@ -81,6 +81,7 @@
     console.log('---01e',baseName);
     let DBDeleteRequest = await window.indexedDB.deleteDatabase(baseName);
     console.log('---01e',DBDeleteRequest);
+    
     DBDeleteRequest.onerror = function(event) {
       console.log("---01e Error deleting database",event);
     };
@@ -88,7 +89,10 @@
       console.log("---01e Database deleted successfully",event);
     };
     DBDeleteRequest.onblocked = function(event) {
-      console.log("---01e It's blocked Couldn't delete database due to the operation being blocked",event);
+      console.warn("---01e It's blocked Couldn't delete database due to the operation being blocked",event);
+    };
+    DBDeleteRequest.onupgradeneeded = function() {
+        console.log("---01e onupgradeneeded", openRequest);
     };
   }
 
@@ -186,15 +190,6 @@
         // продолжить работу с базой данных, используя объект db
         console.log("---02b onsuccess", db);
         db.close();
-        console.log('---wtf in close',close);
-        close.onerror = function(event) {
-          console.log("---02b onerror",close);
-          console.log("---02b onerror",event);
-        };
-        close.onsuccess = function() {
-          console.log("---02b onsuccess",close);
-          console.log("---02b onsuccess",event);
-        };
       };
     }
 
