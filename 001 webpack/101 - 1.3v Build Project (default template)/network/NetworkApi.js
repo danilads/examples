@@ -10,8 +10,10 @@ import {notification} from 'antd';
 //для чтения/записи redux используем store.getState() / store.dispatch({type: DICT_LOAD_DATA});
 //для вывода ошибок используем import { notification } from 'antd';
 
-//01 - реализована обертка tryCatch в которую передаем функцию в случаи ошибки выведит ошибку через (antd notification)
-//     по возможности использовать ее - см. ниже метод exampleReturnRequest
+//01 - реализована обертка tryCatch в которую передаем функцию в случаи ошибки проект не скрашиться
+
+//url в axios   url: `${backendServiceHost}api/currency/list`,
+//делает запрос на  '/api/': 'http://172.30.71.195:9080/SBOL-Business/', см. Webpack config (proxy)
 
 
 
@@ -67,7 +69,7 @@ async function tryCatch(func) {
     return await func();
   } catch (e) {
     console.error('---ОШИБКА', e);
-    notification.open({message: 'Ошибка', description: e, type: 'error'});
+    
   }
 }
 

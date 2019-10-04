@@ -9,7 +9,7 @@ import {acHeroesLoading} from "../../redux/actions/acHeroes";
 
 import {backendServiceHost} from 'config';
 import axios from "axios";
-
+import {NerworkApi} from "../../network/NerworkApi";
 
 class PageMain extends React.PureComponent {
 	//делает запрос на  '/api/': 'http://172.30.71.195:9080/SBOL-Business/', см. Webpack config
@@ -21,9 +21,14 @@ class PageMain extends React.PureComponent {
 		  }).then(response => {
 			  return response;
 		  });
+
+
+		let response = await NerworkApi.exampleReturnRequest;
+		console.log('---response');
 	};
 	componentDidMount(){
 		this.request();
+		
 	}
 	_renderSpiner=()=>{
 		let d = this.props.heroes;
