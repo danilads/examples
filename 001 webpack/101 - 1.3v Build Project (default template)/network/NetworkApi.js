@@ -1,7 +1,6 @@
 import axios from "axios";
 import {backendServiceHost} from 'config';
-//import store from '../store/configureStore'
-import {notification} from 'antd';
+import store from '../redux/store'
 
 
 //Readme
@@ -18,7 +17,7 @@ import {notification} from 'antd';
 
 
 
-export const NerworkApi = {
+export const NetworkApi = {
   //пример который возвращает ответ
   exampleReturnRequest: async () =>{
     //обертка для try/catch
@@ -27,13 +26,12 @@ export const NerworkApi = {
         url: `${backendServiceHost}api/currency/list`,
         method: 'post'
       }).then(response => {
-        //обработка запроса
-        if (response.error === "0") {
+        if (response && response.data && response.data.error === "0") {
           return response.data.list;
         }
         else{
           //используя обертку tryCatch можно самому выкинуть ошибку
-          throw(response.error || 'Error');
+          throw(response && response.data && response.data.error || 'Error');
         }
       });
     });

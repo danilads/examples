@@ -93,12 +93,8 @@ module.exports = {
         to: 'jsonBackUp'
       },
       {
-        from: '04_images',
-        to: '04_images'
-      },
-      {
-        from: '05_svg',
-        to: '05_svg'
+        from: '05_images',
+        to: '05_images'
       },
       {
         from: '06_files',

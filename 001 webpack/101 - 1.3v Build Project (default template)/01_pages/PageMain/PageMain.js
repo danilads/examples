@@ -6,25 +6,12 @@ import Spiner from '../../04_primitives/Spiner/Spiner';
 import logoAnim from '../../05_images/images/logoAnim.gif';
 import {connect} from "react-redux";
 import {acHeroesLoading} from "../../redux/actions/acHeroes";
-
-import {backendServiceHost} from 'config';
-import axios from "axios";
-import {NerworkApi} from "../../network/NerworkApi";
+import {NetworkApi} from "../../network/NetworkApi.js";
 
 class PageMain extends React.PureComponent {
-	//делает запрос на  '/api/': 'http://172.30.71.195:9080/SBOL-Business/', см. Webpack config
 	request  = async () => {
-		let answer;
-		answer = await axios({
-			url: `${backendServiceHost}api/currency/list`,
-			method: 'post'
-		  }).then(response => {
-			  return response;
-		  });
-
-
-		let response = await NerworkApi.exampleReturnRequest;
-		console.log('---response');
+		let response = await NetworkApi.exampleReturnRequest();
+		console.log('---response',response);
 	};
 	componentDidMount(){
 		this.request();
