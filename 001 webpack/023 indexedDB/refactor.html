@@ -36,8 +36,8 @@
 <br/>
 
 <div>
-  <div>02 ТРАНЗАКЦИИ a) запись</div>
-  <div><input type="input" id="id2b1" placeholder="название базы"/><input type="input" id="id2b2" placeholder="название хранилища"/><input type="input" id="id2b3" placeholder="ключ в хранилище"/><input type="input" id="id2b4" placeholder="что храним под ключом"/><button onclick="readFromStore()">чтение</button></div>
+  <div>02 ТРАНЗАКЦИИ b) запись</div>
+  <div><input type="input" id="id2b1" placeholder="название базы"/><input type="input" id="id2b2" placeholder="название хранилища"/><input type="input" id="id2b3" placeholder="ключ в хранилище"/><input type="input" id="id2b4" placeholder="что храним под ключом"/><button onclick="WriteData()">запись</button></div>
 </div>
 <br/>
 
@@ -291,7 +291,7 @@
   }
 
   // b) запись или перезапись 
-  async function WriteAndRewriteData(){
+  async function WriteData(){
     // получаем имя базы и хранилища
     let baseName = document.getElementById('id2b1').value;
     let objectStoreName = document.getElementById('id2b2').value;
@@ -329,7 +329,15 @@
     openRequest.onsuccess = function() {
       let db = openRequest.result;
       // продолжить работу с базой данных, используя объект db
-      console.log("---03d onsuccess", db);
+      console.log("---02b onsuccess", db);
+
+      //перебираем objectStoreNames есть ли такое хранилище
+      const array = [ ...db.objectStoreNames ];
+      if(!array.includes(objectStoreName)){
+        console.log('---02b такого хранилища нету');
+        return;
+      }
+
       
       var request = db.transaction(objectStoreName, "readwrite")
                       .objectStore(objectStoreName)
@@ -339,7 +347,7 @@
         console.log("---DONE",event);
         let db = openRequest.result;
         // продолжить работу с базой данных, используя объект db
-        console.log("---03d onsuccess", db);
+        console.log("---02b onsuccess", db);
 
         let transaction = db.transaction(objectStoreName, "readwrite");
         // получить хранилище объектов для работы с ним
@@ -352,11 +360,11 @@
 
         let request = store.add(book);
         request.onsuccess = function() {
-          console.log("---03d запись добавлена в хранилище", request.result);
+          console.log("---02b запись добавлена в хранилище", request.result);
         };
 
         request.onerror = function() {
-          console.log("---03d ошибка");
+          console.log("---02b ошибка");
         };
       };
 
