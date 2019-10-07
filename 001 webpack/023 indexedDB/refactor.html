@@ -20,6 +20,12 @@
 </div>
 <br/>
 
+<div>
+  <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ c) создать хранилище</div>
+  <div><input type="input" id="id1c1" placeholder="название базы"/><input type="input" id="id1c1" placeholder="название хранилища"/><button onclick="createObjectStore()">создать хранилище</button></div>
+</div>
+<br/>
+
 <script>
 //----
 ////---- <БАЗОВЫЕ ОПЕРАЦИИ>
@@ -67,7 +73,7 @@
 ////---- 01 <СТАНДАРТНЫЕ ОПЕРАЦИИ>
 //----
 
-  // a) создать или открыть базу
+  // 01 a) создать или открыть базу
   async function openOrCreateBase(){
     // получаем имя базы и хранилища
     let baseName = document.getElementById('id1a1').value;
@@ -101,7 +107,7 @@
       
   }
 
-  // b) удалить базу
+  // 01 b) удалить базу
   async function deleteBase(){
     // получаем имя базы и хранилища
     let baseName = document.getElementById('id1b1').value;
@@ -125,6 +131,61 @@
     };
 
       
+  }
+
+  // 01 c) создать хранилище (если такой базы нет - создаст ее) (чтобы создать хранилище нужно обновить версию базы) 
+  async function createObjectStore(){
+    // получаем имя базы и хранилища
+    let baseName = document.getElementById('id1c1').value;
+    let objectStoreName = document.getElementById('id1c1').value;
+    
+    // получем версию базы
+    let version;
+    const DBpromise = window.indexedDB.databases();
+    await DBpromise.then(databases => {
+      // если база есть - получим версию
+      for(let i=0;databases.length>i;i++){
+        if(baseName===databases[i].name){
+          version = databases[i].version;
+        }
+      }
+      if(version===undefined){
+        // если база не создана - ставим версию - 1
+        version = 1;
+      }
+    });
+    console.log('---01с имя базы',baseName);
+    console.log('---01с имя хранилища',objectStoreName);
+    console.log('---01с версия базы',version);
+
+    // откроет или создаст базу
+    // чтобы создать хранилище нужно обновить версию базы
+    let openRequest = indexedDB.open(baseName, version+1);
+
+    // срабатывает, если на клиенте нет базы данны либо мы поменяли версию
+    openRequest.onupgradeneeded = function() {
+      let db = openRequest.result;
+      if (!db.objectStoreNames.contains(objectStoreName)) { // если нет в данной базе такого хранилища
+        // objectStoreName - это название хранилища
+        // второй аргумент {
+        //      keyPath       – путь к свойству объекта, которое IndexedDB будет использовать в качестве ключа, например id.
+        //      autoIncrement – если true, то ключ будет формироваться автоматически для новых объектов, как постоянно увеличивающееся число.
+        // }
+        db.createObjectStore(objectStoreName, {keyPath: 'id'});
+      }
+    };
+    openRequest.onerror = function() {
+      console.log("---01с onerror", openRequest.error);
+    };
+
+    openRequest.onsuccess = function() {
+      let db = openRequest.result;
+      // продолжить работу с базой данных, используя объект db
+      console.log("---01с onsuccess", db);
+    };
+    openRequest.onblocked = function(event) {
+      console.log("---01с It's blocked Couldn't create (Хранилище уже есть)",event);
+    };
   }
 </script>	
 <body>
