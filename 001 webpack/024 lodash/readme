@@ -1,4 +1,4 @@
-Устанавливаем lodash
+Устанавливаем lodash(а не lodash-es)
 импортируем - import cloneDeep from 'lodash/clonedeep';
 тогда будет весить меньше
 
