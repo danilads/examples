@@ -42,7 +42,7 @@
 <br/>
 
 <div>
-  <div>02 ТРАНЗАКЦИИ b) запись</div>
+  <div>02 ТРАНЗАКЦИИ b) запись или перезапись </div>
   <div><input type="input" id="id2b1" placeholder="название базы"/><input type="input" id="id2b2" placeholder="название хранилища"/><input type="input" id="id2b3" placeholder="ключ в хранилище"/><input  type="input" id="id2b4" placeholder="что храним под ключом"/><button style="color: green" onclick="WriteData()">запись</button></div>
 </div>
 <br/>
@@ -126,7 +126,7 @@
     console.log('---01a версия базы',version);
 
     if((await isBaseExist(baseName))){
-      console.log('---01a ТАКАЯ БАЗА УЖЕ СУЩЕСТВУЕТ');
+      console.log('%c%s', 'color: red;','---01a ТАКАЯ БАЗА УЖЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -144,7 +144,7 @@
     };
 
     openRequest.onsuccess = function(event) {
-      console.log("---01a БАЗА СОЗДАНА", event);
+      console.log('%c%s', 'color: green;','---01a БАЗА СОЗДАНА', event);
 
       // продолжить работу с базой данных, используя объект db
       let db = openRequest.result;
@@ -166,7 +166,7 @@
     
     // Проверяем есть ли такая база
     if(!(await isBaseExist(baseName))){
-      console.log('---01b ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+      console.log('%c%s', 'color: red;','---01b ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -174,13 +174,13 @@
     console.log('---01b DBDeleteRequest',DBDeleteRequest);
     
     DBDeleteRequest.onerror = function(event) {
-      console.log("---01b Error deleting database", event);
+      console.log('---01b Error deleting database', event);
     };
     DBDeleteRequest.onsuccess = function(event) {
-      console.log("---01b БАЗА УДАЛЕНА", event);
+      console.log('%c%s', 'color: green;','---01b БАЗА УДАЛЕНА', event);
     };
     DBDeleteRequest.onblocked = function(event) {
-      console.log("---01b ОШИБКА - БАЗА ЗАБЛОКИРОВАНА", event);
+      console.log('---01b ОШИБКА - БАЗА ЗАБЛОКИРОВАНА', event);
     };
   }
 
@@ -201,7 +201,7 @@
 
     // Проверяем есть ли такая база
     if(!(await isBaseExist(baseName))){
-      console.log('---01с ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+      console.log('%c%s', 'color: red;','---01с ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -222,13 +222,13 @@
       }
     };
     openRequest.onerror = function() {
-      console.log("---01с onerror", openRequest.error);
+      console.log('---01с onerror', openRequest.error);
     };
 
     openRequest.onsuccess = function() {
       let db = openRequest.result;
       // продолжить работу с базой данных, используя объект db
-      console.log("---01с ХРАНИЛИЩЕ СОЗДАНО", db);
+      console.log('%c%s', 'color: green;','---01с ХРАНИЛИЩЕ СОЗДАНО', db);
 
       // всегда закрываем базу после каких-либо действий
       db.close();
@@ -256,7 +256,7 @@
 
     // Проверяем есть ли такая база
     if(!(await isBaseExist(baseName))){
-      console.log('---01d ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+      console.log('%c%s', 'color: red;','---01d ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -270,10 +270,10 @@
       if (db.objectStoreNames.contains(objectStoreName)) { // есть ли в в данной базе такое хранилище
         // objectStoreName - это название хранилища
         db.deleteObjectStore(objectStoreName);
-        console.log('---01d ХРАНИЛИЩЕ УДАЛЕНО');
+        console.log('%c%s', 'color: green;','---01d ХРАНИЛИЩЕ УДАЛЕНО');
       }
       else{
-        console.log('---01d ТАКОГО ХРАНИЛИЩА НЕТУ');
+        console.log('%c%s', 'color: red;','---01d ТАКОГО ХРАНИЛИЩА НЕТУ');
       }
     };
     openRequest.onerror = function() {
@@ -317,7 +317,7 @@
 
     // Проверяем есть ли такая база
     if(!(await isBaseExist(baseName))){
-      console.log('---02a Такой базы не существует');
+      console.log('%c%s', 'color: red;', '---02a ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -341,7 +341,7 @@
       //перебираем objectStoreNames есть ли такое хранилище
       const array = [ ...db.objectStoreNames ];
       if(!array.includes(objectStoreName)){
-        console.log('---02a такого хранилища нету');
+        console.log('%c%s', 'color: red;', '---02a ТАКОГО ХРАНИЛИЩА НЕТ');
         // всегда закрываем базу после каких-либо действий
         db.close();
         return;
@@ -365,7 +365,7 @@
           console.log("---02a answer",request.result);
         }
         else{
-          console.log("---02a answer такого ключа нету");
+          console.log('%c%s', 'color: red;', "---02a ТАКОГО КЛЮЧА НЕТ");
         }
       };
 
@@ -399,7 +399,7 @@
 
      // Проверяем есть ли такая база
      if(!(await isBaseExist(baseName))){
-      console.log('---02a Такой базы не существует');
+      console.log('%c%s', 'color: red;', '---02b ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -423,7 +423,7 @@
       //перебираем objectStoreNames есть ли такое хранилище
       const array = [ ...db.objectStoreNames ];
       if(!array.includes(objectStoreName)){
-        console.log('---02b такого хранилища нету');
+        console.log('%c%s', 'color: red;','---02b ТАКОГО ХРАНИЛИЩА НЕТ');
         // всегда закрываем базу после каких-либо действий
         db.close();
         return;
@@ -451,7 +451,7 @@
 
         let request = store.add(data);
         request.onsuccess = function() {
-          console.log("---02b ЗАПИСЬ ДОБАВЛЕНА В ХРАНИЛИЩЕ", request.result);
+          console.log('%c%s', 'color: green;','---02b ЗАПИСЬ ДОБАВЛЕНА В ХРАНИЛИЩЕ', request.result);
           // всегда закрываем базу после каких-либо действий
           db.close();
         };
@@ -485,11 +485,12 @@
       console.log('---Удаление ключа');
       console.log('---02с имя базы',baseName);
       console.log('---02с имя хранилища',objectStoreName);
+      console.log('---02с ключ',key);
       console.log('---02с версия базы',version);
 
       // Проверяем есть ли такая база
       if(!(await isBaseExist(baseName))){
-        console.log('---02с ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+        console.log('%c%s', 'color: red;', '---02с ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
         return;
       }
 
@@ -513,7 +514,7 @@
         //перебираем objectStoreNames есть ли такое хранилище
         const array = [ ...db.objectStoreNames ];
         if(!array.includes(objectStoreName)){
-          console.log('---02с такого хранилища нету');
+          console.log('%c%s', 'color: red;', '---02с ТАКОГО ХРАНИЛИЩА НЕТ');
           // всегда закрываем базу после каких-либо действий
           db.close();
           return;
@@ -522,21 +523,29 @@
         let transaction = db.transaction(objectStoreName, "readwrite");
         // получить хранилище объектов для работы с ним
         let store = transaction.objectStore(objectStoreName);
+
+        let getRequest =  store.get(key);
+        getRequest.onsuccess = function() {
+          if(getRequest.result === undefined){
+            console.log('%c%s', 'color: red;','---02с ТАКОГО КЛЮЧА НЕТУ');
+          }
+          else{
+            let request = store.delete(key);
         
-        console.log('---KKKKEY store',store);
+            request.onsuccess = function() {
+              console.log('%c%s', 'color: green;','---02с ЗАПИСЬ УДАЛЕНА ИЗ ХРАНИЛИЩА', request);
+            };
 
-        let request = store.delete(key);
-        
-        request.onsuccess = function() {
-          console.log("---02с ЗАПИСЬ УДАЛЕНА ИЗ ХРАНИЛИЩА", request);
+            request.onerror = function() {
+              console.log("---02с onerror", request);
+            };
+          }
         };
-
-        request.onerror = function() {
-          console.log("---02с нельзя записывать с таким же id (сначало нужно удалить данный объект)");
-        };
-
+      
         // всегда закрываем базу после каких-либо действий
         db.close();
+        
+
       };
       openRequest.onblocked = function(event) {
         console.log("---02с It's blocked Couldn't delete",event);
