@@ -61,7 +61,9 @@ module.exports = {
     ]
   },
   plugins: [
-     // //копирует папки fonts/images
+    // при запуске открывает страницу с размерами пакетов и компонентов
+    // new BundleAnalyzerPlugin(),
+    // //копирует папки fonts/images
     // new CopyWebpackPlugin([
     //   {
     //     from: 'fonts',

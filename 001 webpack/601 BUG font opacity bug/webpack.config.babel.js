@@ -72,22 +72,24 @@ module.exports = {
     ]
   },
   plugins: [
-	    //копирует папки fonts/images
-      new CopyWebpackPlugin([
-        {
-          from: 'fonts',
-          to: 'fonts'
-        }
-      ]),
-      new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
-        filename: "bundle.css"
-      }),
-      //копирует index.html в папку
-      new HtmlWebpackPlugin({
-        template: './index.html',
-        inject: false
-      })
+    // при запуске открывает страницу с размерами пакетов и компонентов
+    // new BundleAnalyzerPlugin(),
+    //копирует папки fonts/images
+    new CopyWebpackPlugin([
+      {
+        from: 'fonts',
+        to: 'fonts'
+      }
+    ]),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "bundle.css"
+    }),
+    //копирует index.html в папку
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      inject: false
+    })
 	]
 };
