@@ -9,26 +9,26 @@
 <br/>
 
 <div>
-  <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ a) создать или открыть базу</div>
-  <div><input type="input" id="id1a1" placeholder="название базы"/><button onclick="openOrCreateBase()">создание / открытие</button></div>
+  <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ a) создать базу</div>
+  <div><input type="input" id="id1a1" placeholder="название базы"/><button style="color: green" onclick="openOrCreateBase()">создание / открытие</button></div>
 </div>
 <br/>
 
 <div>
   <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ b) удалить базу</div>
-  <div><input type="input" id="id1b1" placeholder="название базы"/><button onclick="deleteBase()">удалить</button></div>
+  <div><input type="input" id="id1b1" placeholder="название базы"/><button style="color: red" onclick="deleteBase()">удалить</button></div>
 </div>
 <br/>
 
 <div>
   <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ c) создать хранилище в уже существующей базе </div>
-  <div><input type="input" id="id1c1" placeholder="название базы"/><input type="input" id="id1c2" placeholder="название хранилища"/><button onclick="createObjectStore()">создать хранилище</button></div>
+  <div><input type="input" id="id1c1" placeholder="название базы"/><input type="input" id="id1c2" placeholder="название хранилища"/><button style="color: green" onclick="createObjectStore()">создать хранилище</button></div>
 </div>
 <br/>
 
 <div>
   <div>01 СТАНДАРТНЫЕ ОПЕРАЦИИ d) удалить хранилище в уже существующей базе </div>
-  <div><input type="input" id="id1d1" placeholder="название базы"/><input type="input" id="id1d2" placeholder="название хранилища"/><button onclick="DeleteStorage()">удалить хранилище</button></div>
+  <div><input type="input" id="id1d1" placeholder="название базы"/><input type="input" id="id1d2" placeholder="название хранилища"/><button style="color: red" onclick="DeleteStorage()">удалить хранилище</button></div>
 </div>
 <br/>
 
@@ -37,13 +37,19 @@
 
 <div>
   <div>02 ТРАНЗАКЦИИ a) чтение</div>
-  <div><input type="input" id="id2a1" placeholder="название базы"/><input type="input" id="id2a2" placeholder="название хранилища"/><input type="input" id="id2a3" placeholder="ключ в хранилище"/><button onclick="readFromStore()">чтение</button></div>
+  <div><input type="input" id="id2a1" placeholder="название базы"/><input type="input" id="id2a2" placeholder="название хранилища"/><input type="input" id="id2a3" placeholder="ключ в хранилище"/><button style="color: gold" onclick="readFromStore()">чтение</button></div>
 </div>
 <br/>
 
 <div>
   <div>02 ТРАНЗАКЦИИ b) запись</div>
-  <div><input type="input" id="id2b1" placeholder="название базы"/><input type="input" id="id2b2" placeholder="название хранилища"/><input type="input" id="id2b3" placeholder="ключ в хранилище"/><input type="input" id="id2b4" placeholder="что храним под ключом"/><button onclick="WriteData()">запись</button></div>
+  <div><input type="input" id="id2b1" placeholder="название базы"/><input type="input" id="id2b2" placeholder="название хранилища"/><input type="input" id="id2b3" placeholder="ключ в хранилище"/><input  type="input" id="id2b4" placeholder="что храним под ключом"/><button style="color: green" onclick="WriteData()">запись</button></div>
+</div>
+<br/>
+
+<div>
+  <div>02 ТРАНЗАКЦИИ c) удалить</div>
+  <div><input type="input" id="id2c1" placeholder="название базы"/><input type="input" id="id2c2" placeholder="название хранилища"/><input type="input" id="id2c3" placeholder="ключ в хранилище"/><button style="color: red" onclick="DeleteKey()">удалить ключ</button></div>
 </div>
 <br/>
 
@@ -106,7 +112,7 @@
 ////---- 01 <СТАНДАРТНЫЕ ОПЕРАЦИИ>
 //----
 
-  // a) создать или открыть базу
+  // a) создать базу
   async function openOrCreateBase(){
     // получаем имя базы
     let baseName = document.getElementById('id1a1').value;
@@ -118,8 +124,13 @@
     console.log('---Создать Базу');
     console.log('---01a имя базы',baseName);
     console.log('---01a версия базы',version);
-    
-    // откроет или создаст базу
+
+    if((await isBaseExist(baseName))){
+      console.log('---01a ТАКАЯ БАЗА УЖЕ СУЩЕСТВУЕТ');
+      return;
+    }
+
+    // создаст базу
     let openRequest = indexedDB.open(baseName, version);
     console.log('---01a openRequest',openRequest)
 
@@ -133,7 +144,7 @@
     };
 
     openRequest.onsuccess = function(event) {
-      console.log("---01a onsuccess", event);
+      console.log("---01a БАЗА СОЗДАНА", event);
 
       // продолжить работу с базой данных, используя объект db
       let db = openRequest.result;
@@ -152,6 +163,12 @@
     console.log('-----------------------');
     console.log('---Удалить Базу');
     console.log('---01b имя базы',baseName);
+    
+    // Проверяем есть ли такая база
+    if(!(await isBaseExist(baseName))){
+      console.log('---01b ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+      return;
+    }
 
     let DBDeleteRequest = await indexedDB.deleteDatabase(baseName);
     console.log('---01b DBDeleteRequest',DBDeleteRequest);
@@ -160,10 +177,10 @@
       console.log("---01b Error deleting database", event);
     };
     DBDeleteRequest.onsuccess = function(event) {
-      console.log("---01b Database deleted successfully", event);
+      console.log("---01b БАЗА УДАЛЕНА", event);
     };
     DBDeleteRequest.onblocked = function(event) {
-      console.warn("---01b It's blocked Couldn't delete database due to the operation being blocked", event);
+      console.log("---01b ОШИБКА - БАЗА ЗАБЛОКИРОВАНА", event);
     };
   }
 
@@ -177,13 +194,14 @@
     let version = await getVersion(baseName);
 
     console.log('-----------------------');
+    console.log('---Создать хранилище');
     console.log('---01с имя базы',baseName);
     console.log('---01с имя хранилища',objectStoreName);
     console.log('---01с версия базы',version);
 
     // Проверяем есть ли такая база
     if(!(await isBaseExist(baseName))){
-      console.log('---01с Такой базы не существует');
+      console.log('---01с ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
@@ -210,7 +228,11 @@
     openRequest.onsuccess = function() {
       let db = openRequest.result;
       // продолжить работу с базой данных, используя объект db
-      console.log("---01с onsuccess", db);
+      console.log("---01с ХРАНИЛИЩЕ СОЗДАНО", db);
+
+      // всегда закрываем базу после каких-либо действий
+      db.close();
+      
     };
     openRequest.onblocked = function(event) {
       console.log("---01с It's blocked Couldn't create (Хранилище уже есть)",event);
@@ -227,17 +249,18 @@
    let version = await getVersion(baseName);
 
     console.log('-----------------------');
+    console.log('---Удалить хранилище');
     console.log('---01d имя базы',baseName);
     console.log('---01d имя хранилища',objectStoreName);
     console.log('---01d версия базы',version);
 
     // Проверяем есть ли такая база
     if(!(await isBaseExist(baseName))){
-      console.log('---01d Такой базы не существует');
+      console.log('---01d ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
       return;
     }
 
-    // чтобы создать хранилище нужно обновить версию базы
+    // чтобы удалить хранилище нужно обновить версию базы
     let openRequest = indexedDB.open(baseName, version+1);
     console.log('---01d openRequest',openRequest);
 
@@ -247,19 +270,25 @@
       if (db.objectStoreNames.contains(objectStoreName)) { // есть ли в в данной базе такое хранилище
         // objectStoreName - это название хранилища
         db.deleteObjectStore(objectStoreName);
+        console.log('---01d ХРАНИЛИЩЕ УДАЛЕНО');
+      }
+      else{
+        console.log('---01d ТАКОГО ХРАНИЛИЩА НЕТУ');
       }
     };
     openRequest.onerror = function() {
-      console.log("---03e onerror", openRequest.error);
+      console.log("---01d onerror", openRequest.error);
     };
 
     openRequest.onsuccess = function() {
       let db = openRequest.result;
       // продолжить работу с базой данных, используя объект db
-      console.log("---03e onsuccess", db);
+      console.log("---01d onsuccess", db);
+      // всегда закрываем базу после каких-либо действий
+      db.close();
     };
     openRequest.onblocked = function(event) {
-      console.log("---03e It's blocked Couldn't delete",event);
+      console.log("---01d It's blocked Couldn't delete",event);
     };
     
   }
@@ -280,6 +309,7 @@
     let version = await getVersion(baseName);
     
     console.log('-----------------------');
+    console.log('---Чтение ключа');
     console.log('---02a имя базы',baseName);
     console.log('---02a имя хранилища',objectStoreName);
     console.log('---02a версия базы',version);
@@ -312,6 +342,8 @@
       const array = [ ...db.objectStoreNames ];
       if(!array.includes(objectStoreName)){
         console.log('---02a такого хранилища нету');
+        // всегда закрываем базу после каких-либо действий
+        db.close();
         return;
       }
 
@@ -337,6 +369,9 @@
         }
       };
 
+      // всегда закрываем базу после каких-либо действий
+      db.close();
+
     };
 
     openRequest.onblocked = function(event) {
@@ -355,7 +390,7 @@
    // получем версию базы
    let version = await getVersion(baseName);
     
-    console.log('-----------------------');
+    console.log('---Запись ключа');
     console.log('---02b имя базы',baseName);
     console.log('---02b имя хранилища',objectStoreName);
     console.log('---02b версия базы',version);
@@ -389,6 +424,8 @@
       const array = [ ...db.objectStoreNames ];
       if(!array.includes(objectStoreName)){
         console.log('---02b такого хранилища нету');
+        // всегда закрываем базу после каких-либо действий
+        db.close();
         return;
       }
 
@@ -414,7 +451,9 @@
 
         let request = store.add(data);
         request.onsuccess = function() {
-          console.log("---02b запись добавлена в хранилище", request.result);
+          console.log("---02b ЗАПИСЬ ДОБАВЛЕНА В ХРАНИЛИЩЕ", request.result);
+          // всегда закрываем базу после каких-либо действий
+          db.close();
         };
 
         request.onerror = function() {
@@ -422,6 +461,7 @@
         };
       };
 
+      
 
     };
 
@@ -431,6 +471,78 @@
 
   }
 
+  // c) удаление ключа
+  async function DeleteKey(){
+      // получаем имя базы и хранилища
+      let baseName = document.getElementById('id2c1').value;
+      let objectStoreName = document.getElementById('id2c2').value;
+      let key = document.getElementById('id2c3').value;
+
+      // получем версию базы
+      let version = await getVersion(baseName);
+
+      console.log('-----------------------');
+      console.log('---Удаление ключа');
+      console.log('---02с имя базы',baseName);
+      console.log('---02с имя хранилища',objectStoreName);
+      console.log('---02с версия базы',version);
+
+      // Проверяем есть ли такая база
+      if(!(await isBaseExist(baseName))){
+        console.log('---02с ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+        return;
+      }
+
+      // чтобы изменить хранилище нужно обновить версию базы
+      let openRequest = indexedDB.open(baseName, version+1);
+      console.log('---02с openRequest',openRequest);
+
+      // срабатывает, если на клиенте нет базы данны либо мы поменяли версию
+      openRequest.onupgradeneeded = function() {
+        console.log("---02с onupgradeneeded", openRequest);
+      };
+      openRequest.onerror = function() {
+        console.log("---02с onerror", openRequest.error);
+      };
+
+      openRequest.onsuccess = function() {
+        let db = openRequest.result;
+        // продолжить работу с базой данных, используя объект db
+        console.log("---02с onsuccess", db);
+
+        //перебираем objectStoreNames есть ли такое хранилище
+        const array = [ ...db.objectStoreNames ];
+        if(!array.includes(objectStoreName)){
+          console.log('---02с такого хранилища нету');
+          // всегда закрываем базу после каких-либо действий
+          db.close();
+          return;
+        }
+
+        let transaction = db.transaction(objectStoreName, "readwrite");
+        // получить хранилище объектов для работы с ним
+        let store = transaction.objectStore(objectStoreName);
+        
+        console.log('---KKKKEY store',store);
+
+        let request = store.delete(key);
+        
+        request.onsuccess = function() {
+          console.log("---02с ЗАПИСЬ УДАЛЕНА ИЗ ХРАНИЛИЩА", request);
+        };
+
+        request.onerror = function() {
+          console.log("---02с нельзя записывать с таким же id (сначало нужно удалить данный объект)");
+        };
+
+        // всегда закрываем базу после каких-либо действий
+        db.close();
+      };
+      openRequest.onblocked = function(event) {
+        console.log("---02с It's blocked Couldn't delete",event);
+      };
+      
+    }
 </script>	
 <body>
 	
