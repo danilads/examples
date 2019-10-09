@@ -99,20 +99,23 @@
 
 	class MobileList extends React.Component {
 		element = React.createRef();
-		componentDidMount() {
-			this.element.current.addEventListener('copy', (event) => {
 
+		event=(event)=>{
 			console.log('---copy',event);
 			const selection = document.getSelection();
 			event.clipboardData.setData('text/plain', selection.toString().toUpperCase());
 			event.preventDefault();
-        });
 
+		}
+		componentDidMount() {
+			this.element.current.addEventListener('copy', this.event);
 			//document.addEventListener("wheel", console.log);
+			
 		}
 
 		componentWillUnmount(){
 			//document.removeEventListener("wheel", console.log);
+			this.element.current.removeEventListener('copy', this.event);
 		}
 		render() {
 			return (

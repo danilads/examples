@@ -6,26 +6,20 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
-	//устанавливается в packaje.json (нужен cross-env)
-  mode: process.env.NODE_ENV,
-  //mode: 'development',
-  //mode: 'production',
+  //устанавливается в packaje.json (нужен cross-env)
+ mode: process.env.NODE_ENV,
+ //mode: 'development',
+ //mode: 'production',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-		uglifyOptions: {
-			output: {
-			  comments: false
-			}
-		  }
-	  })
+      new UglifyJsPlugin()
     ]
   },
   devtool: devMode?'inline-source-map':undefined, //'source map' - для того чтобы в chrome в вкладке source можно было читать несобранный код
   devServer: {
     inline:true,
+    //port: 8080,
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
-    //port: 8080
   },
   entry: {
 		main: ['babel-polyfill', './app.js'] //для работы async / await
@@ -41,8 +35,7 @@ module.exports = {
   module: {
     rules: [
 		{
-      test: /\.(js|jsx)?$/,
-      exclude: /node_modules/,
+			test: /\.(js|jsx)?$/,
 			use: {
 				loader: "babel-loader"
 		}
@@ -70,7 +63,7 @@ module.exports = {
   plugins: [
     // при запуске открывает страницу с размерами пакетов и компонентов
     // new BundleAnalyzerPlugin(),
-	  //копирует папки fonts/images
+    // //копирует папки fonts/images
     // new CopyWebpackPlugin([
     //   {
     //     from: 'fonts',

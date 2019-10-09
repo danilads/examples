@@ -75,7 +75,7 @@ class Menu1 extends React.PureComponent {
             <SubMenu
               popupClassName={'Menu-styles'}
               title={
-                <span>offset sub menu 2</span>
+                <span>длинное меню здесь</span>
               }
               key="5"
               popupOffset={[15, 5]} //смещение открывающегося мен/
@@ -84,7 +84,7 @@ class Menu1 extends React.PureComponent {
               
               <SubMenu
                 key="5-2"
-                title={<span>sub menu 1</span>}
+                title={<span>длинное меню</span>}
               >
                 <SubMenu title={<span>sub 4-2-0</span>} key="5-2-0">
                   <MenuItem key="5-2-0-1"><span>inner inner</span></MenuItem>
@@ -96,7 +96,7 @@ class Menu1 extends React.PureComponent {
                   <MenuItem key="5-2-2-2"><span>inner inner2</span></MenuItem>
                 </SubMenu>
                 {/* если много конента добавляем данный стиль */} 
-                <SubMenu popupClassName={'scrollConent'} title={<span>sub menu 3</span>} key="5-2-3">
+                <SubMenu popupClassName={'scrollConent'} title={<span>длинное меню</span>} key="5-2-3">
                   {arr.map(it=>{
                     return <MenuItem key={"5-2-3-"+it}><span>{"inner inner"+it}</span></MenuItem>
                   })}

@@ -12,30 +12,92 @@ class Block_MainPage extends React.PureComponent {
   	render() {
 		return (
 			<div className={"Block_MainPage"}>
+
+				<span>Возрастающая прогрессия</span>
 				<IMaskInput
-					mask={Number}
-					radix="."
-					value="123"
-					onChange={(e)=>console.log('---change',e.target)}
-					unmask={true} // true|false|'typed'
-					onAccept={(value, mask) => console.log('---accept',value, mask)}
-					placeholder='Enter number here'
+					maxLength="12"
+					mask={(value)=>{
+						return /^\d*$/.test(value) && value.split('').every(function(ch, i) {
+						  let prevCh = value[i-1];
+						  return !prevCh || prevCh < ch;
+						});
+					  }}
+				/>
+
+				<span>Iban</span>
+				<IMaskInput
+					 maxLength="12"
+					 mask='****{ }****{ }****{ }****{ }****{ }****{ }****{ }****{ }**'
+					 prepare={(str)=>str.toUpperCase()}
+				/>
+
+				<span>disabled</span>
+				<IMaskInput
+					 maxLength="12"
+					 mask='****{ }****{ }****{ }****{ }****{ }****{ }****{ }****{ }**'
+					 disabled
+				/>
+
+				<span>1-6 number</span>
+				<IMaskInput
+					 mask={/^[1-6]\d{0,5}$/}
+				/>
+
+				<span>numbers ONLY</span>
+				<IMaskInput
+					 mask={/^\d+$/}
+				/>
+
+				<span>ONLY UPPER ENG</span>
+				<IMaskInput
+					 mask={/^[A-Z0-9\s]*$/}
+				/>
+
+				<span>Amount</span>
+				<IMaskInput
+					 //mask: /^[A-Z0-9\s]*$/,
+					 mask={Number}  // enable number mask
+
+					 // other options are optional with defaults below
+					 scale={2}  // digits after point, 0 for integers
+					 signed={false}  // disallow negative (запретить отрицательные)
+					 thousandsSeparator={' '}  // any single char
+					 padFractionalZeros={true}  // if true, then pads zeros at end to the length of scale
+					 normalizeZeros={true}  // appends or removes zeros at ends
+					 radix={'.'}  // fractional delimiter
+		   
+					 // additional number interval options (e.g.)
+					 min={-10000}
+					 max={10000}
 				/>
 				
+				<span>Amount RIGHT</span>
 				<IMaskInput
-					mask={/^[1-6]\d{0,5}$/}
-					
+					 style={{textAlign:'right'}}
+					 //mask: /^[A-Z0-9\s]*$/,
+					 mask={Number}  // enable number mask
+
+					 // other options are optional with defaults below
+					 scale={2}  // digits after point, 0 for integers
+					 signed={false}  // disallow negative (запретить отрицательные)
+					 thousandsSeparator={' '}  // any single char
+					 padFractionalZeros={true}  // if true, then pads zeros at end to the length of scale
+					 normalizeZeros={true}  // appends or removes zeros at ends
+					 radix={'.'}  // fractional delimiter
+		   
+					 // additional number interval options (e.g.)
+					 min={-10000}
+					 max={10000}
 				/>
-				phone
+
+				<span>ONLY UPPER ENG</span>
 				<IMaskInput
-					mask={'+{7}(000)000-00-00'}
+					mask={/^[а-яё]+|[a-z]*$/}
+					prepare={(str)=>{
+						return str.toUpperCase();
+					}}
 				/>
-				iBan
-				<IMaskInput
-					mask={'****{ }****{ }****'}
-					maxLength={9}
-					onAccept={(value, mask) => console.log('---accept',value, mask)}
-				/>
+
 
 			</div>
 		);
