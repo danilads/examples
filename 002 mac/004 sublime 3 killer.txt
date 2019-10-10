@@ -9,7 +9,7 @@ import sys
 cl = lambda line: subprocess.Popen(line, shell=True, stdout=subprocess.PIPE).communicate()[0].strip()
 log = lambda message: sys.stderr.write("Log: %s\n" % message)
  
-sublimeMainWindowTitle = " - Sublime Text (UNREGISTERED)"
+sublimeMainWindowTitle = " - Sublime Text"
  
 class LicenseWindowKiller(sublime_plugin.EventListener):
  
