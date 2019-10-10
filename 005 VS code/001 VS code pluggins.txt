@@ -12,5 +12,5 @@ Auto Import
 (color themes)
 Base16 Ocean Dark Theme Extended
 Electron Color Theme
-Zenburn Theme
+Zenburn Theme (USE IT!)
 Theme - Oceanic Next

@@ -8,15 +8,16 @@
 
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
-01 OpenEmu
+//01 OpenEmu
 03 Launchpad (mac os include)
+03 bracketa
 04 Safari (mac os include)
 05 Chrome
 06 Firefox
 07 Skype
 08 Telegram
 09 VS code
-10 Sublime text 3
+10 
 11 Webstorm(?)
 12 Piskel
 13 Blender
