@@ -11,13 +11,26 @@ class Modal extends React.PureComponent {
 
     };
     //pass
-    changePass=()=>{
+    changePass1=()=>{
+        let {prevPass, currPass, currPassConfirm} = this.state;
         //TODO
         //проверяем чтобы поля небыли пустыми
-        
+        if(prevPass===''||currPass===''||currPassConfirm===''){
+            this.setState({message:"fields mustn't be empty"});
+        }
         //чтобы пароли совпадали
+        else if(currPass!==currPassConfirm){
+            this.setState({message:"passwords don't match"});
+        }
         //проверяем старый хэш
-        //перешифруем данные
+        else{
+            this.changePass2();
+        }
+       
+    }
+    changePass2=()=>{
+        //проверяем старый хэш
+         //перешифруем данные
     }
     renderContent=(type)=>{
         if(type==='pass'){
@@ -35,7 +48,7 @@ class Modal extends React.PureComponent {
     }
     renderBtns=(type)=>{
         if(type==='pass'){
-            return <button onClick={this.changePass}>change pass</button>
+            return <button onClick={this.changePass1}>change pass</button>
         }
     }
     
