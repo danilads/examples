@@ -5,18 +5,28 @@ import './Step2.scss';
 
 class Step2 extends React.PureComponent {
     state={
+        disabled: false, 
+        textInfo: "",
         text:"",
-        saved: false,
     };
-    save=()=>{
+    save1=()=>{
         let data = "1234"+this.state.text;
-        let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
+        this.setState({textInfo:'Dont close app, file saving', disabled:true},()=>{
+            setTimeout(()=>{
+                this.save2(data);
+            },500)
+            
+        })
 
-        let encr =  encrypt(data,pass,keySize,iter,salt,iv,salt2str,iv2str);
+        
+    };
+    save2=(data)=>{
+        let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
+        let encr = encrypt(data,pass,keySize,iter,salt,iv,salt2str,iv2str);
         save(hashName,JSON.parse(salt),JSON.parse(iv),encr,keySize,iter,salt2str,iv2str);
         console.log('SAVED');
-        this.setState({saved:true});
-    };
+        this.setState({disabled:true,textInfo:'saved'});
+    }
 
     componentDidUpdate(prevProps){
         if(prevProps.s!==this.props.s){
@@ -28,12 +38,13 @@ class Step2 extends React.PureComponent {
     }
   	render() {
         let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
-        let {saved} = this.state;
+        let {disabled} = this.state;
         // !!!!нужно сделать title данные сохранены и disable input & textarea
 		return (
 			<div className="Step2">
-                <div><textarea disabled={saved} value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea></div>
-                <div><input disabled={saved} onClick={this.save} type="button" value="save"/></div>
+                <div className="buttons"><input disabled={disabled} onClick={this.save1} type="button" value={'save'}/></div>
+                <div className="textInfo">{this.state.textInfo}</div>
+                <div className="textareaWrap"><textarea disabled={disabled} value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea></div>
 			</div>
 		);
   	}
