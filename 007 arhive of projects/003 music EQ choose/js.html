@@ -1,0 +1,183 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+    <style>
+        html{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            border: 1px solid gray;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+        button{
+            width: 80px;
+            padding: 5px;
+            margin: 5px;
+            height: 46px;
+        }
+        .turnOn{
+            color:red;
+        }
+    </style>
+	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.4/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+    /////README
+    //для изменнения нужно изменить две переменные
+
+    // имя папки
+    var folderName = 'metlaDye';
+
+    // сколько должны быть вариантов ответов
+    var howMuchFalseAnswers = 4;
+
+    // имя файлов  -  они должны быть в wav формате
+    // default файл должен иметь имя def.wav
+	var json=[
+		"cut100",
+		"cut10000",
+		"down50-200",
+		"down200-1000",
+		"down1000-2000",
+		"down5000-20000",
+		"up50-200",
+		"up200-1000",
+		"up1000-2000",
+		"up5000-20000"
+	];
+
+	
+	class TheGame extends React.PureComponent {
+		state={
+			cycle: 'start',   // цикл
+			correct: '',      // правильное название
+            pos:0,            // 0/1 переключалка между оригинлаьным и эквализированным
+            button: 'def'     // 'def'/'rand' - состояние кнопки
+ 		}
+        
+		run=()=>{
+            //получаем рандомный
+            //запускаем с рандомным id
+            let r = json[this.rand(0,json.length-1)]
+            this.setState({cycle:'playing', correct:r, button:'rand'});
+            
+            
+            //запускаем стандартный
+            let mediaDef=document.getElementById('def');
+            mediaDef.volume = 0;
+            mediaDef.play();
+            
+            
+            //запускаем рандомный
+			let media=document.getElementById(r);
+			media.volume=1;
+			media.play();
+			media.onended = () => {
+				this.setState({cycle:'choose'});
+			};
+		}
+
+		buildButtons=()=>{
+			if(this.state.cycle==="start"){			        
+				return <div>
+						<h2>Game - Choose correct EQ</h2>
+				        <button onClick={()=>this.run()}>start the game</button>
+					</div>    
+			}
+			else if(this.state.cycle==="choose"){
+                let arr = [];
+                //добавляем правильный ответ
+                arr.push(this.state.correct);
+                //добавляем рандомные ответы
+                for(let i=0;i<howMuchFalseAnswers-1;i++){
+                    let r = json[this.rand(0,json.length-1)];
+                    if(arr.includes(r)){
+                        i--;
+                    }
+                    else{
+                        arr.push(r);
+                    }  
+                }
+                arr.sort(function() {
+                    return .5 - Math.random();
+                });
+				return <div>
+						<h2>choose correct answer</h2>
+						<div style={{display:'flex'}}>{arr.map(it=>{
+                                return <button onClick={()=>{this.isCorrect(it)}} key={it}>{it}</button>
+                            })}</div>
+					</div>
+			}
+			else if(this.state.cycle==="playing"){
+                return <div>
+                    <h2>plaiyng</h2>
+                    <div style={{display:'flex'}}>
+                        <button className={`${this.state.button==='def'?'turnOn':''}`} onClick={()=>{this.volume('def')}}>def vol 100%</button>
+                        <button className={`${this.state.button==='rand'?'turnOn':''}`} onClick={()=>{this.volume('rand')}}>random vol 100%</button>
+                    </div>
+                </div>
+			}
+		};
+
+        isCorrect=(e)=>{
+            if(e===this.state.correct){
+                this.run();
+            }
+        }
+
+        volume=(e)=>{
+            let mediaDef=document.getElementById('def');
+            let media=document.getElementById(this.state.correct);
+            if(e==='def'){
+                mediaDef.volume = 1;
+                media.volume=0;
+                this.setState({button:'def'});
+            }
+            else if(e==='rand'){
+                mediaDef.volume = 0;
+                media.volume=1;
+                this.setState({button:'rand'});
+            }
+        };
+    
+		rand = (min, max) => {
+		    return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+		  }
+
+		render() {
+			return (
+				<div>
+					{this.buildButtons()}
+					<audio id="def">
+					  <source src={`${folderName}/def.wav`}/>
+					</audio> 
+					{json.map(it=>{
+						return <audio id={it}>
+								  <source src={`${folderName}/${it}.wav`}/>
+								</audio> 
+					})}
+					
+
+				</div>
+			);
+		}
+	}
+    
+	////////////////App Js
+		ReactDOM.render(
+			<TheGame/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
