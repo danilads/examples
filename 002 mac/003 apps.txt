@@ -10,7 +10,7 @@
 01 Steam - https://store.steampowered.com/about/
 //01 OpenEmu
 03 Launchpad (mac os include)
-03 bracketa
+03 brackets
 04 Safari (mac os include)
 05 Chrome
 06 Firefox
