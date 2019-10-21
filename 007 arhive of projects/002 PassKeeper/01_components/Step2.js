@@ -1,5 +1,5 @@
 import React from 'react';
-import CryptoJS from 'crypto-js';
+import CryptoJS from '../utils/crypto-js.js';
 import {load,save,encrypt,decrypt} from '../utils/utils.js';
 import './Step2.scss';
 import Modal from './Modal';
@@ -29,7 +29,8 @@ class Step2 extends React.PureComponent {
         console.log('SAVED',e);
 
         let text = 'saved';
-        if(e){
+
+        if(e===true){
             text = 'password changed'
         }
         this.setState({disabled:true,textInfo:text});

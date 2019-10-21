@@ -1,5 +1,5 @@
 import React from 'react';
-import CryptoJS from 'crypto-js';
+import CryptoJS from '../utils/crypto-js.js';
 import {load,save,encrypt,decrypt} from '../utils/utils.js';
 import './Step1.scss';
 

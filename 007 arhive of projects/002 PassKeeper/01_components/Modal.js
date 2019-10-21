@@ -1,6 +1,6 @@
 import React from 'react';
 import './Modal.scss';
-import {load,save,encrypt,decrypt} from '../utils/utils.js';
+import {load,save,encrypt,decrypt,simpleEncr,simpleDecr} from '../utils/utils.js';
 
 class Modal extends React.PureComponent {
     state={
@@ -63,8 +63,31 @@ class Modal extends React.PureComponent {
             </div>
         }
         else if(type==='export'){
+            let result = "";
+            let e = this.props.hashName;
+
+            let data={};
+
+            data.salt=localStorage.getItem(e+"1");
+            data.iv=localStorage.getItem(e+"2");
+            data.encrypt=localStorage.getItem(e+"3");
+            data.keySize=localStorage.getItem(e+"4");  //есть в Page_Main
+            data.iter=localStorage.getItem(e+"5"); //есть в Page_Main
+            data.salt2str=localStorage.getItem(e+"6");
+            data.iv2str=localStorage.getItem(e+"7");
+            
+            //здесь шифруем хэш
+            console.log('---data',JSON.stringify(data));
+            let c = JSON.stringify(data);
+            let enc = simpleEncr(c);
+            console.log('---enc',enc);
+            //побитовое смещение
+            //шафл по формуле
+            //Пробуем еще какоенибудь шифрование из crypt js
+            
+            //TODO  --сделать кнопку edit - потом save
             return <div className="textareaWrap">
-                <textarea/>
+                <textarea disabled value={result}/>
             </div>
         }
     }

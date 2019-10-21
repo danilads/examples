@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+import CryptoJS from './crypto-js.js';
 
 export function save (hashName,salt,iv,encr,keyS,iter,salt2str,iv2str){
 	localStorage.setItem(hashName+"1", JSON.stringify(salt));
@@ -72,3 +72,15 @@ export function decrypt (mes,passW,keySize,iterations){
 
 	return decrypted.toString(CryptoJS.enc.Utf8);
 };
+
+export function simpleEncr (str){
+	let answer = '';
+	for(let i=0;str.length>i;i++){
+		answer+=str[i];
+	}
+	return answer;
+	
+}
+export function simpleDecr (str,pass){
+	
+}
