@@ -52,6 +52,10 @@ class Step2 extends React.PureComponent {
             this.save1(true);
 
     };
+    modalExport=()=>{
+        console.log('change');
+        this.setState({modal:'export'})
+    };
   	render() {
         let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
         let {disabled, modal} = this.state;
@@ -61,6 +65,7 @@ class Step2 extends React.PureComponent {
                 <div className="buttons">
                     <input disabled={disabled} onClick={this.save1} type="button" value={'save'}/>
                     <input disabled={disabled} onClick={this.modalChangePass} type="button" value={'change pass'}/>
+                    <input disabled={disabled} onClick={this.modalExport} type="button" value={'export hash'}/>
                 </div>
                 <div className="textInfo">{this.state.textInfo}</div>
                 <div className="textareaWrap"><textarea disabled={disabled} value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea></div>

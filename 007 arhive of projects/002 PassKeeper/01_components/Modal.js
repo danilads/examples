@@ -62,6 +62,11 @@ class Modal extends React.PureComponent {
                 <div><input type="password" onChange={(e)=>this.setState({newPassConfirm:e.target.value})} value={this.state.newPassConfirm}/></div>
             </div>
         }
+        else if(type==='export'){
+            return <div className="textareaWrap">
+                <textarea/>
+            </div>
+        }
     }
     renderBtns=(type)=>{
         if(type==='pass'){
