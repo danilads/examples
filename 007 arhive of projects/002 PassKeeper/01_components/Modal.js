@@ -42,7 +42,10 @@ class Modal extends React.PureComponent {
         else{
             //проверяем старый хэш
             //перешифруем данные
-            console.log('---старый пароль правильный!');
+            console.log('---старый пароль правильный!',this.state.newPass);
+            this.props.cbClose();
+            this.props.changePass(this.state.newPass)
+
         } 
 
     }

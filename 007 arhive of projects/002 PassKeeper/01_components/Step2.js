@@ -11,23 +11,28 @@ class Step2 extends React.PureComponent {
         text:"",
         modal: false,
     };
-    save1=()=>{
+    save1=(e)=>{
         let data = "1234"+this.state.text;
         this.setState({textInfo:'Dont close app, file saving', disabled:true},()=>{
             setTimeout(()=>{
-                this.save2(data);
+                this.save2(data,e);
             },500)
             
         })
 
         
     };
-    save2=(data)=>{
+    save2=(data,e)=>{
         let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
         let encr = encrypt(data,pass,keySize,iter,salt,iv,salt2str,iv2str);
         save(hashName,JSON.parse(salt),JSON.parse(iv),encr,keySize,iter,salt2str,iv2str);
-        console.log('SAVED');
-        this.setState({disabled:true,textInfo:'saved'});
+        console.log('SAVED',e);
+
+        let text = 'saved';
+        if(e){
+            text = 'password changed'
+        }
+        this.setState({disabled:true,textInfo:text});
     }
 
     componentDidUpdate(prevProps){
@@ -38,11 +43,15 @@ class Step2 extends React.PureComponent {
     componentDidMount() { 
         this.setState({text:this.props.mess.slice(4)})
     }
-    changePass=()=>{
+    modalChangePass=()=>{
         console.log('change');
         this.setState({modal:'pass'})
     }
-    
+    changePass=(e)=>{
+            this.props.changePass(e);
+            this.save1(true);
+
+    };
   	render() {
         let {hashName,mess,pass,keySize,iter,salt,iv,salt2str,iv2str} = this.props;
         let {disabled, modal} = this.state;
@@ -51,7 +60,7 @@ class Step2 extends React.PureComponent {
 			<div className="Step2">
                 <div className="buttons">
                     <input disabled={disabled} onClick={this.save1} type="button" value={'save'}/>
-                    <input disabled={disabled} onClick={this.changePass} type="button" value={'change pass'}/>
+                    <input disabled={disabled} onClick={this.modalChangePass} type="button" value={'change pass'}/>
                 </div>
                 <div className="textInfo">{this.state.textInfo}</div>
                 <div className="textareaWrap"><textarea disabled={disabled} value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea></div>
@@ -59,7 +68,8 @@ class Step2 extends React.PureComponent {
                             type={modal}
                             cbClose={()=>{this.setState({modal:false})}}
                             hashName={hashName}
-                        />
+                            changePass={this.changePass}
+                        /> 
                 }
             </div>
 		);

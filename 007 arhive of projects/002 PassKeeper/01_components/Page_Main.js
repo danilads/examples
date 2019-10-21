@@ -40,6 +40,9 @@ class Page_Main extends React.PureComponent {
 	getData=(pass,mess,salt,iv,salt2str,iv2str)=>{
 		this.setState({pass,mess,salt,iv,pass,salt2str,iv2str})
 	};
+	changePass=(e)=>{
+		this.setState({pass:e});
+	}
   	render() {
 		let {step,isFirstRun,hashName,mess,keySize,iter,salt,iv,pass,salt2str,iv2str} = this.state;
 	
@@ -48,7 +51,7 @@ class Page_Main extends React.PureComponent {
 			<div className="Page_Main">
 				{/* меню ввода пароля */}
 				{step===1&&<Step1 iter={this.state.iter} keySize={this.state.keySize} getData={this.getData} cbChangeStep={this.cbStep1ChangeStep} isFirstSt={isFirstRun} hash={load(hashName)} hashN={hashName}/>}
-				{step===2&&<Step2 hashName={hashName} mess={mess} pass={pass} keySize={keySize} iter={iter} salt={salt} iv={iv} salt2str={salt2str} iv2str={iv2str}/>}
+				{step===2&&<Step2 hashName={hashName} mess={mess} pass={pass} keySize={keySize} iter={iter} salt={salt} iv={iv} salt2str={salt2str} iv2str={iv2str} changePass={this.changePass}/>}
 
 			</div>
 		);
