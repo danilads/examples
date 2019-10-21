@@ -1,25 +1,26 @@
 import React from 'react';
 import './Modal.scss';
+import {load,save,encrypt,decrypt} from '../utils/utils.js';
 
 class Modal extends React.PureComponent {
     state={
         //pass
         prevPass:'',
-        currPass:'',
-        currPassConfirm:'',
+        newPass:'',
+        newPassConfirm:'',
         message: '',
 
     };
     //pass
     changePass1=()=>{
-        let {prevPass, currPass, currPassConfirm} = this.state;
+        let {prevPass, newPass, newPassConfirm} = this.state;
         //TODO
         //проверяем чтобы поля небыли пустыми
-        if(prevPass===''||currPass===''||currPassConfirm===''){
+        if(prevPass===''||newPass===''||newPassConfirm===''){
             this.setState({message:"fields mustn't be empty"});
         }
         //чтобы пароли совпадали
-        else if(currPass!==currPassConfirm){
+        else if(newPass!==newPassConfirm){
             this.setState({message:"passwords don't match"});
         }
         //проверяем старый хэш
@@ -29,8 +30,21 @@ class Modal extends React.PureComponent {
        
     }
     changePass2=()=>{
-        //проверяем старый хэш
-         //перешифруем данные
+        let data = load(this.props.hashName);
+        let out = decrypt(data.encrypt,this.state.prevPass,data.keySize,data.iter);
+
+        //если не правильный пароль
+        if(out.length===0){
+            this.setState({message:"current password incorrect"});
+            
+        }
+        //если пароль правильный
+        else{
+            //проверяем старый хэш
+            //перешифруем данные
+            console.log('---старый пароль правильный!');
+        } 
+
     }
     renderContent=(type)=>{
         if(type==='pass'){
@@ -39,10 +53,10 @@ class Modal extends React.PureComponent {
                 <div><input type="password" onChange={(e)=>this.setState({prevPass:e.target.value})} value={this.state.prevPass}/></div>
                 <br/>
                 <div className='label'>new password:</div>
-                <div><input type="password" onChange={(e)=>this.setState({currPass:e.target.value})} value={this.state.currPass}/></div>
+                <div><input type="password" onChange={(e)=>this.setState({newPass:e.target.value})} value={this.state.newPass}/></div>
                 <br/>
                 <div className='label'>confirm password:</div>
-                <div><input type="password" onChange={(e)=>this.setState({currPassConfirm:e.target.value})} value={this.state.currPassConfirm}/></div>
+                <div><input type="password" onChange={(e)=>this.setState({newPassConfirm:e.target.value})} value={this.state.newPassConfirm}/></div>
             </div>
         }
     }

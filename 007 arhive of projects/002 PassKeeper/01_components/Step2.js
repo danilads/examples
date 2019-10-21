@@ -55,7 +55,12 @@ class Step2 extends React.PureComponent {
                 </div>
                 <div className="textInfo">{this.state.textInfo}</div>
                 <div className="textareaWrap"><textarea disabled={disabled} value={this.state.text} onChange={(e)=>this.setState({text:e.target.value})}></textarea></div>
-                {modal&&<Modal type={modal} cbClose={()=>{this.setState({modal:false})}}/>}
+                {modal&&<Modal
+                            type={modal}
+                            cbClose={()=>{this.setState({modal:false})}}
+                            hashName={hashName}
+                        />
+                }
             </div>
 		);
   	}

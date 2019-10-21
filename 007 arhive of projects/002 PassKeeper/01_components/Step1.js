@@ -39,7 +39,6 @@ class Step1 extends React.PureComponent {
         //не первый вход
         else{
             let data = load(this.props.hashN);
-
             let out = decrypt(data.encrypt,this.state.pass,data.keySize,data.iter);
 
             //если не правильный пароль
