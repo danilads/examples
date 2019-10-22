@@ -66,25 +66,43 @@ class Modal extends React.PureComponent {
             let result = "";
             let e = this.props.hashName;
 
-            let data={};
+            let data=[];
 
-            data.salt=localStorage.getItem(e+"1");
-            data.iv=localStorage.getItem(e+"2");
-            data.encrypt=localStorage.getItem(e+"3");
-            data.keySize=localStorage.getItem(e+"4");  //есть в Page_Main
-            data.iter=localStorage.getItem(e+"5"); //есть в Page_Main
-            data.salt2str=localStorage.getItem(e+"6");
-            data.iv2str=localStorage.getItem(e+"7");
+            // data.salt=localStorage.getItem(e+"1");
+            // data.iv=localStorage.getItem(e+"2");
+            // data.encrypt=localStorage.getItem(e+"3");
+            // data.keySize=localStorage.getItem(e+"4");  //есть в Page_Main
+            // data.iter=localStorage.getItem(e+"5"); //есть в Page_Main
+            // data.salt2str=localStorage.getItem(e+"6");
+            // data.iv2str=localStorage.getItem(e+"7");
+
+            data.push(localStorage.getItem(e+"1"));
+            data.push(localStorage.getItem(e+"2"));
+            data.push(localStorage.getItem(e+"3"));
+            data.push(localStorage.getItem(e+"4"));  //есть в Page_Main
+            data.push(localStorage.getItem(e+"5")); //есть в Page_Main
+            data.push(localStorage.getItem(e+"6"));
+            data.push(localStorage.getItem(e+"7"));
             
-            //здесь шифруем хэш
+            ////----TODO ШИРФУЕМ
+            console.log('---Пре шифровка',data);
             console.log('---data',JSON.stringify(data));
             let c = JSON.stringify(data);
+            
+            //здесь шифруем хэш если получиться(средствами crypto js)
             let enc = simpleEncr(c);
             console.log('---enc',enc);
-            //побитовое смещение
+            
+            //в массиве удаляем первый и последний [], заменяем / и ""
+            //побитовое смещение?
             //шафл по формуле
             //Пробуем еще какоенибудь шифрование из crypt js
+
             
+            ////----TODO ДЕШИРФУЕМ
+            console.log('---decrypted',JSON.parse(enc));
+
+
             //TODO  --сделать кнопку edit - потом save
             return <div className="textareaWrap">
                 <textarea disabled value={result}/>
