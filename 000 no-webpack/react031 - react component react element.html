@@ -50,7 +50,7 @@
 		render() {
 			//компонент должен быть с большой буквы
 			let N1 = SomeComp;
-			let n2 = <SomeComp text="прокидываем пропсы 1"/>;
+			let n2 = <SomeComp/>;
 
 
 			//проверка что это компонент
@@ -60,9 +60,17 @@
 			console.log(React.isValidElement(n2));
 			console.log(n2);
 
+			//прокидываем пропсы для реакт элемента(клонируем т.к. n2.props - read only)
+			const n2WithProps = React.Children.map(n2, (child, index) => {
+				return React.cloneElement(child, {
+					index,
+					text: "прокидываем пропсы 1"
+				});
+			});
+
 			return (<div>
 					<N1 text="прокидываем пропсы 2"/>
-					{n2}
+					{n2WithProps}
 			</div>);
 		}
 	}
