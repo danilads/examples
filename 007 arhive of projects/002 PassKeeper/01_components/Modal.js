@@ -88,7 +88,8 @@ class Modal extends React.PureComponent {
             console.log('---Пре шифровка',data);
             console.log('---data',JSON.stringify(data));
             let c = JSON.stringify(data);
-            
+            console.log('---typeof',typeof c);
+            console.log('---c',JSON.stringify(c));
             //здесь шифруем хэш если получиться(средствами crypto js)
             let enc = simpleEncr(c);
             console.log('---enc',enc);

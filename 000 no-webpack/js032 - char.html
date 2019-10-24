@@ -1,0 +1,107 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	
+<script>
+    ////----00
+        //узнать код
+        let str = 'hello';
+        console.log(str.charCodeAt(0)) // char code "h" //104
+        
+        //вставить символ по коду
+        console.log(String.fromCharCode(104)); // вернет "h"
+
+    
+
+        //стандартные символы (от 32 до 126)
+        console.log('--start 32');
+        for(let i=32;126>=i;i++){
+            console.log(i,String.fromCharCode(i));
+        }
+        console.log('--end 126');
+
+
+    ////----01
+        //функция которая генерирует массив cryptArr для функции displacement (нужно символы \ и " - экранировать)
+        function generatecryptArr (){
+            let arr = [];
+            for(let i=32;126>=i;i++){
+                arr.push(String.fromCharCode(i));
+            }
+            return arr.sort(function() {
+                return .5 - Math.random();
+            });
+        
+        }
+        console.log("---generatecryptArr",generatecryptArr());
+    
+    ////----02
+        //функция которая смещает charCode в пределах 32-126 (по кругу)
+        //1 char - символ который смещаем
+        //2 ord - (true - в положительную сторону) (false - в отрицательную)
+        //3 cryptArr - массив по которому определяем смещение (ключ)
+        function displacement(str, ord, cryptArr){
+            if(ord){
+                return cryptArr[str.charCodeAt(0)-32];
+            }
+            else{
+                return String.fromCharCode(cryptArr.indexOf(str)+32)
+            }
+            return str;
+        }
+        let cryptArr = ["+", ":", "K", "Z", "m", "D", "3", "A", ".", "7", ">", " ", "v", "O", "B", "Y", ",", "/", "M", "q", "*", "!", "C", "c", "r", ";", "-", "1", "S", "2", "'", "9", ")", "`", "N", "j", "T", "<", "$", "i", "^", "(", "6", "R", "x", "w", "\"", "#", "?", "g", "@", "u", "t", "f", "I", "{", "H", "&", "]", "_", "l", "d", "E", "L", "J", "}", "Q", "W", "h", "%", "G", "8", "U", "F", "n", "5", "X", "P", "V", "0", "4", "|", "~", "p", "e", "y", "o", "a", "s", "\\", "z", "[", "k", "=", "b"];
+        
+        let Char = " ";
+        let decrChar = displacement(Char,true,cryptArr);
+        console.log('--зашифрованый символ',decrChar);
+        let encrChar = displacement(decrChar,false,cryptArr);
+        console.log('--дешифрованый символ',encrChar);
+    
+    ////----03
+        let n = ' dewdweПРИВЕТwdq~';
+
+        //ШИФРУЕМ
+        //если символ изначально имеет charCode вне диапазона - не смещает(оставляет как есть)
+        function encrypt (str){
+            let result = '';
+            for(let i=0;str.length>i;i++){
+                //если в пределе 32-126
+                if(str.charCodeAt(i)>=32&&str.charCodeAt(i)<=126){
+                    result+=displacement(str[i],true,cryptArr);
+                }
+                else{
+                    result+=str[i];
+                }
+            }
+            return result;
+        }
+    
+        //ДЕШИФРУЕМ
+        //смещает обратно
+        function decrypt (str){
+            let result = '';
+            for(let i=0;str.length>i;i++){
+                //если в пределе 32-126
+                if(str.charCodeAt(i)>=32&&str.charCodeAt(i)<=126){
+                    result+=displacement(str[i],false,cryptArr);
+                }
+                else{
+                    result+=str[i];
+                }
+            }
+            return result;
+        }
+        let encString = encrypt(n);
+        console.log('---Зашифровали',encString);
+        
+        let decString = decrypt(encString);
+        console.log('---Дешифровали',decString);
+</script>
+<body>
+	
+</body>
+</html>
