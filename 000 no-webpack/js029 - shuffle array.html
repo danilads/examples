@@ -39,6 +39,97 @@
 			return .5 - Math.random();
 		});
 		console.log('---arr2',arr2);
+
+		////----03 нерадндомный шафл (зависит от формулы)
+		let shortArr1 = [1,2];
+		let shortArr2 = [1,2,3];
+		let shortArr3 = [1,2,3,4];
+		let shortArr4 = [1,2,3,4,5];
+		let longArr = ["+", ":", "K", "Z", "m", "D", "3", "A", ".", "7", ">", " ", "v", "O", "B", "Y", ",", "/", "M", "q", "*", "!", "C", "c", "r", ";", "-", "1", "S", "2", "'", "9", ")", "`", "N", "j", "T", "<", "$", "i", "^", "(", "6", "R", "x", "w", "\"", "#", "?", "g", "@", "u", "t", "f", "I", "{", "H", "&", "]", "_", "l", "d", "E", "L", "J", "}", "Q", "W", "h", "%", "G", "8", "U", "F", "n", "5", "X", "P", "V", "0", "4", "|", "~", "p", "e", "y", "o", "a", "s", "\\", "z", "[", "k", "=", "b"];
+
+		//01 arr - array
+		//02 formula - number
+		function nonRandShufl (arr,formula){
+			if(arr.length<2)return arr; //защита от маленького массива
+			
+			//1)делим масиив по полам и меняем порядок
+			let half = Math.floor(arr.length/2);
+		
+			let first = arr.slice(0, half);
+			let second = arr.slice(half, arr.length).reverse();
+			
+			//2)шафл в зависимости от формулы
+			let f = second.concat(first);
+
+				//приводим formula к длинне массива
+				let offsetNumb = 0;
+				if(arr.length>formula){
+					offsetNumb=formula;
+				}
+				else{
+					offsetNumb=formula%(arr.length);
+				}
+				
+				let prevArr = [...arr];
+				let resultArr = [];
+				let isInver = false;
+				let cnt = 0;
+				do{
+					if(!isInver){
+						if(resultArr[offsetNumb]===undefined){
+							resultArr[offsetNumb] = prevArr[0];
+						}
+						else{
+							let newOffsetNumb = offsetNumb+1;
+							//наращиваем
+							while(resultArr[newOffsetNumb]!==undefined){
+								newOffsetNumb++;
+								if(newOffsetNumb>arr.length-1){
+									newOffsetNumb = 0;
+								}
+							}
+							resultArr[newOffsetNumb] = prevArr[0];
+						}
+						
+		
+					}
+					else{
+						if(resultArr[arr.length-offsetNumb]===undefined){
+							resultArr[arr.length-offsetNumb] = prevArr[0];
+						}
+						else{
+							let newOffsetNumb = offsetNumb+1;
+							//наращиваем
+							while(resultArr[newOffsetNumb]!==undefined){
+								newOffsetNumb++;
+								if(newOffsetNumb>arr.length-1){
+									newOffsetNumb = 0;
+								}
+							}
+							resultArr[newOffsetNumb] = prevArr[0];
+						}
+					
+					}
+					//invert offsetNumb(не должен быть больше)
+					offsetNumb=offsetNumb+1;
+					if(offsetNumb>arr.length){
+						offsetNumb=offsetNumb%(arr.length);
+					}
+
+					cnt++;
+					isInver=!isInver;
+					prevArr.shift();
+				}
+
+				while(arr.length>cnt);
+
+			return f;
+			
+
+
+		}
+		console.log('---after',nonRandShufl(longArr, 0));
+		console.log('---after',nonRandShufl(longArr, 3));
 	</script>
 <body>
 	
