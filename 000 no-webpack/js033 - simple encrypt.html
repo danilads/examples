@@ -22,6 +22,7 @@
         
         }
         console.log("---generatecryptArr",generatecryptArr());
+        console.log('----------------------------------------');
     
     ////----02
         //функция которая смещает charCode в пределах 32-126 (по кругу)
@@ -44,6 +45,7 @@
         console.log('--зашифрованый символ',decrChar);
         let encrChar = displacement(decrChar,false,cryptArr);
         console.log('--дешифрованый символ',encrChar);
+        console.log('----------------------------------------');
     
     ////----03
         let n = ' dewdweПРИВЕТwdq~';
@@ -84,53 +86,79 @@
         
         let decString = decrypt(encString);
         console.log('---Дешифровали',decString);
+        console.log('----------------------------------------');
 
-    ////----04 тусуем массив
-        
-		let shortArr1 = [1,2];
-		let shortArr2 = [1,2,3];
-		let shortArr3 = [1,2,3,4];
-		let shortArr4 = [1,2,3,4,5];
-		let longArr = ["+", ":", "K", "Z", "m", "D", "3", "A", ".", "7", ">", " ", "v", "O", "B", "Y", ",", "/", "M", "q", "*", "!", "C", "c", "r", ";", "-", "1", "S", "2", "'", "9", ")", "`", "N", "j", "T", "<", "$", "i", "^", "(", "6", "R", "x", "w", "\"", "#", "?", "g", "@", "u", "t", "f", "I", "{", "H", "&", "]", "_", "l", "d", "E", "L", "J", "}", "Q", "W", "h", "%", "G", "8", "U", "F", "n", "5", "X", "P", "V", "0", "4", "|", "~", "p", "e", "y", "o", "a", "s", "\\", "z", "[", "k", "=", "b"];
-
+    ////----04 тусуем массив 
+		let longArr = [1,2,3,4,5,6,7];
+		
+	
 		//01 arr  - (array target)
 		//02 bool - (true - encr / false - decr)
-		function recursShafl (arr, encrDecr){
-			if(arr.length<2)return arr; //защита от маленького массива
-			
-			//1)делим масиив по полам и меняем порядок
-			let half = 0;
-			if(encrDecr){
-				half = Math.ceil(arr.length/2);
-			}
-			else{
-				half = Math.floor(arr.length/2);
-			}
-			
-			
-			let first = arr.slice(0, half);
-			let second = arr.slice(half, arr.length);
-		
-			//2)шафл в зависимости от формулы
-			
-			let f = [];
-			if(encrDecr){
-				f = second.concat(first.reverse());
-			}
-			else{
-				f = second.reverse().concat(first);
-			}
+		function arrShafl (arr, encrDecr){
+            
+            let result = [];
+            
+            if(!encrDecr){
+                let copiedArr = [...arr].reverse();
+                result=copiedArr.reverse().splice(0,2);
+                for(let i=copiedArr.length;0<i;i--){
+                    result = result.reverse().concat(copiedArr.shift());
+                }
+                result.reverse();
+            }
+            else{
+                let copiedArr = [...arr];
+                for(let i=0;arr.length>i;i++){
+                    result.push(copiedArr.shift());
+                    copiedArr.reverse();
+                }
+                result.reverse();
+            }
 				
-			return f;
+			return result;
 			
-
-
 		}
-		let encr = nonRandShufl(shortArr4, true);
-		let decr = nonRandShufl(encr, false);
-		console.log('---before',shortArr4);
-		console.log('---after encr',encr);
-		console.log('---after decr',decr);
+		let Rencr = arrShafl(longArr, true);
+		let Rdecr = arrShafl(Rencr, false);
+		// console.log('---before',longArr);
+		console.log('---after encr',Rencr);
+        console.log('---after decr',Rdecr);
+    ////----06 смещаем массив
+
+        //01 arr    - (array target)
+        //02 bool   - (true - encr / false - decr)
+        //03 number - (formula) должна быть равна от 1 до макс длинны массива
+        function recurShafl(arr, encrDecr, formula){
+            //1 число приводим к длинне массива
+            let trueFormula = formula;
+            if(formula>=arr.length){
+                trueFormula=formula%arr.length;
+            }
+            let result = [];
+
+            if(!encrDecr){
+                trueFormula=arr.length-trueFormula;
+            }
+            for(let i=0;arr.length>i;i++){
+                    let cnt = i+trueFormula;
+                    if(cnt>arr.length-1){
+                        cnt-=arr.length;
+                    }
+                    result.push(arr[cnt]);
+                }
+
+           
+            return result;
+        }
+
+        let anotherArr = [1,2,3,4,5,6,7]; 
+        let encDisp = recurShafl(anotherArr,true,12);
+        let decrDisp = recurShafl(encDisp,false,12);
+        console.log('---before',anotherArr);
+        console.log('---enc',encDisp);
+        console.log('---decr',decrDisp);
+
+
 </script>
 <body>
 	
