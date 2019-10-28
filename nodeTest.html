@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	
+</head>
+<body>
+	
+	<script>
+        
+        function getInf (name){
+         
+            fetch("https://fe.it-academy.by/Examples/words_tree/"+name, {
+                method: 'GET',
+            }).then( function(response) {
+                return response.text();
+            }).then( function(answer) {
+                response(answer);
+            });
+            
+          
+        };
+        
+        var answer = []
+        
+        function response(answer){
+            let toArr = JSON.parse(answer);
+            let arrayOfRequest = [];
+            
+            for(let i=0;toArr.length>i;i++){
+                arrayOfRequest.push(toArr[i])
+                console.log(getInf(toArr[i]));
+            }
+            
+            
+        }
+        
+        getInf('root.txt');
+	</script>
+</body>
+</html>

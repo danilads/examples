@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+    window.onload = function() {
+
+    function arrToString(arr) {
+        let answer = '';
+
+        for(let i = 0; i < arr.length; i++) {
+            if(typeof arr[i] === 'string') {
+                if(arr[i] === '') continue;
+                answer += arr[i] + ' ';
+                continue;
+            }
+            answer += arrToString(arr[i]);
+        }
+
+        return answer;
+    }
+
+    function thenHandler(res) {
+        let parsedJson = [];
+
+        try {
+            parsedJson = JSON.parse(res);
+        } catch (e) {
+            return res;
+        }
+
+        let fetches = [];
+
+        for(let i = 0; i < parsedJson.length; i++) {
+            fetches.push(getText(parsedJson[i]));
+        }
+
+        return Promise.all(fetches).then(thenHandler);
+    }
+
+    function getText(fileName) {
+        return fetch('https://fe.it-academy.by/Examples/words_tree/root.txt').then(function (res) {
+            
+            return res.text();
+        }).then(thenHandler).catch(function () {
+            return '';
+        });
+    }
+
+    getText().then(function (answer) {
+        const { body } = document;
+
+        body.innerHTML = body.innerHTML + `<div>${arrToString(answer)}</div>`
+    });
+
+};
+    </script>
+</head>
+<body>
+
+</body>
+</html>
