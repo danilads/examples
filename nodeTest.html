@@ -10,28 +10,42 @@
 	<script>
         
         function getInf (name){
-         
-            fetch("https://fe.it-academy.by/Examples/words_tree/"+name, {
-                method: 'GET',
-            }).then( function(response) {
-                return response.text();
-            }).then( function(answer) {
-                response(answer);
-            });
-            
+            //todo обработать ошибку
+            try{
+                fetch("https://fe.it-academy.by/Examples/words_tree/"+name, {
+                    method: 'GET',
+                }).then( function(response) {
+                    return response.text();
+                }).then( function(answer) {
+                    response(answer);
+                });
+            }
+            catch(err){
+                console.warn(err);
+            }
           
         };
         
-        var answer = []
+        var arrText = []
         
         function response(answer){
-            let toArr = JSON.parse(answer);
+            try{
+                let toArr = JSON.parse(answer);
+                for(let i=0;toArr.length>i;i++){
+                //arrayOfRequest.push(toArr[i])
+                //console.log(toArr[i]);
+                if(typeof toArr[i]==='string'){
+                    getInf(toArr[i]);
+                }
+            }
+            }
+            catch(err){
+                arrText.push(answer);
+            }
+           
             let arrayOfRequest = [];
             
-            for(let i=0;toArr.length>i;i++){
-                arrayOfRequest.push(toArr[i])
-                console.log(getInf(toArr[i]));
-            }
+            
             
             
         }
