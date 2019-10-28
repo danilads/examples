@@ -10,36 +10,45 @@
 	<script>
         
         function getInf (name){
-            //todo обработать ошибку
-            try{
+		
                 fetch("https://fe.it-academy.by/Examples/words_tree/"+name, {
                     method: 'GET',
                 }).then( function(response) {
                     return response.text();
                 }).then( function(answer) {
-                    response(answer);
-                });
-            }
-            catch(err){
-                console.warn(err);
-            }
+                    responseHandler(answer);
+                }).catch( function(err) {
+					console.log('error',err);
+				});
+            
           
         };
         
         var arrText = []
         
-        function response(answer){
+        function responseHandler(answer){
+			console.log('--answer',answer);
+			//TODO json проверяем стока ли и первый символ "{" или "["
+			//либо как проверить что это JSON
+			//TODO запрос рекурсионный
+			//TODO  потом promiseall массивом
             try{
-                let toArr = JSON.parse(answer);
+				let toArr = JSON.parse(answer);
+				
+
                 for(let i=0;toArr.length>i;i++){
-                //arrayOfRequest.push(toArr[i])
-                //console.log(toArr[i]);
-                if(typeof toArr[i]==='string'){
-                    getInf(toArr[i]);
-                }
-            }
+					//arrayOfRequest.push(toArr[i])
+					//getInf(toArr[i]);
+					//console.log(i,toArr[i]);
+					// if(typeof toArr[i]==='string'){
+					// 	getInf(toArr[i]);
+					// }
+					
+				}
+				
             }
             catch(err){
+				
                 arrText.push(answer);
             }
            

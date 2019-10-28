@@ -35,12 +35,12 @@
         for(let i = 0; i < parsedJson.length; i++) {
             fetches.push(getText(parsedJson[i]));
         }
-
+		console.log('fetches',fetches);
         return Promise.all(fetches).then(thenHandler);
     }
 
     function getText(fileName) {
-        return fetch('https://fe.it-academy.by/Examples/words_tree/root.txt').then(function (res) {
+        return fetch('https://fe.it-academy.by/Examples/words_tree/'+fileName).then(function (res) {
             
             return res.text();
         }).then(thenHandler).catch(function () {
@@ -48,7 +48,7 @@
         });
     }
 
-    getText().then(function (answer) {
+    getText('root.txt').then(function (answer) {
         const { body } = document;
 
         body.innerHTML = body.innerHTML + `<div>${arrToString(answer)}</div>`
