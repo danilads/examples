@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	
+<script>
+    //Promise
+        var promise1 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 2000, "foo");
+        });
+        promise1.then((value)=>{
+            console.log('---value',value)
+        })
+
+        //Promise.all
+        var p1 = Promise.resolve(3);
+        var p2 = 1337;
+        var p3 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 1000, "foo");
+        }); 
+
+        Promise.all([p1, p2, p3]).then(values => { 
+            console.log(values); 
+        });
+
+</script>
+<body>
+	
+</body>
+</html>
