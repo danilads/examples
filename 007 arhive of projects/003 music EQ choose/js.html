@@ -89,10 +89,11 @@
 	
 	class TheGame extends React.PureComponent {
 		state={
-			cycle: 'start',   // цикл
-			correct: '',      // правильное название
-            pos:0,            // 0/1 переключалка между оригинлаьным и эквализированным
-            button: 'def'     // 'def'/'rand' - состояние кнопки
+			cycle: 'start',     // цикл
+            arrayOfAnswers: [], // массив ответов(с правильным)
+			correct: '',        // правильное название
+            pos:0,              // 0/1 переключалка между оригинлаьным и эквализированным
+            button: 'def'       // 'def'/'rand' - состояние кнопки
  		}
         
 		run=()=>{
@@ -100,6 +101,27 @@
             //запускаем с рандомным id
             let r = json[this.rand(0,json.length-1)]
             this.setState({cycle:'playing', correct:r, button:'rand'});
+            
+            
+            //формируем ответы
+            let arr = [];
+            //добавляем правильный ответ
+            arr.push(r);
+            //добавляем рандомные ответы
+            for(let i=0;i<howMuchFalseAnswers-1;i++){
+                let r = json[this.rand(0,json.length-1)];
+                if(arr.includes(r)){
+                    i--;
+                }
+                else{
+                    arr.push(r);
+                }  
+            }
+            arr.sort(function() {
+                return .5 - Math.random();
+            });
+            this.setState({arrayOfAnswers:arr});
+             
             
             
             //запускаем стандартный
@@ -120,35 +142,28 @@
             console.log('play again');
             //запускаем стандартный
             let mediaDef=document.getElementById('def');
+            //вместо остановки
+            mediaDef.pause();
+            mediaDef.currentTime = 0;
+            
             mediaDef.volume = 0;
             mediaDef.play();
             
             
             //запускаем рандомный
 			let media=document.getElementById(this.state.correct);
+            //вместо остановки
+            media.pause();
+            media.currentTime = 0;
+            
 			media.volume=1;
 			media.play();
         }
         formAnswers=()=>{
-            let arr = [];
-                //добавляем правильный ответ
-                arr.push(this.state.correct);
-                //добавляем рандомные ответы
-                for(let i=0;i<howMuchFalseAnswers-1;i++){
-                    let r = json[this.rand(0,json.length-1)];
-                    if(arr.includes(r)){
-                        i--;
-                    }
-                    else{
-                        arr.push(r);
-                    }  
-                }
-                arr.sort(function() {
-                    return .5 - Math.random();
-                });
+                let {arrayOfAnswers} = this.state;
 				return <div>
 						<h2>choose correct answer</h2>
-						<div style={{display:'flex'}}>{arr.map(it=>{
+						<div style={{display:'flex'}}>{arrayOfAnswers.map(it=>{
                                 return <button onClick={()=>{this.isCorrect(it,true)}} key={it}>{it}</button>
                             })}</div>
 					</div>
@@ -159,9 +174,6 @@
 						<h2>Game - Choose correct EQ</h2>
 				        <button onClick={()=>this.run()}>start the game</button>
 					</div>    
-			}
-			else if(this.state.cycle==="choose"){
-                return this.formAnswers();
 			}
 			else if(this.state.cycle==="playing"){
                 return <div>
@@ -179,6 +191,23 @@
         isCorrect=(e,isExternal)=>{
             if(isExternal && e===this.state.correct){
                 this.setState({cycle: 'start'});
+                
+                //останавливаем правильный
+                let mediaDef=document.getElementById('def');
+                //вместо остановки
+                mediaDef.pause();
+                mediaDef.currentTime = 0;
+
+
+                //останавливаем рандомный
+                let media=document.getElementById(this.state.correct);
+                //вместо остановки
+                media.pause();
+                media.currentTime = 0;
+
+          
+                
+                console.log('correct');
             }
             else if(e===this.state.correct){
                 this.run();
