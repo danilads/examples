@@ -21,6 +21,9 @@
             padding: 5px;
             margin: 5px;
             height: 46px;
+            white-space: nowrap; /* Запрещаем перенос строк */
+			overflow: hidden; /* Обрезаем все, что не помещается в область */
+			text-overflow: ellipsis;
         }
         .turnOn{
             color:red;
@@ -32,65 +35,55 @@
             height: 100%
         }
     </style>
-	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+	<!-- <script src="000-react.production.min.js"></script>
+    <script src="000-react-dom.production.min.js"></script>
+    <script src="000-babel.min.js"></script> -->
+    <script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
 	<script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.4/babel.min.js"></script>
+
 </head>
 <body>
 	<div id="container"></div> 
 	<script type="text/babel">
     /////README
     //для изменнения нужно изменить две переменные
-
-
     // сколько должны быть вариантов ответов
     var howMuchFalseAnswers = 4;
-
     // имя файлов  -  они должны быть в wav формате
     // default файл должен иметь имя def.mp3 и массиве его не должно быть  
-	var metlaDyeJson=[
-		"cut100",
-		"cut10000",
-		"down50-200",
-		"down200-1000",
-		"down1000-2000",
-		"down5000-20000",
-		"up50-200",
-		"up200-1000",
-		"up1000-2000",
-		"up5000-20000"
-	];
-//	 var whyDoesMyHeartJson=[
-//	 	 "boost90",
-//         "boost9000",
-//         "cut9000",
-//         "cut90"
-//         "down130",
-//         "down220",
-//         "down400",
-//         "down700",
-//         "down1100",
-//         "down1500",
-//         "down2200",
-//         "down3000",
-//         "down4000",
-//         "down5000",
-//         "down7000",
-//         "down9000",
-//         "up100",
-//         "up200",
-//         "up400",
-//         "up700",
-//         "up1100",
-//         "up1500",
-//         "up2200",
-//         "up3000",
-//         "up4000",
-//         "up5000",
-//         "up7000",
-//         "up9000"
-//         
-//	 ];
+
+	 var whyDoesMyHeartJson=[
+	 	 "boost90",
+         "boost9000",
+         "cut9000",
+         "cut90",
+         "down130",
+         "down220",
+         "down400",
+         "down700",
+         "down1100",
+         "down1500",
+         "down2200",
+         "down3000",
+         "down4000",
+         "down5000",
+         "down7000",
+         "down9000",
+         "up100",
+         "up200",
+         "up400",
+         "up700",
+         "up1100",
+         "up1500",
+         "up2200",
+         "up3000",
+         "up4000",
+         "up5000",
+         "up7000",
+         "up9000"
+         
+	 ];
 	
 	class TheGame extends React.PureComponent {
 		state={
@@ -192,7 +185,6 @@
                 </div>
 			}
 		};
-
         isCorrect=(e,isExternal)=>{
             if(isExternal && e===this.state.correct){
                 this.setState({cycle: 'start'});
@@ -202,14 +194,11 @@
                 //вместо остановки
                 mediaDef.pause();
                 mediaDef.currentTime = 0;
-
-
                 //останавливаем рандомный
                 let media=document.getElementById(this.state.correct);
                 //вместо остановки
                 media.pause();
                 media.currentTime = 0;
-
           
                 
                 console.log('correct');
@@ -219,7 +208,6 @@
             }
             
         }
-
         volume=(e)=>{
             let mediaDef=document.getElementById('def');
             let media=document.getElementById(this.state.correct);
@@ -238,7 +226,6 @@
 		rand = (min, max) => {
 		    return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 		  }
-
 		render() {
             console.log('---rerender',this.props);
 			return (
@@ -257,7 +244,6 @@
 								</audio> 
 					})}
 					
-
 				</div>
 			);
 		}
@@ -273,8 +259,8 @@
                 <div style={{position:'relative', height:'100%'}}>
                     <button style={{position:'absolute',bottom: '0px',right:'0px'}} onClick={()=>this.setState({folder:'',json:[]})}>exit</button>
                     {this.state.folder === '' && <h2>Game - Choose correct EQ</h2>}
-                    {this.state.folder === '' &&<button onClick={()=>{this.setState({folder:"metlaDye",json:metlaDyeJson})}}>metlaDye</button>}
-                    {this.state.folder === 'metlaDye' && <TheGame folder={this.state.folder} json={this.state.json}/>}
+                    {this.state.folder === '' &&<button onClick={()=>{this.setState({folder:"whyDoesMyHeartJson",json:whyDoesMyHeartJson})}}>whyDoesMyHeartJson</button>}
+                    {this.state.folder === 'whyDoesMyHeartJson' && <TheGame folder={this.state.folder} json={this.state.json}/>}
                         
               
                 </div>
