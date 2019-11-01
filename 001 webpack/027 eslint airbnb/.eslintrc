@@ -1,6 +1,7 @@
 {
-    "plugins": [
-      "react"
-    ],
-    "extends": ["eslint:all", "plugin:react/all"]
-  }
+  "extends": "airbnb",
+   "env": {
+      "node": true,
+      "es6": true
+   }
+}

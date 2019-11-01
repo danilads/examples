@@ -32,7 +32,9 @@
     "webpack-bundle-analyzer": "^3.5.2",
     "eslint": "^6.6.0",
     "eslint-loader": "^3.0.2",
-    "eslint-plugin-react": "^7.16.0"
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "babel-eslint": "^10.0.3"
   },
   "dependencies": {
     "react": "^16.6.3",
