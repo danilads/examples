@@ -53,37 +53,48 @@
     // имя файлов  -  они должны быть в wav формате
     // default файл должен иметь имя def.mp3 и массиве его не должно быть  
 
-	 var whyDoesMyHeartJson=[
-	 	 "boost90",
-         "boost9000",
-         "cut9000",
-         "cut90",
-         "down130",
-         "down220",
-         "down400",
-         "down700",
-         "down1100",
-         "down1500",
-         "down2200",
-         "down3000",
-         "down4000",
-         "down5000",
-         "down7000",
-         "down9000",
-         "up100",
-         "up200",
-         "up400",
-         "up700",
-         "up1100",
-         "up1500",
-         "up2200",
-         "up3000",
-         "up4000",
-         "up5000",
-         "up7000",
-         "up9000"
-         
-	 ];
+//	 var whyDoesMyHeartJson=[
+//	 	 "boost90",
+//         "boost9000",
+//         "cut9000",
+//         "cut90",
+//         "down130",
+//         "down220",
+//         "down400",
+//         "down700",
+//         "down1100",
+//         "down1500",
+//         "down2200",
+//         "down3000",
+//         "down4000",
+//         "down5000",
+//         "down7000",
+//         "down9000",
+//         "up100",
+//         "up200",
+//         "up400",
+//         "up700",
+//         "up1100",
+//         "up1500",
+//         "up2200",
+//         "up3000",
+//         "up4000",
+//         "up5000",
+//         "up7000",
+//         "up9000"
+//	 ];
+    var metlaDyeJson=[
+		"cut100",
+		"cut10000",
+		"down50-200",
+		"down200-1000",
+		"down1000-2000",
+		"down5000-20000",
+		"up50-200",
+		"up200-1000",
+		"up1000-2000",
+		"up5000-20000"
+	]; 
 	
 	class TheGame extends React.PureComponent {
 		state={
@@ -251,16 +262,23 @@
     //this.setState({folderName:"metlaDye",jsonAnswers:metlaDyeJson}
     class InitialComp extends React.Component {
 		state = {
-           folder:'',
+            folder:'',
             json: [],
 		}
+
+
 		render() {
+            
+            let name = "metlaDyeJson";
+            let json = metlaDyeJson;
+        
+            
 			return (
                 <div style={{position:'relative', height:'100%'}}>
                     <button style={{position:'absolute',bottom: '0px',right:'0px'}} onClick={()=>this.setState({folder:'',json:[]})}>exit</button>
                     {this.state.folder === '' && <h2>Game - Choose correct EQ</h2>}
-                    {this.state.folder === '' &&<button onClick={()=>{this.setState({folder:"whyDoesMyHeartJson",json:whyDoesMyHeartJson})}}>whyDoesMyHeartJson</button>}
-                    {this.state.folder === 'whyDoesMyHeartJson' && <TheGame folder={this.state.folder} json={this.state.json}/>}
+                    {this.state.folder === '' &&<button onClick={()=>{this.setState({folder:name,json:json})}}>{name}</button>}
+                    {this.state.folder === name && <TheGame folder={this.state.folder} json={this.state.json}/>}
                         
               
                 </div>
