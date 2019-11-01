@@ -1,25 +1,38 @@
 let answerArr = []; 
 
+// делаеи первый запуск
 const startAwait=async(url)=>{
+
     let answer = await getInfAwait(url);
+
+
     
     //если ответ json
     if(answer.length>3 && answer[0]==="[" && answer[answer.length-1] === "]"){
-        let answArr = new Promise((resolve, reject) => {
-            resolve(сorrelation(JSON.parse(answer)));
-        })
-        answArr.then((value)=>{
-            console.log('---value',value)
-        })
-        console.log('---wtf in answArr',answArr);
-        answerArr.push(...answArr);
-        console.log('---wtf in answerArr',answerArr);
+        answerArr.push(JSON.parse(answer));
     }
     //если ответ строка
     else if(typeof answer === 'string'){
         answerArr.push(answer);
     }
     
+    console.log('--answerArr',answerArr);
+
+    intermediator();
+}
+
+//данная функция смотрит есть ли массивы в answerArr, если есть то перебирает их
+intermediator=async()=>{
+
+    for(let i=0;answerArr.length>i;i++){
+        if(Array.isArray(answerArr[i])){
+            let results = answerArr[i].map(async(it)=>{
+                let answ = await startAwait(it);
+                return answ;
+            })
+            console.log('--results',results);
+        }
+    }
 }
 
 const getInfAwait = async (url) => {
@@ -27,9 +40,9 @@ const getInfAwait = async (url) => {
         let answer = await fetch("https://fe.it-academy.by/Examples/words_tree/"+url, {
             method: 'GET',
         });
-        let text = await answer.text();
+        let response = await answer.text();
 
-        return text;
+        return response;
     }
     catch(err){
         console.error('---error request',err);
@@ -38,16 +51,5 @@ const getInfAwait = async (url) => {
 
 
 
-//получает массив - возвращает массив ответов
-const сorrelation = async (array) => {
-    console.log('---сorrelation in',array);
-   let resultArr = [];
-   for(let i=0;array.length>i;i++){
-        let answer = await getInfAwait(array[i]);
-        resultArr.push(answer);
-   }
-   console.log('---сorrelation out',resultArr);
-   return resultArr;
-}
 
 

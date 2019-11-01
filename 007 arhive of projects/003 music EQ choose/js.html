@@ -25,6 +25,12 @@
         .turnOn{
             color:red;
         }
+        h2{
+            margin: 0;
+        }
+        #container{
+            height: 100%
+        }
     </style>
 	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
@@ -36,15 +42,13 @@
     /////README
     //для изменнения нужно изменить две переменные
 
-    // имя папки
-    var folderName = 'metlaDye';
 
     // сколько должны быть вариантов ответов
     var howMuchFalseAnswers = 4;
 
     // имя файлов  -  они должны быть в wav формате
-    // default файл должен иметь имя def.wav и массиве его не должно быть  
-	var json=[
+    // default файл должен иметь имя def.mp3 и массиве его не должно быть  
+	var metlaDyeJson=[
 		"cut100",
 		"cut10000",
 		"down50-200",
@@ -56,36 +60,37 @@
 		"up1000-2000",
 		"up5000-20000"
 	];
-	// var json=[
-	// 	"cut100",
-    //     "cut9000",
-    //     "boost100",
-    //     "boost9000",
-	// 	"down100",
-	// 	"down250",
-	// 	"down400",
-	// 	"down700",
-	// 	"down1100",
-	// 	"down1800",
-	// 	"down2500",
-	// 	"down3600",
-	// 	"down5000",
-	// 	"down7000",
-	// 	"down9000",
-    //     "down12000",
-    //     "up100",
-	// 	"up250",
-	// 	"up400",
-	// 	"up700",
-	// 	"up1100",
-	// 	"up1800",
-	// 	"up2500",
-	// 	"up3600",
-	// 	"up5000",
-	// 	"up7000",
-	// 	"up9000",
-	// 	"up12000"
-	// ];
+//	 var whyDoesMyHeartJson=[
+//	 	 "boost90",
+//         "boost9000",
+//         "cut9000",
+//         "cut90"
+//         "down130",
+//         "down220",
+//         "down400",
+//         "down700",
+//         "down1100",
+//         "down1500",
+//         "down2200",
+//         "down3000",
+//         "down4000",
+//         "down5000",
+//         "down7000",
+//         "down9000",
+//         "up100",
+//         "up200",
+//         "up400",
+//         "up700",
+//         "up1100",
+//         "up1500",
+//         "up2200",
+//         "up3000",
+//         "up4000",
+//         "up5000",
+//         "up7000",
+//         "up9000"
+//         
+//	 ];
 	
 	class TheGame extends React.PureComponent {
 		state={
@@ -99,7 +104,7 @@
 		run=()=>{
             //получаем рандомный
             //запускаем с рандомным id
-            let r = json[this.rand(0,json.length-1)]
+            let r = this.props.json[this.rand(0,this.props.json.length-1)]
             this.setState({cycle:'playing', correct:r, button:'rand'});
             
             
@@ -109,7 +114,7 @@
             arr.push(r);
             //добавляем рандомные ответы
             for(let i=0;i<howMuchFalseAnswers-1;i++){
-                let r = json[this.rand(0,json.length-1)];
+                let r = this.props.json[this.rand(0,this.props.json.length-1)];
                 if(arr.includes(r)){
                     i--;
                 }
@@ -171,8 +176,8 @@
 		buildButtons=()=>{
 			if(this.state.cycle==="start"){			        
 				return <div>
-						<h2>Game - Choose correct EQ</h2>
-				        <button onClick={()=>this.run()}>start the game</button>
+						<h2>{`song: ${this.props.folder}`}</h2>
+				        <button onClick={()=>this.run()}>start</button>
 					</div>    
 			}
 			else if(this.state.cycle==="playing"){
@@ -235,15 +240,20 @@
 		  }
 
 		render() {
+            console.log('---rerender',this.props);
 			return (
 				<div>
 					{this.buildButtons()}
-					<audio id="def">
-					  <source src={`${folderName}/def.wav`}/>
-					</audio> 
-					{json.map(it=>{
+                    {this.props.folder.length>0
+                            &&
+                        <audio id="def">
+                          <source src={`${this.props.folder}/def.mp3`}/>
+                        </audio> 
+                    }
+					
+					{this.props.json.map(it=>{
 						return <audio id={it}>
-								  <source src={`${folderName}/${it}.wav`}/>
+								  <source src={`${this.props.folder}/${it}.mp3`}/>
 								</audio> 
 					})}
 					
@@ -252,10 +262,29 @@
 			);
 		}
 	}
+    //this.setState({folderName:"metlaDye",jsonAnswers:metlaDyeJson}
+    class InitialComp extends React.Component {
+		state = {
+           folder:'',
+            json: [],
+		}
+		render() {
+			return (
+                <div style={{position:'relative', height:'100%'}}>
+                    <button style={{position:'absolute',bottom: '0px',right:'0px'}} onClick={()=>this.setState({folder:'',json:[]})}>exit</button>
+                    {this.state.folder === '' && <h2>Game - Choose correct EQ</h2>}
+                    {this.state.folder === '' &&<button onClick={()=>{this.setState({folder:"metlaDye",json:metlaDyeJson})}}>metlaDye</button>}
+                    {this.state.folder === 'metlaDye' && <TheGame folder={this.state.folder} json={this.state.json}/>}
+                        
+              
+                </div>
+			);
+		}
+	}
     
 	////////////////App Js
 		ReactDOM.render(
-			<TheGame/>
+			<InitialComp/>
 			,document.getElementById('container')
 		);
 	</script>
