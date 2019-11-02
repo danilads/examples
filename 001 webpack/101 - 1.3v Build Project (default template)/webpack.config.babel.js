@@ -34,7 +34,7 @@ module.exports = {
     }
   },
   entry: {
-		main: ['babel-polyfill', './app.js'] //для работы async / await
+		main: ['babel-polyfill', './app.jsx'] //для работы async / await
 	},
   output:{ 
     path: __dirname + '/public', // путь к каталогу выходных файлов
@@ -46,13 +46,18 @@ module.exports = {
   },
   module: {
     rules: [
-		{
-      test: /\.(js|jsx)?$/,
-      resolve: { extensions: [".js", ".jsx"] },
-			use: {
-				loader: "babel-loader"
-		  }
-		},
+      {
+        enforce: 'pre',
+        test: /\.(js|jsx)?$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
+        test: /\.(js|jsx)?$/,
+        resolve: { extensions: [".js", ".jsx"] },
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
     {
       test: /\.(scss|css)$/,
       use: [
