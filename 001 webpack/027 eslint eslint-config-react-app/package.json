@@ -25,16 +25,23 @@
     "sass-loader": "^7.0.1",
     "node-sass": "^4.9.0",
     "babel-polyfill": "^6.26.0",
-    "redux-devtools-extension": "^2.13.5",
     "cross-env": "^5.2.0",
     "copy-webpack-plugin": "^5.0.4",
     "html-webpack-plugin": "^3.2.0",
     "webpack-bundle-analyzer": "^3.5.2",
-    "eslint": "^6.6.0"
+    "eslint": "^6.6.0",
+    "eslint-config-react-app": "^5.0.2",
+    "babel-eslint": "^10.0.3",
+    "eslint-plugin-flowtype": "^3.13.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0"
   },
   "dependencies": {
     "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-toastify": "^5.4.0"
+    "react-dom": "^16.6.3"
   }
 }
