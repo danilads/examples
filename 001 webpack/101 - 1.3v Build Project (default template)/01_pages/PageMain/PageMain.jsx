@@ -1,22 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './PageMain.scss';
-import {HocClose} from '../../03_hoc/HocClose/HocClose';
+import { connect } from 'react-redux';
+
+import { HocClose } from '../../03_hoc/HocClose/HocClose';
 import Spiner from '../../04_primitives/Spiner/Spiner';
 import logoAnim from '../../05_images/images/logoAnim.gif';
-import {connect} from "react-redux";
-import {acHeroesLoading} from "../../redux/actions/acHeroes";
-import {NetworkApi} from "../../network/NetworkApi.js";
+import { acHeroesLoading } from '../../redux/actions/acHeroes';
+import { NetworkApi } from '../../network/NetworkApi';
+
+import './PageMain.scss';
 
 class PageMain extends React.PureComponent {
-	request  = async () => {
+	componentDidMount(){
+		this.request();
+  }
+  request = async () => {
 		let response = await NetworkApi.exampleReturnRequest();
 		console.log('---response',response);
 	};
-	componentDidMount(){
-		this.request();
-		
-	}
 	_renderSpiner=()=>{
 		let d = this.props.heroes;
 		let result;
