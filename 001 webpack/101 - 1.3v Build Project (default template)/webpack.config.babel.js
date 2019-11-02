@@ -58,33 +58,33 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-    {
-      test: /\.(scss|css)$/,
-      use: [
-          MiniCssExtractPlugin.loader,
+      {
+        test: /\.(scss|css)$/,
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+                loader: "css-loader",
+                options: {
+                    minimize: {
+                        safe: true
+                    }
+                }
+            },
+            {
+                loader: "sass-loader",
+                options: {}
+            }
+        ]
+      },
+      {
+        test: /\.(png|jpe?g|gif|pdf)$/,
+        use: [
           {
-              loader: "css-loader",
-              options: {
-                  minimize: {
-                      safe: true
-                  }
-              }
+            loader: 'file-loader',
+            options: {},
           },
-          {
-              loader: "sass-loader",
-              options: {}
-          }
-      ]
-    },
-    {
-      test: /\.(png|jpe?g|gif|pdf)$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {},
-        },
-      ],
-    },
+        ],
+      }
     ]
   },
   plugins: [
