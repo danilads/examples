@@ -34,7 +34,7 @@ module.exports = {
     }
   },
   entry: {
-		main: ['babel-polyfill', './app.js'] //для работы async / await
+		main: ['babel-polyfill', './app.jsx'] //для работы async / await
 	},
   output:{ 
     path: __dirname + '/public', // путь к каталогу выходных файлов
@@ -45,30 +45,32 @@ module.exports = {
     extensions: ['*', '.js', '.jsx']
   },
   module: {
+    
     rules: [
-		{
-			test: /\.(js|jsx)?$/,
-			use: {
-				loader: "babel-loader"
-		}
-		},
+      {
+        test: /\.(js|jsx)?$/,
+        resolve: { extensions: [".js", ".jsx"] },
+        use: {
+          loader: "babel-loader"
+        }
+		  },
       {
         test: /\.(scss|css)$/,
-    use: [
+        use: [
         MiniCssExtractPlugin.loader,
-        {
-            loader: "css-loader",
-            options: {
-                minimize: {
-                    safe: true
-                }
-            }
-        },
-        {
-            loader: "sass-loader",
-            options: {}
-        }
-    ]
+          {
+              loader: "css-loader",
+              options: {
+                  minimize: {
+                      safe: true
+                  }
+              }
+          },
+          {
+              loader: "sass-loader",
+              options: {}
+          }
+        ]
       }
     ]
   },

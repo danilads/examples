@@ -1,1 +1,25 @@
-eslint так и не поставил
+01 web pack config (eslint-loader)
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
+  },
+  // ...
+};
+
+02 проверка версий для airbnb
+npm info "eslint-config-airbnb@latest" peerDependencies
+
+

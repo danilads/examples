@@ -42,6 +42,7 @@ module.exports = {
     rules: [
 		{
       test: /\.(js|jsx)?$/,
+      resolve: { extensions: [".js", ".jsx"] },
       //для react-virtualized
       //исключаем обработку babel loader'ом 
       exclude: [

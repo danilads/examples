@@ -1,3 +1,10 @@
 {
-    "extends": "airbnb"
-  }
+    "extends": "airbnb",
+    "rules": {
+
+        // enable additional rules
+        //"indent": ["error", 4],
+        //"linebreak-style": ["error", "unix"],
+        //"quotes": ["error", "double"]
+    }
+}
