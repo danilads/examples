@@ -1,5 +1,8 @@
 {
     "extends": "airbnb",
+    "env": {
+        "browser": true // чтобы eslint не ругался на documnet window и т.д.
+    },
     "rules": {
 
         // enable additional rules

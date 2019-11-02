@@ -15,9 +15,6 @@ import './scss/main.scss';
 
 // idle в компоненте layout
 ReactDOM.render(
-
-  <Main/>
-	
-	, document.getElementById('container') 
+  <Main />,
+  document.getElementById('container'),
 );
-
