@@ -1,8 +1,12 @@
 import React from 'react';
 
 class Main extends React.PureComponent {
+  state = {
+
+  }
+
   render() {
-    // console.log('--helo2');
+    console.log('--helo2');
     const str = '123';
     const n = `${str}4`;
     return (

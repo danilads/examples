@@ -1,13 +1,11 @@
-{
+{   
+    "parser":"babel-eslint",
     "extends": "airbnb",
     "env": {
-        "browser": true // чтобы eslint не ругался на documnet window и т.д.
+        "browser": true // чтобы eslint не ругался на объекты documnet window и т.д.
     },
     "rules": {
-
-        // enable additional rules
-        //"indent": ["error", 4],
-        //"linebreak-style": ["error", "unix"],
-        //"quotes": ["error", "double"]
+        "react/state-in-constructor": 0, //чтобы можно было объявлять state вне конструктора
+        "no-console": "off" //разрешает оставлять консоль логи
     }
 }
