@@ -6,7 +6,20 @@
     },
     "rules": {
         "react/state-in-constructor": 0, //чтобы можно было объявлять state вне конструктора
-        "comma-dangle": 0, //разрешает не ставить запятую после последнего аргумента func(arr,str,)
+
+        //нельзя ставить запятую после последнего аргумента func(arr,str,)
+        "comma-dangle": ["error", {
+            "arrays": "never",
+            "objects": "never",
+            "imports": "never",
+            "exports": "never",
+            "functions": "never"
+        }],
+        
+        "import/prefer-default-export": 0, //разрешает делать экспорт без испрользвания default
+
+        "no-restricted-syntax": 0, //разрешаем использовать все ( даннай настройкой можно заблокировать for of/ for in итд ["error", "ForInStatement", "ForOfStatement"])
+
         "no-console": "off" //разрешает оставлять консоль логи
     }
 }

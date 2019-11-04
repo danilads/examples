@@ -1,10 +1,10 @@
 import {
   MODAL_OPEN,
-  MODAL_CLOSED,
+  MODAL_CLOSED
 } from '../constants';
 
 const initialState = {
-  data: {},
+  data: {}
 };
 
 // export default (state = initialState, {type,payload}) - сокращенная запись
@@ -12,12 +12,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case MODAL_OPEN: {
       return {
-        ...state,
+        ...state
       };
     }
     case MODAL_CLOSED: {
       return {
-        ...state,
+        ...state
       };
     }
     default: return state;
