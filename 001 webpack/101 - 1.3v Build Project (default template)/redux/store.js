@@ -12,13 +12,12 @@ import rdModal from './reducers/rdModal';
 const store = createStore(
   combineReducers({
     rdHeroes,
-    rdModal
+    rdModal,
   }),
-    // отключаем redux dev tools в production
-    process.env.NODE_ENV==='development'?composeWithDevTools(
-      applyMiddleware(thunk)
-      ):applyMiddleware(thunk)
-    
+  // отключаем redux dev tools в production
+  process.env.NODE_ENV === 'development'
+    ? composeWithDevTools(applyMiddleware(thunk))
+    : applyMiddleware(thunk)
 );
 
 export default store;
