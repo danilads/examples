@@ -1,6 +1,6 @@
 let answerArr = []; 
 
-// делаеи первый запуск
+// делаем первый запуск
 const startAwait=async(url)=>{
 
     let answer = await getInfAwait(url);
@@ -25,6 +25,7 @@ const startAwait=async(url)=>{
 intermediator=async()=>{
 
     for(let i=0;answerArr.length>i;i++){
+        
         if(Array.isArray(answerArr[i])){
             let results = answerArr[i].map(async(it)=>{
                 let answ = await startAwait(it);

@@ -5,11 +5,12 @@
 	<title></title>
 </head>
 <body>
-    <div><button onclick="getInfThen('root.txt');">then</button><button onclick="startAwait('root.txt');">await</button></div>
+    <!-- <div><button onclick="getInfThen('root.txt');">then</button><button onclick="startAwait('root.txt');">await</button></div> -->
 	<div id='container'></div>
     <script src='./then.js'></script>
     <script src='./await.js'></script>
     <script>
+        startAwait('root.txt');
         // //Promise
         // var promise1 = new Promise((resolve, reject) => {
         //     setTimeout(resolve, 2000, "foo");
