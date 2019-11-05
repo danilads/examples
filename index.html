@@ -11,9 +11,11 @@
     <script src='./await.js'></script>
     <script>
         startAwait('root.txt');
-        // //Promise
+
+
+        //Promise
         // var promise1 = new Promise((resolve, reject) => {
-        //     setTimeout(resolve, 2000, "foo");
+        //     setTimeout(resolve, 3000, "foo");
         // });
         // promise1.then((value)=>{
         //     console.log('---value',value)
@@ -23,16 +25,31 @@
         // var p1 = Promise.resolve(3);
         // var p2 = 1337;
         // var p3 = new Promise((resolve, reject) => {
-        //     setTimeout(resolve, 1000, "foo");
+        //     setTimeout(resolve, 2000, "foo");
         // }); 
 
-        // let arr=[];
+ 
         // Promise.all([p1, p2, p3]).then(value => { 
         //     console.log(value); 
-        //     arr.push(value);
-        //     console.log('---arr',arr);
         // });
         
+
+        // let arr= [1,2,3];
+        // function insertToArr2(arr,index,insert){
+            
+        //     if(Array.isArray(insert)){
+        //         let start = arr.slice(0,index);
+        //         let end = arr.slice(index+1,arr.length);
+        //         return [...start,...insert,...end];
+        //     }
+        //     else{
+        //         let result = [...arr];
+        //         result[index]=insert;
+        //         return result;
+        //     }
+        // }
+        // console.log(insertToArr2(arr,1,4));
+        // console.log(arr);
     </script>
     
 </body>

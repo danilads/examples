@@ -1,40 +1,62 @@
-let answerArr = []; 
+let answerArr = [];
 
-// делаем первый запуск
-const startAwait=async(url)=>{
+//init run
+const startAwait=(url)=>{
+    insertInResult(url,answerArr.length);
+}
+
+// делает запрос и встваляет в массив ответ
+const insertInResult=async(url, index)=>{
 
     let answer = await getInfAwait(url);
 
 
     
-    //если ответ json
-    if(answer.length>3 && answer[0]==="[" && answer[answer.length-1] === "]"){
-        answerArr.push(JSON.parse(answer));
+    //если ответ массив
+    if(Array.isArray(answer)){
+        let arr = [];
+        for(let i=0;answer.length>i;i++){
+            arr.push(getInfAwait(answer[i]));
+        }
+        Promise.all(arr).then(res => {
+
+            console.log('res',res);
+            answerArr = insertToArr(answerArr,index,res);
+            
+            console.log('ИТЕРАЦИЯ ',answerArr);
+            intermediator();
+        });
+        
     }
     //если ответ строка
-    else if(typeof answer === 'string'){
-        answerArr.push(answer);
+    else{
+        
+        answerArr= insertToArr(answerArr,index,answer);
     }
     
-    console.log('--answerArr',answerArr);
 
-    intermediator();
+
 }
 
-//данная функция смотрит есть ли массивы в answerArr, если есть то перебирает их
+let isRun = 0;
+//данная функция смотрит есть ли в массиве файлы типа  ".txt"
 intermediator=async()=>{
+    if(isRun<3){
+        for(let i=0;answerArr.length>i;i++){
+            
+            console.log('--',answerArr[i]);
 
-    for(let i=0;answerArr.length>i;i++){
-        
-        if(Array.isArray(answerArr[i])){
-            let results = answerArr[i].map(async(it)=>{
-                let answ = await startAwait(it);
-                return answ;
-            })
-            console.log('--results',results);
+            //если нужно делать запрос
+            // if(answerArr[i].slice(-4,answerArr[i].length) === '.txt'){
+            //     console.log(answerArr[i]);
+            //     insertInResult(answerArr[i],i);
+            // }
         }
     }
+    isRun+=1;
+    
 }
+
 
 const getInfAwait = async (url) => {
     try{
@@ -43,13 +65,31 @@ const getInfAwait = async (url) => {
         });
         let response = await answer.text();
 
-        return response;
+        if(response.length>3 && response[0]==="[" && response[response.length-1] === "]"){
+            return JSON.parse(response);
+        }
+        else if(typeof response === 'string'){
+            return response;
+        }
     }
     catch(err){
         console.error('---error request',err);
     }
 };
 
+//вставляет в массим другой массив
+const insertToArr = (arr,index,insert) =>{     
+    if(Array.isArray(insert)){
+        let start = arr.slice(0,index);
+        let end = arr.slice(index+1,arr.length);
+        return [...start,...insert,...end];
+    }
+    else{
+        let result = [...arr];
+        result[index]=insert;
+        return result;
+    }
+}
 
 
 
