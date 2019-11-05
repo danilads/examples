@@ -19,18 +19,19 @@ const insertInResult=async(url, index)=>{
             arr.push(getInfAwait(answer[i]));
         }
         Promise.all(arr).then(res => {
+            console.log('---in',res);
 
-            console.log('res',res);
-            answerArr = insertToArr(answerArr,index,res);
+            answerArr = transformArray(res);
             
-            console.log('ИТЕРАЦИЯ ',answerArr);
+            console.log('---out ',answerArr);
+
+            
             intermediator();
         });
         
     }
     //если ответ строка
     else{
-        
         answerArr= insertToArr(answerArr,index,answer);
     }
     
@@ -41,16 +42,13 @@ const insertInResult=async(url, index)=>{
 let isRun = 0;
 //данная функция смотрит есть ли в массиве файлы типа  ".txt"
 intermediator=async()=>{
-    if(isRun<3){
+    if(isRun<1){
         for(let i=0;answerArr.length>i;i++){
-            
-            console.log('--',answerArr[i]);
-
-            //если нужно делать запрос
-            // if(answerArr[i].slice(-4,answerArr[i].length) === '.txt'){
-            //     console.log(answerArr[i]);
-            //     insertInResult(answerArr[i],i);
-            // }
+            // если нужно делать запрос
+            if(answerArr[i].slice(-4,answerArr[i].length) === '.txt'){
+                
+                //insertInResult(answerArr[i],i);
+            }
         }
     }
     isRun+=1;
@@ -92,5 +90,18 @@ const insertToArr = (arr,index,insert) =>{
 }
 
 
-
+const transformArray = (arr) => {
+    let result = [];
+    let indexOffset = 0;
+    for(let i=0;arr.length>i;i++){
+        if(Array.isArray(arr[i])){
+            result = insertToArr(result,i+indexOffset,arr[i]);
+            indexOffset+=arr[i].length;
+        }
+        else{
+            result.push(arr[i]);
+        }
+    }
+    return result
+}
 
