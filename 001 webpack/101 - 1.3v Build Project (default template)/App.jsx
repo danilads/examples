@@ -31,10 +31,10 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path={'/'} exact component={PageMain} />
+        <Route path={'/'} exact component={PageMain}/>
         <Layout>
-          <Route path={'/about'} component={PageAbout} />
-          <Route path={'/some'} component={PageSome} />
+          <Route path={'/about'} component={PageAbout}/>
+          <Route path={'/some'} component={PageSome}/>
         </Layout>
       </Switch>
     </BrowserRouter>
