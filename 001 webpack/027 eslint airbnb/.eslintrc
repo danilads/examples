@@ -4,6 +4,9 @@
     "env": {
         "browser": true // чтобы eslint не ругался на объекты documnet window и т.д.
     },
+    "settings": {
+        "import/resolver": "webpack" //нужен "eslint-import-resolver-webpack" для того чтобы можно было импортировать из webpack'а
+    },
     "rules": {
         // в самом файле можно вставаить 
         /* eslint import/no-unresolved: [2, { ignore: ['config'] }] */

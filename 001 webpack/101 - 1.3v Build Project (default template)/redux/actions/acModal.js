@@ -3,7 +3,7 @@ import {
   MODAL_CLOSED
 } from '../constants';
 
-export const acModalOpen = (e) => (dispatch /* getState */) => {
+export const acModalOpen = (e) => (dispatch /* , getState */) => {
   document.body.style.overflow = 'hidden';
   dispatch({
     type: MODAL_OPEN,
@@ -11,7 +11,7 @@ export const acModalOpen = (e) => (dispatch /* getState */) => {
   });
 };
 
-export const acModalClosed = () => (dispatch /* getState */) => {
+export const acModalClosed = () => (dispatch /* , getState */) => {
   document.body.style.overflow = 'auto';
   dispatch({
     type: MODAL_CLOSED

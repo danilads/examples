@@ -4,13 +4,19 @@
     "env": {
         "browser": true // чтобы eslint не ругался на объекты documnet window и т.д.
     },
+    "settings": {
+        "import/resolver": "webpack" //нужен "eslint-import-resolver-webpack" для того чтобы можно было импортировать из webpack'а
+    },
     "rules": {
 
         // в самом файле можно вставаить 
-        /* eslint import/no-unresolved: [2, { ignore: ['config'] }] */
+        // /* eslint import/no-unresolved: [2, { ignore: ['config'] }] */
         // import { backendServiceHost } from 'config';
-        
+
         "react/state-in-constructor": 0, //чтобы можно было объявлять state вне конструктора
+        
+        "arrow-body-style": 0, // отключаем стилизцаию стрелочных функций
+        "arrow-parens": 0, // отключаем стилизцаия аргументов в стрелочной функции const c = e => {}
 
         //нельзя ставить запятую после последнего аргумента func(arr,str,)
         "comma-dangle": ["error", {

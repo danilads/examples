@@ -9,7 +9,7 @@ import heroesBackUpJson from '../../jsonBackUp/heroes.json';
 
 // в асинхронной функции все работает по порядку
 // до тех пор пока  не отработает await дальше код не пойдет
-export const acHeroesLoading = () => async (dispatch /* getState */) => {
+export const acHeroesLoading = () => async (dispatch /* , getState */) => {
   dispatch({
     type: HEROES_LOADING
   });
@@ -29,9 +29,9 @@ export const acHeroesLoading = () => async (dispatch /* getState */) => {
   /*
   isoFetch('http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?l=german&appid=570&key=8BF24A2B3BEA4957FBC230A31E75AC63', {
     method: 'GET'
-  }).then((response) => {
+  }).then(response => {
     response.json();
-  }).then((json) => {
+  }).then(json => {
     dispatch({
       type: 'NEWS_LOADED',
       payload: json
@@ -56,7 +56,7 @@ export const acHeroesLoading = () => async (dispatch /* getState */) => {
     }, 2000);
   }
   else {
-    answer.json().then((data) => {
+    answer.json().then(data => {
       setTimeout(() => {
         dispatch({
           type: HEROES_LOADED,
