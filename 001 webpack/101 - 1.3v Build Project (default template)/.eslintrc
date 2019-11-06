@@ -17,6 +17,10 @@
         
         "arrow-body-style": 0, // отключаем стилизцаию стрелочных функций
         "arrow-parens": 0, // отключаем стилизцаия аргументов в стрелочной функции const c = e => {}
+        
+        "react/jsx-curly-brace-presence": ["error", { "props": "always"}], //все пропсы должны быть обернуты в {}
+
+        "react/jsx-tag-spacing": ["error", {"closingSlash": "never","beforeSelfClosing": "never","afterOpening": "never","beforeClosing": "never"}], //пробелы перед закрытием тэга < />
 
         //нельзя ставить запятую после последнего аргумента func(arr,str,)
         "comma-dangle": ["error", {
