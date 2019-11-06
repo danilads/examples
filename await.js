@@ -1,61 +1,42 @@
-let answerArr = [];
-
 //init run
-const startAwait=(url)=>{
-    insertInResult(url,answerArr.length);
+const startAwait=async(url)=>{
+    //cycle
+    insertMess(await cycleReq(await getInfAwait(url)));
 }
 
-// делает запрос и встваляет в массив ответ
-const insertInResult=async(url, index)=>{
+// cycleReq
+cycleReq=async(e)=>{
+    let isNotReady = false; //if array contain ".txt" file
 
-    let answer = await getInfAwait(url);
+    let result = [];
 
-
-    
-    //если ответ массив
-    if(Array.isArray(answer)){
-        let arr = [];
-        for(let i=0;answer.length>i;i++){
-            arr.push(getInfAwait(answer[i]));
+    let arr = [];
+    for(let i=0;e.length>i;i++){
+        if(e[i].slice(-4,e[i].length) === '.txt'){
+            arr.push(getInfAwait(e[i]));
+            isNotReady=true;
         }
-        Promise.all(arr).then(res => {
-            console.log('---in',res);
-
-            answerArr = transformArray(res);
-            
-            console.log('---out ',answerArr);
-
-            
-            intermediator();
-        });
+        else{
+            arr.push(e[i]);
+        }
+        
         
     }
-    //если ответ строка
+    await Promise.all(arr).then(res => {
+        result.push(res.flat());
+    });
+
+    if(isNotReady){
+        return await cycleReq(result.flat());
+    }
     else{
-        answerArr= insertToArr(answerArr,index,answer);
+        return result.flat();
+
     }
-    
-
-
-}
-
-let isRun = 0;
-//данная функция смотрит есть ли в массиве файлы типа  ".txt"
-intermediator=async()=>{
-    if(isRun<1){
-        for(let i=0;answerArr.length>i;i++){
-            // если нужно делать запрос
-            if(answerArr[i].slice(-4,answerArr[i].length) === '.txt'){
-                
-                //insertInResult(answerArr[i],i);
-            }
-        }
-    }
-    isRun+=1;
-    
 }
 
 
+//request
 const getInfAwait = async (url) => {
     try{
         let answer = await fetch("https://fe.it-academy.by/Examples/words_tree/"+url, {
@@ -72,36 +53,23 @@ const getInfAwait = async (url) => {
     }
     catch(err){
         console.error('---error request',err);
+        return "";
     }
 };
 
-//вставляет в массим другой массив
-const insertToArr = (arr,index,insert) =>{     
-    if(Array.isArray(insert)){
-        let start = arr.slice(0,index);
-        let end = arr.slice(index+1,arr.length);
-        return [...start,...insert,...end];
-    }
-    else{
-        let result = [...arr];
-        result[index]=insert;
-        return result;
-    }
-}
+// insert text
+const insertMess = (arr) =>{
+    let elem = document.getElementById('container');
 
-
-const transformArray = (arr) => {
-    let result = [];
-    let indexOffset = 0;
+    let str = "";
     for(let i=0;arr.length>i;i++){
-        if(Array.isArray(arr[i])){
-            result = insertToArr(result,i+indexOffset,arr[i]);
-            indexOffset+=arr[i].length;
+        str+=arr[i];
+        if(arr.length-1!==i&&arr[i]!==""){
+            str+=" ";
         }
-        else{
-            result.push(arr[i]);
-        }
-    }
-    return result
-}
+    };
 
+    elem.innerHTML = "";
+    elem.innerHTML += `<h3>Await</h3>`;
+    elem.innerHTML += `<div>${str}</div>`;
+}
