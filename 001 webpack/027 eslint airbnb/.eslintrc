@@ -5,6 +5,10 @@
         "browser": true // чтобы eslint не ругался на объекты documnet window и т.д.
     },
     "rules": {
+        // в самом файле можно вставаить 
+        /* eslint import/no-unresolved: [2, { ignore: ['config'] }] */
+        // import { backendServiceHost } from 'config';
+
         "react/state-in-constructor": 0, //чтобы можно было объявлять state вне конструктора
         "no-console": "off" //разрешает оставлять консоль логи
     }

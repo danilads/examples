@@ -1,6 +1,7 @@
-import axios from "axios";
-import {backendServiceHost} from 'config';
-import store from '../redux/store'
+import axios from 'axios';
+/* eslint import/no-unresolved: [2, { ignore: ['config'] }] */
+import { backendServiceHost } from 'config';
+// import store from '../redux/store'
 
 
 //Readme

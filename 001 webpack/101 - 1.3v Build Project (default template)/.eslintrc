@@ -5,6 +5,11 @@
         "browser": true // чтобы eslint не ругался на объекты documnet window и т.д.
     },
     "rules": {
+
+        // в самом файле можно вставаить 
+        /* eslint import/no-unresolved: [2, { ignore: ['config'] }] */
+        // import { backendServiceHost } from 'config';
+        
         "react/state-in-constructor": 0, //чтобы можно было объявлять state вне конструктора
 
         //нельзя ставить запятую после последнего аргумента func(arr,str,)
@@ -16,6 +21,8 @@
             "functions": "never"
         }],
         
+        "brace-style": "stroustrup", //стиль скобок if(){} / else{}
+
         "import/prefer-default-export": 0, //разрешает делать экспорт без испрользвания default
 
         "no-restricted-syntax": 0, //разрешаем использовать все ( даннай настройкой можно заблокировать for of/ for in итд ["error", "ForInStatement", "ForOfStatement"])

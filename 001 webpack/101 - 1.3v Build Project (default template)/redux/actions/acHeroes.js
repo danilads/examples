@@ -20,7 +20,8 @@ export const acHeroesLoading = () => async (dispatch /* getState */) => {
     answer = await fetch('https://cors-anywhere.herokuapp.com/http://www.dota2.com/jsfeed/heropickerdata?v=18874723138974056&l=english', {
       method: 'GET'
     });
-  } catch (e) {
+  }
+  catch (e) {
     // диспчаем ошибку
     console.log('error', e);
   }
@@ -51,18 +52,17 @@ export const acHeroesLoading = () => async (dispatch /* getState */) => {
       dispatch({
         type: HEROES_LOADED,
         payload: heroesBackUpJson
-      })
-      }, 2000)
+      });
+    }, 2000);
   }
-	else{
-		answer.json().then( data => {
-			setTimeout(() => {
-				dispatch({
-					type: HEROES_LOADED,
-					payload: data
-				})
-			  }, 2000)
-		});
-	}
-	
+  else {
+    answer.json().then((data) => {
+      setTimeout(() => {
+        dispatch({
+          type: HEROES_LOADED,
+          payload: data
+        });
+      }, 2000);
+    });
+  }
 };
