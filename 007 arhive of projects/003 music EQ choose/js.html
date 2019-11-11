@@ -19,7 +19,6 @@
         button{
             width: 80px;
             padding: 5px;
-            margin: 5px;
             height: 46px;
             white-space: nowrap; /* Запрещаем перенос строк */
 			overflow: hidden; /* Обрезаем все, что не помещается в область */
@@ -28,11 +27,20 @@
         .turnOn{
             color:red;
         }
+        .help{
+            color: blue;
+        }
         h2{
             margin: 0;
         }
         #container{
             height: 100%
+        }
+        .graph{
+            top:29px;
+            width: 1px;
+            height: 1px;
+            position: absolute;
         }
     </style>
 	<!-- <script src="000-react.production.min.js"></script>
@@ -47,18 +55,27 @@
 	<div id="container"></div> 
 	<script type="text/babel">
     /////README
-    //для изменнения нужно изменить две переменные
     // сколько должны быть вариантов ответов
-    var howMuchFalseAnswers = 4;
-    // имя файлов  -  они должны быть в wav формате
-    // default файл должен иметь имя def.mp3 и массиве его не должно быть  
 
-//	 var whyDoesMyHeartJson=[
-//	 	 "boost90",
+    var howMuchFalseAnswers = 4;
+    
+    // имя файлов  -  они должны быть в mp3 формате
+    // default файл должен иметь имя def.mp3 и в массиве его не должно быть  
+    // массив должен состоять из имен boost cut up down + частота в hz (up100)
+    
+    //название папки должно совпадать с названием массива
+    var tracks = ['metlaDyeJson'];
+    
+
+    // массив объявляем здесь
+    
+
+//	 var skyfall=[
+//	 	   "boost90",
 //         "boost9000",
 //         "cut9000",
 //         "cut90",
-//         "down130",
+//         "down100",
 //         "down220",
 //         "down400",
 //         "down700",
@@ -95,21 +112,291 @@
 		"up1000-2000",
 		"up5000-20000"
 	]; 
-	
+	class Button extends React.PureComponent {
+        
+        
+        cutStart=(i)=>{
+            let s=i;
+            if(s===0||s===1||s===2){
+                s=0;
+            }
+            else if(s===77||s===78||s===79){
+                s=74;
+            }
+            else{
+                s-=3;
+            }
+            let result = [];
+            
+            let isInserted = false;
+            for(let n=0;n<80;n++){
+                if(s===n){
+                    n+=5;
+                    isInserted=true;
+                    result.push([s+0,16],[s+0,15],[s+1,14],[s+1,13],[s+2,12],[s+2,11],[s+3,10],[s+4,9],[s+5,8]);
+                }
+                else{
+                    if(isInserted){
+                        result.push([n,8]);
+                    }
+                    else{
+                        result.push([n,16]);
+                    }
+                   
+                }
+                
+            }
+            return result;
+        }
+        cutEnd=(i)=>{
+            let s=i;
+            if(s===0||s===1||s===2){
+                s=0;
+            }
+            else if(s===77||s===78||s===79){
+                s=74;
+            }
+            else{
+                s-=3;
+            }
+            let result = [];
+            
+            let isInserted = false;
+            for(let n=0;n<80;n++){
+                if(s===n){
+                    n+=5;
+                    isInserted=true;
+                    result.push([s+5,16],[s+5,15],[s+4,14],[s+4,13],[s+3,12],[s+3,11],[s+2,10],[s+1,9],[s+0,8]);
+                }
+                else{
+                    if(!isInserted){
+                        result.push([n,8]);
+                    }
+                    else{
+                        result.push([n,16]);
+                    }
+                   
+                }
+                
+            }
+            return result;
+        }
+        boostStart=(i)=>{
+            let s=i;
+            if(s===0||s===1||s===2){
+                s=0;
+            }
+            else if(s===77||s===78||s===79){
+                s=74;
+            }
+            else{
+                s-=3;
+            }
+            let result = [];
+            
+            let isInserted = false;
+            for(let n=0;n<80;n++){
+                if(s===n){
+                    n+=5;
+                    isInserted=true;
+                    result.push([s+0,0],[s+0,1],[s+1,2],[s+1,3],[s+2,4],[s+2,5],[s+3,6],[s+4,7],[s+5,8]);
+                }
+                else{
+                    if(!isInserted){
+                        result.push([n,0]);
+                    }
+                    else{
+                        result.push([n,8]);
+                    }
+                   
+                }
+                
+            }
+            return result;
+        }
+        boostEnd=(i)=>{
+            let s=i;
+            if(s===0||s===1||s===2){
+                s=0;
+            }
+            else if(s===77||s===78||s===79){
+                s=74;
+            }
+            else{
+                s-=3;
+            }
+            let result = [];
+            
+            let isInserted = false;
+            for(let n=0;n<80;n++){
+                if(s===n){
+                    n+=5;
+                    isInserted=true;
+                    result.push([s+5,0],[s+5,1],[s+4,2],[s+4,3],[s+3,4],[s+3,5],[s+2,6],[s+1,7],[s+0,8]);
+                }
+                else{
+                    if(isInserted){
+                        result.push([n,0]);
+                    }
+                    else{
+                        result.push([n,8]);
+                    }
+                   
+                }
+                
+            }
+            return result;
+        }
+        up=(i)=>{
+            let s=i;
+            if(s===0||s===1||s===2){
+                s=0;
+            }
+            else if(s===77||s===78||s===79){
+                s=74;
+            }
+            else{
+                s-=3;
+            }
+            let result = [];
+            
+            for(let n=0;n<80;n++){
+                if(s===n){
+                    n+=5;
+                    result.push([s+0,8],[s+0,7],[s+1,6],[s+1,5],[s+1,4],[s+1,3],[s+2,2],[s+3,2],[s+4,3],[s+4,4],[s+4,5],[s+4,6],[s+5,7],[s+5,8]);
+                }
+                else{
+                    result.push([n,8]);
+                }
+                
+            }
+            return result;
+            
+        }
+        down=(i)=>{
+            let s=i;
+            if(s===0||s===1||s===2){
+                s=0;
+            }
+            else if(s===77||s===78||s===79){
+                s=74;
+            }
+            else{
+                s-=3;
+            }
+            let result = [];
+            
+            for(let n=0;n<80;n++){
+                if(s===n){
+                    n+=5;
+                    result.push([s+0,8],[s+0,9],[s+1,10],[s+1,11],[s+1,12],[s+1,13],[s+2,14],[s+3,14],[s+4,13],[s+4,12],[s+4,11],[s+4,10],[s+5,9],[s+5,8]);
+                }
+                else{
+                    result.push([n,8]);
+                }
+                
+            }
+            return result;
+        }
+        
+        boxShadow=()=>{
+            //x от 0 до 79
+            //y от 0 до 16 (8)
+            
+            
+            //делим на 4 участка
+            //0-19       - от 20    до 200
+            //20-39      - от 200   до 1000
+            //40-59      - от 1000  до 5000
+            //60-79      - от 5000  до 16000
+            
+            
+            //1) находим цифру и тип
+            
+            
+            //2) строим в зависимости от типа
+            
+            return this.build(this.prepareString());
+        };
+        getFreqCoord=(freq)=>{
+            if(freq<200){
+                //console.log('---от 0 до 199',Math.floor(freq/10));
+                return Math.floor(freq/10);
+            }
+            else if(freq<1000){
+                //console.log('---от 200 до 999',Math.floor(((freq-200)/40))+20);
+                return Math.floor(((freq-200)/40))+20;
+            }
+            else if(freq<5000){
+                //console.log('---от 1000 до 4999',Math.floor(((freq-1000)/200))+40);
+                return Math.floor(((freq-1000)/200))+40;
+            }
+            else{
+                //console.log('---от 5000 до 16000',Math.floor(((freq-5000)/578))+60);
+                return Math.floor(((freq-5000)/578))+60;
+            }
+        }
+        build=(arr)=>{
+            let str = "";
+            let color = "black";
+            for(let i=0;arr.length>i;i++){
+                if(arr.length-1===i){
+                    str+=`${arr[i][0]===0?0:arr[i][0]+'px'} ${arr[i][1]===0?0:arr[i][1]+'px'} 0 0 ${color}`;
+                }
+                else{
+                    str+=`${arr[i][0]===0?0:arr[i][0]+'px'} ${arr[i][1]===0?0:arr[i][1]+'px'} 0 0 ${color},`;
+                }
+            }
+            return str;
+                
+        }
+        prepareString=()=>{
+            let {text} = this.props;
+            let freq = parseInt(/\d+/.exec(text)[0]);
+
+            if(text[0]==='b' && freq<5000){
+                return this.boostStart(this.getFreqCoord(freq));
+            }
+            else if(text[0]==='b' && freq>5000){
+                return this.boostEnd(this.getFreqCoord(freq));
+            }
+            else if(text[0]==='c' && freq<5000){
+                return this.cutStart(this.getFreqCoord(freq));
+            }
+            else if(text[0]==='c' && freq>5000){
+                return this.cutEnd(this.getFreqCoord(freq));
+            }
+            else if(text[0]==='u'){
+                return this.up(this.getFreqCoord(freq));
+            }
+            else if(text[0]==='d'){
+                return this.down(this.getFreqCoord(freq));
+            }
+            
+            
+        }
+		render() {
+			return (<div style={{position:'relative',margin:'5px'}}>
+                <div className={'graph'} style={{boxShadow:this.boxShadow()}}></div>
+                <button className={this.props.className} onClick={this.props.onClick} className="btn">{this.props.text}</button>
+            </div>);
+		}
+	}
 	class TheGame extends React.PureComponent {
 		state={
 			cycle: 'start',     // цикл
             arrayOfAnswers: [], // массив ответов(с правильным)
 			correct: '',        // правильное название
             pos:0,              // 0/1 переключалка между оригинлаьным и эквализированным
-            button: 'def'       // 'def'/'rand' - состояние кнопки
+            button: 'def',      // 'def'/'rand' - состояние кнопки
+            help: false         // включена ли помошь
  		}
         
 		run=()=>{
             //получаем рандомный
             //запускаем с рандомным id
             let r = this.props.json[this.rand(0,this.props.json.length-1)]
-            this.setState({cycle:'playing', correct:r, button:'rand'});
+            this.setState({cycle:'playing', correct:r, button:'rand', help: false});
             
             
             //формируем ответы
@@ -117,6 +404,10 @@
             //добавляем правильный ответ
             arr.push(r);
             //добавляем рандомные ответы
+            if(howMuchFalseAnswers>this.props.json.length){
+                
+                howMuchFalseAnswers=this.props.json.length;
+            }
             for(let i=0;i<howMuchFalseAnswers-1;i++){
                 let r = this.props.json[this.rand(0,this.props.json.length-1)];
                 if(arr.includes(r)){
@@ -173,7 +464,11 @@
 				return <div>
 						<h2>choose correct answer</h2>
 						<div style={{display:'flex'}}>{arrayOfAnswers.map(it=>{
-                                return <button onClick={()=>{this.isCorrect(it,true)}} key={it}>{it}</button>
+//                                return <button 
+//                                           className={`${(this.state.help && this.state.correct===it)?'help':''}`}
+//                                           onClick={()=>{this.isCorrect(it,true)}}
+//                                           key={it}>{it}</button>
+                                return <Button key={it} text={it} onClick={()=>{this.isCorrect(it,true)}} className={`${(this.state.help && this.state.correct===it)?'help':''}`} />
                             })}</div>
 					</div>
         }
@@ -186,11 +481,12 @@
 			}
 			else if(this.state.cycle==="playing"){
                 return <div>
-                    <h2>plaiyng</h2>
+                    <h2>{`song: ${this.props.folder} (plaiyng)`}</h2>
                     <div style={{display:'flex'}}>
                         <button className={`${this.state.button==='def'?'turnOn':''}`} onClick={()=>{this.volume('def')}}>def vol 100%</button>
                         <button className={`${this.state.button==='rand'?'turnOn':''}`} onClick={()=>{this.volume('rand')}}>random vol 100%</button>
                         <button onClick={this.playAganin}>playAgain</button>
+                        <button onClick={()=>this.setState({help:true})}>help</button>
                     </div>
                     <div>{this.formAnswers()}</div>
                 </div>
@@ -245,13 +541,13 @@
                     {this.props.folder.length>0
                             &&
                         <audio id="def">
-                          <source src={`${this.props.folder}/def.mp3`}/>
+                          <source src={`${this.props.folder}/def.wav`}/>
                         </audio> 
                     }
 					
 					{this.props.json.map(it=>{
 						return <audio id={it}>
-								  <source src={`${this.props.folder}/${it}.mp3`}/>
+								  <source src={`${this.props.folder}/${it}.wav`}/>
 								</audio> 
 					})}
 					
@@ -259,28 +555,32 @@
 			);
 		}
 	}
-    //this.setState({folderName:"metlaDye",jsonAnswers:metlaDyeJson}
+
     class InitialComp extends React.Component {
 		state = {
             folder:'',
             json: [],
 		}
-
+        
 
 		render() {
             
-            let name = "metlaDyeJson";
-            let json = metlaDyeJson;
-        
+            tracks.map(it=>{
+                console.log(window[it]);
+            });
             
 			return (
                 <div style={{position:'relative', height:'100%'}}>
-                    <button style={{position:'absolute',bottom: '0px',right:'0px'}} onClick={()=>this.setState({folder:'',json:[]})}>exit</button>
-                    {this.state.folder === '' && <h2>Game - Choose correct EQ</h2>}
-                    {this.state.folder === '' &&<button onClick={()=>{this.setState({folder:name,json:json})}}>{name}</button>}
-                    {this.state.folder === name && <TheGame folder={this.state.folder} json={this.state.json}/>}
-                        
-              
+                    {this.state.folder !== '' && <button style={{position:'absolute',bottom: '0px',right:'0px'}} onClick={()=>this.setState({folder:'',json:[]})}>exit</button>}
+                    {this.state.folder === '' && <h2>Choose track</h2>}
+                    {tracks.map((it,ind)=>{
+                         if(this.state.folder === ''){
+                             return <button key={ind} onClick={()=>{this.setState({folder:it,json:window[it]})}}>{it}</button>
+                         }
+                         if(this.state.folder === it){
+                             return <TheGame folder={this.state.folder} json={this.state.json}/>
+                         }
+                    })}
                 </div>
 			);
 		}
