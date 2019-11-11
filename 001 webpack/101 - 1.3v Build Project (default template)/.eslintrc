@@ -31,7 +31,7 @@
             "functions": "never"
         }],
         
-        "brace-style": "stroustrup", //стиль скобок if(){} / else{}
+        "brace-style": ["error", "stroustrup"], //стиль скобок if(){} / else{}
 
         "import/prefer-default-export": 0, //разрешает делать экспорт без испрользвания default
 

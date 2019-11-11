@@ -13,10 +13,11 @@ export const HocClose = (BaseComponent) => {
     };
 
     componentDidMount() {
-      const { acModalClosed } = this.props;
+      // TODO что делать с этим дерьмом?
+      const { acModalClosed:acModClose } = this.props;
       console.log('все модалки закрыты');
       // this.props.acModalClosed();
-      acModalClosed();
+      acModClose();
     }
     
     render() {
