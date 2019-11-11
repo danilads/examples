@@ -66,54 +66,50 @@
     // массив должен состоять из имен boost cut up down + частота в hz (up100)
     
     //название папки должно совпадать с названием массива
-    var tracks = ['metlaDyeJson'];
+    var tracks = ['AdeleSkyfall','VanhalenPanama'];
     
 
     // массив объявляем здесь
     
+    var VanhalenPanama=[
+        'boost100',
+        'boost200',
+        'boost350',
+        'cut100',
+        'cut200',
+        'cut350'
+    ];
+	 var AdeleSkyfall=[
+        "boost90",
+         "boost9000",
+         "cut9000",
+         "cut90",
+         "down100",
+         "down220",
+         "down400",
+         "down700",
+         "down1100",
+         "down1500",
+         "down2200",
+         "down3000",
+         "down4000",
+         "down5000",
+         "down7000",
+         "down9000",
+         "up100",
+         "up200",
+         "up400",
+         "up700",
+         "up1100",
+         "up1500",
+         "up2200",
+         "up3000",
+         "up4000",
+         "up5000",
+         "up7000",
+         "up9000"
+	 ];
 
-//	 var skyfall=[
-//	 	   "boost90",
-//         "boost9000",
-//         "cut9000",
-//         "cut90",
-//         "down100",
-//         "down220",
-//         "down400",
-//         "down700",
-//         "down1100",
-//         "down1500",
-//         "down2200",
-//         "down3000",
-//         "down4000",
-//         "down5000",
-//         "down7000",
-//         "down9000",
-//         "up100",
-//         "up200",
-//         "up400",
-//         "up700",
-//         "up1100",
-//         "up1500",
-//         "up2200",
-//         "up3000",
-//         "up4000",
-//         "up5000",
-//         "up7000",
-//         "up9000"
-//	 ];
-    var metlaDyeJson=[
-		"cut100",
-		"cut10000",
-		"down50-200",
-		"down200-1000",
-		"down1000-2000",
-		"down5000-20000",
-		"up50-200",
-		"up200-1000",
-		"up1000-2000",
-		"up5000-20000"
-	]; 
 	class Button extends React.PureComponent {
         
         
@@ -378,7 +374,6 @@
             
         }
 		render() {
-            console.log('---help',this.props.className);
 			return (<div style={{position:'relative'}}>
                 <div className={'graph'} style={{boxShadow:this.boxShadow()}}></div>
                 <button className={this.props.className} onClick={this.props.onClick}>{this.props.text}</button>
@@ -537,20 +532,19 @@
 		    return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 		  }
 		render() {
-            console.log('---rerender',this.props);
 			return (
 				<div>
 					{this.buildButtons()}
                     {this.props.folder.length>0
                             &&
                         <audio id="def">
-                          <source src={`${this.props.folder}/def.wav`}/>
+                          <source src={`${this.props.folder}/def.mp3`}/>
                         </audio> 
                     }
 					
 					{this.props.json.map(it=>{
 						return <audio id={it}>
-								  <source src={`${this.props.folder}/${it}.wav`}/>
+								  <source src={`${this.props.folder}/${it}.mp3`}/>
 								</audio> 
 					})}
 					
@@ -567,10 +561,6 @@
         
 
 		render() {
-            
-            tracks.map(it=>{
-                console.log(window[it]);
-            });
             
 			return (
                 <div style={{position:'relative', height:'100%'}}>
