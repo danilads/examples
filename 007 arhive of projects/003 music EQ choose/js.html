@@ -20,6 +20,7 @@
             width: 80px;
             padding: 5px;
             height: 46px;
+            margin: 5px;
             white-space: nowrap; /* Запрещаем перенос строк */
 			overflow: hidden; /* Обрезаем все, что не помещается в область */
 			text-overflow: ellipsis;
@@ -37,7 +38,8 @@
             height: 100%
         }
         .graph{
-            top:29px;
+            top:34px;
+            left: 5px;
             width: 1px;
             height: 1px;
             position: absolute;
@@ -376,9 +378,10 @@
             
         }
 		render() {
-			return (<div style={{position:'relative',margin:'5px'}}>
+            console.log('---help',this.props.className);
+			return (<div style={{position:'relative'}}>
                 <div className={'graph'} style={{boxShadow:this.boxShadow()}}></div>
-                <button className={this.props.className} onClick={this.props.onClick} className="btn">{this.props.text}</button>
+                <button className={this.props.className} onClick={this.props.onClick}>{this.props.text}</button>
             </div>);
 		}
 	}
