@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   acModalOpen,
   acModalClosed
@@ -8,28 +9,35 @@ import {
 
 export const HocClose = (BaseComponent) => {
   class HocCloseClass extends React.Component {
+    static propTypes = {
+      // redux functions
+      acModalOpen: PropTypes.func,
+      acModalClosed: PropTypes.func
+    }
+
     state = {
 
     };
 
     componentDidMount() {
       // TODO что делать с этим дерьмом?
-      const { acModalClosed:acModClose } = this.props;
+      const { acModalClosed } = this.props;
       console.log('все модалки закрыты');
       // this.props.acModalClosed();
-      acModClose();
+      acModalClosed();
     }
-    
+
     render() {
-      return <React.Fragment>
+      return (
+        <Fragment>
           {/* Обернутый компонент */}
           <BaseComponent {...this.props}/>
-      </React.Fragment>
+        </Fragment>
+      );
     }
   }
-  return connect((state) => ({
+  return connect((/* state */) => ({
 
   }),
-  {acModalOpen,acModalClosed})(HocCloseClass);
+  { acModalOpen, acModalClosed })(HocCloseClass);
 };
-

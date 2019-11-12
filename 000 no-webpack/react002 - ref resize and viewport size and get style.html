@@ -66,6 +66,8 @@
 			console.log('ref1',this.containerRef1)
 			console.log('ref2',this.containerRef2)
 			console.log('ref3',this.containerRef3)
+			//все рефки (так лучше не делать)
+			console.log('all string refs',this.refs)
 
 
 			//если нужно достать вложенный класс(должен быть уникальным т.к. приходит массив)
@@ -82,6 +84,8 @@
 					</div>
 					<div ref={this.containerRef3} className={'one'}>объявляем рефку 3</div>
 					
+					<div ref="str1">str1</div>
+					<div ref="str2">str2</div>
 					
 				</div>
 			);

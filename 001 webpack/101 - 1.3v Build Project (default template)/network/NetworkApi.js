@@ -18,7 +18,8 @@ import { backendServiceHost } from 'config';
 async function tryCatch(func) {
   try {
     return await func();
-  } catch (e) {
+  }
+  catch (e) {
     console.error('---ОШИБКА', e);
     return '';
   }

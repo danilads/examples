@@ -30,13 +30,21 @@
             "exports": "never",
             "functions": "never"
         }],
-        
+
+        "react/static-property-placement": 0, //разрешаем декларировать propTypes и др. внтури класса
+        "react/require-default-props": 0, //разрешаем использовать propTypes без defaultProps
+
+        "react/jsx-fragments": ["error", "element"], //разрешаем писать Fragment или React.Fragment
+        "react/jsx-props-no-spreading": 0, // разрешаем использовать "спрэд"
+
+        "no-shadow": 0, //позволяет переделкарировать переменные с таким же именем
+
         "brace-style": ["error", "stroustrup"], //стиль скобок if(){} / else{}
 
         "import/prefer-default-export": 0, //разрешает делать экспорт без испрользвания default
 
         "no-restricted-syntax": 0, //разрешаем использовать все ( даннай настройкой можно заблокировать for of/ for in итд ["error", "ForInStatement", "ForOfStatement"])
 
-        "no-console": "off" //разрешает оставлять консоль логи
+        "no-console": "off", //разрешает оставлять консоль логи
     }
 }
