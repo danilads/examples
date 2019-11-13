@@ -36,7 +36,7 @@
 		runFromChild=(e)=>{
 			console.log('run fromChild '+e);
 		}
-
+		
 		//0.01 передаем функцию в cb
 		componentDidMount(){
 			this.props.cbRecord(this.childFunc);
@@ -73,9 +73,12 @@
 
 			//1.03 запускаем функцию из ребенка (вариант 2)
 			this.containerRef.runFromChild('hello');
-			
+			console.log('---cont',this.containerRef);
 		}
 		
+		//если кидаем рефку в connected component
+		// this.containerRef.current.getWrappedInstance();
+		// export default connect(null, null, null, { withRef: true })(TableDocument);
 
 		render() {
 			return (<div>
