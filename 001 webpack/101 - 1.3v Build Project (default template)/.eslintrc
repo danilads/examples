@@ -46,5 +46,13 @@
         "no-restricted-syntax": 0, //разрешаем использовать все ( даннай настройкой можно заблокировать for of/ for in итд ["error", "ForInStatement", "ForOfStatement"])
 
         "no-console": "off", //разрешает оставлять консоль логи
+
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }], //разрешаем использовать ++ / -- в циклах
+
+        "react/forbid-prop-types": 0, //разрешает использовать в propTypes array / object
+
+        "jsx-a11y/click-events-have-key-events": 0, //если включен то нужно навешивать на все onClick в jsx - функцию с hotkey
+
+        "jsx-a11y/alt-text": 0  // если включен то нужно навешивать на все <img тэг alt
     }
 }

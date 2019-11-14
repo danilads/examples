@@ -4,7 +4,7 @@ import Graphic from './Graphic';
 
 class Layout extends React.PureComponent {
   static propTypes = {
-    children: PropTypes.func
+    children: PropTypes.array
   }
 
   state = {

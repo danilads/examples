@@ -13,19 +13,19 @@ class PageAbout extends React.PureComponent {
 
   render() {
     return (
-      <div className="PageAbout">
-        <div className="container">
-          <div className="row">
-            <div className="image col-12">
-              <div><img alt="ward" src={ward} /></div>
+      <div className={'PageAbout'}>
+        <div className={'container'}>
+          <div className={'row'}>
+            <div className={'image col-12'}>
+              <div><img src={ward}/></div>
             </div>
-            <div className="title col-12"><div>About</div></div>
-            <div className="col-12"><hr /></div>
+            <div className={'title col-12'}><div>About</div></div>
+            <div className={'col-12'}><hr/></div>
             <a href={myFile} download>скачать pdf</a>
-            <NavLink className="btnLevel1" to="/some" activeClassName="SActivated">some</NavLink>
+            <NavLink className={'btnLevel1'} to={'/some'} activeClassName={'SActivated'}>some</NavLink>
           </div>
         </div>
-        <BlockAboutContent />
+        <BlockAboutContent/>
       </div>
     );
   }
