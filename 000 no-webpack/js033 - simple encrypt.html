@@ -9,7 +9,7 @@
 <script>
     ////РАБОТАЕМ ТОЛЬКО СО СТАНДАРТНЫМИ СИМВОЛАМИ (charCode в пределах 32-126)
 
-    ////----01
+    ////----01 utils
         //функция которая генерирует массив cryptArr для функции displacement (нужно символы \ и " - экранировать)
         function generatecryptArr (){
             let arr = [];
@@ -24,7 +24,7 @@
         console.log("---generatecryptArr",generatecryptArr());
         console.log('----------------------------------------');
     
-    ////----02
+    ////----02 
         //функция которая смещает charCode в пределах 32-126 (по кругу)
         //1 char - символ который смещаем
         //2 ord - (true - в положительную сторону) (false - в отрицательную)
@@ -94,12 +94,21 @@
 	
 		//01 arr  - (array target)
 		//02 bool - (true - encr / false - decr)
-		function arrShafl (arr, encrDecr){
+        //03 с какого символа начинаем от 0 до бесконечночти
+		function arrShafl (arr, encrDecr, formula){
+            //1 число приводим к длинне массива
+            let trueFormula = formula;
+            if(formula>=arr.length){
+                trueFormula=formula%arr.length;
+            }
             
+            let dontTouchArr = arr.slice(0, trueFormula);
+            let shufleArr = arr.slice(trueFormula, arr.length);
+           
             let result = [];
             
             if(!encrDecr){
-                let copiedArr = [...arr].reverse();
+                let copiedArr = [...shufleArr].reverse();
                 result=copiedArr.reverse().splice(0,2);
                 for(let i=copiedArr.length;0<i;i--){
                     result = result.reverse().concat(copiedArr.shift());
@@ -107,19 +116,19 @@
                 result.reverse();
             }
             else{
-                let copiedArr = [...arr];
-                for(let i=0;arr.length>i;i++){
+                let copiedArr = [...shufleArr];
+                for(let i=0;shufleArr.length>i;i++){
                     result.push(copiedArr.shift());
                     copiedArr.reverse();
                 }
                 result.reverse();
             }
-				
-			return result;
+		
+			return dontTouchArr.concat(result);
 			
 		}
-		let Rencr = arrShafl(longArr, true);
-		let Rdecr = arrShafl(Rencr, false);
+		let Rencr = arrShafl(longArr, true,3);
+		let Rdecr = arrShafl(Rencr, false,3);
 		// console.log('---before',longArr);
 		console.log('---after encr',Rencr);
         console.log('---after decr',Rdecr);
@@ -127,7 +136,7 @@
 
         //01 arr    - (array target)
         //02 bool   - (true - encr / false - decr)
-        //03 number - (formula) должна быть равна от 1 до макс длинны массива
+        //03 number - (formula) должна быть равна от 0 до бесконечночти
         function recurShafl(arr, encrDecr, formula){
             //1 число приводим к длинне массива
             let trueFormula = formula;
@@ -152,8 +161,8 @@
         }
 
         let anotherArr = [1,2,3,4,5,6,7]; 
-        let encDisp = recurShafl(anotherArr,true,12);
-        let decrDisp = recurShafl(encDisp,false,12);
+        let encDisp = recurShafl(anotherArr,true,1);
+        let decrDisp = recurShafl(encDisp,false,1);
         console.log('---before',anotherArr);
         console.log('---enc',encDisp);
         console.log('---decr',decrDisp);
