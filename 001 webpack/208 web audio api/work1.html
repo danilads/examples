@@ -12,8 +12,12 @@
 	<button onclick="stopSound()">Stop</button>
 	
     
-	<script src="tr.js"></script>
+	<script src="tr.js">
+        //здесь подключена переменная var trackA = string base 64 (без хэдера)
+    </script>
 	<script>
+        
+        
 		var context = new AudioContext();
 		var source = null;
 		var audioBuffer = null;
