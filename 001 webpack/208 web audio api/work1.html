@@ -11,7 +11,7 @@
 	<button onclick="playSound()">Start</button>
 	<button onclick="stopSound()">Stop</button>
 	
-  {/** var trackA -  трэк в формате base 64   **/}
+    
 	<script src="tr.js"></script>
 	<script>
 		var context = new AudioContext();
@@ -43,47 +43,68 @@
 		}
              
 		function playSound() {
-			source = context.createBufferSource();
-			source.buffer = audioBuffer;
-	
-            var filters = createFilters();
-            console.log('---wtf in filters',filters);
-            source.connect(filters[0]);
-            // а последний фильтр - к выходу
-            filters[filters.length - 1].connect(context.destination);
-            //source.connect(context.destination);
-         
-			source.start(0); // Play immediately.
+            source = context.createBufferSource();
+            source.buffer = audioBuffer;
+            
+            var arrOfEffects = [];
+            
+            // FILTER
+            // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+                var filter1 = context.createBiquadFilter();
+
+                filter1.type = 'peaking'; // тип фильтра lowpass/highpass/bandpass/lowshelf/highshelf/peaking/notch/allpass
+                filter1.frequency.value = 300; // частота
+                filter1.Q.value = 5; // Q-factor 0.0001 to 1000.
+                filter1.gain.value = -40; //-40 and 40
+
+                arrOfEffects.push(filter1);
+
+                var filter2 = context.createBiquadFilter();
+
+                filter2.type = 'peaking'; // тип фильтра lowpass/highpass/bandpass/lowshelf/highshelf/peaking/notch/allpass
+                filter2.frequency.value = 600; // частота
+                filter2.Q.value = 5; // Q-factor 0.0001 to 1000.
+                filter2.gain.value = -40; //-40 and 40
+
+                //arrOfEffects.push(filter2);
+            
+            //COMPRESSOR
+            //https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode
+            //https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createDynamicsCompressor
+                var compres1 = context.createDynamicsCompressor();
+
+                compres1.threshold.value = -50; //порог
+                compres1.knee.value = 40;
+                compres1.ratio.value = 12;
+                compres1.attack.value = 0;
+                compres1.release.value = 0.25;
+            
+                arrOfEffects.push(compres1);
+            
+            
+            
+            // подключаем всю цепочку последовательно
+            for(let i=0;arrOfEffects.length>i;i++){
+                if(i===0){
+                    source.connect(arrOfEffects[0]);
+                }
+                else{
+                    arrOfEffects[i-1].connect(arrOfEffects[i]);
+                }
+            }
+            
+            // замыкаем последнюю к выходу
+            arrOfEffects[arrOfEffects.length-1].connect(context.destination);
+            
+
+            //source.connect(context.destination); //без подключения
+
+            source.start(0); // Play immediately.
 		}
         
-        //COMPRESSOR
-        //https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode
-        //https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createDynamicsCompressor
+       
         
-        //FILTERS
-        // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
-        var createFilter = (frequency) => {
-          var filter = context.createBiquadFilter();
-            
-          filter.type = 'peaking'; // тип фильтра lowpass/highpass/bandpass/lowshelf/highshelf/peaking/notch/allpass
-          filter.frequency.value = frequency; // частота
-          filter.Q.value = 5; // Q-factor 0.0001 to 1000.
-          filter.gain.value = -25; //-40 and 40
-
-          return filter;
-        };
-
-        var createFilters = () => {
-          var frequencies = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000],
-            filters = frequencies.map(createFilter);
-
-          filters.reduce((prev, curr)=>{
-            prev.connect(curr);
-            return curr;
-          });
-          return filters;
-        };
-        
+    
 	
 	
 	</script>
