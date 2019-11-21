@@ -76,8 +76,13 @@
 			console.log('---cont',this.containerRef);
 		}
 		
-		//если кидаем рефку в connected component
+		// Если кидаем рефку в connected component
+		// Нужно:
+		// containerRef=React.createRef();
 		// this.containerRef.current.getWrappedInstance();
+
+		// <TableDocument ref={this.container}/>
+
 		// export default connect(null, null, null, { withRef: true })(TableDocument);
 
 		render() {
