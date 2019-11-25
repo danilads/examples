@@ -1,9 +1,9 @@
 // писать только однострочные коменты
 @import "_normalize"; //! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css
-@import "grid"; //сетка
-@import "spinner"; //spinner
+@import "_grid"; //сетка
 @import "buttons"; //buttons
 @import "animations"; //animations
+@import "variables"; //variables
 
 
 html{

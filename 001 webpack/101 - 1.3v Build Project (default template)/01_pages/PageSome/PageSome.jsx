@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 class PageSome extends React.PureComponent {
   render() {
     const arr = [];
-    for (let i = 100000; i > 0; i--) {
+    for (let i = 1000; i > 0; i--) {
       arr.push(i);
     }
     return (

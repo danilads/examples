@@ -1,6 +1,12 @@
 //название файла с нижнем подчеркиванием (sass будет использовать только нужные ему перменные, а не все подряд)
 
-//variables
+
+//variables css
+:root {
+	--main-color: green;  
+}
+
+//constants scss
 $primary-color: #333;
 $n1: 11px;
 $n2: 12px;
