@@ -1,24 +1,46 @@
 <!DOCTYPE html> 
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>MobileList</title>
-	<!--Readme -->
-	<!-- константы можно преназначать -->
-	<!-- это значит, что можно их менять в отдельно скойпе(прокинув класс) -->
-	<style>
+		<html>
+		<head>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title></title>
+			<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+			<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+			<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+				<!--Readme -->
+				<!-- переменные css -->
+				<!-- это значит, что можно их менять в отдельном скоупе (прокинув класс) -->
+				<style>
+				
+				:root {
+					--main-color: green;  
+				}
 		
-		:root {
-		  --main-color: coral;  
-		}
-
-		.qwerty{
-
-			color: var(--main-color);
-		}
-	</style>
-</head>
-<body>
-	<div class="qwerty">hello</div>
-</body> 
-</html>
+				.qwerty{
+					--main-color: red;  /* можно перебить */
+					color: var(--main-color);
+				}
+			</style>
+		</head>
+		<body>
+			<div id="container"></div> 
+			<script type="text/babel">
+			class List extends React.PureComponent {
+		
+				render() {
+					return (<div>
+						<div class="qwerty">hello1</div>
+						{/* перебиваем без стилевого файла */} 
+						<div class="qwerty" style={{'--main-color': 'orange'}}>hello2</div>
+					</div>);
+				}
+			}
+			////////////////App Js
+				ReactDOM.render(
+					<List/>
+					,document.getElementById('container')
+				);
+			</script>
+		</body> 
+		</html>
+		

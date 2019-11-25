@@ -46,7 +46,7 @@ class BlockAboutContent extends React.PureComponent {
                 const result = [];
                 result.push(<div key={it}>{it.title}</div>);
                 result.push(
-                  <ul key={it}>
+                  <ul key={`${it} a`}>
                     {it.arr.map(i => {
                       return <li key={i}>{i}</li>;
                     })}

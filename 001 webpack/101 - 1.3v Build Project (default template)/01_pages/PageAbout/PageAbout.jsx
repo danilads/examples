@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { HocClose } from '../../03_hoc/HocClose/HocClose';
-import ward from '../../05_images/images/ward.gif';
-import myFile from '../../06_files/myFile.pdf';
+import { HocClose } from '../../02_components/HocClose/HocClose';
+import ward from '../../04_images/images/ward.gif';
+import myFile from '../../05_files/myFile.pdf';
 import './PageAbout.scss';
 import BlockAboutContent from '../../02_components/BlockAboutContent/BlockAboutContent';
 

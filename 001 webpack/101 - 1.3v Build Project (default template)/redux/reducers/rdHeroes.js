@@ -2,7 +2,7 @@ import {
   HEROES_LOADING,
   HEROES_LOADED
 } from '../constants';
-import heroesVerify from '../../jsonBackUp/heroesVerify.json';
+import heroesVerify from '../../mock/heroesVerify.json';
 
 const initialState = {
   data: {},

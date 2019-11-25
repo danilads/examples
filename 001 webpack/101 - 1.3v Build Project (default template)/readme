@@ -1,5 +1,6 @@
 ===========================
 Git
+  - (после мержа с девелопом ветку удалять)
   - Именование веток
     bug/3582
     bug/FixInput
@@ -44,21 +45,19 @@ React
 Иерархия файлов
   - папки
 
-    01_pages/ (основные страницы)
+    01_pages/ (основные страницы) компоненты страницы именуем также как и url
       PageCards/PageCards.js
 
     02_components/ (комоненты)
       CashBySend/CashBySend.js
       BlockAbout/BlockAbout.js
 
-    03_hoc/ (higher-order component )
-      HocClose/HocClose.js
 
-    04_primitives/ (примитивы)
+    03_primitives/ (примитивы)
       Inputs/CustomInputWithMarker/CustomInputWithMarker.js
       
 
-    05_images/
+    04_images/
       images/CashBySend/main.jpg
       SVG/Input/IconSmile.js
       favicon.ico
@@ -84,18 +83,13 @@ React
 ===========================
 
 Redux
-//TODO нужно отказаться от динамических редюсеров
-//TODO переписать по возможности используя данный шаблон
 
-//константы для action - constants/ctActions.js
+//константы для action - constants/ctRedux.js
 
-//переписаны:
--acDocumnent
--rdDictionaries
--rdDocuments
 
   - (в redux храним данные в исходном состоянии)
   - (используем данный подход для загружаемых данных)
+  - при записи проверяем загружалли ли мы такие данные(чтобы избежать повтороной загрузки)
     let initialState = {
       data: {},
       isFetching: false,
@@ -106,4 +100,9 @@ Redux
 
     };
 
+===========================
+Router и весь роут в App.js
+===========================
+
+  используем css константы 
 ===========================

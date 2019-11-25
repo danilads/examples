@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { HocClose } from '../../03_hoc/HocClose/HocClose';
-import Spiner from '../../04_primitives/Spiner/Spiner';
-import logoAnim from '../../05_images/images/logoAnim.gif';
+import { HocClose } from '../../02_components/HocClose/HocClose';
+import Spiner from '../../03_primitives/Spiner/Spiner';
+import logoAnim from '../../04_images/images/logoAnim.gif';
 import { acHeroesLoading } from '../../redux/actions/acHeroes';
 import { NetworkApi } from '../../network/NetworkApi';
 
