@@ -1,0 +1,218 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+
+
+<script>
+
+// README
+// в indexedDB запись чтение  это
+
+//вернет promise
+//TODO нужно сделать так чтобы readFromBase ВОЗВРАЩАЛ ДАННЫЕ
+console.log('---here',readFromBase('ss','ss','s1').then((e)=>console.log('--HERE',e)));
+
+
+// (УТИЛИТЫ) получем версию базы
+async function getVersion(baseName){
+  let version;
+  let databases = await window.indexedDB.databases();
+  
+  // если база есть - получим версию
+  for(let i=0;databases.length>i;i++){
+    if(baseName===databases[i].name){
+      version = databases[i].version;
+    }
+  }
+  if(version===undefined){
+    // если база не создана - ставим версию - 1
+    version = 1;
+  }
+  return version;
+}
+
+// (УТИЛИТЫ) проверяем создана ли такая база (возвращает true/false)
+async function isBaseExist(baseName){
+  let databases = await window.indexedDB.databases();
+  let result = false;
+  // если база есть - получим версию
+  for(let i=0;databases.length>i;i++){
+    if(baseName===databases[i].name){
+      result = true;
+    }
+  }
+  return result;
+}
+
+
+// (ЗАПИСЬ)
+// baseName - база (можно захардкодить)
+// objectStoreName - хранилище (можно захардкодить)
+// key - ключ
+// value - значение
+async function saveToBase(baseName,objectStoreName,key,value){
+  console.log('---indexedDB[save]');
+  // получем версию базы
+  let version = await getVersion(baseName);
+  //проверяем наличие такой базы
+  let openRequest;
+  if((await isBaseExist(baseName))){
+    // чтобы создать хранилище нужно обновить версию базы
+    openRequest = indexedDB.open(baseName, version+1);
+  }
+  else{
+    // создаст базу
+    openRequest = indexedDB.open(baseName, version);
+  }
+
+  // срабатывает, если на клиенте если нету базы данных либо мы поменяли версию
+  openRequest.onupgradeneeded = function(event) {
+    console.log("---indexedDB[save] onupgradeneeded", event);
+    let db = openRequest.result;
+    if (!db.objectStoreNames.contains(objectStoreName)) { // если нет в данной базе такого хранилища
+      // objectStoreName - это название хранилища
+      // второй аргумент {
+      //      keyPath       – путь к свойству объекта, которое IndexedDB будет использовать в качестве ключа, например id.
+      //      autoIncrement – если true, то ключ будет формироваться автоматически для новых объектов, как постоянно увеличивающееся число.
+      // }
+      db.createObjectStore(objectStoreName, {keyPath: 'id'});
+    }
+  };
+
+  openRequest.onerror = function(event) {
+    console.log("---indexedDB[save] onerror", event);
+  };
+
+  openRequest.onsuccess = function(event) {
+    let db = openRequest.result;
+    // продолжить работу с базой данных, используя объект db
+    console.log("---indexedDB[save] onsuccess", db);
+
+    //перебираем objectStoreNames есть ли такое хранилище
+    const array = [ ...db.objectStoreNames ];
+    if(!array.includes(objectStoreName)){
+      console.log('%c%s', 'color: red;','---indexedDB[save] ТАКОГО ХРАНИЛИЩА НЕТ');
+      // всегда закрываем базу после каких-либо действий
+      db.close();
+      return;
+    }
+
+    // транзакция
+    var request = db.transaction(objectStoreName, "readwrite")
+                    .objectStore(objectStoreName)
+                    .delete(key);
+    request.onsuccess = function(event) {
+      let db = openRequest.result;
+      // продолжить работу с базой данных, используя объект db
+      console.log("---indexedDB[save] onsuccess", db);
+
+      let transaction = db.transaction(objectStoreName, "readwrite");
+      // получить хранилище объектов для работы с ним
+      let store = transaction.objectStore(objectStoreName);
+
+      let data = {
+        id: key,
+        data: value,
+      };
+
+      let request = store.add(data);
+      request.onsuccess = function() {
+        console.log('%c%s', 'color: green;','---indexedDB[save] ЗАПИСЬ ДОБАВЛЕНА В ХРАНИЛИЩЕ', request.result);
+        // всегда закрываем базу после каких-либо действий
+        db.close();
+      };
+
+      request.onerror = function(event) {
+        console.log("---indexedDB[read] onerror",request,event);
+      };
+    };
+
+    
+
+  };
+  
+  openRequest.onblocked = function(event) {
+    console.log("---indexedDB[save] onblocked - It's blocked Couldn't create",event);
+  };
+    
+}
+
+
+
+async function readFromBase(baseName,objectStoreName,key){
+  console.log('---indexedDB[read]');
+  // получем версию базы
+  let version = await getVersion(baseName);
+  
+  
+
+  // Проверяем есть ли такая база
+  if(!(await isBaseExist(baseName))){
+    console.log('%c%s', 'color: red;', '---indexedDB[read] ТАКОЙ БАЗЫ НЕ СУЩЕСТВУЕТ');
+    return;
+  }
+
+  // откроет базу
+  let openRequest = indexedDB.open(baseName, version);
+
+
+  // срабатывает, если на клиенте нет базы данны либо мы поменяли версию
+  openRequest.onupgradeneeded = function() {
+    console.log("---indexedDB[read] onupgradeneeded", openRequest);
+  };
+  openRequest.onerror = function() {
+    console.log("---indexedDB[read] onerror", openRequest.error);
+  };
+
+  openRequest.onsuccess = function() {
+    let db = openRequest.result;
+    // продолжить работу с базой данных, используя объект db
+    console.log("---indexedDB[read] onsuccess", db);
+    
+    //перебираем objectStoreNames есть ли такое хранилище
+    const array = [ ...db.objectStoreNames ];
+    if(!array.includes(objectStoreName)){
+      console.log('%c%s', 'color: red;', '---indexedDB[read] ТАКОГО ХРАНИЛИЩА НЕТ');
+      // всегда закрываем базу после каких-либо действий
+      db.close();
+      return;
+    }
+
+    var transaction = db.transaction(objectStoreName);
+    
+
+    
+    var objectStore = transaction.objectStore(objectStoreName);
+    var request = objectStore.get(key);
+    request.onerror = function(event) {
+      console.log("---indexedDB[read] onerror",request,event);
+    };
+    request.onsuccess = function() {
+      // Do something with the request.result!
+      if(request.result){
+        console.log("---indexedDB[read] answer",request.result);
+      }
+      else{
+        console.log('%c%s', 'color: red;', "---indexedDB[read] ТАКОГО КЛЮЧА НЕТ");
+      }
+    };
+    
+    // всегда закрываем базу после каких-либо действий
+    db.close();
+  };
+
+  openRequest.onblocked = function(event) {
+    console.log("---indexedDB[read] onblocked It's blocked Couldn't create",event);
+  };
+}
+
+
+</script>	
+<body>
+	
+</body>
+</html>
