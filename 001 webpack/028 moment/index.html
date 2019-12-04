@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<body>
+
+	<script>
+		console.log(moment("1995-12-25","YYYY-MM-DD"));
+		console.log(moment("25.12.1995","DD.MM.YYYY"));
+		//get millisecond
+		let t1 = "25.12.1995";
+		console.log(moment(t1,"DD.MM.YYYY HH:mm:SS").isValid());
+		console.log(new Date(moment(t1,"DD.MM.YYYY").format()).getTime());
+
+		let t2 = "25.12.1995 22:59:59";
+		console.log(moment(t2,"DD.MM.YYYY HH:mm:SS").isValid());
+		console.log(new Date(moment(t2,"DD.MM.YYYY HH:mm:SS").format()).getTime());
+	</script>
+</body> 
+</html>
