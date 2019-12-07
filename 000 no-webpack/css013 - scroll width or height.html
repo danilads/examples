@@ -17,15 +17,15 @@
 			width: 100%;
 			height: 100%;
 		}
-		.container{
+		#container{
 			width: 100%;
 			height: 100%;
 		}
-        .block{
-            width: 1000px;
-            height: 600px;
+		.block{
+			width: 1000px;
+			height: 700px;
 			border:1px solid #cef;
-        }
+		}
 		.cont{
 			outline: 1px solid black;
 			width: 200px;
@@ -50,49 +50,62 @@
 			clientWidth: 0,
 		}
 		container = React.createRef();
-        scroll=()=>{
-            console.log('--scroll');
-            this.set();
-        };
+		containerText = React.createRef();
+		scroll=()=>{
+				console.log('--scroll');
+				this.set();
+		};
 		
-        resize=()=>{
-            console.log('--resize');
-            this.set();
-        };
+		resize=()=>{
+				console.log('--resize');
+				this.set();
+		};
 		
 		set=()=>{
-			 this.setState({
-                innerHeight: window.innerHeight, 
-                innerWidth: window.innerWidth,
+			this.setState({
+				innerHeight: window.innerHeight, 
+				innerWidth: window.innerWidth,
 				clientHeight: document.body.clientHeight,
 				clientWidth: document.body.clientWidth,
-            });
+			});
 		}
     
         
-        componentDidMount() {
+		componentDidMount() {
 			//ставим скрол элементу div
 			this.container.current
 			console.log('current scroll',this.container.current.scrollTop);
 			this.container.current.scrollTo(0,1000);
 
 			this.setState({
-                innerHeight: window.innerHeight, 
-                innerWidth: window.innerWidth,
+				innerHeight: window.innerHeight, 
+				innerWidth: window.innerWidth,
 				clientHeight: document.body.clientHeight,
 				clientWidth: document.body.clientWidth,
-            });
+			});
+
+			//на element нужно вешать ResizeObserver
+			const resizeObserver = new ResizeObserver((e) => {
+				console.log('---width',e[0].contentRect.width);
+				console.log('---height',e[0].contentRect.height);
+			});
+			resizeObserver.observe(this.containerText.current);
 			document.addEventListener("scroll", this.scroll);
 			window.addEventListener("resize", this.resize);
 		}
 	
 		componentWillUnmount(){
+			resizeObserver.unobserve(this.containerText.current);
 			document.removeEventListener("scroll", this.scroll);
 			window.removeEventListener("resize", this.resize);
+		}
+		resizeText=()=>{
+			console.log('---azaz');
 		}
 		render() {
 			return (
 				<div className={'block'}>
+					<div style={{height:'70px'}} />
 					<div>Тэг body должен быть без margin</div>
 					<div>Тэги html, body, .container должены иметь width и height 100%</div>
 					<div>В Apple скролл прозрачный и поверх страницы, поэтому он всегда будет - 0px</div>
@@ -107,16 +120,28 @@
 					<div><span>clientWidth:</span><span>{this.state.clientWidth}</span></div>
 					
 					<br/>
-					<div>Размер скролла</div>
+					<div>Размер скролла (window)</div>
+					<div><span>Размер вертикального скролла:</span><span>{this.state.innerWidth-this.state.clientWidth}</span></div>
+					<div><span>Размер горизонтального скролла:</span><span>{this.state.innerHeight-this.state.clientHeight}</span></div>
+					
+					<br/>
+					<div>Размер скролла (блока)</div>
 					<div><span>Размер вертикального скролла:</span><span>{this.state.innerWidth-this.state.clientWidth}</span></div>
 					<div><span>Размер горизонтального скролла:</span><span>{this.state.innerHeight-this.state.clientHeight}</span></div>
 				
-				{/* ставим скрол элементу div */}
-				<div ref={this.container}  class="cont">
-						<div class="over">
+					{/* ставим скрол элементу div */}
+					<div ref={this.container}  class="cont">
+							<div class="over">
 
-						</div>
-				</div>
+							</div>
+					</div>
+					
+					<div style={{position:'absolute',top:0,rigth:0}}>
+					<textarea ref={this.containerText} defaultValue={'можно ресайзить см. консоль'} rows="4">
+			
+					</textarea>
+					</div>
+
 				</div>
 			);
 		}
