@@ -73,7 +73,6 @@
         
 		componentDidMount() {
 			//ставим скрол элементу div
-			this.container.current
 			console.log('current scroll',this.container.current.scrollTop);
 			this.container.current.scrollTo(0,1000);
 
@@ -88,6 +87,10 @@
 			const resizeObserver = new ResizeObserver((e) => {
 				console.log('---width',e[0].contentRect.width);
 				console.log('---height',e[0].contentRect.height);
+				console.log('---wtf clientWidth',this.containerText.current.clientWidth);
+				console.log('---wtf offsetWidth',this.containerText.current.offsetWidth);
+				console.log('---scroll width (works on Windows chrome)', this.containerText.current.offsetWidth - this.containerText.current.clientWidth);
+				console.log('---------------------------------');
 			});
 			resizeObserver.observe(this.containerText.current);
 			document.addEventListener("scroll", this.scroll);
@@ -99,9 +102,7 @@
 			document.removeEventListener("scroll", this.scroll);
 			window.removeEventListener("resize", this.resize);
 		}
-		resizeText=()=>{
-			console.log('---azaz');
-		}
+	
 		render() {
 			return (
 				<div className={'block'}>
@@ -137,9 +138,10 @@
 					</div>
 					
 					<div style={{position:'absolute',top:0,rigth:0}}>
-					<textarea ref={this.containerText} defaultValue={'можно ресайзить см. консоль'} rows="4">
-			
-					</textarea>
+						{/* убираем бордер, т.к. он учитывается в измерении скрола */}
+						<textarea style={{margin:0,padding:0,border:"none",outline:'1px solid black'}} ref={this.containerText} defaultValue={'можно ресайзить см. консоль'} rows="4">
+				
+						</textarea>
 					</div>
 
 				</div>
