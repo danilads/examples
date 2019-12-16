@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<style>
+		html, body {
+	      width:  100%;
+	      height: 100%;
+	      margin: 0;
+	    }
+	</style>
+</head>
+<body>
+	<canvas id="canv" width="150" height="150"></canvas>
+<script>
+//canvas
+let htmlCanvas = document.getElementById('canv');
+
+// context
+let ctx = htmlCanvas.getContext('2d');
+
+
+
+//01 - [fillRect] - заполненный прямоугольник - (x, y, width, height);
+ctx.fillStyle = "#cef";
+	ctx.fillRect (0, 0, 100, 100);
+
+ctx.fillStyle = "rgb(200,0,0)";
+	ctx.fillRect (10, 10, 55, 50);
+
+	ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+	ctx.fillRect (30, 30, 55, 50);
+
+	//02 - [strokeRect] - пустой прямоугольник с контуром 1px -  (x, y, width, height);
+	ctx.strokeStyle = "red";
+	ctx.strokeRect (0, 0, 150, 150);
+
+//03 - [clearRect] - очистка прямоугольной области, -  (x, y, width, height);
+	ctx.clearRect(45,45,60,60);
+
+
+
+
+
+</script>
+
+<body>
+	
+</body>
+</html>
