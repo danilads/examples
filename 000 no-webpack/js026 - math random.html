@@ -17,8 +17,9 @@
 				let answer = Math.round(min - 0.5 + Math.random() * (max - min + 1));
 				//может вернуть -0
 		    if(answer===0){
-					return 0
+					answer=0;
 				}
+				return answer;
 		  }
 		console.log('--getRandomInt',getRandomInt(1,999))
 
@@ -28,10 +29,12 @@
 				let answer = min - 0.5 + Math.random() * (max - min + 1);
 				//может вернуть -0
 		    if(answer===0){
-					return 0
+					answer=0;
 				}
+				return answer;
 		}
 		console.log('--getRandomFloat',getRandomFloat(11, 101));
+		
 
 	 	
 	</script>
