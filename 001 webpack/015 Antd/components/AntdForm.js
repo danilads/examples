@@ -61,4 +61,4 @@ class AntdForm extends React.PureComponent {
 // CustomizedForm = Form.create({})(CustomizedForm);
 // export const CreateForm = Form.create()( connect(mapStateToProps, mapDispatchToProps)(CreateModal) );
 
-export default Form.create()(AntdForm );
+export default Form.create()(AntdForm);
