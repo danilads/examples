@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+</head>
+<body>
+	<script>
+		var flag = false;
+		var worker = setInterval (()=>{
+			console.log('worker - work');
+					if(flag === true){             
+							/* do something*/
+								clearInterval (worker);
+						console.log('DONE');
+					} 
+		},200);
+			
+			
+		setInterval (()=>{
+			flag=true;
+		},2000);
+	</script>
+</body>
+</html>
