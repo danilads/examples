@@ -1,0 +1,34 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <div id='one'>
+    <div class="t"><div>first</div></div>
+    <div class="t">
+      <div>second</div>
+    </div>
+  </div>
+
+<script>
+    //getElementById - т.к. id должен быть уникальным - вернет элемент
+    console.log('--getElementById',document.getElementById('one'));
+
+    //getElementsByClassName - вернет массив
+    console.log('--getElementsByClassName',document.getElementsByClassName('t'));
+
+    //querySelector - вернет первый найденный
+    console.log('--querySelector',document.querySelector('.t'));
+
+    //parentNode - вернет массив
+    console.log('--parentNode',document.getElementsByClassName('t')[0].parentNode);
+
+    //childNodes
+    console.log('--childNodes',document.getElementsByClassName('t')[0].childNodes[0]);
+
+    //.getElementsByClassName("ant-form-item-children")[ind].querySelector(".TableClass").childNodes[0].offsetHei
+	</script>
+</body>
+</html>
