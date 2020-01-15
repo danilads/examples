@@ -25,10 +25,11 @@
     //parentNode - вернет массив
     console.log('--parentNode',document.getElementsByClassName('t')[0].parentNode);
 
-    //childNodes
-    console.log('--childNodes',document.getElementsByClassName('t')[0].childNodes[0]);
+    //childNodes - вернет массив (есть баг смотрим пример ниже)
+    console.log('--childNodes',document.getElementsByClassName('t')[0].childNodes);
 
-    //.getElementsByClassName("ant-form-item-children")[ind].querySelector(".TableClass").childNodes[0].offsetHei
+    //childNodes - вернет массив (есть баг)
+    console.log('--childNodes',document.getElementsByClassName('t')[1].childNodes);
 	</script>
 </body>
 </html>
