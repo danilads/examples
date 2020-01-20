@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class List extends React.PureComponent {
+		click=(it)=>()=>{
+          console.log(it);
+        }
+		render() {
+			return (<div>
+                {[1,2,3,4].map((it,v)=>{
+                  return <div onClick={this.click(it)}>{it}</div>
+                })}
+            </div>);
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<List/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
