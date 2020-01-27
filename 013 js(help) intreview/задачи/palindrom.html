@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+// напишите нахождение палиндрома
+// НЕ СМОТРЕТЬ
+
+
+
+
+
+let p1 = 'А роза упала на лапу Азора.';
+let p2 = 'Madam, I’m Adam';
+let p3 = 'Eve';
+
+
+
+
+
+
+
+
+
+
+function pal(e){
+  let clearStr = e.replace(/[. ,’]/g,'').toLowerCase();
+  if(clearStr===clearStr.split('').reverse().join('')){
+    return true;
+  }
+  else{
+    return false;
+  }
+
+}
+console.log(pal(p1));
+console.log(pal(p2));
+console.log(pal(p3));
+</script>
+
+	
+</body>
+</html>
