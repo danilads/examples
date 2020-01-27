@@ -8,14 +8,14 @@
 <script>
 // 01 что выведет данный пример?
 let n1 = 2;
-while (n1--){
+while (--n1){
   console.log('n1 console',n1)
   setTimeout(()=>{console.log('n1 setTimeout',n1)},200);
 }
 
 // 02 что выведет данный пример?
 let n2 = 2;
-while (--n2){
+while (n2--){
   console.log('n2 console',n2)
   setTimeout(()=>{console.log('n2 setTimeout',n2)},200);
 }
