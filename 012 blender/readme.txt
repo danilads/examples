@@ -8,4 +8,4 @@ Shift + F - move mode (ASWD)
 
 
 CAMERA:
-Control + Option - camera to current view
+Control + Option + 0 - camera to current view
