@@ -27,10 +27,10 @@ module.exports = {
     historyApiFallback: true, //для react-router-dom (cannot get какой-то url)
     //port: 8080,
     proxy: { //для определенных запросов
-      '/api/': 'http://172.30.71.195:9080/SBOL-Business/',
-      '/remote/': 'http://172.30.71.195:9080/SBOL-Business/',
-      '/internal/': 'http://172.30.71.195:9080/SBOL-Business/',
-      '/logout': 'http://172.30.71.195:9080/SBOL-Business/',
+      '/api/': 'http://155.32.24.133:4005/Business/',
+      '/remote/': 'http://155.32.24.133:4005/Business/',
+      '/internal/': 'http://155.32.24.133:4005/Business/',
+      '/logout': 'http://155.32.24.133:4005/Business/',
     }
   },
   entry: {
