@@ -1,0 +1,74 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+let arr1, arr2, res;
+// [IMMUTABLE]
+  //.includes() - true / false
+  //.indexOf('bison', начиная с индекса)
+
+  //.concat
+  arr1 = [1,2];
+  arr2 = [0].concat(arr1); // [0,1,2]
+  
+  //.flat
+  arr1 = [[0,1],2,3];
+  res = arr1.flat();
+
+  //.reduce / .reduceRight (acc, currentValue, index, arr) / (initalValue)
+  arr1 = [1,2];
+  res = arr1.reduce((acc,cur)=>acc+cur); // 3
+  
+  //.slice
+  arr1 = [1,2,3];
+  res = arr1.slice(0,2); // [1,2]
+  
+  //.splice
+  arr1 = [1,2,3];
+  res = arr1.splice(0,2); 
+  console.log(res);  // [1,2]
+  console.log(arr1); // [3] - !MUTABLE
+  
+  //.every(it=> it==1) удовлетворяет ли всем элементам
+  //.some(it=> it==1)  удовлетворяет ли одному элементу
+ 
+  
+  //.filter (item, i, arr)
+  arr1 = [0,1,2,3];
+  res = arr1.filter((it)=> it>1);
+
+  //.forEach (item, i, arr) - ничего не возрващает(просто перебор)
+  arr1 = [0,1,2,3];
+  arr1.forEach((it)=>{});
+
+  
+  //.map (item, i, arr) - возвращает для каждой позиции
+  arr1 = [0,1,2,3];
+  res = arr1.map((it)=>{});
+
+  
+  
+  //new Set - оставить уникальные значения
+  arr1 = [1,1,1,2];
+  res = [...new Set(arr1)];
+  
+// [MUTABLE]
+  //.pop - удалить последний
+  //.shift - удалить первый
+  //.push - в конец
+  //.unshift - в начало
+  //.reverse
+  
+  //.sort Numbers
+  arr1 = [30,2,1];
+  arr1.sort((a,b)=>a-b);
+
+</script>
+<body>
+	
+</body>
+</html>
