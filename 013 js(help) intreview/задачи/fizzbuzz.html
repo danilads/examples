@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+//если кратно 3 - fizz / если кратно 5 - buzz / если кратно 3/5 - fizzbuzz
+function run (e){
+  for(let i=1;e>=i;i++){
+    if(i%3===0 && i%5===0){
+      console.log('fizzbuzz');
+    }
+    else if(i%3===0){
+      console.log('fizz');
+    }
+    else if(i%5===0){
+      console.log('buzz');
+    }
+    else{
+      console.log(i);
+    }
+  }
+}
+  run(50);
+</script>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+
+function getCounter() {
+  let counter = 0;
+  return function() {
+    return counter++;
+  }
+}
+let count = getCounter();
+
+  console.log(count());
+  console.log(count());
+  console.log(count());
+</script>
+<body>
+	
+</body>
+</html>

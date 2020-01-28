@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+//Найти гласные
+function findVowels (e){
+  let vowelsArr = ['a','e','i','o','u','y'];
+  let cnt = 0;
+  for(let i=0;e.length>i;i++){
+    if(vowelsArr.includes(e[i].toLowerCase())){
+      cnt+=1;
+    }
+  }
+  console.log(cnt);
+  return cnt;
+}
+findVowels('hello'); // --> 2
+findVowels('why'); // --> 0
+</script>
+<body>
+	
+</body>
+</html>

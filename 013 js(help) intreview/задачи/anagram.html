@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+
+function anagram (w1,w2){
+  if(w1.length === w2.length){
+    let word1Arr = w1.toLowerCase().split('');
+    let word2 = w2.toLowerCase();
+    for(let i=0;word2.length>i;i++){
+      let index = word1Arr.indexOf(word2[i]);
+      if(index === -1){
+        console.log(w1,w2,false);
+        return false;
+      }
+      word1Arr.splice(index,index);
+    }
+    console.log(w1,w2,true);
+    return true;
+  }
+  else{
+    console.log(w1,w2,false);
+    return false;
+  }
+}
+anagram('finder', 'Friend');//  --> true
+anagram('hello', 'bye');// --> false
+anagram('hello', 'helll');// --> false
+</script>
+<body>
+	
+</body>
+</html>
