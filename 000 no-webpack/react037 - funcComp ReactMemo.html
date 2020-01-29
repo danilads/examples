@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.4/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+    let TestC = (props) => {
+        console.log('Rendering TestC :', props)
+        const click =()=>{
+          console.log('hello')
+        }
+        return ( 
+            <div onClick={()=>click()}>
+              { props.count }
+            </div>
+        )
+    }
+    //MEMO делает мемоизаци props
+    TestC = React.memo(TestC);
+	//REACT MEMO и Функциональные компоненты
+	class Button extends React.PureComponent {
+      state={
+        count:0
+      }
+        render() {
+            
+            return (
+                <div>
+                    <TestC count={this.state.count}/>
+  
+                    <button onClick={()=>this.setState({count: 1})}>Click Me</button>
+                </div>
+            );
+        }
+	}
+	////////////////App Js
+
+		ReactDOM.render(
+			<Button/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
