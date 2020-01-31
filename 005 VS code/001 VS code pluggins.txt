@@ -13,5 +13,5 @@ TODO Highlight
 (color themes)
 Base16 Ocean Dark Theme Extended
 Electron Color Theme
-Zenburn Theme (USE IT!)
+Zenburn Theme (USE IT! on Mac Retina display)
 Theme - Oceanic Next
