@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8" />
+  <title></title>
+  <script src="marvinj-1.0.min.js"></script>
+</head> 
+<body> 
+  <div>hello</div> 
+  <script>
+    let image = new MarvinImage();
+    console.log('--',image);
+
+    image.load('img.bmp', imageLoaded); //загружаем картинку
+
+    function calcRGBA(x,y,img){
+      let red = img.getIntComponent0(x,y);
+      let green = img.getIntComponent1(x,y);
+      let blue = img.getIntComponent2(x,y);
+      let alpha = img.getAlphaComponent(x,y);
+      return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    }
+
+    function imageLoaded(){
+
+      console.log("width "+(image.getWidth())); //начинаеться с 0
+      console.log("height "+(image.getHeight())); //начинаеться с 0
+
+    
+      console.log ( '%c  ', `background: ${calcRGBA(0,0,image)}`, calcRGBA(0,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(1,0,image)}`, calcRGBA(1,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(2,0,image)}`, calcRGBA(2,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(3,0,image)}`, calcRGBA(3,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(4,0,image)}`, calcRGBA(4,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(5,0,image)}`, calcRGBA(5,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(6,0,image)}`, calcRGBA(6,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(7,0,image)}`, calcRGBA(7,0,image));
+      console.log ( '%c  ', `background: ${calcRGBA(8,0,image)}`, calcRGBA(8,0,image));
+    }
+  </script>
+
+</body> 
+</html>
