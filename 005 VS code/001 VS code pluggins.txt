@@ -8,6 +8,7 @@ Open file from path
 Path Autocomplete
 Path Intellisense
 Auto Import
+TODO Highlight
 
 (color themes)
 Base16 Ocean Dark Theme Extended
