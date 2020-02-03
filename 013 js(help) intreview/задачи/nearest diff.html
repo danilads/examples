@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+// найти ближайшее число в массиве
+let cur = 5;
+let arr = [1,4,7,9,20];
+
+
+//вернет индекс
+findNearest=(tar,arr)=>{
+  let diff = Math.abs(tar-arr[0]);
+  let index = 0;
+  for(let i=1;arr.length>i;i++){
+    if(diff>Math.abs(tar-arr[i])){
+      diff=Math.abs(tar-arr[i]);
+      index=i;
+    }
+  }
+  return index;
+}
+console.log(findNearest(cur,arr));
+</script>
+
+	
+</body>
+</html>
