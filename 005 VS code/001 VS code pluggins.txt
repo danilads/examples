@@ -10,6 +10,9 @@ Path Intellisense
 Auto Import
 TODO Highlight
 
+Live Share - для парного программирования или удаленного
+
+
 (color themes)
 Base16 Ocean Dark Theme Extended
 Electron Color Theme
