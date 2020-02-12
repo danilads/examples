@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.4/babel.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.1.3/react-redux.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+
+    ////////
+	////---- Redux
+
+      //init state
+      const initialState = {
+          data: '',
+      };
+
+      //createStore
+      const store = Redux.createStore(rdMainData)
+      
+      //REDUCER
+      function rdMainData(state = initialState, action) {
+        switch (action.type) {
+          case 'ADD_TEXT':
+            return {
+                  ...state,
+                  data: 'hello',
+              }
+          default:
+            return state
+        }
+      }
+
+      //ACTION
+      function acSaveData(text) {
+        return {
+          type: 'ADD_TEXT',
+          payload: text
+        }
+      }
+      
+    ////////
+    ////---- Button 
+      class Button extends React.PureComponent {
+
+          render() {
+              console.log(Redux);
+              console.log(ReactRedux.Provider);
+              
+              console.log(this.props);
+              return (
+                  <div>
+                      <button onClick={this.props.acSetData}>action</button>
+                  </div>
+              );
+          }
+      }
+      const mapDispatchToProps = dispatch => {
+        return {
+          acSetData: () => dispatch(acSaveData())
+        };
+      };
+
+      const mapStateToProps = state => {
+        return {
+          state: state
+        };
+      };
+      //connect
+      const ClassButtonConnected = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Button);
+    
+    ////////
+	////---- App Js
+      const Provider = ReactRedux.Provider
+      ReactDOM.render(
+          <Provider store={store}>
+            <ClassButtonConnected/>
+          </Provider>
+          ,document.getElementById('container')
+      );
+	</script>
+</body> 
+</html>
