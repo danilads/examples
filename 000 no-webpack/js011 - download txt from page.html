@@ -82,6 +82,26 @@
 			};
 			reader.readAsText(input.files[0]);
 		};
+
+		////////////////////////////////////
+
+		////---- Функция сохранения файла
+		// data - string - содержимое файла
+		// name - string - имя файла
+		// res  - string - разрешение файла (txt/doc)
+		function saveFile(data, name, res){
+			let a = document.createElement( 'a' );
+			const url = window.URL.createObjectURL( new Blob( [data], { type: 'application/octet-stream' } ) );
+
+			a.style = 'display: none';
+			a.href = url;
+			a.download = `${name}.${res}`;
+			document.body.appendChild( a );
+			a.click();
+			window.URL.revokeObjectURL( url );
+		}
+    
+    //saveFile('hello','name','txt');
 	</script>
 </body> 
 </html>
