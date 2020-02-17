@@ -14,7 +14,10 @@
 
 		async function getData(){
 			let answer;
-			await axios.get('https://randomuser.me/api/?results=500')
+			await axios({
+				url: 'https://randomuser.me/api/?results=500',
+				method: 'get'
+			})
 			.then(function (response) {
 				// handle success
 				console.log('--answer',response.data.results);
