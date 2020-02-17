@@ -18,35 +18,61 @@
   
 
 	class List extends React.PureComponent {
+    state={
+      file: {}
+    };
 		componentDidMount(){
-      this.getData();
+      this.getData('get');
     }
-    getData = async (data) => {
-        let answer;
-        await axios({
-          url: 'https://randomuser.me/api/?results=500',
-          method: 'get',
-          data
-        })
-        .then(function (response) {
-          // handle success
-          console.log('--answer',response.data.results);
-          answer=response.data.results;
-        })
-        .catch(function (error) {
-          // handle error
-          console.log('--error',error);
-        })
-        .finally(function () {
-          // always executed
-        });
+    getData = async (method,data) => {
+      let answer;
+      await axios({
+        url: 'https://randomuser.me/api/?results=500',
+        method: method,
+        data
+      })
+      .then(function (response) {
+        // handle success
+        console.log('--answer',response.data.results);
+        answer=response.data.results;
+      })
+      .catch(function (error) {
+        // handle error
+        console.log('--error',error);
+      })
+      .finally(function () {
+        // always executed
+      });
 
-        console.log('answer',answer);
+      console.log('answer',answer);
+    }
+		
+    loadFile=()=>{
+      console.log('Смотрим тело запроса');
+      let formList = new FormData();
+
+      //добавляем ключи
+      let strData = JSON.stringify({holder:{name:'1',id:'some'}});
+      formList.append('someKey',strData);
+
+      //добавляем файлы
+      for(let i=0;this.state.file.length>i;i++){
+        formList.append('files',this.state.file[i]);
       }
-		render() {
- 
+   
+   
+
+      this.getData('post',formList);
+    }
+
+    render() {
+
 			return (<div>
-				<input type='file' onChange={e=>console.log(e.target.files)}/>
+				<div>
+          <h3>Загрузка файла</h3>
+          <input type='file' multiple onChange={e=>this.setState({file:e.target.files})}/>
+          <button onClick={this.loadFile}>отправить</button>
+        </div>
 			</div>);
 		}
 	}
