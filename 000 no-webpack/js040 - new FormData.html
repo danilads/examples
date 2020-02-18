@@ -57,6 +57,7 @@
 
       //добавляем файлы
       for(let i=0;this.state.file.length>i;i++){
+        console.log('--',this.state.file[i]);
         formList.append('files',this.state.file[i]);
       }
    
