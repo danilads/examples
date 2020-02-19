@@ -10,7 +10,7 @@
 let test = [9,3,6,4,5,1,8,2,7];
 function bubble(arr) {
     for(let i=0;arr.length>i;i++){
-        //оптимизация  arr.length>j-i
+        //оптимизация  arr.length>j+i
         for(let j=0;arr.length>j;j++){
             if(arr[j] > arr[j+1]){
                 [arr[j], arr[j+1]] = [arr[j+1], arr[j]];

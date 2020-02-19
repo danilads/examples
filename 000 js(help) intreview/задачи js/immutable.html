@@ -29,9 +29,9 @@ let arr1, arr2, res;
   
   //.splice
   arr1 = [1,2,3];
-  res = arr1.splice(0,2); 
+  res = arr1.splice(0,2);  // !!! => MUTABLE
   console.log(res);  // [1,2]
-  console.log(arr1); // [3] - !MUTABLE
+  console.log(arr1); // [3] - !!! => MUTABLE
   
   //.every(it=> it==1) удовлетворяет ли всем элементам
   //.some(it=> it==1)  удовлетворяет ли одному элементу
@@ -66,6 +66,12 @@ let arr1, arr2, res;
   //.sort Numbers
   arr1 = [30,2,1];
   arr1.sort((a,b)=>a-b);
+
+  //.splice
+  arr1 = [1,2,3];
+  res = arr1.splice(0,2);  // !!! => MUTABLE
+  console.log(res);  // [1,2]
+  console.log(arr1); // [3] - !!! => MUTABLE
 
 </script>
 <body>
