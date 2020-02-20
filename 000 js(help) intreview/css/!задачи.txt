@@ -1,0 +1,11 @@
+1) перебивания стилей
+.green{
+  background: green;
+}
+.red{
+  background: red;
+}
+<div id="container" class="red green"></div> 
+
+- ответ красный (т. к. каскадность)
+
