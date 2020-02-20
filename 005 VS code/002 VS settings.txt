@@ -8,6 +8,7 @@
         "suppressShowKeyBindingsNotice": true
     },
     "workbench.iconTheme": "material-icon-theme",
+    "workbench.editor.showRabs": true,
     "git.enableSmartCommit": true,
     "gitlens.blame.avatars": false,
 	"gitlens.blame.compact": false,
