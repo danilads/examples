@@ -9,5 +9,6 @@ Hook - это
 Как можно передавать данные без redux (call back, библой event emitter)
 Как можно изменить state родителю - call back
 Как можно изменить state ребенку - ref ( cnt = React.createRef() ) ( this.cnt.current.setState({}) )
+HigherOrder component
 
 
