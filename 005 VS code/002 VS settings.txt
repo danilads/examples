@@ -1,3 +1,5 @@
+// открыть cmd+shift+p  - prefences open settings json
+
 {
     "files.autoSave": "off",
     "materialTheme.fixIconsRunning": false,
