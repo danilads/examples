@@ -1,0 +1,102 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+    <script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.5.4/babel.min.js"></script>
+    <style>
+      .s{
+        background: #cef;
+      }
+      .t{
+        background: #ecf;
+      }
+    </style>
+</head>
+<body>
+	<div id="container"></div>
+    <button onClick="changeReactElemStyle()">change react style</button>
+    <script>
+      ////////
+      ////---- Функция изменения  класса вне реакта
+        function changeReactElemStyle(){
+          console.log('-change');
+          document.getElementById('one').className = 't';
+        }
+
+      ////////
+      ////---- MutationObserver вешаем на container
+
+        //объявляем
+        let observer = new MutationObserver(mutations => {
+          checkChanges(mutations);
+        });
+
+        //конфиг
+        observer.observe(document.getElementById('container'), {
+            attributes: true,
+            //characterData: true,
+            childList: true,
+            subtree: true,
+            //attributeOldValue: true,
+            //characterDataOldValue: true
+        });
+
+        let observerItem = ''; // СЮДА ЗАПИСЫВАЕМ  id = 'one' из реакта
+
+        //функция которая перебирает изменения
+        function checkChanges(arr){
+          for(let i=0;arr.length>i;i++){
+            if(arr[i].target.id===observerItem){
+              obsProcessItem(arr[i].target);
+              break;
+            }
+            for(let j=0;arr[i].addedNodes.length>j;j++){
+
+              if(arr[i].addedNodes[j].id===observerItem){
+                obsProcessItem(arr[i].addedNodes[j]);
+                break;
+              }
+            }
+          }
+        }
+
+        //здесь делаем что-то с item
+        function obsProcessItem(item){
+          console.log('item',item);
+        }
+
+    </script>
+	<script type="text/babel">
+
+    ////////
+    ////----REACT
+	class List extends React.Component {
+        state={
+          k:0
+        }
+        cont = React.createRef();
+        componentDidMount(){
+         observerItem='one';
+         
+        }
+		render() {
+            console.log('render',this.state.k);
+            //меняем key - меняется его стиль (т.к. реакт не знает что мы поменяли стиль функцией changeReactElemStyle)
+			return (<button key={this.state.k} ref={this.cont} onClick={()=>this.setState({k:this.state.k+1})} id={'one'} className={'s'}>
+               react force rerender
+                
+			</button>);
+		}
+	}
+	//App Js
+    ReactDOM.render(
+        <List/>
+        ,document.getElementById('container')
+    );
+	</script>
+</body> 
+</html>
