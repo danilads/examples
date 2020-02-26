@@ -1,7 +1,8 @@
 // открыть cmd+shift+p  - Prefences: Open Settings (JSON)
 
+
 {
-    "files.autoSave": "off",
+    "files.autoSave": "afterDelay",
     "materialTheme.fixIconsRunning": false,
     "window.zoomLevel": 0,
     "workbench.colorTheme": "Zenburn",
@@ -9,8 +10,8 @@
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true
     },
+    "window.titleBarStyle": "custom",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.editor.showRabs": true,
     "git.enableSmartCommit": true,
     "gitlens.blame.avatars": false,
 	"gitlens.blame.compact": false,
@@ -21,9 +22,11 @@
 	"gitlens.codeLens.enabled": false,
 	"gitlens.codeLens.recentChange.enabled": false,
 	"gitlens.currentLine.enabled": false,
-	"gitlens.currentLine.scrollable": false,
+    "gitlens.currentLine.scrollable": false,
     "editor.minimap.enabled": true,
     "editor.tabSize": 2,
+    "git.ignoreMissingGitWarning": true,
     "editor.fontFamily": "JetBrains Mono",
-    "editor.fontWeight": "100"
+    "editor.fontWeight": "100",
+    "workbench.fontAliasing": "antialiased"
 }

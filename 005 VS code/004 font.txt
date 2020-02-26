@@ -1,7 +1,8 @@
 1) скачиваем бесплатный шрифт "JetBrains Mono"
   - https://www.jetbrains.com/lp/mono/
 2) открвыаеи  в mac - font book.app
-  - через "+" добавляем
+  - через "+" добавляем все папку ttf
 3) в vscode settings указываем
   - "editor.fontFamily": "JetBrains Mono"
   - "editor.fontWeight": "100"
+  - "workbench.fontAliasing": "antialiased"
