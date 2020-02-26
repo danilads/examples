@@ -11,7 +11,7 @@ Auto Import
 TODO Highlight
 Color Highlight
 Highlight Matching Tag
-JSDoc Markdown highlighting
+JSDoc Markdown highlighting (?)
 
 Live Share - для парного программирования или удаленного
 

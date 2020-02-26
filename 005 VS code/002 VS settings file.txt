@@ -1,10 +1,10 @@
-// открыть cmd+shift+p  - prefences open settings json
+// открыть cmd+shift+p  - Prefences: Open Settings (JSON)
 
 {
     "files.autoSave": "off",
     "materialTheme.fixIconsRunning": false,
     "window.zoomLevel": 0,
-    "workbench.colorTheme": "Ocean Dark Extended",
+    "workbench.colorTheme": "Zenburn",
     "diffEditor.ignoreTrimWhitespace": true,
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true
@@ -21,5 +21,9 @@
 	"gitlens.codeLens.enabled": false,
 	"gitlens.codeLens.recentChange.enabled": false,
 	"gitlens.currentLine.enabled": false,
-	"gitlens.currentLine.scrollable": false
+	"gitlens.currentLine.scrollable": false,
+    "editor.minimap.enabled": true,
+    "editor.tabSize": 2,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontWeight": "100"
 }

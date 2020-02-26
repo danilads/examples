@@ -25,7 +25,6 @@ class AntdForm extends React.PureComponent {
   	render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
         console.log('---getFieldsValue',this.props.form.getFieldsValue());
-        
 		return (<div className={'AntdForm'}>
             <div>AntdForm</div>
             <Form layout="inline" onSubmit={this.handleSubmit}>
