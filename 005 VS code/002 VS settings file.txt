@@ -28,5 +28,5 @@
     "git.ignoreMissingGitWarning": true,
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontWeight": "100",
-    "workbench.fontAliasing": "antialiased"
+    "workbench.fontAliasing": "default"
 }
