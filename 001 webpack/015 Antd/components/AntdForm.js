@@ -21,6 +21,11 @@ class AntdForm extends React.PureComponent {
         }
     };
 
+    change=()=>{
+      this.props.form.setFields({
+        username: {value: 'ПОСТАВИЛИ!'}
+      })
+    };
 
   	render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
@@ -49,6 +54,7 @@ class AntdForm extends React.PureComponent {
                     <input type="submit" value="отправить"/>
                 </Form.Item>
             </Form>
+            <button onClick={this.change}>change value</button>
         </div>);
 
   	}
@@ -56,7 +62,7 @@ class AntdForm extends React.PureComponent {
 }
 
 
-// возможнеы варианты экспортов
+// возможные варианты экспортов
 // CustomizedForm = Form.create({})(CustomizedForm);
 // export const CreateForm = Form.create()( connect(mapStateToProps, mapDispatchToProps)(CreateModal) );
 
