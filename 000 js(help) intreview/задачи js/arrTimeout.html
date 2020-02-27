@@ -9,12 +9,22 @@
   <script>
     //вывести с задержкой
     
-    const arr = [10, 12, 15, 21];
-    for (let i = 0; i < arr.length; i++) {
+    //через let
+    for (let i=0;5>i;i++) {
       setTimeout(function() {
-        console.log('The index of this number is: ' + arr[i]);
-      }, 3000+(i*1000));
+        console.log('let ',i);
+      }, 10);
     }
+
+    //через замыкание
+    for (var i=0;5>i;i++) {
+      setTimeout((i=>{
+        return ()=>{
+          console.log('var ',i);
+        }
+      })(i), 10);
+    }
+
   </script>
 <body>
 	

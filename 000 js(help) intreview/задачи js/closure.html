@@ -6,19 +6,21 @@
 </head>
 <body>
 <script>
-//напишите функцию с замыканием
+////---- 01 напишите функцию с замыканием
 
-function getCounter() {
-  let counter = 0;
-  return function() {
-    return counter++;
+  function getCounter() {
+    let counter = 0;
+    return function() {
+      return counter++;
+    }
   }
-}
-let count = getCounter();
+  let count = getCounter();
 
-  console.log(count());
-  console.log(count());
-  console.log(count());
+    console.log(count());
+    console.log(count());
+    console.log(count());
+
+  
 </script>
 <body>
 	
