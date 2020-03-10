@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body>
+
+<script>
+const obj = {prop: 42};
+const anotherObj = {prop: 24};
+  
+anotherObj.someRef = obj;
+obj.someRef = anotherObj;
+
+console.log(anotherObj);
+console.log(JSON.stringify(anotherObj));
+
+</script>
+<body>
+	
+</body>
+</html>
