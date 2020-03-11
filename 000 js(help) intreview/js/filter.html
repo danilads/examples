@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+<script>
+//есть массив
+let arr = [1,2,3,4,5,6];
+
+//ВОПРОСЫ ЗАДАВАТЬ ПОСЛЕДОВАТЕЛЬНО!
+
+//01 нужно вывести все кроме 1
+let nArr1 = arr.filter((it)=>{
+  if(it!==1){
+    return it;
+  }
+})
+console.log(nArr1);
+
+//02 вывести все кроме 1и2
+let nArr2 = arr.filter((it)=>{
+  if(!(it===1||it===2)){
+    return it;
+  }
+})
+console.log(nArr2);
+</script>
+<body>
+	
+</body>
+</html>
