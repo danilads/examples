@@ -58,9 +58,20 @@ class AntdForm extends React.PureComponent {
                     )}
                 </Form.Item>
                 <Form.Item>
+                    {getFieldDecorator('some', {
+                        initialValue: '',
+                        rules: [{
+                            required:true,
+                            message: 'СЛЫШЬ, ПОЛЕ ЗАПОЛНИЛ!'
+                        }],
+                    })(
+                        <AntdFormInput name='some'/>
+                    )}
+                </Form.Item>
+                <Form.Item>
                     {/* отработает this.handleSubmit т.к. указан в <Form */}
-                    {/* <input type="submit" value="отправить"/> */}
-                    <input type="button" onClick={this.handleSubmit}  value="отправить"/>
+                    <input type="submit" value="отправить"/>
+                    {/* <input type="button" onClick={this.handleSubmit}  value="отправить"/> */}
                 </Form.Item>
                 <Form.Item>
                     <input type={'button'} onClick={()=>{
