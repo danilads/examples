@@ -31,7 +31,7 @@ class AntdForm extends React.PureComponent {
     };
 
   	render() {
-        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, resetFields } = this.props.form;
+        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, resetFields, validateFields } = this.props.form;
 		return (<div className={'AntdForm'}>
             <div>AntdForm</div>
             <Form layout="inline" onSubmit={this.handleSubmit}>
@@ -78,6 +78,11 @@ class AntdForm extends React.PureComponent {
                         resetFields(['customId']); //сброс валидация конкретного поля
                         //resetFields(); //сброс валидация всех полей
                     }} value="reset valid"/>
+                </Form.Item>
+                <Form.Item>
+                    <input type={'button'} onClick={()=>{
+                        validateFields(['some']);
+                    }} value="validate only last"/>
                 </Form.Item>
             </Form>
             <button onClick={this.change}>change value</button>
