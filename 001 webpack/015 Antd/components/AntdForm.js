@@ -12,12 +12,15 @@ class AntdForm extends React.PureComponent {
     };
 
     customVal=(params)=>{
-        console.log('---customVal params',params);
-        if(params.rule.required && !/^([A-Za-z]*)$/.test(params.value)) {
+        if(!/^([A-Za-z]*)$/.test(params.value)) {
             params.callback('только латин');
         }
         else if(params.value===""||params.value===undefined){
             params.callback('не должно быть пустым');
+        }
+        else{
+            //ОБЯЗАТЕЛЬНО 
+            params.callback();
         }
     };
 
@@ -28,30 +31,42 @@ class AntdForm extends React.PureComponent {
     };
 
   	render() {
-        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-        console.log('---getFieldsValue',this.props.form.getFieldsValue());
+        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, resetFields } = this.props.form;
 		return (<div className={'AntdForm'}>
             <div>AntdForm</div>
             <Form layout="inline" onSubmit={this.handleSubmit}>
                 <Form.Item>
                     {getFieldDecorator('username', {
-                        initialValue: 'hello',
-                        rules: [
-                            { 
-                                required: true,
-                                validator: (rule, value, callback) => this.customVal({
-                                    rule, value, callback})
-                            }
-                        ],
+                        initialValue: 'someID',
+                        rules: [{ 
+                            validator: (rule, value, callback) => this.customVal({
+                                rule, value, callback})
+                        }],
                     })(
                         <AntdFormInput name='username'/>
                     )}
                 </Form.Item>
                 <Form.Item>
-                    {/* <Button type="primary" htmlType="submit">
-                        Log in
-                    </Button> */}
-                    <input type="submit" value="отправить"/>
+                    {getFieldDecorator('customId', {
+                        initialValue: '',
+                        rules: [{
+                            validator: (rule, value, callback) => this.customVal({
+                                rule, value, callback})
+                        }],
+                    })(
+                        <AntdFormInput name='customId'/>
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {/* отработает this.handleSubmit т.к. указан в <Form */}
+                    {/* <input type="submit" value="отправить"/> */}
+                    <input type="button" onClick={this.handleSubmit}  value="отправить"/>
+                </Form.Item>
+                <Form.Item>
+                    <input type={'button'} onClick={()=>{
+                        resetFields(['customId']); //сброс валидация конкретного поля
+                        //resetFields(); //сброс валидация всех полей
+                    }} value="reset valid"/>
                 </Form.Item>
             </Form>
             <button onClick={this.change}>change value</button>
