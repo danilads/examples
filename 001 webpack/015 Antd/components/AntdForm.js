@@ -5,10 +5,11 @@ import './AntdForm.less';
 
 class AntdForm extends React.PureComponent {
 
-
+    
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields();
+        console.log('---SUBMIT---',this.props.form.getFieldsValue());
     };
 
     customVal=(params)=>{
@@ -25,9 +26,10 @@ class AntdForm extends React.PureComponent {
     };
 
     change=()=>{
-      this.props.form.setFields({
-        username: {value: 'ПОСТАВИЛИ!'}
-      })
+    //   this.props.form.setFields({
+    //     username: {value: 'ПОСТАВИЛИ-1!'}
+    //   })
+      this.props.form.setFieldsValue({username:'ПОСТАВИЛИ-2!'})
     };
 
   	render() {
@@ -70,7 +72,7 @@ class AntdForm extends React.PureComponent {
                 </Form.Item>
                 <Form.Item>
                     {/* отработает this.handleSubmit т.к. указан в <Form */}
-                    <input type="submit" value="отправить"/>
+                    <input type="submit" value="validate"/>
                     {/* <input type="button" onClick={this.handleSubmit}  value="отправить"/> */}
                 </Form.Item>
                 <Form.Item>
