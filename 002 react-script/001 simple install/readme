@@ -1,0 +1,2 @@
+Данные проект я установил просто написав
+npx create-react-app my-app --template typescript
