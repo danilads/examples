@@ -9,9 +9,9 @@
         ////////
         ////---- 0) Simple
 
-        var boolVar: boolean = true;
-        boolVar = 321;
-        console.log('--wtf',boolVar);
+			var boolVar: boolean = true;
+			boolVar = false;
+			console.log('--wtf',boolVar);
 
 
         ////////
@@ -56,8 +56,24 @@
             var user = new Person("Jane", "M.", 32);
             
             console.log(user);
-
             
+        ////////
+        ////---- 4) Generic
+        
+            interface ProfileType {
+             	name: string;
+             	age: number | null;
+            }
+
+            interface ProfilesProps {
+            	profiles: Array<ProfileType>
+            }
+
+            function Profiles(props: ProfilesProps) {
+            	props.forEach(console.log);
+            } 
+            
+			Profiles([{name:'Jim',age: 3},{name:'John',age: '2'}])
     </script>
     <script type="text/javascript" src="libs/typescript.min.js"></script>
     <script type="text/javascript" src="libs/typescript.compile.min.js"></script>
