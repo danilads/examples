@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TypeScript Compile Demo</title>
+    </head>
+<body>
+    <script type="text/typescript">
+    
+        ////////
+        ////---- 1) String
+        
+            function run1 (e: string) {
+                console.log(e);
+            }
+
+            run1('qwerty');
+        
+        
+        
+        ////////
+        ////---- 2) Object
+        
+            interface SomeObj {
+                firstName: string;
+                lastName: string;
+            }
+
+            function run2(e: SomeObj) {
+                console.log(e.firstName +' '+ e.lastName);
+            }
+        
+            run2({firstName: 'John', lastName: 'Doe'});
+        
+        
+        
+        
+        ////////
+        ////---- 3) Class (age не public)
+        
+            class Person {
+                fullData: string;
+                constructor(public firstName: string, public lastName: string, age: number) {
+                    this.fullData = firstName +' '+ lastName +' '+ age;
+                }
+            }
+            
+            
+            var user = new Person("Jane", "M.", 32);
+            
+            console.log(user);
+
+            
+    </script>
+    <script type="text/javascript" src="libs/typescript.min.js"></script>
+    <script type="text/javascript" src="libs/typescript.compile.min.js"></script>
+</body>
+</html>
