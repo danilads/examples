@@ -1,9 +1,0 @@
-Данные проект я установил просто написав
-npx create-react-app my-app --template typescript
-
--) убрано все лишнее
-
-
-
-1) %PUBLIC_URL% - так обозначается хост в html
-2) process.env.PUBLIC_URL - так обозначается хост в js
