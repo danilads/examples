@@ -68,9 +68,14 @@ class App extends React.Component<AppProps,AppState> {
   state={
     cnt:0
   }
+  set=(e:number)=>(c:any)=>{
+    console.log('--wtf here',c.target);
+    console.log('--wtf here',e);
+    this.setState({cnt:this.state.cnt+1});
+  }
   render() {
     console.log('--state',this.state);
-    return <div className="App" onClick={()=>this.setState({cnt:this.state.cnt+1})}>
+    return <div className="App" onClick={this.set(this.state.cnt)}>
           {this.props.name}
       </div>
   }

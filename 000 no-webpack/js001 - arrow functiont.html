@@ -53,7 +53,9 @@
 				c2[key] = data => typeof data === key;
 			});
 			
+			console.log('c2',c2); //{}
 			console.log('c2',c2.string(234234)); //false
+			console.log('c2',c2.string('123')); //true
 			console.log('c2',c2.string); //присвоили функцию
 			console.log('~~~~~~~~~~~~');
 		/////////////////////////////////
@@ -99,7 +101,10 @@
 			const run1 = (action) => {
 			    if (typeof action === 'function') {
 			        return action(run1);
-			    } else return action;
+					}
+					else{
+						return action;
+					}
 			}
 
 			let h = (a) => (run1) => run1(() => run1([a, run1]));
@@ -119,6 +124,8 @@
 			}
 			n(console.log);
 			console.log('~~~~~~~~~~~~');
+
+			
 	</script>
   </body>
 </html>
