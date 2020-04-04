@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <style>
+        #wrap{
+            display: flex;
+        }
+        #container{
+            width: 100%;
+            height: 20px;
+            background: #cef;
+        }
+    </style>
+</head>
+<body>
+ <div id="wrap">
+        <div id="container">1</div>
+    </div>
+    <div><button onClick='run()'>click</button></div>
+<script>
+    function run(){
+        var el = document.getElementById('wrap');
+        el.innerHTML += '<div>hehe</div>';
+    }
+        
+    ////------
+
+    var div = document.getElementById('container');
+
+    function onResizeElem(element, callback) {    
+      // Save the element we are watching
+      onResizeElem.watchedElementData = {
+        element: element,
+        offsetWidth: element.offsetWidth,
+        offsetHeight: element.offsetHeight,
+        callback: callback
+      };
+
+      onResizeElem.checkForChanges = function() {
+        const data = onResizeElem.watchedElementData;
+        if (data.element.offsetWidth !== data.offsetWidth || data.element.offsetHeight !== data.offsetHeight) {
+          data.offsetWidth = data.element.offsetWidth;
+          data.offsetHeight = data.element.offsetHeight;
+          data.callback();
+        }
+      };
+
+      // Listen to the window resize event
+      window.addEventListener('resize', onResizeElem.checkForChanges);
+
+      // Listen to the element being checked for width and height changes
+      onResizeElem.observer = new MutationObserver(onResizeElem.checkForChanges);
+      onResizeElem.observer.observe(document.body, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    }
+
+    onResizeElem(div,()=>{console.log('-hello')});
+</script>
+</body> 
+</html>

@@ -1,8 +1,28 @@
 import React from 'react';
 import './App.css';
 
+export type ArrType = {
+  id: number
+}
+
 interface AppProps {
-  name: string;
+  name,  //any
+  str?: string, //not required
+
+  arr1?: string[] , //array of
+  arr2?: Array<number>, //array of
+  arr3?: (string | number)[], //array of
+  arr4?: Array<string | number>, //array of
+
+  close1?: (data) => void, //функция которая возвращает
+  close2?: (data?) => void, //функция которая может что-то возвращать
+  close3?: () => void, //функция ничего не возваращает
+
+  color?: 'default' | 'inherit' | 'primary' | 'secondary',
+
+  children?: React.ReactNode; //props.children
+
+
 }
 interface AppState {
   cnt: number;
@@ -64,18 +84,45 @@ interface AppState {
 //   )
 // }
 
+// //HOOK defaultProps
+// App.defaultProps = {
+//   title: "Are you sure?",
+//   okBtnText: 'Ok',
+//   cancelBtnText: 'Cancel'
+// }
+
 class App extends React.Component<AppProps,AppState> {
+  static defaultProps={
+    name:'hello'
+  }
   state={
     cnt:0
   }
+  //REF
+  container = React.createRef<HTMLInputElement>();
+
   set=(e:number)=>(c:any)=>{
     console.log('--wtf here',c.target);
     console.log('--wtf here',e);
     this.setState({cnt:this.state.cnt+1});
   }
   render() {
-    console.log('--state',this.state);
-    return <div className="App" onClick={this.set(this.state.cnt)}>
+    let arr = [{id:3},{id:2},{id:9}];
+
+    let sorted:ArrType[] = arr.sort((n1,n2) => {
+        if (n1.id > n2.id) {
+            return 1;
+        }
+        if (n1.id < n2.id) {
+            return -1;
+        }
+    
+        return 0;
+    });
+
+    console.log(sorted);
+   
+    return <div ref={this.container} className="App" onClick={this.set(this.state.cnt)} {...this.props}>
           {this.props.name}
       </div>
   }

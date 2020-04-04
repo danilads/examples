@@ -1,41 +1,55 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title></title>
-	<script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
-	<script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
-	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
 </head>
 <body>
-	<div id="container"></div> 
-	<script type="text/babel">
-	class List extends React.PureComponent {
-		state={
-			width: 0
-		}
-		componentDidMount() {
-			const resizeObserver = new ResizeObserver((e) => {
-						console.log("horizontal resize",e[0].contentRect.width);
-					this.setState({width:e[0].contentRect.width});
-			});
-			resizeObserver.observe(document.getElementById("myDivTag"));
-		}
-		componentWillUnmount () {
-			resizeObserver.unobserve(document.getElementById("myDivTag"));
-		}
-		render() {
-			return (<div id={'myDivTag'} style={{outline:'1px solid red'}}>
-				{`меняй ширину ${this.state.width}`}
-			</div>);
-		}
-	}
-	////////////////App Js
-		ReactDOM.render(
-			<List/>
-			,document.getElementById('container')
-		);
-	</script>
+ <div id="container"></div> 
+ <script type="text/babel">
+ //для сборки есть пакет import ResizeObserver from 'resize-observer-polyfill';
+    class Resizer extends React.PureComponent {
+        elem = React.createRef();
+  componentDidMount() {
+   const resizeObserver = new ResizeObserver((e) => {
+                this.props.cbWidth && this.props.cbWidth(e[0].target.parentNode.scrollWidth);
+                this.props.cbHeight && this.props.cbHeight(e[0].target.parentNode.scrollHeight);
+   });
+   resizeObserver.observe(this.elem.current);
+  }
+  componentWillUnmount () {
+   resizeObserver.unobserve(this.elem.current);
+  }
+  render() {
+   return (<div ref={this.elem}></div>);
+  }
+ }
+    
+ class List extends React.PureComponent {
+  state={
+   width: 0
+  }
+      
+  render() {
+   return (
+            <div className='parrent'>
+                <div ref={this.elem} style={{outline:'1px solid red'}}>
+        {`меняй ширину ${this.state.width}`}
+                </div>
+                <Resizer cbWidth={(e)=>this.setState({width:e})}/>
+            </div>
+            );
+  }
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <List/>
+   ,document.getElementById('container')
+  );
+ </script>
 </body> 
 </html>

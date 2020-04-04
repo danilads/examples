@@ -1,0 +1,97 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        .wrap{
+            height: 40px;
+        }
+        .item{
+            display: inline-block;
+            background: #cef;
+            height: 20px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+ class List extends React.PureComponent {
+  state={
+            arr:[],
+            isMore: false,
+  }
+        cont=React.createRef();
+
+        componentDidMount(){
+            this.myResize();
+            window.addEventListener('resize', this.myResize);
+        }
+
+        myResize=()=>{
+            console.log('-resize');
+            let el = this.cont.current;
+            
+            
+            this.setState({isMore:false,arr:this.props.list},()=>{
+    
+                if(el.offsetHeight<el.scrollHeight || this.state.arr.length < this.props.list.length){
+                    console.log('-case 1');
+                    this.recursionCutter(el);
+
+                }
+                else{
+                    console.log('-case 2');
+                    this.setState({arr:this.props.list});
+                }
+            })
+           
+            
+            
+        }
+        
+        recursionCutter=(el)=>{
+            if(el.offsetHeight<el.scrollHeight){
+                let result = this.state.arr.slice(0,this.state.arr.length-1);
+                this.setState({arr:result,isMore:true},()=>{
+                    this.recursionCutter(el);
+                });
+            }
+        }
+        
+        _renderList=(e)=>{
+            let result = e.map((i,n)=>{
+                return <div className="item" key="n">{i}</div>
+            })
+            if(this.state.isMore){
+                result.push(<div className="item" key="more">{`+${this.props.list.length-this.state.arr.length}more`}</div>)
+            }
+            return result;
+        }
+  render() {
+            console.log('-render');
+            let {list} = this.props;
+            let {arr} = this.state;
+   return (
+                <div>
+                    <div ref={this.cont} className="wrap">
+                        {this._renderList(arr)}
+                    </div>
+                </div>
+            );
+  }
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <List list={[0,1,2,3,4,5,6,7,8]}/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"> </script>
+    <script>
+    _u = _.noConflict();
+    </script>
+ <script>
+      var users = [
+          { 'user': 'fred',   'age': 48 },
+          { 'user': 'barney', 'age': 36 },
+          { 'user': 'fred',   'age': 40 },
+          { 'user': 'barney', 'age': 34 }
+        ];
+        console.log(_u.sortBy(users,'age'));
+ </script>
+</body> 
+</html>
