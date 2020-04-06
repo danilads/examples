@@ -1,0 +1,2 @@
+npx create-react-app my-app --template typescript 
+npm install --save @material-ui/core
