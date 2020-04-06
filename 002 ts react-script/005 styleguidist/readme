@@ -12,5 +12,15 @@ module.exports = {
 
 
 //Doc
+
 5) все компоненты должны храниться в src/components/Button
 6) наж компонентом и над проптайпами/ts interface пишим обязательно jsDoc /** */
+
+7) Иногда есть баг - export class Button extends React.Component<AppProps> {
+
+//  для реакта без typescript
+1) react-docgen-typescript -  не нужен
+2)
+module.exports = {
+  defaultExample: true
+};
