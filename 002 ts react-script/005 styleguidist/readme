@@ -1,0 +1,16 @@
+styleguidist GUIDE
+1) install clear app - npx create-react-app styleguide-app --template typescript
+2) add to package.json to devDependencies - react-styleguidist react-docgen-typescript
+3) add to package.json to scripts -  "styleguide": "styleguidist server", "styleguide:build": "styleguidist build"
+
+4) add file styleguide.config.js
+insert 
+module.exports = {
+  defaultExample: true,
+  propsParser: require('react-docgen-typescript').withCustomConfig('./tsconfig.json', { propFilter: { skipPropsWithoutDoc: true } }).parse
+};
+
+
+//Doc
+5) все компоненты должны храниться в src/components/Button
+6) наж компонентом и над проптайпами/ts interface пишим обязательно jsDoc /** */

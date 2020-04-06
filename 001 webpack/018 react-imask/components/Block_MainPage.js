@@ -48,7 +48,7 @@ class Block_MainPage extends React.PureComponent {
 					 mask={/^\d+$/}
 				/>
 
-				<span>ONLY UPPER ENG</span>
+				<span>ONLY UPPER ENG (запрещено вводить маленькие)</span>
 				<IMaskInput
 					 mask={/^[A-Z0-9\s]*$/}
 				/>
@@ -96,6 +96,38 @@ class Block_MainPage extends React.PureComponent {
 					prepare={(str)=>{
 						return str.toUpperCase();
 					}}
+				/>
+				
+				<span>Возрастающая прогрессия</span>
+				<IMaskInput
+					maxLength={12} //с учетом пробелов
+          mask={((value)=>{
+              return /^\d*$/.test(value) && value.split('').every(function(ch, i) {
+                let prevCh = value[i-1];
+                return !prevCh || prevCh < ch;
+              });
+            })}
+				/>
+
+			<span>iban</span>
+				<IMaskInput
+					unmask={true} //значение вернеться без маски
+          maxLength={12} //с учетом пробелов
+          mask={'**** **** **** **** **** **** **** **** **'}
+          //если нужно чтобы символ учитывался (с  unmask: true) его нужно обернуть в  {}. Пример
+          prepare={(str)=>str.toUpperCase()}
+				/>
+				
+			<span>1-6 number </span>
+				<IMaskInput
+          mask={/^[1-6]\d{0,5}$/}
+				/>
+
+ 
+			<span>phone </span>
+				<IMaskInput
+					unmask={true} //значение вернеться без маски
+					mask={'+{7}(000)000-00-00'}
 				/>
 
 
