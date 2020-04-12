@@ -66,6 +66,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 type AppProps = PropsFromRedux & {
   //дополнительные пропсы которые не пошли в redux
   //some: string;
+  count: number;
 }
 
 
