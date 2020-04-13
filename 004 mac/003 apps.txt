@@ -26,3 +26,7 @@
 16 Activity Monitor
 17 Huawei Suite(?)
 18 Teamviewer
+
+
+BREW install in terminal 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
