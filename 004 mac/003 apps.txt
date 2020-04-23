@@ -13,7 +13,7 @@
 03 brackets (plugin - Open in Browser (cmd+2) / Easy Dark theme)
 04 Safari (mac os include)
 05 Chrome
-06 Firefox
+06 Firefox - add-on's (Video DownloadHelper)
 07 Skype
 08 Telegram
 09 VS code
