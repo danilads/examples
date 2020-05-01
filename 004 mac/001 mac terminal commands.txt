@@ -2,10 +2,19 @@
 //where # is the priority (-20 is the top priority, and 20 is lowest)
 sudo renice # -p 98765
 
-//установка brew https://brew.sh/
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+
+//установка brew https://brew.sh/
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+//обновить brew (если зависает)
+brew update --verbose 
 
 
 //Отоброжение в finder полного пути сверху
 defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
+
+
+//разархивировать 7z через терминал
+// brew install p7zip
+//7za - прога, x - разархивировать, далее путь и файл
+// 7za x myfiles.7z

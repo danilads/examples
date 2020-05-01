@@ -53,6 +53,10 @@
 
         "jsx-a11y/click-events-have-key-events": 0, //если включен то нужно навешивать на все onClick в jsx - функцию с hotkey
 
-        "jsx-a11y/alt-text": 0  // если включен то нужно навешивать на все <img тэг alt
+        "jsx-a11y/alt-text": 0,  // если включен то нужно навешивать на все <img тэг alt
+
+        "no-lonely-if": 0, // - разрешить одиночный if
+
+        "treatUndefinedAsUnspecified": true //- функция может ничего не возвращать
     }
 }

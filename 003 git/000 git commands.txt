@@ -9,62 +9,72 @@
 	////////////////
 	//404.html
 	////////////////
-	в github pages нельзя переходить по ссылкам dan.github.io/somelink
-	выкинит ошибку
-	но можно заменить экран ошибки страницей 404.html создав ее в корне
+
+			в github pages нельзя переходить по ссылкам dan.github.io/somelink
+			выкинит ошибку
+			но можно заменить экран ошибки страницей 404.html создав ее в корне
 
 	////////////////
 	//github pages
 	////////////////
-	нужно создать репозиторий с именем имяАкка, доступно будет по адресу {имяАкка}.github.io
+
+			нужно создать репозиторий с именем имяАкка, доступно будет по адресу {имяАкка}.github.io
+
+	////////////////
+	//ESLINT
+	////////////////
+
+			//комит без проверки
+			git commit --no-verify -m 'in progress'
 
 	////////////////
 	//запушить файл
 	////////////////
-	git add . //добавляем все файлы для комита
-	git status //статус (красным не добавленные файлы)
-	git commit -m "update123" //комит и комментарий
-	git push
-	
 
-	//клонировать репозиторий
-	git clone https://github.com/repoName
-	
-	
-	//перед merge - нужно сделать fetch
-	git fetch // обновление истории
-	git pull  //обновление текущей ветки
+			git add . //добавляем все файлы для комита
+			git status //статус (красным не добавленные файлы)
+			git commit -m "update123" //комит и комментарий
+			git push
+			
 
-	
-	git show-branch -list -r //показывает лист веток
+			//клонировать репозиторий
+			git clone https://github.com/repoName
+			
+			
+			//перед merge - нужно сделать fetch
+			git fetch // обновление истории
+			git pull  //обновление текущей ветки
+
+			
+			git show-branch -list -r //показывает лист веток
 
 	////////////////
 	//Rename Branch
 	////////////////
-	!если не пушились то можно выполнить только первый шаг
-	1.	If you are on the branch you want to rename:
-		git branch -m new-name
+			!если не пушились то можно выполнить только первый шаг
+			1.	If you are on the branch you want to rename:
+				git branch -m new-name
 
-		If you are on a different branch:
-		git branch -m old-name new-name
+				If you are on a different branch:
+				git branch -m old-name new-name
 
-	2. Delete the old-name remote branch and push the new-name local branch.
-		git push origin :old-name new-name
+			2. Delete the old-name remote branch and push the new-name local branch.
+				git push origin :old-name new-name
 
-	3. Reset the upstream branch for the new-name local branch.
-		1) Switch to the branch and then:
-		2) git push origin -u new-name
+			3. Reset the upstream branch for the new-name local branch.
+				1) Switch to the branch and then:
+				2) git push origin -u new-name
 	
 	////////////////
 	//если трабл с аксесом
 	////////////////
 
-	//можно клонировать с паролем и больше не понадобиться его вводить
-	git clone https://{username}:{password}@github.com/{username}/{repo}.git
-	
-	git pull git clone https://{username}:{password}@github.com/{username}/{repo}.git
-	
-	git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
+			//можно клонировать с паролем и больше не понадобиться его вводить
+			git clone https://{username}:{password}@github.com/{username}/{repo}.git
+			
+			git pull git clone https://{username}:{password}@github.com/{username}/{repo}.git
+			
+			git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
 
 
 	////////////////
@@ -73,26 +83,26 @@
 	//как узнать название "origin" конкретно в нашем репозитории  - git remote -v
 	////////////////
 
-	//создание
-	git checkout -b ИмяВетки someName
+			//создание
+			git checkout -b ИмяВетки someName
 
-	//закрытие (someName - ИмяВетки)
-	git checkout someName
+			//закрытие (someName - ИмяВетки)
+			git checkout someName
 
-	git pull
-	
-	git merge --no-ff ИмяВетки
+			git pull
+			
+			git merge --no-ff ИмяВетки
 
-	(выход из vim :wq)
-	
-	git add .
-	git commit -m "update123" //комит и комментарий
-	git push origin someName
+			(выход из vim :wq)
+			
+			git add .
+			git commit -m "update123" //комит и комментарий
+			git push origin someName
 
-	//удаление локальной ветки
-	git branch -d ИмяВетки
-	//удаление ветки на сервере
-	git push origin -d ИмяВетки
+			//удаление локальной ветки
+			git branch -d ИмяВетки
+			//удаление ветки на сервере
+			git push origin -d ИмяВетки
 	
 
 	////////////////
@@ -100,11 +110,11 @@
 	//изменить для url для fetch и push
 	////////////////
 
-	//проверить текущую
-	git remote -v
+			//проверить текущую
+			git remote -v
 
-	//изменить
-	git remote set-url origin http://srv-git.service-it.by/loktev/DBOUr
+			//изменить
+			git remote set-url origin http://srv-git.service-it.by/loktev/DBOUr
 	
 
 	////////////////
@@ -112,34 +122,35 @@
 	//(выход из vim :wq)
 	////////////////
 	
-	комитимся пушимся
+			комитимся пушимся
 
-	git log -20 (кол-во коммитов, чтобы спуститься вниз жмем enter) (в wim управление стрелочками)
-	//находим имя комита 1be12hjk1kj12jkh1jk2h1
+			git log -20 (кол-во коммитов, чтобы спуститься вниз жмем enter) (в wim управление стрелочками)
+			//находим имя комита 1be12hjk1kj12jkh1jk2h1
 
-	// имя комита (пробел) точка - это все файлы
-	git checkout 1be12hjk1kj12jkh1jk2h1 .
+			// имя комита (пробел) точка - это все файлы
+			git checkout 1be12hjk1kj12jkh1jk2h1 .
 
-	//создаем из этого комита новую ветку
-	git checkout -b имяВетки
+			//создаем из этого комита новую ветку
+			git checkout -b имяВетки
 
 	////////////////
 	//Reset HEAD
 	////////////////
 	
-	//если проблема с head !Опасный режим (удалим все комиты навсегда)
-	git checkout f6f4c18 .
+			//если проблема с head !Опасный режим (удалим все комиты навсегда)
+			git checkout f6f4c18 .
 
-	//востановим head
-	git reset --hard f6f4c18
+			//востановим head
+			git reset --hard f6f4c18
 
-	//форс пуш срежет все до данного комита
-	git push --force
+			//форс пуш срежет все до данного комита
+			git push --force
 
 
 	////////////////
 	//INVALID user.email
 	////////////////
-	git config user.email "danilads@github.com"
+	
+			git config user.email "danilads@github.com"
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	/////MobileList
+	class MobileList extends React.Component {
+	
+		render() {
+      let r = String.fromCharCode(10); //unicode символ переноса строки
+			let text = `hello  ${r}${r}   hello`;
+
+			return (
+        <div>
+          <div dangerouslySetInnerHTML={{__html: text}} />
+          <hr/>
+          <div>{text}</div>
+          <hr/>
+					<div style={{whiteSpace:'pre-wrap'}}>{text}</div>
+          <hr/>
+				</div>
+			);
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

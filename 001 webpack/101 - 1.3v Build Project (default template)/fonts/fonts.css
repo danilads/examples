@@ -1,4 +1,7 @@
 @font-face {
+	/* Сначала прописывается правило загрузки и потом шрифт, а не наоборот */
+	font-display: swap; 	/* правило загрузки */
+	font-style: normal;
 	font-family: 'Raleway';
 	src: url('Raleway-Regular.ttf');
 	src: url('Raleway-Regular.eot');
@@ -8,11 +11,13 @@
 	url('Raleway-Regular.ttf') format('truetype'),
 	url('Raleway-Regular.svg#Raleway-Regular') format('svg'),
 	url('Raleway-Regular.eot?#iefix') format('embedded-opentype');
-	font-style: normal;
 }
 
 
 @font-face {
+	/* Сначала прописывается правило загрузки и потом шрифт, а не наоборот */
+	font-display: swap; 	/* правило загрузки */
+	font-style: normal;
 	font-family: 'Nosifer-Regular';
 	src: url('Nosifer-Regular.ttf');
 	src: url('Nosifer-Regular.eot');
@@ -22,7 +27,6 @@
 	url('Nosifer-Regular.ttf') format('truetype'),
 	url('Nosifer-Regular.svg#Nosifer-Regular') format('svg'),
 	url('Nosifer-Regular.eot?#iefix') format('embedded-opentype');
-	font-style: normal;
 }
 
 
