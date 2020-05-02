@@ -6,7 +6,7 @@ sudo renice # -p 98765
 
 //установка brew https://brew.sh/
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-//обновить brew (если зависает)
+//обновить brew (если зависает  -  Updating Homebrew...)
 brew update --verbose 
 
 
@@ -18,3 +18,7 @@ defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
 // brew install p7zip
 //7za - прога, x - разархивировать, далее путь и файл
 // 7za x myfiles.7z
+
+//разархивировать rar через терминал
+// brew install unrar
+// unrar x <filename>
