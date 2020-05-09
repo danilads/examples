@@ -1,0 +1,17 @@
+//в Fl Studio нужно удалить ненужные вст (которые не куплены)
+//путь - Image-Line/FL Studio/Presets/Plugin database
+//Generators - синты и инструменты
+//Effects - обработка
+
+
+//Пресеты на плагины
+//1) нужно создать свой пресет и сохранить
+//2) Далее появиться папка в путь - Image-Line/FL Studio/Presets/Plugin database/ Generators или Effects
+//3) кидаем туда наши Пресеты
+
+
+//Кастомные плагины vst храним где угодно Image-Line/vst
+//путь добавляется 
+
+//Проекты храним в 
+//путь - Image-Line/
