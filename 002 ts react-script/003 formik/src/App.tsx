@@ -13,7 +13,7 @@ const validate = (values:any) => {
   return errors;
 };
 
-//---- 1) base
+//---- 1) functional component
 const App1 = () => {
   const formik = useFormik({
     initialValues: {nameUser: ''},
@@ -35,7 +35,8 @@ const App1 = () => {
     </form>
   );
 };
-//
+
+//---- 2) component
 class App2 extends React.Component {
   render() {
     return (
