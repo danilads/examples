@@ -68,8 +68,9 @@ class App2 extends React.Component {
   }
 }
 
-//---- 3) component manual validate
+//---- 3) component manual validate and reset
 class App3 extends React.Component {
+  formik = {};
   validateUsername=(value:any)=>{
     let error;
     if (value === '') {
@@ -81,7 +82,15 @@ class App3 extends React.Component {
     return (
       <div>
         <h1>My Form</h1>
-        <Formik
+        <div
+          onClick={()=>{
+            let f:any = this.formik;
+            f.resetForm();
+          }
+        }>reset from outside</div>
+        <Formik   
+          innerRef={(el) => this.formik = el}
+  
           validateOnBlur={false}
           validateOnChange={false}
           initialValues={{
