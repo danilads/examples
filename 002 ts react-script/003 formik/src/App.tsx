@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormik, Formik, Field, Form } from 'formik';
+import { useField, useFormik, Formik, Field, Form } from 'formik';
 import './App.css';
 
 const validate = (values:any) => {
@@ -68,4 +68,84 @@ class App2 extends React.Component {
   }
 }
 
-export {App1 as App};
+//---- 3) component manual validate
+class App3 extends React.Component {
+  validateUsername=(value:any)=>{
+    let error;
+    if (value === '') {
+      error = 'field is empty!';
+    }
+    return error;
+  }
+  render() {
+    return (
+      <div>
+        <h1>My Form</h1>
+        <Formik
+          validateOnBlur={false}
+          validateOnChange={false}
+          initialValues={{
+            username: ''  
+          }}
+          onSubmit={values => {
+            // same shape as initial values
+            console.log(values);
+          }}
+        >
+        {(props) => (
+          <Form>
+            {console.log('--props',props)}
+
+            {/* Field */}
+            {/* <div><Field
+              onFocus={()=>{
+                console.log('--focus');
+                props.resetForm();
+              }}
+              name="username"
+              validate={this.validateUsername}
+              autoComplete="off"
+            />
+            </div> */}
+
+            {/* Field custom input */}
+            <Field
+                name="username"
+                validate={this.validateUsername}
+              >
+                  {(fieldProps:any) => (
+                      <div>
+                          <input
+                            onFocus={()=>{
+                              console.log('--focus');
+                              props.resetForm();
+                            }}
+                            type="text"
+                            autoComplete="off"
+                            {...fieldProps.field}
+                          />
+                      </div>
+                  )}
+              </Field>
+
+            
+            {/* Trigger field-level validation imperatively */}
+            <div>
+              <button type="button" onClick={() => props.validateField('username')}>
+                Check Username
+              </button>
+              <button type="submit">Submit</button>
+            </div>
+
+            <div>
+              {props.errors.username && props.touched.username && <div>{props.errors.username}</div>}
+            </div>
+          </Form>
+        )}
+      </Formik>
+      </div>
+    )
+  }
+}
+
+export {App3 as App};
