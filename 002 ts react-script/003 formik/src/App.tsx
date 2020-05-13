@@ -1,44 +1,70 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { useFormik, Formik, Field, Form } from 'formik';
 import './App.css';
-
 
 const validate = (values:any) => {
   const errors:any = {};
-  if (!values.name) {
-    errors.name = 'Required';
+  if (!values.nameUser) {
+    errors.nameUser = 'Required';
   }
-  else if (values.name.length > 15) {
-    errors.name = 'Must be 15 characters or less';
+  else if (values.nameUser.length > 15) {
+    errors.nameUser = 'Must be 15 characters or less';
   }
   return errors;
 };
 
-////---- 1) base
-const App = () => {
+//---- 1) base
+const App1 = () => {
   const formik = useFormik({
-    initialValues: {
-      name: '',
-    },
+    initialValues: {nameUser: ''},
     validate,
     onSubmit: (values) => {
-      console.log('--submit',values);
+      console.log('--will not work until errors',values);
     },
   });
   return (
     <form onSubmit={formik.handleSubmit}>
       <input
-        name="name"
+        name="nameUser"
         type="text"
         onChange={formik.handleChange}
-        value={formik.values.name}
+        value={formik.values.nameUser}
       />
       <button type="submit">Submit</button>
-      {formik.errors.name ? <span>{formik.errors.name}</span> : null}
+      {formik.errors.nameUser ? <span>{formik.errors.nameUser}</span> : null}
     </form>
   );
 };
+//
+class App2 extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>My Form</h1>
+        <Formik
+          initialValues={{ nameUser: 'jared' }}
+          validate={validate}
+          onSubmit={(values) => {
+            console.log('--will not work until errors',values);
+          }}
+        >
+          {props => (
+            <form onSubmit={props.handleSubmit}>
+              <input
+                name="nameUser"
+                type="text"
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+                value={props.values.nameUser}
+              />
+              <button type="submit">Submit</button>
+              {props.errors.nameUser ? <span>{props.errors.nameUser}</span> : null}
+            </form>
+          )}
+        </Formik>
+      </div>
+    )
+  }
+}
 
-
-
-export default App;
+export {App1 as App};
