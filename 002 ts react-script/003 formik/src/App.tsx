@@ -109,7 +109,7 @@ class App3 extends React.Component {
             </div> */}
 
             {/* Field custom input */}
-            <Field
+            {/* <Field
                 name="username"
                 validate={this.validateUsername}
               >
@@ -124,6 +124,36 @@ class App3 extends React.Component {
                             type="text"
                             autoComplete="off"
                             {...fieldProps.field}
+                          />
+                      </div>
+                  )}
+              </Field> */}
+
+              {/* Custom validation */}
+              <Field
+                name="username"
+                validate={this.validateUsername}
+              >
+                  {(fieldProps:any) => (
+                      <div>
+                          <input
+                            onFocus={()=>{
+                              console.log('--focus',props);
+                              //props.resetForm();
+                              props.setErrors({ username: '' });
+                            }}
+                            type="text"
+                            autoComplete="off"
+                            {...fieldProps.field}
+                            onKeyPress={async (ev) => {
+                              if (ev.key === 'Enter') {
+                                //setError работает только в запросе
+                                await new Promise(resolve => setTimeout(resolve, 1000));
+                        
+                                props.setFieldError('username', 'async err');
+            
+                              }
+                            }}
                           />
                       </div>
                   )}
