@@ -117,8 +117,9 @@ class App3 extends React.Component {
                       <div>
                           <input
                             onFocus={()=>{
-                              console.log('--focus');
-                              props.resetForm();
+                              console.log('--focus',props);
+                              //props.resetForm();
+                              props.setErrors({ username: '' });
                             }}
                             type="text"
                             autoComplete="off"
