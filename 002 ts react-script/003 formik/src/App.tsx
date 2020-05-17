@@ -187,5 +187,88 @@ class App3 extends React.Component {
     )
   }
 }
+//---- 4) component controlled
+class App4 extends React.Component {
+  state={
+    username: 'ggwp'
+  };
+  validateUsername=(value:any)=>{
+    let error;
+    if (value === '') {
+      error = 'field is empty!';
+    }
+    return error;
+  }
+  render() {
+    return (
+      <div>
+        <h1>My Form</h1>
+    
+        <Formik   
+          validateOnBlur={false}
+          validateOnChange={false}
+          initialValues={{
+            username: this.state.username 
+          }}
+          onSubmit={values => {
+            // same shape as initial values
+            console.log(values);
+          }}
+        >
+        {(props) => (
+          <Form>
+              <Field
+                name="username"
+                validate={this.validateUsername}
+              >
+                  {(fieldProps:any) => (
+                      <div>
+                        {console.log('--gge',fieldProps.field)}
+                          <input
+                            onFocus={()=>{
+                              console.log('--focus',props);
+                              //props.resetForm();
+                              props.setErrors({ username: '' });
+                            }}
+                            type="text"
+                            autoComplete="off"
+                            {...fieldProps.field}
+                            onChange={(e)=>{
+                              this.setState({username:e.target.value});
+                              fieldProps.field.onChange(e);
+                            }}
+                            onKeyPress={async (ev) => {
+                              if (ev.key === 'Enter') {
+                                //setError работает только в запросе
+                                await new Promise(resolve => setTimeout(resolve, 1000));
+                        
+                                props.setFieldError('username', 'async err');
+            
+                              }
+                            }}
+                          />
+                      </div>
+                  )}
+              </Field>
 
-export {App3 as App};
+            
+            {/* Trigger field-level validation imperatively */}
+            <div>
+              <button type="button" onClick={() => props.validateField('username')}>
+                Check Username
+              </button>
+              <button type="submit">Submit</button>
+            </div>
+
+            <div>
+              {props.errors.username && props.touched.username && <div>{props.errors.username}</div>}
+            </div>
+          </Form>
+        )}
+      </Formik>
+      </div>
+    )
+  }
+}
+
+export {App4 as App};
