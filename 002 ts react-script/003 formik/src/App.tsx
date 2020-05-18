@@ -3,6 +3,7 @@ import { useField, useFormik, Formik, Field, Form } from 'formik';
 import './App.css';
 
 const validate = (values:any) => {
+  console.log('-validate-',values);
   const errors:any = {};
   if (!values.nameUser) {
     errors.nameUser = 'Required';
@@ -92,9 +93,7 @@ class App3 extends React.Component {
           innerRef={(el) => this.formik = el}
           validateOnBlur={true}
           validateOnChange={false}
-          initialValues={{
-            username: ''  
-          }}
+          initialValues={{username: ''}}
           onSubmit={() => {}}
         >
         {(props) => (
@@ -200,9 +199,7 @@ class App4 extends React.Component {
       <div>
         <h1>My Form</h1>
         <Formik   
-          initialValues={{
-            username: this.state.username 
-          }}
+          initialValues={{username: this.state.username}}
           onSubmit={() => {}}
         >
         {(props) => (
@@ -245,5 +242,53 @@ class App4 extends React.Component {
     )
   }
 }
+//---- 5) use formilk
+const App5: React.FC = () => {
 
-export {App4 as App};
+  const formik = useFormik({
+    initialValues: {nameUser: ''},
+    validate:validate,
+    validateOnBlur:true,
+    validateOnChange:false,
+    onSubmit: () => {}
+  });
+
+  console.log('-wtf',formik);
+
+  return (
+    <>
+      <form onSubmit={formik.handleSubmit}>
+          <div>
+            <input
+              type="text"
+              autoComplete="off"
+              name="nameUser"
+              autoFocus
+              onChange={(e)=>{
+
+                formik.setErrors({nameUser: ''});
+                formik.handleChange(e);
+              }}
+              value={formik.values.nameUser}
+              onFocus={() => {
+                // on focus - turn off validation
+                formik.setErrors({nameUser: ''});
+              }}
+              onKeyPress={async (ev) => {
+                if (ev.key === 'Enter') {
+                  console.log('-works?');
+                  formik.validateForm();
+                }
+              }}
+            />
+          </div>
+          <div><button>setError</button></div>
+          {formik.errors.nameUser && <div>{formik.errors.nameUser}</div>}
+      </form>
+    </>
+  );
+};
+
+export default App5;
+
+export {App5 as App};
