@@ -90,16 +90,12 @@ class App3 extends React.Component {
         }>reset from outside</div>
         <Formik   
           innerRef={(el) => this.formik = el}
-  
-          validateOnBlur={false}
+          validateOnBlur={true}
           validateOnChange={false}
           initialValues={{
             username: ''  
           }}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
-          }}
+          onSubmit={() => {}}
         >
         {(props) => (
           <Form>
@@ -156,7 +152,7 @@ class App3 extends React.Component {
                             {...fieldProps.field}
                             onKeyPress={async (ev) => {
                               if (ev.key === 'Enter') {
-                                //setError работает только в запросе
+                                //setFieldError работает только (в запросе или с задержкой)
                                 await new Promise(resolve => setTimeout(resolve, 1000));
                         
                                 props.setFieldError('username', 'async err');
@@ -203,17 +199,11 @@ class App4 extends React.Component {
     return (
       <div>
         <h1>My Form</h1>
-    
         <Formik   
-          validateOnBlur={false}
-          validateOnChange={false}
           initialValues={{
             username: this.state.username 
           }}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
-          }}
+          onSubmit={() => {}}
         >
         {(props) => (
           <Form>
@@ -225,26 +215,11 @@ class App4 extends React.Component {
                       <div>
                         {console.log('--gge',fieldProps.field)}
                           <input
-                            onFocus={()=>{
-                              console.log('--focus',props);
-                              //props.resetForm();
-                              props.setErrors({ username: '' });
-                            }}
                             type="text"
-                            autoComplete="off"
                             {...fieldProps.field}
                             onChange={(e)=>{
                               this.setState({username:e.target.value});
                               fieldProps.field.onChange(e);
-                            }}
-                            onKeyPress={async (ev) => {
-                              if (ev.key === 'Enter') {
-                                //setError работает только в запросе
-                                await new Promise(resolve => setTimeout(resolve, 1000));
-                        
-                                props.setFieldError('username', 'async err');
-            
-                              }
                             }}
                           />
                       </div>
