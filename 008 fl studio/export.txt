@@ -3,3 +3,5 @@ Leave remainder
 512 point sinc
 HQ for all
 Disable max poy
+
+!dont forget to title project - option project info
