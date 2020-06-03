@@ -5,6 +5,7 @@
 00e OpenEmu - ps1 psp nes games
 00f transmission - bit torrent
 00g elmedia video player - app store
+00h TuxGuitar
 
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
@@ -27,6 +28,8 @@
 17 Huawei Suite(?)
 18 Teamviewer
 
+
+TuxGuitar
 
 BREW install in terminal 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
