@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+ class SomeComp extends React.Component {
+        elem = {}
+        upLoad=()=>{
+            // CREATE fake element
+            this.elem = document.createElement('input');
+            this.elem.type = 'file';
+            this.elem.hidden = true;
+            this.elem.onchange = this.change;
+            this.elem.click();
+            
+            console.log('--el', this.elem);
+        }
+        change=async(input)=>{
+            const file = input.target.files[0];
+            console.log('-input',input.target.files[0]);
+         
+            const result = await this.toBase64(file).catch(e => Error(e));
+            if(result instanceof Error) {
+                console.log('Error: ', result.message);
+                return;
+            }
+            
+            console.log('--result',result);
+        }
+        
+        toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+
+  render() {
+            
+   return (<div>
+                <input type='button' onClick={this.upLoad} value='Upload MB' />
+   </div>);
+  }
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <SomeComp/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>
