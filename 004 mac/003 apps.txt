@@ -6,6 +6,7 @@
 00f transmission - bit torrent
 00g elmedia video player - app store
 00h TuxGuitar
+00i roomeqwizard
 
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
