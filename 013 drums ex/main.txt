@@ -152,3 +152,67 @@ B               B
         H               H               H               H       
         S               S               S               S       
 B               B               B           B       B                 
+
+16) DnB ++ (in brackets more difficult)
+
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H       H       H       H   
+        S               S
+B  (B)      B       B      (B) 
+
+
+17) Some
+
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H       H       H       H   
+        S               S
+    B               B      
+
+18) Unforgiven 
+
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H   H H H   H H H   H H H   H H
+        S               S
+B               B      
+
+19) Advanced New
+
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H   H   H   H   H   H   H   H   
+        S               S
+B           B       B
+
+20) Advanced New + (in brackets more difficult)
+
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H   H   H   H   H   H   H   H   
+        S               S
+B  (B)      B       B      (B)
+
+21) Advanced New ++
+
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H   H   H   H   H   H   H   H   
+        S               S
+B     B     B       B     
+
+21) Advanced New +++
+ 
+|               |
+|       |       |       |
+|---|---|---|---|---|---|---|---
+H   H   H   H   H   H   H   H   
+        S               S
+B     B     B     B   B     
