@@ -4,12 +4,12 @@ import Ex1 from './ex1';
 
 class Main extends React.Component {
 	state={
-		ex: '0'
+		ex: '1'
 	}
 
 	render() {
 		let {ex} = this.state;
-		console.log('--ex',ex);
+
 		return (
 			<div>
 				<div>

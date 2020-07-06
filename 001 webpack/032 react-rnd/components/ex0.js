@@ -15,7 +15,7 @@ class Ex0 extends React.Component {
     
 		return (
 			<div>
-				<div>Ex0</div>
+				<div>Ex0 - deafult</div>
 				<Rnd
 					style={style}
 					default={{
