@@ -9,6 +9,7 @@ class Main extends React.Component {
 
 	render() {
 		let {ex} = this.state;
+		console.log('--ex',ex);
 		return (
 			<div>
 				<div>
