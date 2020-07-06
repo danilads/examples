@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+</head>
+<body>
+ <div id="container"></div> 
+ <script>
+    let o = {a2: 2};
+	let run = () => ({a3: 3});
+	let obj = {
+		a1: 1,
+		...o,
+		...run(),
+		a4: 4,
+		...(()=>{
+			return {a5: 5};
+		})(),
+		...(()=>({a6: 6}))()
+	};
+	console.log('--obj', obj);
+ </script>
+</body> 
+</html>
