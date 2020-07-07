@@ -1,0 +1,128 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<style>
+	.parent{
+		height: 2000px;
+		border: 1px dashed red;
+		position: relative;
+	}
+	.child{
+		width: 200px;
+		height: 100px;
+		border:1px solid black;
+		overflow-y:	scroll;
+	}
+	.btnBot{
+		position: absolute;
+		bottom: 0;
+	}
+	.clickBlock{
+		position: absolute;
+		background: gray;
+		width: 100px;
+		height: 100px;
+		top: 161px;
+		left: 99px;
+	}
+</style>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class MobileList extends React.PureComponent {
+		state={
+			text: [1,2,3,4,5,6,7,8,9]
+		}
+
+		parentRef = React.createRef();
+		childRef = React.createRef();
+
+
+		myScroll = () => {
+			// от верха страницы  -  до верха viewport
+			console.log('--от (верха страницы) до верха viewport', window.scrollY);
+
+			// от верха страницы  -  до parentRef блок
+			// console.log(document.querySelector('.parent').offsetTop);
+			console.log('--от (верха страницы) до parentRef блок', this.parentRef.current.offsetTop);
+		
+
+			//от viewport  -  до childRef блока 
+			console.log('--childRef ', this.childRef.current.getBoundingClientRect().top);
+			console.log('------------');
+			
+		}
+
+		myClick = (e) => {
+			//мышь
+			console.log('--click oт (viewport) до мышки (Y)', e.clientY);
+			console.log('--click oт (viewport) до мышки (X)	', e.clientX);
+			console.log('--click oт (верха страницы) до мышки (Y)', e.pageY);
+			console.log('--click oт (верха страницы) до мышки (X)', e.pageX);
+			
+			//блок
+			console.log('--высота блока', e.target.getBoundingClientRect().height);
+			console.log('--ширина блока', e.target.getBoundingClientRect().width);
+			console.log('--oт (viewport) до верха блока', e.target.getBoundingClientRect().top);
+			console.log('--oт (viewport) до левой границы блока', e.target.getBoundingClientRect().left);
+			console.log('--oт (верха страницы) до верха блока', window.scrollY+e.target.getBoundingClientRect().top);
+			console.log('--oт (верха страницы) до левой границы блока', window.scrollX+e.target.getBoundingClientRect().left);
+
+			//внутри блока (относительно)
+			console.log('--top относительно блока', e.pageY-(window.scrollY+e.target.getBoundingClientRect().top)+1 );
+			console.log('--left относительно блока', e.pageX-(window.scrollX+e.target.getBoundingClientRect().left)+1 );
+			 
+		}
+		
+		//Объявляем
+		componentDidMount() {
+			const {myScroll} = this;
+			window.addEventListener('scroll', myScroll);
+		}
+		//Удаляем
+		componentWillUnmount() {
+			const {myScroll} = this;
+			window.removeEventListener('scroll', myScroll);
+		}
+
+
+		childBot=()=>{
+			this.childRef.current.scrollTop=90000;
+		}
+		parentBot=()=>{
+			window.scrollTo(0,90000);
+		}
+		parentTop=()=>{
+			window.scrollTo(0,0);
+		}
+		render() {
+		
+			return <div className="parent" ref={this.parentRef}>
+					<input type="button" value="childBot" onClick={this.childBot}/>
+					<input type="button" value="parentBot" onClick={this.parentBot}/>
+					<div className="child" ref={this.childRef}>
+						{this.state.text.map((it,ind)=>{
+							return <div className="one">{it}</div>
+						})}
+					</div>
+					<div className="clickBlock" onClick={this.myClick}>Click block</div>
+					<input className="btnBot" type="button" value="parentTop" onClick={this.parentTop}/>
+				</div>
+		
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

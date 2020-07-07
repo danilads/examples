@@ -10,7 +10,7 @@ const style = {
 };
 
 class Ex1 extends React.Component {
-
+	
 	render() {
     // bottom?: React.CSSProperties,
 		// bottomLeft?: React.CSSProperties,
@@ -22,7 +22,7 @@ class Ex1 extends React.Component {
 		// topRight?: React.CSSProperties
 		return (
 			<div>
-				<div>Ex1 - customization handler</div>
+				<div>Ex1 - ресайз кнопка</div>
 				<Rnd
 					style={style}
 					default={{
@@ -33,10 +33,8 @@ class Ex1 extends React.Component {
 					}}
 					resizeGrid={[20, 20]}
 					dragGrid={[20, 20]}
-					resizeHandleComponent={{ left: <div style={{width:'50px',height:'100%',background:'red'}}/> }}
-				>
-					001
-				</Rnd>
+					resizeHandleComponent={{ right: <div style={{width:'10px',height:'100%',background:'red'}}/> }}
+				/>
 			</div>
     );
 
