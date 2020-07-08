@@ -65,19 +65,16 @@ class Ex3 extends React.Component {
 					dragGrid={[STEP, STEP]}
 
 					onDragStop={(e, d) => {
-						console.log('--d.x',d.x);
 						// !library bugfix  need to round!
-
 						const rounded = Math.round(d.x/STEP)*STEP;
-						console.log('--rounded',rounded);
-						//  y - 0 block moving
+						//  y - 0 (block not moving)
             this.setState({ x: rounded, y: 0 });
           }}
           onResizeStop={(e, direction, ref, delta, position) => {
 						e.stopPropagation();
             this.setState({
-              width: ref.style.width,
-              height: ref.style.height,
+              width: parseInt(ref.style.width),
+              height: parseInt(ref.style.height),
               ...position,
             });
           }}
