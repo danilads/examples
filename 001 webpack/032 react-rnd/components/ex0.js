@@ -14,8 +14,11 @@ class Ex0 extends React.Component {
 	render() {
     
 		return (
-			<div>
+			<React.Fragment>
 				<div>Ex0 - deafult (resize disabled)</div>
+			
+			<div>
+				
 				<Rnd
 					style={style}
 					default={{
@@ -29,6 +32,7 @@ class Ex0 extends React.Component {
 					dragGrid={[20, 20]}
 				/>
 			</div>
+			</React.Fragment>
     );
 
 	}

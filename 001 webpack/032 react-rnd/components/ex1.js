@@ -21,8 +21,9 @@ class Ex1 extends React.Component {
 		// topLeft?: React.CSSProperties,
 		// topRight?: React.CSSProperties
 		return (
+			<React.Fragment>
+			<div>Ex1 - ресайз кнопка</div>
 			<div>
-				<div>Ex1 - ресайз кнопка</div>
 				<Rnd
 					style={style}
 					default={{
@@ -36,6 +37,7 @@ class Ex1 extends React.Component {
 					resizeHandleComponent={{ right: <div style={{width:'10px',height:'100%',background:'red'}}/> }}
 				/>
 			</div>
+			</React.Fragment>
     );
 
 	}

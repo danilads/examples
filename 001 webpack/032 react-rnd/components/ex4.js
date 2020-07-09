@@ -30,6 +30,12 @@ class Ex3 extends React.Component {
 			if ((result+width)>(STEP*25)) {
 				result = STEP*25-width;
 			}
+
+			// (BLOCKED) !NEED TO CALCULATE
+			console.log('--result',result);
+			if(result===50 || result===25){
+				result=0;
+			}
 			this.setState({isSet:true, x: result});
 		}
 	}
@@ -48,38 +54,47 @@ class Ex3 extends React.Component {
 		const {STEP} = this.state;
 		return (
 			<React.Fragment>
-			<div>Ex3 - state controlled + onclick set</div>
+			<div>Ex4 - (BLOCKED) occupied slot </div>
 			<div ref={this.parentRef} style={{margin:'10px' ,width:`${STEP*25}px`, background:'gray', height:'200px'}}>
-			
+				<div style={{marginLeft:'75px' ,width:`${3*25}px`, background:'red', height:'200px'}}/>
+
 				{this.state.isSet && <Rnd
 					style={style}
 					onClick={(e)=>{
 						e.stopPropagation();
 					}}
 					bounds="parent"
+					
 
-					maxWidth={STEP*3}
-					minWidth={STEP}
+					enableResizing={{
+            top: false,
+            right: false,
+            bottom: false,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
+
 					size={{ width: this.state.width, height: this.state.height }}
 					position={{ x: this.state.x, y: this.state.y }}
 					
-					resizeGrid={[STEP, STEP]}
+					
 					dragGrid={[STEP, STEP]}
 
 					onDragStop={(e, d) => {
 						// !library bugfix  need to round!
-						const rounded = Math.round(d.x/STEP)*STEP;
+						const rounded = Math.abs(Math.round(d.x/STEP)*STEP);
+
+						// (BLOCKED) 
+						if(rounded<150 && rounded!== 0 ){
+							return;
+						}
 						//  y - 0 (block not moving)
             this.setState({ x: rounded, y: 0 });
           }}
-          onResizeStop={(e, direction, ref, delta, position) => {
-						e.stopPropagation();
-            this.setState({
-              width: parseInt(ref.style.width),
-              height: parseInt(ref.style.height),
-              ...position,
-            });
-          }}
+       
 				/>}
 			</div>
 			</React.Fragment>

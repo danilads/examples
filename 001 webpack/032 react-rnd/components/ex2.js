@@ -14,8 +14,11 @@ class Ex2 extends React.Component {
 	render() {
   
 		return (
-			<div style={{margin:'10px' ,width:'cacl(100% - 20px)', background:'gray', height:'200px'}} >
+			<React.Fragment>
 				<div>Ex2 - ограничение родителем / ограничение ресайза</div>
+			
+			<div style={{margin:'10px' ,width:'cacl(100% - 20px)', background:'gray', height:'200px'}} >
+				
 				<Rnd
 					bounds="parent"
 					enableResizing={{
@@ -39,6 +42,7 @@ class Ex2 extends React.Component {
 					dragGrid={[20, 20]}
 				/>
 			</div>
+			</React.Fragment>
     );
 
 	}
