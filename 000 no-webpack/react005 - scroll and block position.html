@@ -38,14 +38,15 @@
 	<script type="text/babel">
 	class MobileList extends React.PureComponent {
 		state={
-			text: [1,2,3,4,5,6,7,8,9]
+			text: [1,2,3,4,5,6,7,8,9],
+			scroll: 0
 		}
 
 		parentRef = React.createRef();
 		childRef = React.createRef();
 
 
-		myScroll = () => {
+		globalScroll = () => {
 			// от верха страницы  -  до верха viewport
 			console.log('--от (верха страницы) до верха viewport', window.scrollY);
 
@@ -56,8 +57,19 @@
 
 			//от viewport  -  до childRef блока 
 			console.log('--childRef ', this.childRef.current.getBoundingClientRect().top);
+			
 			console.log('------------');
 			
+		}
+
+		childScroll = (e) => {
+			console.log('--SCROLL TOP', e.target.scrollTop);
+			
+		}
+
+		childScrollSet = () => {
+			console.log('--SCROLL BOTTOM');
+			this.childRef.current.scrollTop = 250;
 		}
 
 		myClick = (e) => {
@@ -81,15 +93,17 @@
 			 
 		}
 		
+		
+
 		//Объявляем
 		componentDidMount() {
-			const {myScroll} = this;
-			window.addEventListener('scroll', myScroll);
+			window.addEventListener('scroll', this.globalScroll);
+			this.childRef.current.addEventListener('scroll', this.childScroll);
 		}
 		//Удаляем
 		componentWillUnmount() {
-			const {myScroll} = this;
-			window.removeEventListener('scroll', myScroll);
+			window.removeEventListener('scroll', this.globalScroll);
+			this.childRef.current.removeEventListener('scroll', this.childScroll);
 		}
 
 
@@ -107,6 +121,7 @@
 			return <div className="parent" ref={this.parentRef}>
 					<input type="button" value="childBot" onClick={this.childBot}/>
 					<input type="button" value="parentBot" onClick={this.parentBot}/>
+					<input type="button" value="childScrollSet" onClick={this.childScrollSet}/>
 					<div className="child" ref={this.childRef}>
 						{this.state.text.map((it,ind)=>{
 							return <div className="one">{it}</div>
