@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.8.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.8.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        html, body, #container{
+                height: 100%;
+                margin: 0;
+        }
+        .wrap{
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+/////////
+//// RIGHT
+class Right extends React.Component {
+	componentDidMount() {
+		console.log('-scroll');
+		this.ref.current.addEventListener('scroll', this.scrl);
+	}
+	
+	componentDidUpdate(prevProps, prevState){
+		if(this.props.scroll !== this.ref.current.scrollTop){
+			// SET inner
+			this.ref.current.scrollTop = this.props.scroll;
+		}
+	}
+	
+	scrl=(e)=>{
+		console.log('-scrl', e.target.scrollTop);
+		// SET manual
+		this.props.changeScroll(e.target.scrollTop);
+	}
+	ref = React.createRef();
+
+	render() {
+		return (<div ref={this.ref} style={{width: '50%', overflow: 'auto', height: '100%'}}>
+			<div style={{height: '20000px'}}>comp</div>
+		</div>);
+	}
+}
+////////
+//// LEFT
+ 
+const Left = ({scroll, changeScroll}) => {
+	const ref = React.useRef(null);
+	
+	React.useEffect(() => {
+	   
+		console.log('hook ref',ref.current);
+	   
+		if(scroll !== ref.current.scrollTop){
+			// SET inner
+			ref.current.scrollTop = scroll;
+		}
+	   
+		//event listener
+		const scrl=(e)=>{
+			console.log('-scrl', e.target.scrollTop);
+			// SET manual
+			changeScroll(e.target.scrollTop);
+		}
+
+		ref.current.addEventListener('scroll', scrl);
+  
+		return () => {
+			ref.current.removeEventListener('scroll', scrl);
+		}
+	});
+	
+	return (<div ref={ref} style={{width: '50%', overflow: 'auto', height: '100%'}}>
+			<div style={{height: '20000px'}}>hook</div>
+	</div>);
+}
+	
+/////////
+//// MAIN
+	
+class Main extends React.Component {
+ 	state={
+		scroll: 0,
+	}
+	render() {
+		return (<div className={"wrap"}>
+			<Left  changeScroll={(e)=>this.setState({scroll:e})} scroll={this.state.scroll} />
+			<Right changeScroll={(e)=>this.setState({scroll:e})} scroll={this.state.scroll} />
+		</div>);
+	}
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <Main/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>
