@@ -77,6 +77,17 @@ interface AppState {
 //     }
 //   });
 //   console.log('--rerender',cnt);
+
+// //////////////
+// // !Hook memo
+// const filterSmth = (val1, val2) => {
+//   return val1+val2;
+// };
+
+// // sorted and filtered attendies
+// const memoAttendees = React.useMemo(() => filterSmth(val1, val2), [val1, val2]);
+
+
 //   return (
 //     <div className="App" onClick={()=>setCnt(cnt+1)}>
 //       {props.name}
