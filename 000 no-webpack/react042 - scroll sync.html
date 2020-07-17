@@ -25,78 +25,92 @@
 /////////
 //// RIGHT
 class Right extends React.Component {
-	componentDidMount() {
-		console.log('-scroll');
-		this.ref.current.addEventListener('scroll', this.scrl);
-	}
-	
-	componentDidUpdate(prevProps, prevState){
-		if(this.props.scroll !== this.ref.current.scrollTop){
-			// SET inner
-			this.ref.current.scrollTop = this.props.scroll;
-		}
-	}
-	
-	scrl=(e)=>{
-		console.log('-scrl', e.target.scrollTop);
-		// SET manual
-		this.props.changeScroll(e.target.scrollTop);
-	}
-	ref = React.createRef();
+ componentDidMount() {
+  console.log('-scroll');
+  this.ref.current.addEventListener('scroll', this.scrl);
+ }
+ 
+ componentDidUpdate(prevProps, prevState){
+  if(this.props.scroll !== this.ref.current.scrollTop){
+   // SET self
+   this.ref.current.scrollTo({
+                      top: this.props.scroll
+                    });
+   // this.ref.current.scrollTop = this.props.scroll;
+  }
+ }
+ 
+ scrl=(e)=>{
+  console.log('-scrl', e.target.scrollTop);
+  // SET another
+  // this.props.changeScroll(e.target.scrollTop);
+        
+        //// WORKS FASTER THAN USEING STATE
+        const el = document.getElementById('left')
+        el.scrollTop = e.target.scrollTop
+ }
+ ref = React.createRef();
 
-	render() {
-		return (<div ref={this.ref} style={{width: '50%', overflow: 'auto', height: '100%'}}>
-			<div style={{height: '20000px'}}>comp</div>
-		</div>);
-	}
+ render() {
+  return (<div id="right" ref={this.ref} style={{width: '50%', overflow: 'auto', height: '100%'}}>
+   <div style={{height: '20000px'}}>comp</div>
+  </div>);
+ }
 }
 ////////
 //// LEFT
  
 const Left = ({scroll, changeScroll}) => {
-	const ref = React.useRef(null);
-	
-	React.useEffect(() => {
-	   
-		console.log('hook ref',ref.current);
-	   
-		if(scroll !== ref.current.scrollTop){
-			// SET inner
-			ref.current.scrollTop = scroll;
-		}
-	   
-		//event listener
-		const scrl=(e)=>{
-			console.log('-scrl', e.target.scrollTop);
-			// SET manual
-			changeScroll(e.target.scrollTop);
-		}
+ const ref = React.useRef(null);
+ 
+ React.useEffect(() => {
+  if(scroll !== ref.current.scrollTop){
+   // SET self
+//   ref.current.scrollTop = scroll;
+            ref.current.scrollTo({
+                      top: scroll
+                    });
+  }
+    
+  //event listener
+  const scrl=(e)=>{
+   // SET another
+   // changeScroll(e.target.scrollTop);
+            
+            //// WORKS FASTER THAN USEING STATE
+            const el = document.getElementById('right')
+            el.scrollTop = e.target.scrollTop
+  }
 
-		ref.current.addEventListener('scroll', scrl);
+  ref.current.addEventListener('scroll', scrl);
   
-		return () => {
-			ref.current.removeEventListener('scroll', scrl);
-		}
-	});
-	
-	return (<div ref={ref} style={{width: '50%', overflow: 'auto', height: '100%'}}>
-			<div style={{height: '20000px'}}>hook</div>
-	</div>);
+  return () => {
+   ref.current.removeEventListener('scroll', scrl);
+  }
+ });
+ 
+ return (<div id="left" ref={ref} style={{width: '50%', overflow: 'auto', height: '100%'}}>
+   <div style={{height: '20000px'}}>hook</div>
+ </div>);
 }
-	
+ 
 /////////
 //// MAIN
-	
+ 
 class Main extends React.Component {
- 	state={
-		scroll: 0,
-	}
-	render() {
-		return (<div className={"wrap"}>
-			<Left  changeScroll={(e)=>this.setState({scroll:e})} scroll={this.state.scroll} />
-			<Right changeScroll={(e)=>this.setState({scroll:e})} scroll={this.state.scroll} />
-		</div>);
-	}
+  state={
+  scroll: 0,
+ }
+    // right
+    refRight = React.createRef();
+    
+    
+ render() {
+  return (<div className={"wrap"}>
+   <Left  changeScroll={(e)=>this.setState({scroll:e})} scroll={this.state.scroll} />
+   <Right ref={this.refRight} changeScroll={(e)=>this.setState({scroll:e})} scroll={this.state.scroll} />
+  </div>);
+ }
  }
  ////////////////App Js
   ReactDOM.render(

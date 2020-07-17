@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.8.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.8.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+    const Child = React.forwardRef((props, ref) => {
+        const click = () => console.log('-child click');
+        React.useImperativeHandle(ref, () => ({
+            getChildClick() {
+                click();
+            }
+
+        }));
+        return <div onClick={click}>onclick(child)</div>
+    });
+ const Parent = () => {
+        const childRef = React.useRef();
+      
+        const click = () => {
+            console.log('-parent click');
+            console.log('-current', childRef.current.getChildClick);
+            childRef.current.getChildClick();
+        }
+        
+  return (<div>
+    <div onClick={click}>onclick(parent)</div>
+    <Child ref={childRef}/>
+   </div>);
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <Parent/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>
