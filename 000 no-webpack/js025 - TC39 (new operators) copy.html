@@ -9,8 +9,10 @@
 	<script>
 		//optional chaining
 		let ex1 = {c:{b:{a:{z:4}}}};
+		let ex3 = {arr:null};
 		console.log('---ex1',ex1 && ex1.c.b && ex1.c.b.a && ex1.c.b.a.z);
 		console.log('---ex1',ex1?.c?.b?.a?.z);
+		console.log('---ex3',ex3?.[0]);
 
 		//nullish coalescence
 		let ex2 = 'sting'
