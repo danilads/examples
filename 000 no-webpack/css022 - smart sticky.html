@@ -1,0 +1,135 @@
+<!DOCTYPE html> 
+<html>
+<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title></title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<style>
+	.parent{
+		height: 200px;
+        margin: 50px;
+		border: 1px dashed red;
+        overflow: scroll;
+        position: relative;
+	}
+    .wrapForSticky{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        /* top: -20px; !!!HEIGHT of sticky block */
+    }
+    .content{
+        position: relative;
+        /* margin-top: 20px; !!!HEIGHT  of sticky block */
+    }
+    .sticky{
+        background: green;
+        position: sticky;
+        /* height: 20px; !!!HEIGHT of sticky block */
+    }
+</style>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	class MobileList extends React.PureComponent {
+        BLOCK_HEIGHT = 20 // !!!HEIGHT of sticky block
+        state={
+            scroll: 0,
+        }
+        parentScrollRef = React.createRef();
+		scroll = (e) => {
+            console.log('---elem',document.getElementById('stickyId'));
+            console.log('---elem',document.getElementById('stickyId'));
+            document.getElementById('stickyId').style.color = 'red';
+            if (e.target.scrollTop > this.state.scroll) {
+                console.log('-- down');
+                // calculate offset
+                const scrollDiff = e.target.scrollTop - this.state.scroll;
+                console.log('--diff', scrollDiff);
+//                this.setState({pos: 'sticky'});
+            } else {
+                console.log('-- up');
+//                this.setState({pos: 'sticky'});
+            }
+			 // set scroll to know direction and prev value
+            this.setState({scroll: e.target.scrollTop});
+		}
+		
+
+		componentDidMount() {
+			this.parentScrollRef.current.addEventListener('scroll', this.scroll);
+		}
+		
+		render() {
+		
+			return <div className="parent" ref={this.parentScrollRef}>
+                <div className="wrapForSticky">
+                <div className="content">
+                    <div className="sticky" id='stickyId' style={{
+                            height: '20px',
+                            
+                            top: '-20px' // to change "top" better use ref style then setState
+                        }}>sticky</div>
+                    
+					<div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    <div>hello</div>
+                        <br />
+                    </div>
+                    </div>
+				</div>
+		
+		}
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
