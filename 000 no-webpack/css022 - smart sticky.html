@@ -12,7 +12,7 @@
 		height: 200px;
         margin: 50px;
 		border: 1px dashed red;
-        overflow: scroll;
+        overflow: auto;
         position: relative;
 	}
     .wrapForSticky{
@@ -38,24 +38,49 @@
 	class MobileList extends React.PureComponent {
         BLOCK_HEIGHT = 20 // !!!HEIGHT of sticky block
         state={
-            scroll: 0,
+            scroll: 0
         }
+
         parentScrollRef = React.createRef();
+
 		scroll = (e) => {
+            // calculate offset
+            const scrollDiff = e.target.scrollTop - this.state.scroll;
+            const currentOffset = parseInt(document.getElementById('stickyId').style.top);
+
+            // DEL THIS
+            console.log('---scrollDiff',scrollDiff);
             console.log('---elem',document.getElementById('stickyId'));
-            console.log('---elem',document.getElementById('stickyId'));
+            console.log('---elem top',currentOffset);
+            console.log('------------');
+
             document.getElementById('stickyId').style.color = 'red';
-            if (e.target.scrollTop > this.state.scroll) {
-                console.log('-- down');
-                // calculate offset
-                const scrollDiff = e.target.scrollTop - this.state.scroll;
-                console.log('--diff', scrollDiff);
-//                this.setState({pos: 'sticky'});
-            } else {
-                console.log('-- up');
-//                this.setState({pos: 'sticky'});
+
+            //
+            // Вниз
+            if (e.target.scrollTop > this.state.scroll && e.target.scrollTop > this.BLOCK_HEIGHT) {
+                // FIXME  WORKING HERE
+                // FIXME  WORKING HERE
+                // FIXME  WORKING HERE
+                // FIXME  WORKING HERE
+                // const counted = currentOffset - scrollDiff;
+                // console.log('--down', counted);
+                
+                // document.getElementById('stickyId').style.top = `${counted}px`;
             }
-			 // set scroll to know direction and prev value
+            // Вверх
+            else {
+                const counted = currentOffset - scrollDiff;
+           
+                if(counted > 0){
+                    document.getElementById('stickyId').style.top = `${0}px`;
+                }
+                else{
+                    document.getElementById('stickyId').style.top = `${counted}px`;
+                }
+                
+            }
+			// set scroll to know direction(up/down) and prev value
             this.setState({scroll: e.target.scrollTop});
 		}
 		
@@ -67,12 +92,15 @@
 		render() {
 		
 			return <div className="parent" ref={this.parentScrollRef}>
-                <div className="wrapForSticky">
-                <div className="content">
+                <div className="wrapForSticky"
+                    style={{top: `-${this.BLOCK_HEIGHT}px`}}
+                >
+                <div className="content"
+                    style={{marginTop: `${this.BLOCK_HEIGHT}px`}}
+                >
                     <div className="sticky" id='stickyId' style={{
-                            height: '20px',
-                            
-                            top: '-20px' // to change "top" better use ref style then setState
+                            height: `${this.BLOCK_HEIGHT}px`,
+                            top: `-20px` // to change "top" better use ref style then setState
                         }}>sticky</div>
                     
 					<div>hello</div>
