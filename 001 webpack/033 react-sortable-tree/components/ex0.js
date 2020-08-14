@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import {TouchBackend} from 'react-dnd-touch-backend';
 import { SortableTreeWithoutDndContext as SortableTree } from 'react-sortable-tree';
 
-// !нужно добавить стили библиотеки
+// !!! нужно добавить стили библиотеки
 import './style.css';
 
 const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints);
@@ -24,7 +24,7 @@ class Ex0 extends Component {
   render() {
     return (
       <div>
-        <h2>Работает тач (но нужно перезагрузить страницу)</h2>
+        <h2>Работает тач (но нужно перезагрузить страницу) - базовый макет</h2>
         <DndProvider backend={dndBackend}>
           <div>
             <span>
@@ -33,6 +33,7 @@ class Ex0 extends Component {
 
             <div style={{ height: 300 }}>
               <SortableTree
+                rowHeight={100} // !!! Высота блока
                 treeData={this.state.treeData}
                 onChange={treeData => this.setState({ treeData })}
                 
