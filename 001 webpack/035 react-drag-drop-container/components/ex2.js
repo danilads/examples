@@ -2,7 +2,7 @@ import React from 'react'
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 
 
-class Ex0 extends React.Component {
+class Ex2 extends React.Component {
   state={
     list1:['it1','it2'],
     list2:['it3'],
@@ -99,4 +99,4 @@ class Ex0 extends React.Component {
   }
 }
 
-export default Ex0;
+export default Ex2;

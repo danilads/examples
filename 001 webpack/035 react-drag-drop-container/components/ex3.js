@@ -29,6 +29,21 @@ class SwapList extends React.Component {
     dragIndex: null, // индекс элемента который тянем
     highlightIndex: null // что подсвечиваем
   }
+  
+  // БАГ когда кликаешь один раз
+  componentDidMount() { 
+    document.addEventListener("mouseup", this.stopDraggingWithTimeout);
+    document.addEventListener("touchend", this.stopDraggingWithTimeout);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("mouseup", this.stopDraggingWithTimeout);
+    document.removeEventListener("touchend", this.stopDraggingWithTimeout);
+  }
+
+  stopDraggingWithTimeout=()=>{
+    setTimeout(this.stopDragging, 1);
+  }
 
   stopDragging=()=>{
     this.setState({dragStart:false, dragIndex: null, highlightIndex: null});
