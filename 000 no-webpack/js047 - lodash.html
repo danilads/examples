@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"> </script>
+    <script>
+    _u = _.noConflict();
+    </script>
+ <script>
+        var users = [
+          { 'user': 'fred',   'age': 48 },
+          { 'user': 'barney', 'age': 36 },
+          { 'user': 'fred',   'age': 40 },
+          { 'user': 'barney', 'age': 34 }
+        ];
+        
+        ////----01 sort
+        //console.log(_u.sortBy(users,'age'));
+        
+        ////----02 remove
+        //console.log(_u.remove(users,(it)=>it.age!==36));
+        
+        ////----03 memoize !!!WORKS only with 2 args
+        
+        function add(a, b) {
+            console.log('--works?',a,b)
+          return a + b;
+        }
+
+        var adder = _u.memoize(add);
+
+        adder(20, 5);
+        adder(20, 5);
+        adder(10, 10);
+        adder(20, 5);
+        adder(10, 10);
+        adder(20, 5);
+        
+        
+        ////----04 include
+//        console.log(_u.some(users, {'age': 36}));
+//        console.log(users.some(it=>it.age===36));
+        
+        
+ </script>
+</body> 
+</html>
