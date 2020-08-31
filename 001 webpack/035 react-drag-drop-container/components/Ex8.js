@@ -8,19 +8,19 @@ class Ex8 extends React.Component {
   render() {
     return (
       <div>
-        <h6>Ex8 - драг </h6>
+        <h6>Ex8 - no drag item </h6>
         {/* для drop должен быть targetKey */}
 
         <DragDropContainer
           targetKey="foo"
-          dragData={{data: 'DragItem data'}}
-          onDrop={(e)=>console.log('-DragItem onDrop')}
-          onDragStart={(e)=>console.log('-DragItem onDragStart')}
-          onDrag={(e)=>console.log('-DragItem onDrag')}
-          onDragEnd={(e)=>console.log('-DragItem onDragEnd')}
+          dragHandleClassName={"canDrag"}
         >
-            <div>Drag Item</div>
+            <div style={{border: '1px solid red', position: 'relative', width: '200px', height: '50px'}}>
+              <div className="canDrag" style={{border: '1px solid green', position: 'absolute', width: '200px', height: '50px'}}>Drag Item</div>
+              <button style={{position: 'absolute', bottom: '0', zIndex: '1'}}>no drag</button>
+            </div>
         </DragDropContainer>
+  
 
         <DropTarget
           targetKey="foo"
