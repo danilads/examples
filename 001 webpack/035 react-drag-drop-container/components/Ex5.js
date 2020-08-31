@@ -6,7 +6,8 @@ class Ex5 extends React.Component {
   state={
     isLibraryDragStart: false, //когда библиотека пишет что drag начался
     isRealDragStart: false, //реальный драг
-    enter: false
+    enter: false,
+    clickColor: 'red'
   }
 
   // react-drag-drop-container говорит что драг начался по клику
@@ -41,7 +42,7 @@ class Ex5 extends React.Component {
 
 
   render() {
-    const {enter, isRealDragStart} = this.state;
+    const {enter, isRealDragStart, clickColor} = this.state;
     console.log('--+ enter?', enter);
     return (
       <div>
@@ -66,7 +67,7 @@ class Ex5 extends React.Component {
             <div style={{border: '1px solid gray', position: 'relative'}}>
               {/* БАГ с ховером нужно поверх повесить  */}
               {isRealDragStart && <div style={{position: 'absolute', zIndex:2, top: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0)'}} />}
-              <div>Drop Container <button onClick={()=>console.log('CLICK')}>click</button></div>
+              <div>Drop Container <button style={{color: clickColor}} onClick={()=>this.setState({clickColor: clickColor==='green'?'red':'green'})}>click</button></div>
               {enter && <div style={{position: 'absolute', zIndex:1, top: 0, width: '100%', height: '100%', background: 'rgba(122,3,43,0.5)'}} />}
             </div>
         </DropTarget>
