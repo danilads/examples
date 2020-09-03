@@ -28,3 +28,16 @@
     }
   }
 }
+.ghostWrapWhenDragStart{
+  position: relative;
+  &:before{
+    display: block;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 4px);
+    border: 2px solid green;
+    border-radius: 4px;
+    top: 0;
+  }
+}
