@@ -1,0 +1,209 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.8.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.8.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        html, body, #container{
+                height: 100%;
+                margin: 0;
+        }
+        .wrap{
+            height: 100%;
+            display: flex;
+        }
+        .mainBlock{
+            position: relative;
+            width: 100%;
+            height: 20000px;
+        }
+        .wrapBlock{
+            position: absolute;
+            overflow: auto;
+            top: 200px;
+            left: 300px;
+            width: 200px;
+            height: 200px;
+        }
+        .scroll{
+            width: 100%;
+            height: 20000px;
+            background: repeating-linear-gradient(
+                45deg,
+                #606dbc,
+                #606dbc 10px,
+                #465298 10px,
+                #465298 20px
+            );
+        }
+    </style>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+class Main extends React.PureComponent {
+    state={
+        // mouse position
+        x:0,
+        y: 0,
+
+        // is mouse down?
+        mouseOn: false,
+
+        // mouse position
+        direction: null, // null / 'top' / 'down'
+
+        // is cylce run?
+        isRun: false
+    }
+    ref = React.createRef();
+
+    componentDidMount(){
+    document.addEventListener('mousemove', this.setMouse);
+    document.addEventListener('touchmove', this.setTouch);
+    document.addEventListener('scroll', this.setScroll);
+    document.addEventListener('resize', this.setResize);
+
+
+    document.addEventListener('touchstart', this.mouseOn);
+    document.addEventListener('touchend', this.mouseOff);
+    document.addEventListener('mousedown', this.mouseOn);
+    document.addEventListener('mouseup', this.mouseOff);
+    }
+    componentWillUnmount(){
+    document.removeEventListener("mousemove", this.setMouse);
+    document.removeEventListener("touchmove", this.setTouch);
+    document.removeEventListener('scroll', this.setScroll);
+    document.removeEventListener('resize', this.setResize);
+
+    document.removeEventListener('touchstart', this.mouseOn);
+    document.removeEventListener('touchend', this.mouseOff);
+    document.removeEventListener('mousedown', this.mouseOn);
+    document.removeEventListener('mouseup', this.mouseOff);
+    }
+    componentDidUpdate(prevProps, prevState){
+        
+        if(this.state.mouseOn && this.state.direction && !this.state.isRun){
+            this.run();
+        }
+    }
+    mouseOn=()=>{
+        this.setState({mouseOn: true});
+        this.countBlockCoordinates(this.state.x, this.state.y);
+    }
+    mouseOff=()=>{
+        this.setState({mouseOn: false});
+    }
+    setTouch=(e)=>{
+        this.setState({x: e.touches[0].clientX, y: e.touches[0].clientY});
+        this.countBlockCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+    }
+    setMouse=(e)=>{
+        this.setState({x: e.clientX, y: e.clientY});
+        this.countBlockCoordinates(e.clientX, e.clientY);
+    }
+    setScroll=()=>{
+        this.countBlockCoordinates(this.state.x, this.state.y);
+    }
+    setResize=()=>{
+        this.countBlockCoordinates(this.state.x, this.state.y);
+    }
+
+    countBlockCoordinates=(x,y)=>{
+        // this.ref.current.scrollTop - scroll position
+        // this.ref.current.getBoundingClientRect().top - от viewport до верха блока
+        // this.ref.current.getBoundingClientRect().width - ширина объекта
+        let r = this.ref.current;
+        // СЧИТАЕМ ВЕРТИКАЛЬНО ПОПАДАЕМ ЛИ МЫ
+        // СЧИТАЕМ ГОРИЗОНТ ПОПАДАЕМ ЛИ МЫ
+        // ЕСЛИ ОБА ТРУ -  ЗАПУСКАЕМ РАН
+        
+
+        let knee = 50 // колено в пикселях когда будет срабатывать (cycle)
+        let w = r.getBoundingClientRect().width;
+        let h = r.getBoundingClientRect().height;
+
+        // Курсор отностилеьно топа item
+        let cursorItemTop = y - r.getBoundingClientRect().top;
+        let cursorItemLeft = x - r.getBoundingClientRect().left;
+
+        // от 0 до 50 (knee) по вертикали
+        let topKnee = cursorItemTop>0 && cursorItemTop<knee;
+        
+        // от 150 до 200 (knee) по вертикали
+        let botKnee = cursorItemTop-w+knee>0 && cursorItemTop-w<0;
+        
+        // попадает ли по горизонтали
+        let horizontal = cursorItemLeft>0 && cursorItemLeft<w;
+
+        if(horizontal && topKnee){
+            // console.log('-1');
+            this.setState({direction: 'top'});
+        }
+        else if(horizontal && botKnee){
+            // console.log('-2');
+            this.setState({direction: 'bottom'});
+        }
+        else{
+            // console.log('-3');
+            this.setState({direction: null});
+        }
+    };
+
+    //////////////////////////
+    // Set block scroll
+    setBlockScroll=(ref, direction, timestamp)=>{
+        let currentScroll = ref.current.scrollTop;
+        console.log('--', currentScroll);
+        if (direction === 'top'){
+            ref.current.scrollTop = currentScroll - Math.round(timestamp/2000);
+        }
+        else if (direction === 'bottom'){
+            ref.current.scrollTop = currentScroll + Math.round(timestamp/2000);
+        }
+    }
+
+    //////////////////////////
+    // CYCLE FPS
+    start = null;
+    cycle=(timestamp)=>{
+        // console.log('--STAMP', timestamp);
+
+        if (this.state.direction && this.state.mouseOn) {
+            this.setBlockScroll(this.ref, this.state.direction, timestamp);
+            window.requestAnimationFrame(this.cycle);
+        }
+        else{
+            this.setState({isRun: false});
+        }
+    }
+    run=(direction)=>{
+        this.setState({isRun: true}, ()=>{
+            this.state.direction && window.requestAnimationFrame(this.cycle);
+        })
+        
+    };
+
+    render() {
+        return (<div className={"wrap"}>
+                <div className={"mainBlock"}>
+                    {/* block with overflow */}
+                    <div ref={this.ref} className={"wrapBlock"}>
+                        <div className={"scroll"} />
+                    </div>
+                </div>
+        </div>);
+    }
+}
+ ////////////////App Js
+  ReactDOM.render(
+   <Main/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>

@@ -13,7 +13,7 @@ import Ex10 from './Ex10';
 
 class Main extends React.Component {
 	state={
-		ex: '10'
+		ex: '8'
 	}
 
 	render() {
