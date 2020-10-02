@@ -47,6 +47,20 @@
 		}
 		
 		render() {
+			//SPREAD
+			let obj = {
+            t:1,
+            ...{},
+            ...{s:2},
+            ...(() => {
+                console.log('--?')
+                if (true) {
+                    return {q:3}
+                }
+            })(),
+            ...(() => true && {f:4})(),
+            ...(() => false && {g:5})(),
+        };
 			//Spread
 			const { send, send:{val} } = this.props;
 			console.log(send);
