@@ -1,0 +1,123 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+
+
+.wrapText {
+    position: relative;
+    overflow: hidden;
+    max-height: 2em;
+    line-height: 1em;
+}
+.textHide{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 1em;
+    width: 150px;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+}   
+.wrapTags {
+    position: relative;
+    overflow: hidden;
+    max-height: 20px;
+}
+.tag {
+    display: inline-block;
+    background: #cef;
+    padding: 2px 5px;
+    font-size: 12px;
+    border-radius: 2px;
+}
+.tag:not(:last-of-type){
+    margin-right: 5px;
+}
+.tagHide{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    width: 150px;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+}
+        
+
+    </style>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+ class SomeComp extends React.Component {
+        refText = React.createRef();
+        refTags = React.createRef();
+        state={
+            textHide: false,
+            tagHide: false
+        }
+        componentDidMount() {
+            this.setHide();
+            window.addEventListener("resize", this.setHide);
+        }
+        componentWillUnmount(){
+   window.removeEventListener("resize", this.setHide);
+
+  }
+        setHide = () => {
+            // text Hide
+            if (this.refText.current.scrollHeight > this.refText.current.offsetHeight + 1) {
+                this.setState({textHide: true});
+            } else {
+                this.setState({textHide: false});
+            }
+
+            // tag hide
+            if (this.refTags.current.scrollHeight > this.refTags.current.offsetHeight + 1) {
+                this.setState({tagHide: true});
+            } else {
+                this.setState({tagHide: false});
+            }
+            
+        };
+
+  render() {
+            console.log('--+', this.state);
+   return (
+                <div>
+                    <h2>text hide</h2>
+                    <div ref={this.refText} className="wrapText">
+                        {this.state.textHide && <div className={'textHide'} />}
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                    
+                    
+                    <h2>tags</h2>
+                    <div ref={this.refTags} className="wrapTags">
+                        {this.state.tagHide && <div className={'tagHide'} />}
+                        <div className="tag" >tag 1</div>
+                        <div className="tag" >tag 2</div>
+                        <div className="tag" >tag 3</div>
+                        <div className="tag" >tag 4</div>
+                        <div className="tag" >tag 5</div>
+                        <div className="tag" >tag 6</div>
+                        <div className="tag" >tag 7</div>
+                        <div className="tag" >tag 8</div>
+                    </div>
+                </div>
+            );
+  }
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <SomeComp/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>
