@@ -71,14 +71,15 @@
   }
         setHide = () => {
             // text Hide
-            if (this.refText.current.scrollHeight > this.refText.current.offsetHeight + 1) {
+            // лучший способ подсчета  - (sH-oH)/oH > 0.25   (т.к. на iPad могут быть проблемы)
+            if ((this.refText.current.scrollHeight - this.refText.current.offsetHeight) / this.refText.current.offsetHeight > 0.25) {
                 this.setState({textHide: true});
             } else {
                 this.setState({textHide: false});
             }
 
             // tag hide
-            if (this.refTags.current.scrollHeight > this.refTags.current.offsetHeight + 1) {
+            if ((this.refTags.current.scrollHeight - this.refTags.current.offsetHeight) / this.refTags.current.offsetHeight > 0.25) {
                 this.setState({tagHide: true});
             } else {
                 this.setState({tagHide: false});
