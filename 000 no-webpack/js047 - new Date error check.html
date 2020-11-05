@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+</head>
+<body>
+ <div id="container"></div> 
+ <script>
+  const checkValidDate = date => {
+  	let result = '';
+		if (!isNaN(Date.parse(date))) {
+			result = new Date(date);
+		}
+		return result;
+	};
+
+	console.log('-valid', checkValidDate('1990'));
+	console.log('-inValid', checkValidDate('hello'));
+ </script>
+</body> 
+</html>
