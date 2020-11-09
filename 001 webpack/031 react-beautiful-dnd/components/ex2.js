@@ -3,9 +3,11 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 /**
  * 
- * ПРОСТОЙ ПРИМЕР (без сохранения)
+ * Начинаем драг только через секунду
+ * (недаделано)
  * 
  */
+
 
 const grid = 8;
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -56,8 +58,9 @@ function Column ({...props}) {
       );
 }
 
-class Ex0 extends React.Component {
+class Ex2 extends React.PureComponent {
 	state={
+    isDragDisabled: true,
 		tasks: {
 			task1: {id:'t1', content: 'hello1'},
 			task2: {id:'t2', content: 'hello2'},
@@ -74,9 +77,32 @@ class Ex0 extends React.Component {
 		console.log('drag end')
 	};
 
+  // DragWithDelay
+  DragEnd = () => {
+    // this.setState({isDragDisabled: true});
+  }
+  DragStart = () => {
+    this.setState({isDragDisabled: false});
+  }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.DragStart);
+    document.addEventListener("touchstart", this.DragStart);
+    document.addEventListener("mouseup", this.DragEnd);
+    document.addEventListener("touchend", this.DragEnd);
+    
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("mousedown", this.DragStart);
+    document.removeEventListener("touchstart", this.DragStart);
+    document.removeEventListener("mouseup", this.DragEnd);
+    document.removeEventListener("touchend", this.DragEnd);
+  }
+
+
 	render() {
     let {tasks, columns, columnOrder} = this.state;
-
+    console.log('--', this.state.isDragDisabled);
     
     if( false ){
       let arr = [{id:'t1', content: 'hello1'},{id:'t2', content: 'hello2'},{id:'t3', content: 'hello13'}];
@@ -135,7 +161,7 @@ class Ex0 extends React.Component {
               >
                 {taskArr.map((item, index)=>{
               
-                  return <Draggable key={item.id} draggableId={item.id} index={index}>
+                  return <Draggable isDragDisabled={this.state.isDragDisabled} key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
@@ -163,4 +189,4 @@ class Ex0 extends React.Component {
 }
 
 
-export default Ex0;
+export default Ex2;

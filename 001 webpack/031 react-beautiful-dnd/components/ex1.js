@@ -1,6 +1,13 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+/**
+ * 
+ * ПРОСТОЙ ПРИМЕР (с сохранением)
+ * 
+ */
+
+
 // fake data generator
 const getItems = count =>
   Array.from({ length: count }, (v, k) => k).map(k => ({
