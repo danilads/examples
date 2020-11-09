@@ -10,10 +10,11 @@ import Ex7 from './Ex7';
 import Ex8 from './Ex8';
 import Ex9 from './Ex9';
 import Ex10 from './Ex10';
+import Ex11 from './Ex11';
 
 class Main extends React.Component {
 	state={
-		ex: '8'
+		ex: '11'
 	}
 
 	render() {
@@ -33,6 +34,7 @@ class Main extends React.Component {
 						<option value={'8'}>ex8</option>
 						<option value={'9'}>ex9</option>
 						<option value={'10'}>ex10</option>
+						<option value={'11'}>ex11</option>
 					</select>
 				</div>
 				<div>
@@ -47,6 +49,7 @@ class Main extends React.Component {
 					{ex==='8' && <Ex8/>}
 					{ex==='9' && <Ex9/>}
 					{ex==='10' && <Ex10/>}
+					{ex==='11' && <Ex11/>}
 				</div>
 			</div>
 		)
