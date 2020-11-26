@@ -5,6 +5,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1"/>
  <title></title>
     <style>
+        /* BLOCK 1 */
         .wrap{
             margin-top: 40px;
             max-height: 1em;
@@ -25,9 +26,32 @@
         .blockLeft{
             flex: 0 0 auto;
         }
+
+        /* BLOCK 2 */
+        .wrap2{
+            margin-top: 40px;
+            max-height: 1em;
+            text-align: right;
+        }
+        
+        .mainWrap2{
+            height: 1em;
+            display: inline-block;
+            float: left;
+            
+            outline: 1px solid red;
+            
+        }
+        
+    
+        .blockLeft2{
+            height: 1em;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
+    <!-- BLOCK 1 -->
     <div class="wrap">
         <div class="mainWrap">
             
@@ -39,6 +63,24 @@
             <div class="block">MAIN</div>
         </div>
         <div class="blockLeft">block 6</div>
+    </div>
+    
+    <!-- BLOCK 2 -->
+    <div class="wrap2">
+        
+        
+        <div class="mainWrap2">
+            <div>
+                <span>block 5</span>
+                <span>block 4</span>
+                <span>block 3</span>
+                <span>block 2</span>
+                <span>block 1</span>
+            </div>
+        </div>
+        
+        <div class="blockLeft2">block 6</div>
+        
     </div>
 </body> 
 </html>
