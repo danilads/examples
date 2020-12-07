@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <style>
+
+
+.wrapText {
+    border: 1px solid red;
+}
+    </style>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+ class SomeComp extends React.Component {
+        req = async () => {
+            const key='8BF24A2B3BEA4957FBC230A31E75AC63';
+            let answer;
+   await axios({
+//    url: https://cors-anywhere.herokuapp.com/http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?l=german&appid=570&key=${key},
+//    url: https://cors-anywhere.herokuapp.com/http://www.dota2.com/jsfeed/heropickerdata?v=18874723138974056&l=english,
+//    url: https://cors-anywhere.herokuapp.com/https://www.dota2.com/jsfeed/heropediadata?feeds=abilitydata&l=english,
+    url: https://cors-anywhere.herokuapp.com/http://api.steampowered.com/IEconDOTA2_${key}/GetGameItems/v1,
+//    url: 'https://api.opendota.com/api/matches/271145478?api_key=8BF24A2B3BEA4957FBC230A31E75AC63',
+//    url: 'https://api.opendota.com/api/heroStats',
+//    url: 'https://api.opendota.com/api/heroes/1/itemPopularity',
+//    url: 'https://api.opendota.com/api',
+    method: 'get'
+   })
+   .then(function (response) {
+    // handle success
+    console.log('--answer',response.data);
+   })
+   .catch(function (error) {
+    // handle error
+    console.log('--error',error);
+   })
+   .finally(function () {
+    // always executed
+   });
+            
+            
+        }
+
+  render() {
+
+   return (
+                <div>
+                    <div onClick={this.req}>click</div>
+                </div>
+            );
+  }
+ }
+ ////////////////App Js
+  ReactDOM.render(
+   <SomeComp/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>
