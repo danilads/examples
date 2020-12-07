@@ -1,4 +1,8 @@
 1) Close your Telegram app.
 2) Open your Finder. Press ⌘+shift+G.
-3) Insert ~/Library/Group Containers, press Enter. This directory will open. Then find the directory *.keepcoder.Telegram, go into it, next to account-* , next to postbox.
-4) Great! Delete the media directory and you are done. Bye-bye, gigabytes of trash!
+3) Insert ~/Library/Group Containers, press Enter.
+4) This directory will open.
+5) Then find the directory "*.keepcoder.Telegram"
+6) go into it, next to "account-*"
+7) next to "postbox".
+8) Great! Delete the "media" directory and you are done. Bye-bye, gigabytes of trash!
