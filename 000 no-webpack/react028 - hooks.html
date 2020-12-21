@@ -25,6 +25,10 @@
 		const valueRef = React.useRef(null);
 		valueRef.current = value;
 
+		// componentWillReciveProps
+		React.useEffect(() => {
+			console.log('--props');
+		}, [props]);
 
 		// Аналогично componentDidMount и componentDidUpdate
 		React.useEffect(() => {
