@@ -13,22 +13,57 @@
 	<script type="text/babel">
 	const HookFunc = (props) => {
 
-		const [value, setHookStateValue] = React.useState('Базовое значение');
+		// state
+		const [value, setValue] = React.useState(1);
+		const [some,setSome] = React.useState('123');
+
+		// cache value
+		const valueRef = React.useRef(null);
+		valueRef.current = value;
+
+
+		// Аналогично componentDidMount и componentDidUpdate
+		React.useEffect(() => {
+			//event listener
+			const handler = () => {
+				console.log(window.innerHeight);
+			}
+			console.log('--mount');
+			window.addEventListener('resize', handler);
+
+			return () => {
+				// увеличиваем counter  до 6
+				console.log('--Unmount', value); // 1
+				console.log('--Unmount', valueRef); // 6 - вот для чего нужен cache
+
+
+				window.removeEventListener('resize', handler);
+			}
+		}, []);
+
+
+		// MEMO
+		const memoAttendees = React.useMemo(() => {
+			console.log('--MEMO')
+		}, [value, some, props]);
 
 		return(
 			<div>
 				<div>{props.children}</div>
 				<div>{value}</div>
-				<input type="button" value="hook set state" onClick={()=>setHookStateValue('Именили')}/>
+				<input type="button" value="hook set state" onClick={()=>setValue(value+1)}/>
 			</div>
 		)
 	}
 
 	class List extends React.Component {
-	
+		state = {
+			mount: true
+		}
 		render() {
 			return (<div>
-						<HookFunc><div>props children</div></HookFunc>
+						<button onClick={()=>{this.setState({mount: !this.state.mount})}}>{this.state.mount ? 'unmount': 'mount'}</button>
+						{this.state.mount && <HookFunc><div>props children</div></HookFunc>}
 			</div>);
 		}
 	}
