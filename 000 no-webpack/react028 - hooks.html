@@ -52,14 +52,26 @@
 
 		// MEMO
 		const memoAttendees = React.useMemo(() => {
-			console.log('--MEMO')
-		}, [value, some, props]);
+			console.log('--MEMO 1')
+		}, [some, props]);
 
+		// НЕ ПОНЯЛ КАК РАБОТАЕТ useCallback
+		// const memoizedCallback = React.useCallback(
+		// 	() => {
+		// 		console.log('--MEMO 2')
+		// 	},
+		// 	[some, props],
+		// );
+		// const memoizedCallback = () => {
+		// 	console.log('--MEMO 2', value);
+		// }
+		// console.log('--+ render');
 		return(
 			<div>
 				<div>{props.children}</div>
 				<div>{value}</div>
-				<input type="button" value="hook set state" onClick={()=>setValue(value+1)}/>
+				<input type="button" value="set state" onClick={()=>setValue(value+1)}/>
+				<input type="button" value="console.log" onClick={memoizedCallback}/>
 			</div>
 		)
 	}
