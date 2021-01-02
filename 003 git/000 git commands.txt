@@ -84,40 +84,40 @@
 			// ---------------------
 			// 03 Через ssh (Генерация ключа)
 
-			   - Проверяем есть ли у нас ранее созданный -> ls -al ~/.ssh
+				- Проверяем есть ли у нас ранее созданный -> ls -al ~/.ssh
 			   
-			   - ЕСЛИ НЕТУ - СОЗДАЕМ -> ssh-keygen -t rsa -f ~/.ssh/danilads -C "danilads@github.com"
-			   		(опционально)
-                   	Then it will ask you to create a passphrase. This is optional, either create a passphrase or press enter for no passphrase
-                   	When you press enter, two files will be created
+				- ЕСЛИ НЕТУ - СОЗДАЕМ -> ssh-keygen -t rsa -f ~/.ssh/danilads -C "danilads@github.com"
+					(опционально)
+					Then it will ask you to create a passphrase. This is optional, either create a passphrase or press enter for no passphrase
+					When you press enter, two files will be created
 					(хранится в (/Users/ИМЯаккаунта/.ssh/) в finder - go - go to folder -> ~/.ssh/ )
 
-			   - ЕСЛИ УЖЕ СОЗДАН - идем в корень -> cd ~/
-			   	 копируем ssh -> pbcopy < ~/.ssh/danilads.pub
+				- ЕСЛИ УЖЕ СОЗДАН - идем в корень -> cd ~/
+					копируем ssh -> pbcopy < ~/.ssh/danilads.pub
              
-               - ДОБАВЛЯЕМ В АГЕНТ
-                 -> eval "$(ssh-agent -s)"
-				 -> ssh-add -K ~/.ssh/danilads
+				- ДОБАВЛЯЕМ В АГЕНТ
+					-> eval "$(ssh-agent -s)"
+					-> ssh-add -K ~/.ssh/danilads
 
-			   - в папке .ssh (finder - go - go to folder -> ~/.ssh/ )
-			     создаем файл config
-				 в него добавляем:
-				 # danilads.github.com
-					Host danilads.github.com
-					AddKeysToAgent yes
-					UseKeychain yes
-					IdentityFile ~/.ssh/danilads
+				- в папке .ssh (finder - go - go to folder -> ~/.ssh/ )
+					создаем файл config
+					в него добавляем:
+						# danilads.github.com
+						Host danilads.github.com
+						AddKeysToAgent yes
+						UseKeychain yes
+						IdentityFile ~/.ssh/danilads
 
 				 
-			   - Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
+				- Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
 			     
-			   - Скачать Repo нужно именно такой командой -> git clone https://github.com/danilads/examples.git
+				- Скачать Repo нужно именно такой командой -> git clone https://github.com/danilads/examples.git
 
-			   - Теперь в клонированном репо открываем терминал и указываем
-				 git config user.name "danilads"
-				 git config user.email "danilads543@gmail.com"
+				- Теперь в клонированном репо открываем терминал и указываем
+					git config user.name "danilads"
+					git config user.email "danilads543@gmail.com"
 
-			   - Должно работать :)
+				- Должно работать :)
 
 	////////////////
 	//git flow
