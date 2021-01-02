@@ -118,7 +118,7 @@
 					git config user.email "danilads543@gmail.com"
 
 				- Должно работать :)
-				
+				g
 
 	////////////////
 	//git flow
