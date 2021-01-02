@@ -115,7 +115,7 @@
 
 			   - Теперь в клонированном репо открываем терминал и указываем
 				 git config user.name "danilads"
-				 git config user.email "daniilshemetau@gmail.com"
+				 git config user.email "danilads543@gmail.com"
 
 			   - Должно работать :)
 
