@@ -82,34 +82,40 @@
 			// 02 Каждый раз вводить пароль
 			
 			// ---------------------
-			// 03 Через ssh
+			// 03 Через ssh (Генерация ключа)
 
-			   - Генерация ssh ключа
-			     Идем в корень -> cd ~/
-			     проверяем есть ли у нас ранее созданный ssh ключ -> cat ~/.ssh/id_rsa.pub
+			   - Проверяем есть ли у нас ранее созданный -> ls -al ~/.ssh
 			   
-			   - ЕСЛИ НЕТУ - СОЗДАЕМ -> ssh-keygen -t rsa
+			   - ЕСЛИ НЕТУ - СОЗДАЕМ -> ssh-keygen -t rsa -f ~/.ssh/danilads -C "danilads@github.com"
 			   		(опционально)
-			       	This will prompt you to enter a filename to store the key
-				   	Just press enter to accept the default filename (/Users/you/.ssh/id_rsa)
                    	Then it will ask you to create a passphrase. This is optional, either create a passphrase or press enter for no passphrase
                    	When you press enter, two files will be created
+					(хранится в (/Users/ИМЯаккаунта/.ssh/) в finder - go - go to folder -> ~/.ssh/ )
 
 			   - ЕСЛИ УЖЕ СОЗДАН - идем в корень -> cd ~/
-			   	 копируем ssh -> pbcopy < ~/.ssh/id_rsa.pub
+			   	 копируем ssh -> pbcopy < ~/.ssh/danilads.pub
+             
+               - ДОБАВЛЯЕМ В АГЕНТ
+                 -> eval "$(ssh-agent -s)"
+				 -> ssh-add -K ~/.ssh/danilads
+
+			   - в папке .ssh (finder - go - go to folder -> ~/.ssh/ )
+			     создаем файл config
+				 в него добавляем:
+				 # danilads.github.com
+					Host danilads.github.com
+					AddKeysToAgent yes
+					UseKeychain yes
+					IdentityFile ~/.ssh/danilads
+
 				 
 			   - Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
 			     
-			   - Скачать Repo нужно именно такой командой -> git clone git@github.com:danilads/examples.git
-			   		(опционально)
-			        It will ask you if you want to continue to connect, type yes
-					If you created a passphrase when you were generating the public key, then it will ask you to enter it.
-					Enter your passphrase and press enter.
-					It will then start to clone the project to your directory
+			   - Скачать Repo нужно именно такой командой -> git clone https://github.com/danilads/examples.git
 
 			   - Теперь в клонированном репо открываем терминал и указываем
 				 git config user.name "danilads"
-				 git config user.email "danilads731@gmail.com"
+				 git config user.email "daniilshemetau@gmail.com"
 
 			   - Должно работать :)
 
