@@ -86,59 +86,59 @@
 				!СМОТРИМ ГОТОВЫЕ КЛЮЧИ -> finder - go - go to folder -> ~/.ssh/ 
 					Если есть то начинаем с пункта 4
 
-                (ЮЗЕРНЕЙМ - чувствителен к регистру - DaNilaDS / DaNilaDS@github.com)
+				(ЮЗЕРНЕЙМ - чувствителен к регистру - DaNilaDS / DaNilaDS@github.com)
 
 				1) СОЗДАЕМ В Папке
-                    -> cd ~/.ssh
-                    -> ssh-keygen -t ed25519 -C "danilads@github.com"
+					-> cd ~/.ssh
+					-> ssh-keygen -t ed25519 -C "danilads@github.com"
     
-                    - УКАЗЫВАЕМ ИМЯ ФАЙЛА - danilads
+					- УКАЗЫВАЕМ ИМЯ ФАЙЛА - danilads
 					- (passphrase (опционально) -ЕСЛИ НЕ НАДО - просто два раза enter)
-                        Then it will ask you to create a passphrase. This is optional, either create a passphrase or press enter for no passphrase
-                        When you press enter, two files will be created
+						Then it will ask you to create a passphrase. This is optional, either create a passphrase or press enter for no passphrase
+						When you press enter, two files will be created
 
 				2) CONFIG - в папке .ssh (finder - go - go to folder -> ~/.ssh/ )
 					создаем файл config (если его нет)
 					в него добавляем:
-                       Host danilads danilads@github.com #имя аккаунта git
-                        AddKeysToAgent yes
-                        UseKeychain yes
-                        IdentityFile ~/.ssh/danilads
-                        User test #имя аккаунта macbook
+						Host danilads danilads@github.com #имя аккаунта git
+						AddKeysToAgent yes
+						UseKeychain yes
+						IdentityFile ~/.ssh/danilads
+						User test #имя аккаунта macbook
 
-                3) КОПИРУЕМ КЛЮЧ В GIT 
-                    -> cd ~/
+				3) КОПИРУЕМ КЛЮЧ В GIT 
+					-> cd ~/
 					копируем ssh в буфер -> pbcopy < ~/.ssh/danilads.pub
-                    - Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
+					- Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
 
-                4) СКАЧАТЬ Repo нужно именно такой командой
-                    -> git clone git@github.com:danilads/examples.git
+				4) СКАЧАТЬ Repo нужно именно такой командой
+					-> git clone git@github.com:danilads/examples.git
                 
-                5) ДОБАВЛЯЕМ В АГЕНТ - в папке с репо - открыаем консоль
+				5) ДОБАВЛЯЕМ В АГЕНТ - в папке с репо - открыаем консоль
 					-> eval "$(ssh-agent -s)"
 					-> ssh-add ~/.ssh/danilads (если создали passphrase -> ssh-add -K ~/.ssh/danilads)
-                    
-                    (Проверить добавленные -> ssh-add -l)
+					
+					(Проверить добавленные -> ssh-add -l)
 
-                6) ТЕСТИРУЕМ (в папке с репо) - ssh -T git@github.com
-                    Hi danilads! You've successfully authenticated, but GitHub does not provide shell access.
+				6) ТЕСТИРУЕМ (в папке с репо) - ssh -T git@github.com
+					Hi danilads! You've successfully authenticated, but GitHub does not provide shell access.
 				
 				7) Теперь в папке с репо cmd+shift+. (показать скрыте файлы)
-                    добавляем в папке .git -> в файл config
-                    
-                    [core]
-                        sshCommand = ssh -i ~/.ssh/danilads
-                    [user]
-                        name = danilads
-                        email = danilads32131@gmail.com
+					добавляем в папке .git -> в файл config
+					
+					[core]
+						sshCommand = ssh -i ~/.ssh/danilads
+					[user]
+						name = danilads
+						email = danilads32131@gmail.com
             
 				
-                // УДАЛИТЬ КЭШ - ЕСЛИ (удаляет все привязки)
-                    - Keychain Access - github - удаляем все файлы
-                    - удаляем все из папки ~/.ssh 
-                        (хранится в (/Users/ИМЯаккаунта/.ssh/) в finder - go - go to folder -> ~/.ssh/ )
-                    - удаляем из агента -> ssh-add -D
-                        (Проверить -> ssh-add -l)
+				// УДАЛИТЬ КЭШ - ЕСЛИ (удаляет все привязки)
+					- Keychain Access - github - удаляем все файлы
+					- удаляем все из папки ~/.ssh 
+						(хранится в (/Users/ИМЯаккаунта/.ssh/) в finder - go - go to folder -> ~/.ssh/ )
+					- удаляем из агента -> ssh-add -D
+						(Проверить -> ssh-add -l)
 
 				- Проверяем есть ли у нас ранее созданный -> ls -al ~/.ssh
 	////////////////
