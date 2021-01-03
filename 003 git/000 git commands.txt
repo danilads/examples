@@ -103,6 +103,7 @@
 						Host danilads danilads@github.com #имя аккаунта git
 						AddKeysToAgent yes
 						UseKeychain yes
+						PreferredAuthentications publickey
 						IdentityFile ~/.ssh/danilads
 						User test #имя аккаунта macbook
 
@@ -135,7 +136,14 @@
 						name = danilads
 						email = danilads32131@gmail.com
             
-				
+				// ЕСЛИ ОШИБКА Permission denied
+					(в папке с репозиторием)
+					-> eval "$(ssh-agent -s)"
+					-> ssh-add ~/.ssh/danilads
+					-> ssh -T git@github.com
+					-> Hi danilads! Yo
+					И Пушим через консоль
+
 				// УДАЛИТЬ КЭШ - ЕСЛИ (удаляет все привязки)
 					- Keychain Access - github - удаляем все файлы
 					- удаляем все из папки ~/.ssh 
