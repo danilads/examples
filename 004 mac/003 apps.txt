@@ -12,25 +12,26 @@
 01 Steam - https://store.steampowered.com/about/
 //01 OpenEmu
 03 Launchpad (mac os include)
-03 brackets (plugin - Open in Browser (cmd+2) / Easy Dark theme)
+
 04 Safari (mac os include)
 05 Chrome
 06 Firefox - add-on's (Video DownloadHelper)
 07 Skype
 08 Telegram
 09 VS code
-10 
+10 brackets (plugin - Open in Browser (cmd+2) / Easy Dark theme)
 11 Webstorm(?)
-12 Piskel
-13 Blender
+12 
 14 Fl studio
+15 TuxGuitar
 15 GIMP
+13 Piskel
+13 Blender
 16 Activity Monitor
 17 Huawei Suite(?)
 18 Teamviewer
+18 sporify
 
-
-TuxGuitar
 
 BREW install in terminal 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
