@@ -115,6 +115,31 @@
         items5.sort((a,b) => (a.i - b.i));
 
         console.log('---items5',items5);
+
+        ////
+        //06 сортировка asc/desc НО ЧТОБ С АЙТЕМАМИ ВСЕГДА БЫЛО СВЕРХУ
+        let items6a = [{i:1},{i:3},{i:''},{i:''},{i:8},{i:2},{i:4}];
+        let items6b = [{i:1},{i:3},{i:''},{i:''},{i:8},{i:2},{i:4}];
+		
+        // asc
+        items6a.sort((a1, b1) => {
+          const a = a1?.i ? a1.i : 9999999999;
+          const b = b1?.i ? b1.i : 9999999999;
+          return a > b ? 1 : b > a ? -1 : 0;
+        });
+        console.log('---items6a asc',items6a);
+        
+
+        // desc
+        items6b.sort((b1, a1) => {
+          const a = a1?.i ? a1.i : '';
+          const b = b1?.i ? b1.i : '';
+          return a > b ? 1 : b > a ? -1 : 0;
+        });
+        console.log('---items6b desc',items6b);
+
+        
+
     </script>		
 </body>
 </html>
