@@ -1,0 +1,22 @@
+{
+  "dir": "ltr",
+  "lang": "Eng",
+  "name": "Name",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "http://localhost:3000/",
+  "short_name": "Short Name",
+  "description": "",
+  "orientation": "any",
+  "background_color": "#fafafa",
+  "theme_color": "#fafafa",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/img.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}
