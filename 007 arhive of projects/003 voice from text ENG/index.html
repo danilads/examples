@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title></title>
+		<style>
+
+		</style>
+	
+	</head>
+	<body>
+	<button id="Remember" onclick="textcut();">rememberr</button>
+	<button id="speak" onclick="speak();">Speak</button>
+	
+	<br>
+	<textarea id="txtar" rows="20" cols="120"></textarea>
+	<script>
+		var button = document.getElementById('speak');
+		
+		function loadVoices() {
+			var voices = speechSynthesis.getVoices();
+		}
+		loadVoices();
+		// Chrome loads voices asynchronously.
+		window.speechSynthesis.onvoiceschanged = function(e) {
+		  loadVoices();
+		};
+		
+		////////////
+		var arr = [];
+		var count=0;
+		var arrCount=0;
+		////////////
+		//button
+		
+		function speak(text) {
+			var msg = new SpeechSynthesisUtterance();
+			msg.volume = 1;
+			msg.rate = 1;
+			msg.pitch = 1;
+			msg.text = arr[arrCount];
+			msg.voice = speechSynthesis.getVoices()[0];
+			speechSynthesis.speak(msg);
+			count++;
+			if(count==5){
+				arrCount++;
+				count=0;
+			}
+		}
+		
+		function textcut(){
+			
+			var txt = document.getElementById('txtar').value
+			var n = 0;
+			
+			var st = 0;
+			//перебо строки
+			for(var i=txt.length; i>0; i--){
+				
+				if(txt.slice(st,n).length<2){//было 10
+				}
+				else if(txt.charCodeAt(n)==10||i==1||txt.charCodeAt(n)==46){
+					//console.log(txt.slice(st,n));
+					arr[arr.length]=txt.slice(st,n)+',';
+					st=n+1;
+				}
+				
+				
+				
+				
+				n++;
+			}
+			console.log('---arr',arr);
+		}
+</script>
+
+</body>
+</html>
