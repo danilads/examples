@@ -16,9 +16,9 @@ defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
 
 //разархивировать 7z через терминал
 // brew install p7zip
-//7za - прога, x - разархивировать, далее путь и файл
+// 7za - прога, x - разархивировать, далее путь и файл
 // 7za x myfiles.7z
 
 //разархивировать rar через терминал
-// brew install unrar
+// brew install rar
 // unrar x <filename>
