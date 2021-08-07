@@ -121,18 +121,19 @@
 								-> ssh-add ~/.ssh/danilads 
 					-> git clone git@github.com:danilads/examples.git
                 
-				КОНЕЦ (далее идут дполнение)
 
-				0) ДОБАВЛЯЕМ В АГЕНТ - в папке с репо - открыаем консоль
+				ДАЛЕЕ В КАЖДОЙ ПАПКЕ С РЕПОЩИТОРИЕМ ДЕАЛЕМ
+
+				1) ДОБАВЛЯЕМ В АГЕНТ - в папке с репо - открыаем консоль
 					-> eval "$(ssh-agent -s)"
 					-> ssh-add ~/.ssh/danilads (если создали passphrase -> ssh-add -K ~/.ssh/danilads)
 					
 					(Проверить добавленные -> ssh-add -l)
 
-				0) ТЕСТИРУЕМ (в папке с репо) - ssh -T git@github.com
+				2) ТЕСТИРУЕМ (в папке с репо) - ssh -T git@github.com
 					Hi danilads! You've successfully authenticated, but GitHub does not provide shell access.
 				
-				0) Теперь в папке с репо cmd+shift+. (показать скрыте файлы)
+				3) Теперь в папке с репо cmd+shift+. (показать скрыте файлы)
 					добавляем в папке .git -> в файл config
 					
 					[core]
