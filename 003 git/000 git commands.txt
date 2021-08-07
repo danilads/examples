@@ -108,26 +108,31 @@
 						User test #имя аккаунта macbook
 
 				3) КОПИРУЕМ КЛЮЧ В GIT 
-					-> cd ~/
-					копируем ssh в буфер -> pbcopy < ~/.ssh/danilads.pub
+					открываем терминал и вводим след команыд:
+					1) cd ~/.ssh
+					2) pbcopy < ~/.ssh/danilads.pub
 					- Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
 
 				4) СКАЧАТЬ Repo нужно именно такой командой (заходим в папку с репозиториями)
 					-> ssh -T git@github.com
 						ЕСЛИ "Hi danilads! You've successfully authenticated" -> то все хорошо
-						ЕСЛИ НЕТ -> папке с репозиториями -> eval "$(ssh-agent -s)" -> ssh-add ~/.ssh/danilads 
+						ЕСЛИ НЕТ -> папке с репозиториями
+								-> eval "$(ssh-agent -s)"
+								-> ssh-add ~/.ssh/danilads 
 					-> git clone git@github.com:danilads/examples.git
                 
-				5) ДОБАВЛЯЕМ В АГЕНТ - в папке с репо - открыаем консоль
+				КОНЕЦ (далее идут дполнение)
+
+				0) ДОБАВЛЯЕМ В АГЕНТ - в папке с репо - открыаем консоль
 					-> eval "$(ssh-agent -s)"
 					-> ssh-add ~/.ssh/danilads (если создали passphrase -> ssh-add -K ~/.ssh/danilads)
 					
 					(Проверить добавленные -> ssh-add -l)
 
-				6) ТЕСТИРУЕМ (в папке с репо) - ssh -T git@github.com
+				0) ТЕСТИРУЕМ (в папке с репо) - ssh -T git@github.com
 					Hi danilads! You've successfully authenticated, but GitHub does not provide shell access.
 				
-				7) Теперь в папке с репо cmd+shift+. (показать скрыте файлы)
+				0) Теперь в папке с репо cmd+shift+. (показать скрыте файлы)
 					добавляем в папке .git -> в файл config
 					
 					[core]
