@@ -1,0 +1,8 @@
+1) качаем virtualbox
+2) устанавливаем virtualbox
+
+1) нажимаем new
+2) create a virtual hard disk now
+3) type hard disk -> VDI (VirtualBox Disk Image)
+4) storage -> dynamically allocated
+

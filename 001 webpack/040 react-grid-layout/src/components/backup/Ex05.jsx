@@ -31,93 +31,20 @@ class Ex05 extends React.PureComponent {
 
     // drop общий
     onDrop = (layout, layoutItem, _event, layoutType) => {
-        const {dragData, layout1, layout2} = this.state;
-        // util to compare state array
-        const utilAddById = (arrReturn, compareToArr) => {
-            return arrReturn.map(it => {
-                let item = it;
-                compareToArr.forEach(ite => {
-                    if (it.i === ite.i) {
-                        item = ite;
-                    }
-                });
-                return item;
-            })
-        };
-
-        // remove item
-        let indexRemoveItem;
-        let removeResult = [];
-        if (dragData.group === 'layout1') {
-            indexRemoveItem = layout1.findIndex(it => it.i === dragData.id);
-            removeResult = [...layout1];
-            removeResult.splice(indexRemoveItem, 1);
-            this.setState({layout1: removeResult});
-        }
-        if (dragData.group === 'layout2') {
-            indexRemoveItem = layout2.findIndex(it => it.i === dragData.id);
-            removeResult = [...layout2];
-            removeResult.splice(indexRemoveItem, 1);
-            this.setState({layout2: removeResult});
-        }
-
-        // add item
-        // same group (add and remove at same place)
-        if (dragData.group === layoutType) { 
-            const addResult = utilAddById(removeResult, layout);
-            
-            addResult.push({...layoutItem, i: dragData.id, isDraggable: false, isResizable: true});
-
-            if (dragData.group === 'layout1') {
-                this.setState({layout1: addResult});
-            }
-            if (dragData.group === 'layout2') {
-                this.setState({layout2: addResult});
-            }
-        } else {
-            // add
-            if (layoutType === 'layout1') {
-                const addResult = utilAddById(layout1, layout);
-
-                addResult.push({...layoutItem, i: dragData.id, isDraggable: false, isResizable: true});
-
-                this.setState({layout1: addResult});
-            }
-            if (layoutType === 'layout2') {
-                const addResult = utilAddById(layout2, layout);
-
-                addResult.push({...layoutItem, i: dragData.id, isDraggable: false, isResizable: true});
-                
-                this.setState({layout2: addResult});
-            }
-            // remove
-            if (dragData.group === 'layout1') {
-                this.setState({layout1: removeResult});
-            }
-            if (dragData.group === 'layout2') {
-                this.setState({layout2: removeResult});
-            }
-        }
-
+        console.log('--+ drop layout', layout);
+        console.log('--+ drop layoutItem', layoutItem);
+        console.log('--+ drop id', this.state.dragData);
+        console.log('--+ drop _event', _event);
+        console.log('--+ drop layoutType', layoutType);
 
         // const indexDropItem
-        // if (layout.indexOf(it => it))
-        // this.setState({layout: layout.map(it => ({...it, isDraggable: false, isResizable: true}))});
+        if (layout.indexOf(it => it))
+        this.setState({layout: layout.map(it => ({...it, isDraggable: false, isResizable: true}))});
     };
 
-    // resize общий
-    onResize = (layout, layoutItem, _event, layoutType) => {
-        if (layoutType === 'layout1') {
-            this.setState({layout1: layout});
-        }
-        if (layoutType === 'layout2') {
-            this.setState({layout2: layout});
-        }
-        
-    };
 	render() {
         const {dragData, layout1, layout2} = this.state;
-        console.log('--+ render layout1', layout1);
+
 		return (
 			<>
 			<h6>Ex05 выносим в отдельный компонент </h6>
@@ -143,7 +70,6 @@ class Ex05 extends React.PureComponent {
                     cols={{lg: 6, md: 6, sm: 6, xs: 6, xxs: 6}}
                     layouts={{lg: layout1, md: layout1, sm: layout1, xs: layout1, xxs: layout1}}
                     onDrop={(e1,e2,e3) => this.onDrop(e1,e2,e3,'layout1')}
-                    onResizeStop={(e1,e2,e3) => this.onResize(e1,e2,e3,'layout1')}
 
                     compactType={null}
                     preventCollision={false}
@@ -170,8 +96,7 @@ class Ex05 extends React.PureComponent {
                     cols={{lg: 6, md: 6, sm: 6, xs: 6, xxs: 6}}
                     layouts={{lg: layout2, md: layout2, sm: layout2, xs: layout2, xxs: layout2}}
                     onDrop={(e1,e2,e3) => this.onDrop(e1,e2,e3,'layout2')}
-                    onResizeStop={(e1,e2,e3) => this.onResize(e1,e2,e3,'layout2')}
-
+                    
                     compactType={null}
                     preventCollision={false}
                     isDroppable={true}
@@ -182,7 +107,7 @@ class Ex05 extends React.PureComponent {
                             className="droppable-element"
                             draggable={true}
                             unselectable="on"
-                            onDragStart={() => this.setState({dragData: {id: it.i, group: 'layout2', w: it.w, h: it.h}})}
+                            onDragStart={() => this.setState({dragData: {id: it.i, group: 'layout1', w: it.w, h: it.h}})}
                         >{it.i}</div>
                      </div>
                     })}
