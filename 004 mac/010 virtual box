@@ -1,6 +1,11 @@
 1) качаем virtualbox
 2) устанавливаем virtualbox
 
+(если не ставиться из-за security)
+Open up System Preferences
+Click on the Security & Privacy icon
+Make sure Allow apps downloaded from: App store and identified developers is checked.
+
 1) нажимаем new
 2) create a virtual hard disk now
 3) type hard disk -> VDI (VirtualBox Disk Image)
