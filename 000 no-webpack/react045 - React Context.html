@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title></title>
+ <script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+ <script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+ <div id="container"></div> 
+ <script type="text/babel">
+
+    // CONTEXT
+    const Context = React.createContext({
+          theme: 'red',
+          toggleTheme: () => {},
+    });
+
+    function ThemeTogglerButton() {
+      // The Theme Toggler Button receives not only the theme
+      // but also a toggleTheme function from the context
+      return (
+        <Context.Consumer>
+          {({theme, toggleTheme}) => (
+            <button
+              onClick={toggleTheme}
+              style={{backgroundColor: theme}}>
+              Toggle Theme
+            </button>
+          )}
+        </Context.Consumer>
+      );
+    }
+
+ class Main extends React.Component {
+       
+        state = {
+          theme: "black",
+        };
+
+        toggleTheme = () => {
+          this.setState(state => ({
+            theme:
+              state.theme === "black"
+                ? "red"
+                : "black",
+          }));
+        };
+
+      render() {
+        // The entire state is passed to the provider
+        return (
+          <Context.Provider value={{toggleTheme: this.toggleTheme, theme: this.state.theme}}>
+            <ThemeTogglerButton />
+          </Context.Provider>
+        );
+      }
+    }
+
+ ////////////////App Js
+  ReactDOM.render(
+   <Main/>
+   ,document.getElementById('container')
+  );
+ </script>
+</body> 
+</html>
