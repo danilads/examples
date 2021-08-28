@@ -30,14 +30,22 @@
         return (
           <div>
             <div
+               
                 className={"drag"}
                 draggable
-                onDragStart={() => console.log('--+ onDragStart')}
+                
+                onDragStart={e => {
+           
+                  console.log('--+ onDragStart')
+                }}
                 onDragEnd={() => console.log('--+ onDragEnd')}
 
             >drag container</div>
             <div
-                onDrop={() => console.log('--+ onDrop')}
+                onDrop={() => {
+                  alert('drop');
+                  console.log('--+ onDrop')
+                }}
                 onDragOver={e => {
                         e.preventDefault(); // need to onDrop start working
                         console.log('--+ onDragOver')
