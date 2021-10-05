@@ -28,3 +28,7 @@
 node_modules/
 package-lock.json
 public/
+
+----------------------
+# MAC .DS_store files
+*.DS_store
