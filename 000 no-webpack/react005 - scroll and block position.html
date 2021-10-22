@@ -74,6 +74,10 @@
 		}
 
 		myClick = (e) => {
+			// плавный скрол
+			// ref.current.scrollIntoView({behavior: 'smooth'})
+			e.target.scrollIntoView({behavior: 'smooth'});
+
 			//мышь
 			console.log('--click oт (viewport) до мышки (Y)', e.clientY);
 			console.log('--click oт (viewport) до мышки (X)	', e.clientX);
