@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
+    "test": "jest",
     "livebuild": ".\\node_modules\\.bin\\lite-server"
   },
   "author": "",
