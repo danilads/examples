@@ -7,19 +7,21 @@
 	</head>
 	<body>
 	<script>
-		//optional chaining
+		// optional chaining
 		let ex1 = {c:{b:{a:{z:4}}}};
 		let ex3 = {};
 		console.log('---ex1',ex1 && ex1.c.b && ex1.c.b.a && ex1.c.b.a.z);
 		console.log('---ex1',ex1?.c?.b?.a?.z);
 		console.log('---ex3',ex3?.arr?.[0]);
 
-		//nullish coalescence
+		// nullish coalescence
 		let ex2 = 'sting'
 		console.log('---ex2', ex2 !== null && ex2 !== undefined);
 		console.log('---ex2', ex2 ?? 'default value');
 
-		
+		// array
+		let ex4 = [1,2];
+		console.log('---ex4 arr', items?.[0]?.test);
 	</script>
 	</body>
 </html>
