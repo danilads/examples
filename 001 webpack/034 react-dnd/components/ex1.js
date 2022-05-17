@@ -1,53 +1,47 @@
-import React, { useCallback, useState, useRef } from 'react'
+import React, { useEffect, useCallback, useState, useRef } from 'react'
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDrop, useDrag, DndProvider } from 'react-dnd'
 
-
 export default function Ex1() {
+
+  // PROPS - card styles
+  const style = {
+    border: '1px dashed gray',
+    padding: '0.5rem 1rem'
+  };
+
+  // PROPS - [array] should have uniqId
+  const arr = [{id: 101, cardData: '1'},{id: 102, cardData: '2'},{id: 103, cardData: '3'},{id: 104, cardData: '4'},{id: 105, cardData: '5'},{id: 106, cardData: '6'}];
+  
+  // PROPS - render item
+  const renderItem = (data) => {
+    return <div style={style}>{data.cardData}</div>
+  };
+
+  // PROPS - uniq dnd id
+  const uniqId = 'card';
+
+  // PROPS - Drag start (return item)
+  const [dragStart, setDragStart] = useState(null);
+
+  // PROPS - Render drop zone 
+  const renderDropzone = () => {
+    return <div style={{height: '60px', background: '#fec'}}></div>
+  };
 
   return (
     <div>
         <h2>dnd список</h2>
         <DndProvider backend={HTML5Backend} options={{ enableMouseEvents: true }}>
-          <Container />
+          <Container dataArray={arr} uniqId={uniqId} renderDropzone={renderDropzone} renderItem={renderItem} isDragging={setDragStart} />
         </DndProvider>
 
     </div>
-  )
+  );
  }
 
- const Container = () => {
-  
-    const [cards, setCards] = useState([
-      {
-        id: 101,
-        cardData: 'Write a cool JS library',
-      },
-      {
-        id: 102,
-        cardData: 'Make it generic enough',
-      },
-      {
-        id: 103,
-        cardData: 'Write README',
-      },
-      {
-        id: 104,
-        cardData: 'Create some examples',
-      },
-      {
-        id: 105,
-        cardData: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)',
-      },
-      {
-        id: 106,
-        cardData: '???',
-      },
-      {
-        id: 107,
-        cardData: 'PROFIT',
-      },
-    ])
+ const Container = ({dataArray, renderItem, uniqId, isDragging, renderDropzone}) => {
+    const [cards, setCards] = useState(dataArray);
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
       if (typeof dragIndex === 'number') {
@@ -63,39 +57,33 @@ export default function Ex1() {
           return result;
         })
       }
-    }, [])
+    }, []);
     const renderCard = useCallback((card, index) => {
       return (
         <Card
+          renderDropzone={renderDropzone}
+          propIsDragging={isDragging}
+          renderItem={renderItem}
+          uniqId={uniqId}
           key={card.id}
           index={index}
           id={card.id}
-          cardData={card.cardData}
+          cardData={card}
           moveCard={moveCard}
         />
       )
-    }, [])
+    }, []);
     return (
       <div style={{width: '100%'}}>{cards.map((card, i) => renderCard(card, i))}</div>
-    )
-  
+    );
 }
 
-// CARD
-const style = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '.5rem',
-  backgroundColor: 'white',
-  cursor: 'move',
-}
+const Card = ({ id, cardData, index, moveCard, uniqId, renderItem, propIsDragging, renderDropzone }) => {
+  const ref = useRef(null);
 
-const UniqType = 'card';
-const Card = ({ id, cardData, index, moveCard }) => {
-  const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
-    type: UniqType,
-    accept: UniqType,
+    type: uniqId,
+    accept: uniqId,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -139,29 +127,25 @@ const Card = ({ id, cardData, index, moveCard }) => {
       // to avoid expensive index searches.
       item.index = hoverIndex
     }
-  })
-
+  });
 
   const [{ isDragging }, drag] = useDrag({
-    type: UniqType,
-    item: { name: 'wtf', type: UniqType },
+    type: uniqId,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  })
+  });
 
-  const opacity = isDragging ? 0 : 1
+  drag(drop(ref));
 
-  drag(drop(ref))
-
-  // TODO++
-  // const [dragStart, setDragStart] = useState(false)
-  // console.log('--+ isDragging', isDragging);
+  useEffect(() => {
+    propIsDragging(isDragging ? cardData : null);
+  }, [isDragging]);
 
   return (
-    <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      {cardData}
-      <div onClick={console.log}>onclick</div>
+    
+    <div ref={ref} data-handler-id={handlerId}>
+      {isDragging ? renderDropzone() : renderItem(cardData) }
     </div>
   )
 }
