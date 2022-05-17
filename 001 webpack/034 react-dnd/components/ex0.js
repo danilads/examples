@@ -22,6 +22,7 @@ export default function Ex0() {
 
  const Dustbin = () => {
   const [{ canDrop, isOver }, drop] = useDrop({
+    type: ItemTypes.BOX,
     accept: ItemTypes.BOX,
     drop: () => {
       return { name: 'Dustbin' }
@@ -60,6 +61,7 @@ export default function Ex0() {
  }
  const Box = ({ name }) => {
   const [{ isDragging }, drag] = useDrag({
+   type: ItemTypes.BOX,
    item: { name, type: ItemTypes.BOX },
    end: (item, monitor) => {
     const dropResult = monitor.getDropResult()

@@ -4,6 +4,7 @@ import { useDrop, useDrag, DndProvider } from 'react-dnd'
 
 
 export default function Ex1() {
+
   return (
     <div>
         <h2>dnd список</h2>
@@ -15,54 +16,53 @@ export default function Ex1() {
   )
  }
 
- const style1 = {
-  width: 400,
-}
-
  const Container = () => {
   
     const [cards, setCards] = useState([
       {
-        id: 1,
-        text: 'Write a cool JS library',
+        id: 101,
+        cardData: 'Write a cool JS library',
       },
       {
-        id: 2,
-        text: 'Make it generic enough',
+        id: 102,
+        cardData: 'Make it generic enough',
       },
       {
-        id: 3,
-        text: 'Write README',
+        id: 103,
+        cardData: 'Write README',
       },
       {
-        id: 4,
-        text: 'Create some examples',
+        id: 104,
+        cardData: 'Create some examples',
       },
       {
-        id: 5,
-        text: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)',
+        id: 105,
+        cardData: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)',
       },
       {
-        id: 6,
-        text: '???',
+        id: 106,
+        cardData: '???',
       },
       {
-        id: 7,
-        text: 'PROFIT',
+        id: 107,
+        cardData: 'PROFIT',
       },
     ])
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
-        // console.log('--+ update Card prevCards', prevCards);
-        console.log('--+ update Card dragIndex', dragIndex);
-        console.log('--+ update Card hoverIndex', hoverIndex);
-        console.log('----------', hoverIndex);
-        // setCards((prevCards) => {
-        //   console.log('--+ update Card prevCards', prevCards);
-        //   console.log('--+ update Card dragIndex', dragIndex);
-        //   console.log('--+ update Card hoverIndex', hoverIndex);
-        // }
-        // )
+      if (typeof dragIndex === 'number') {
+        setCards((prevCards) => {
+          const result = [...prevCards];
+
+          // remove item
+          const dragItem = result.splice(dragIndex, 1)[0];
+
+          // insert item
+          result.splice(hoverIndex, 0, dragItem);
+
+          return result;
+        })
+      }
     }, [])
     const renderCard = useCallback((card, index) => {
       return (
@@ -70,13 +70,13 @@ export default function Ex1() {
           key={card.id}
           index={index}
           id={card.id}
-          text={card.text}
+          cardData={card.cardData}
           moveCard={moveCard}
         />
       )
     }, [])
     return (
-      <div style={style1}>{cards.map((card, i) => renderCard(card, i))}</div>
+      <div style={{width: '100%'}}>{cards.map((card, i) => renderCard(card, i))}</div>
     )
   
 }
@@ -90,11 +90,12 @@ const style = {
   cursor: 'move',
 }
 
-
-const Card = ({ id, text, index, moveCard }) => {
+const UniqType = 'card';
+const Card = ({ id, cardData, index, moveCard }) => {
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
-    accept: 'card',
+    type: UniqType,
+    accept: UniqType,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -140,8 +141,10 @@ const Card = ({ id, text, index, moveCard }) => {
     }
   })
 
+
   const [{ isDragging }, drag] = useDrag({
-    item: { name: 'wtf', type: 'card' },
+    type: UniqType,
+    item: { name: 'wtf', type: UniqType },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -151,9 +154,14 @@ const Card = ({ id, text, index, moveCard }) => {
 
   drag(drop(ref))
 
+  // TODO++
+  // const [dragStart, setDragStart] = useState(false)
+  // console.log('--+ isDragging', isDragging);
+
   return (
     <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      {text}
+      {cardData}
+      <div onClick={console.log}>onclick</div>
     </div>
   )
 }
