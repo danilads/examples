@@ -1,3 +1,7 @@
+Zenburn Theme 
+ESlint
+Git File History
+
 Active File In StatusBar
 VS Code ESLint extension
 GitLens — Git supercharged
