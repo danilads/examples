@@ -234,5 +234,22 @@
 	////////////////
 	
 			git config user.email "danilads@github.com"
+
+	////////////////
+	//git REMOVE file (if in PR some no need files)
+	////////////////	
+
+			git rm src/de.tsx
+	
+	////////////////
+	//git CLONE (easy)
+	////////////////
+			-) login to github
+			-) go to "settings" (avatar icon)
+			-) "developer settings" (at left bottom)
+			-) "personal access token"
+			-) generate token -> ghp_sometoke4324
+
+			-) git clone https://<TOKEN>@github.com/<user_name>/<repo_name>.git
 </body>
 </html>
