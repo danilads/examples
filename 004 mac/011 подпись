@@ -1,0 +1,15 @@
+1) Open any PDF / Image in the "Preview.app"
+2) Create a dummy signature using your trackpad and save it
+
+
+4) Open "Keychain Access"
+
+5) In Local Items find the "Signature Annotation Privacy" and double-click to open the item
+
+6) Click on "Show password"
+
+7) In the password field paste the text from the text file you created on the source Mac
+
+8) Click on Save changes
+
+9) Close Keychain Access
