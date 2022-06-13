@@ -8,6 +8,8 @@
 00h TuxGuitar
 00i roomeqwizard
 
+
+
 00 Finder(mac os include)
 01 Steam - https://store.steampowered.com/about/
 //01 OpenEmu
@@ -19,7 +21,7 @@
 07 Skype
 08 Telegram
 09 VS code
-10 brackets (plugin - Open in Browser (cmd+2) / Easy Dark theme)
+10 Textmate
 11 Webstorm(?)
 12 
 14 Fl studio
@@ -32,6 +34,7 @@
 18 Teamviewer
 18 sporify
 
+IINA - media player
 
 BREW install in terminal 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
