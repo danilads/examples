@@ -1,3 +1,4 @@
+00) cmd + shift + a - command palette
 01) cmd + p - строка поиска(по файлам)
 02) cmd + shift + p - строка поиска(по командам)
 

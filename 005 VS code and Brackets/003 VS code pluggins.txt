@@ -1,6 +1,9 @@
 Zenburn Theme 
 ESlint
 Git File History
+Color Highlight
+IntelliJ IDEA Keybindings
+
 
 Active File In StatusBar
 VS Code ESLint extension

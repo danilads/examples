@@ -1,3 +1,0 @@
-Brackets Git
-Easy Dark -> themes
-Open in Browser -> open in browser cmd+2

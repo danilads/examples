@@ -1,0 +1,8 @@
+View -> show file browser
+Bundles - Edit Bundles - HTML - Menu Actions - Open Document in Running Browser(s) - Key Equivalent - cmd+ 2- 
+
+Textmate - Preferences - Terminal - Accept (off)
+Textmate - Preferences - Software updates - Crash report (off)
+                                          - Software update (off)
+Textmate - Preferences - Project - Open files on single click
+                                 - Show file browser - on left side
