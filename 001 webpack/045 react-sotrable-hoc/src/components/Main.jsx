@@ -7,15 +7,14 @@ import {Ex03} from './Ex03';
 import {Ex04} from './Ex04';
 import {Ex05} from './Ex05';
 import {Ex06} from './Ex06';
-import {Ex07} from './Ex07';
 
 class Main extends React.Component {
 	state={
-		ex: 7
+		ex: 6
 	}
 
 	// Add ex add here
-	arr = [0,1,2,3,4,5,6,7];
+	arr = [0,1,2,3,4,5,6];
 
 	render() {
 		let {ex} = this.state;
@@ -36,7 +35,6 @@ class Main extends React.Component {
 					{ex===4 && <Ex04/>}
 					{ex===5 && <Ex05/>}
 					{ex===6 && <Ex06/>}
-					{ex===7 && <Ex07/>}
 				</div>
 			</div>
 		)

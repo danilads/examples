@@ -251,5 +251,7 @@
 			-) generate token -> ghp_sometoke4324
 
 			-) git clone https://<TOKEN>@github.com/<user_name>/<repo_name>.git
+			или
+			-) git clone https://<TOKEN>@github.com/<repo_name>.git
 </body>
 </html>
