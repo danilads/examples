@@ -1,51 +1,42 @@
-let initialState = {
-	//стандартные данные
-	data: {},
-	isFetching: false,
-	isLoaded: false,
-	//ошибки
-	errorMsg: '',
-    isError: false,
+import {createSlice} from '@reduxjs/toolkit';
 
-	//доп
-	some: '',
-	innerObj: {
-		key: "",
-		text: "",
-	}
+const defaultState = {
+  items: [],
+  isLoading: false
 };
 
-//export default (state = initialState, {type,payload}) - сокращенная запись
-export default (state = initialState, action) => {
-	switch(action.type) {
-		
-		case "ITEMS_LOADING": {
-			return {
-				...state,
-				isFetching: true,
-			}
-		}
-		case "ITEMS_LOADED": {
-			return {
-				...state,
-				isFetching: false,
-				isLoaded: true,
-				data: action.payload,
-			}
-		}
-		case "ITEMS_WRITE_FROM_FUNC_TO_ITEMS": {
-			//вложенность
-			return {
-				...state,
-				some: action.payload,
-				innerObj:{
-					...state.innerObj,
-					text:action.payload,
-				}
-			}
-		}
-		default: return state;
-	}
-	return state;
-};
+const itemsSlice = createSlice({
+  name: 'items',
+  initialState: defaultState,
+  reducers: {
+    setData(state, action) {
+      const {items} = action.payload;
 
+	  state.items = items;
+    },
+    setLoading(state, action) {
+      const {isLoading} = action.payload;
+	  
+	  state.isLoading = isLoading;
+    }
+  }
+});
+
+export const {
+	setData,
+	setLoading
+} = itemsSlice.actions;
+
+export default itemsSlice.reducer;
+
+
+/* [async actions] */
+export function asyncFetchItems(dataId) {
+  return async (dispatch) => {
+	console.log('--+ dataId', dataId);
+	// imitate request
+	await new Promise(resolve => setTimeout(resolve, 5000));
+
+    dispatch(setData({items: [1,2,3]}));
+  };
+}

@@ -209,6 +209,9 @@
 			git log -20 (кол-во коммитов, чтобы спуститься вниз жмем enter) (в wim управление стрелочками)
 			//находим имя комита 1be12hjk1kj12jkh1jk2h1
 
+			// log по дате
+			git log --after="2022-10-01 00:00" --before="2022-11-01 00:00"
+
 			// имя комита (пробел) точка - это все файлы
 			git checkout 1be12hjk1kj12jkh1jk2h1 .
 
@@ -216,27 +219,27 @@
 			git checkout -b имяВетки
 
 	////////////////
-	//Reset HEAD
+	// Reset HEAD
 	////////////////
 	
-			//если проблема с head !Опасный режим (удалим все комиты навсегда)
+			// если проблема с head
 			git checkout f6f4c18 .
 
-			//востановим head
+			// востановим head
 			git reset --hard f6f4c18
 
-			//форс пуш срежет все до данного комита
+			// форс пуш срежет все до данного комита [!!!Опасный режим (удалим все комиты навсегда)]
 			git push --force
 
 
 	////////////////
-	//INVALID user.email
+	// INVALID user.email
 	////////////////
 	
 			git config user.email "danilads@github.com"
 
 	////////////////
-	//git REMOVE file (if in PR some no need files)
+	// git REMOVE file (if in PR some no need files)
 	////////////////	
 
 			git rm src/de.tsx

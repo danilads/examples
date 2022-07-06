@@ -1,18 +1,14 @@
-//redux
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import items from "./reducers/items";
-import text from "./reducers/text";
+import itemsSlice from "./reducers/items";
 
-//нужно создавать разные редюсеры
-//т.к. мы меняем внутри иммутабельно
-//при изменении везде где используется redux прилетят новые props
+
 const store = configureStore({
 	reducer: combineReducers({
-		items,
-		text
+		items: itemsSlice
 	})
 });
 
+// type script
 // export type StoreDispatch = typeof store.dispatch;
 
 export default store;
