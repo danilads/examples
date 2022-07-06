@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import '../assets/scss/App.scss';
 import reactLogo from '../assets/img/react_logo.svg';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, asyncFetchItems} from '../../redux/reducers/items'
-export const Main = () => {
- 
-  const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.items.isLoading);
+import {TypeState, TypeDispatch} from '../../redux/store'
+
+interface Props {
+  name?: string;
+}
+
+export const Main: FC<Props> = ({name}) => {
+  const dispatch = useDispatch<TypeDispatch>();
+  const isLoading = useSelector((state: TypeState) => state.items.isLoading);
 
   return (
     <div className='app'>

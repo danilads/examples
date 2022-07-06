@@ -11,29 +11,34 @@
 <body>
  <div id="container"></div> 
  <script type="text/babel">
-    const Child = React.forwardRef((props, ref) => {
-        const click = () => console.log('-child click');
-        React.useImperativeHandle(ref, () => ({
-            getChildClick() {
-                click();
-            }
 
-        }));
-        return <div onClick={click}>onclick(child)</div>
-    });
+const Child = React.forwardRef((props, ref) => {
+    const click = (e) => {
+        e && e.stopPropagation();
+        console.log('-child click');
+    };
+    React.useImperativeHandle(ref, () => ({
+        getChildClick() {
+            click();
+        }
+
+    }));
+    return <button onClick={click}>onclick(child)</button>
+});
+
  const Parent = () => {
         const childRef = React.useRef();
-      
+
         const click = () => {
-            console.log('-parent click');
-            console.log('-current', childRef.current.getChildClick);
+            console.log('-parent click (ref ->', childRef.current.getChildClick);
             childRef.current.getChildClick();
         }
-        
-  return (<div>
-    <div onClick={click}>onclick(parent)</div>
-    <Child ref={childRef}/>
-   </div>);
+    
+  return (
+    <div style={{border: '1px solid black', padding: '5px'}} onClick={click}>
+        <span>onclick(parent)</span>
+        <Child ref={childRef}/>
+    </div>);
  }
  ////////////////App Js
   ReactDOM.render(
