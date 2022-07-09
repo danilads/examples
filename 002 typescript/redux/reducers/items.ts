@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {TypeState} from '../store';
+import {TypeState, TypeDispatch} from '../store';
 
 interface ItemState {
   items: number[];
@@ -38,8 +38,9 @@ export default itemsSlice.reducer;
 
 /* [async actions] */
 export function asyncFetchItems(dataId: string) {
-    return async (dispatch, state) => {
+    return async (dispatch: TypeDispatch, state) => {
     const store: TypeState = state();
+
     console.log('--+ dataId', dataId);
     console.log('--+ store', store);
     // imitate request
