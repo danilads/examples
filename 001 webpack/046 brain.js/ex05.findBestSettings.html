@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+    </head>
+	<script src="brain2.0.js"></script>
+    <body>
+        
+    </body>
+    <script>
+		// ----------------
+		// FIND THE BEST SETING FOR CONFIG and INPUT DATA
+		// ----------------
+
+		function run () {
+			// [CYCLE FIND]
+			let passAllResults = false;
+			let cycles = 0; // repeats
+			let net = {}
+
+			while (!passAllResults) {
+
+		// -----------------------
+		// --- [SMALL (10) CONFIG 01]
+		// -----------------------
+
+		// -----------------------
+		// const testNumber = 10;
+		// net = new brain.NeuralNetwork({
+		// 	binaryThresh: 0.5,
+		// 	hiddenLayers: [300], // array of ints for the sizes of the hidden layers in the network
+		// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+		// 	leakyReluAlpha: 0.1, // supported for activation type 'leaky-relu'
+		// })
+		// -----------------------
+
+		// TIME (MS)  155029   145397   157364
+		// CYCLES     3588.35  3366.51  3361.67
+		// net.train([
+		// 	{ input: [0, 0], output: [0] },
+		// 	{ input: [0, 1], output: [1] },
+		// 	{ input: [1, 0], output: [1] },
+		// ]);
+
+		// TIME (MS)  575     599     562  
+		// CYCLES     10.11   10.38   9.78
+		// net.train([
+		// 	{ input: [0, 0], output: [0] },
+		// 	{ input: [0, 1], output: [1] },
+		// 	{ input: [1, 0], output: [1] },
+		// 	{ input: [1, 1], output: [2] },
+		// ]);
+
+		// TIME (MS)  539298
+		// CYCLES     43.96
+		// net.train([
+		// 	{ input: [0, 0], output: [0] },
+		// 	{ input: [0, 1], output: [1] },
+		// 	{ input: [1, 0], output: [1] },
+		// 	{ input: [1, 1], output: [2] },
+		// 	{ input: [1, 2], output: [3] },
+		// ]);
+
+		// -----------------------
+		// --- [SMALL (10) CONFIG 02] ---
+		// -----------------------
+
+		// -----------------------
+		// const testNumber = 10;
+		// net = new brain.NeuralNetwork({
+		// 	binaryThresh: 0.1,
+		// 	hiddenLayers: [5], // array of ints for the sizes of the hidden layers in the network
+		// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+		// 	leakyReluAlpha: 0.5, // supported for activation type 'leaky-relu'
+		// });
+		// -----------------------
+
+		// TIME (MS)  44    46    47
+		// CYCLES     4.44  4.82  5.12
+		// net.train([
+		// 	{ input: [0, 0], output: [0] },
+		// 	{ input: [0, 1], output: [1] },
+		// 	{ input: [1, 0], output: [1] },
+		// 	{ input: [2, 2], output: [4] },
+		// ]);
+
+		// TIME (MS)  28     35     33 
+		// CYCLES     1.47   1.67   1.54
+		// net.train([
+		// 	{ input: [0, 0], output: [0] },
+		// 	{ input: [0, 1], output: [1] },
+		// 	{ input: [1, 0], output: [1] },
+		// 	{ input: [1, 1], output: [2] },
+		// ]);
+
+		// -----------------------
+		// --- [MEDIUM (1000) CONFIG 02] ---
+		// -----------------------
+
+		// -----------------------
+		// const testNumber = 1000;
+		// net = new brain.NeuralNetwork({
+		// 	binaryThresh: 0.1,
+		// 	hiddenLayers: [5], // array of ints for the sizes of the hidden layers in the network
+		// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+		// 	leakyReluAlpha: 0.5, // supported for activation type 'leaky-relu'
+		// });
+		// -----------------------
+
+		// TIME (MS)  69121    71225    72268
+		// CYCLES     8817.18  9162.68  9901.91
+		// net.train([
+		// 	{ input: [0, 0], output: [0] },
+		// 	{ input: [0, 1], output: [1] },
+		// 	{ input: [1, 0], output: [1] },
+		// 	{ input: [1, 1], output: [2] },
+		// ]);
+
+
+		// -----------------------
+		// --- [LARGE (30000) CONFIG 03] ---
+		// -----------------------
+
+		// -----------------------
+		const testNumber = 30000;
+		net = new brain.NeuralNetwork({
+			binaryThresh: 0.1,
+			hiddenLayers: [3], // array of ints for the sizes of the hidden layers in the network
+			activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+			leakyReluAlpha: 0.9, // supported for activation type 'leaky-relu'
+		});
+		// -----------------------
+
+		// TIME (MS) - WORKS BUT NEED ~10min to find one item
+		net.train([
+			{ input: [0, 0], output: [0] },
+			{ input: [0, 1], output: [1] },
+			{ input: [1, 0], output: [1] },
+			{ input: [1, 1], output: [2] },
+		]);
+
+		// -----------------------
+		// -----------------------
+		// -----------------------
+
+				// --- [NaN test]
+				if (isNaN(Math.round(net.run([0, 0])))) {
+					continue;
+				}
+
+				// --- [TESTING ALL COMBINATION FOR ALL NUMBERS] ---
+				let isBreak = false;
+				let isCycle = false;
+				for (let i=testNumber;i>=0;i--) {
+					if (isBreak) {
+						break;
+					}
+					for (let j=i;j>0;j--) {
+						const n1 = i-j;
+						const n2 = j;
+						// console.log('--+ combination 1', n1, n2);
+						// console.log('--+ combination 2 (reverse', n2, n1);
+						if (Math.round(net.run([n1, n2])) !== n1 + n2) {
+							isCycle = true;
+							isBreak = true;
+							break;
+						}
+						// reverse
+						if (Math.round(net.run([n2, n1])) !== n1 + n2) {
+							isCycle = true;
+							isBreak = true;
+							break;
+						}
+					}
+				}
+
+				cycles += 1;
+
+				if (!isCycle) {
+					passAllResults = true;
+				}
+			}	
+			
+			if (passAllResults) {
+				return cycles;
+			}
+		}
+
+		const arrOfCyclesCnt = [];
+		const start = Date.now();
+		for (let i=100;i>0;i--){
+			const r = run();
+			console.log('--+ cycle', i, r);
+			arrOfCyclesCnt.push(r);
+		}
+		const end = Date.now();
+		console.log('--+ @@@ Result', arrOfCyclesCnt);
+
+
+		const getAverage = (numbers) => {
+			const sum = numbers.reduce((acc, number) => acc + number, 0);
+			const length = numbers.length;
+			return sum / length;
+		};
+
+		console.log('--+ @@@ Time (MS)', end - start);
+		console.log('--+ @@@ Average Number Of Cycles', getAverage(arrOfCyclesCnt));
+    </script>
+</html>
