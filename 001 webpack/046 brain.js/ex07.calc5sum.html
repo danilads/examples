@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+    </head>
+	<script src="brain2.0.js"></script>
+    <body>
+        
+    </body>
+    <script>
+		// -----------------
+		// Калькулятор (сложение 5 цифр) (ОБУЧНИЕ С ХОДУ - то есть нету "до обучения" сети)
+        // -----------------
+
+		const testNumb = 100; // 100 * 5 = 500
+
+		function works () {
+			// -------------
+			// --- [25] 9.765.625
+			// -------------
+
+				// const json = {"type":"NeuralNetwork","sizes":[5,10,1],"layers":[{"weights":[],"biases":[]},{"weights":[[0.15183837711811066,0.1796162724494934,-0.15243364870548248,-0.1019541472196579,-0.23639225959777832],[0.3518931567668915,0.3353700041770935,0.57823646068573,0.31741687655448914,0.24942098557949066],[0.13294996321201324,-0.011018652468919754,0.15547484159469604,0.21937666833400726,0.20331954956054688],[0.1661648452281952,0.15953370928764343,0.6009604334831238,0.5322543382644653,0.474464476108551],[-0.24355079233646393,-0.19142381846904755,-0.5672338604927063,-0.6183909177780151,-0.44561970233917236],[-0.8591407537460327,-0.9059905409812927,-0.7032541632652283,-0.704634964466095,-0.7964106202125549],[-0.10334991663694382,-0.16760039329528809,0.13135777413845062,0.14910978078842163,-0.009373272769153118],[0.24534325301647186,0.17472055554389954,0.05864953622221947,0.2219412922859192,0.1970396190881729],[0.06358708441257477,0.08481889963150024,0.11769247055053711,-0.06727635860443115,0.14903250336647034],[-0.7093557119369507,-0.7394880652427673,-0.9227319359779358,-0.9892433285713196,-0.945705235004425]],"biases":[-0.24114678800106049,-0.6365456581115723,-0.12718093395233154,-0.3731282949447632,0.4208502173423767,1.4282398223876953,0.15474317967891693,-0.3491622805595398,-0.13034161925315857,1.2423373460769653]},{"weights":[[0.14203660190105438,0.21029888093471527,0.04517098516225815,0.050798628479242325,-0.11461659520864487,-0.6398040652275085,-0.12649480998516083,0.15942569077014923,0.04878577962517738,-0.4767288267612457]],"biases":[1.7044920921325684]}],"inputLookup":null,"inputLookupLength":0,"outputLookup":null,"outputLookupLength":0,"options":{"inputSize":0,"outputSize":0,"binaryThresh":0.1,"hiddenLayers":[10],"activation":"leaky-relu","leakyReluAlpha":0.9},"trainOpts":{"activation":"leaky-relu","iterations":20000,"errorThresh":0.005,"log":false,"logPeriod":10,"leakyReluAlpha":0.9,"learningRate":0.3,"momentum":0.1,"callbackPeriod":10,"timeout":"Infinity","beta1":0.9,"beta2":0.999,"epsilon":1e-8}};
+
+				// const net = new brain.NeuralNetwork({
+				// 	binaryThresh: 0.1,
+				// 	hiddenLayers: [10], // array of ints for the sizes of the hidden layers in the network
+				// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+				// 	leakyReluAlpha: 0.9, // supported for activation type 'leaky-relu'
+				// });
+
+				// net.train([
+				// 	{ input: [0, 0, 0, 0, 0], output: [0] },
+				// 	{ input: [1, 0, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 1, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 1, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 1, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 0, 1], output: [1] },
+				// 	{ input: [2, 1, 0, 0, 0], output: [3] },
+				// 	{ input: [2, 2, 0, 0, 0], output: [4] },
+				// ]);
+			
+
+			// -------------
+			// --- [35] 52.521.875 (комбинаций)
+			// -------------
+
+				// const json = {"type":"NeuralNetwork","sizes":[5,10,1],"layers":[{"weights":[],"biases":[]},{"weights":[[-0.18159519135951996,-0.20518124103546143,-0.11379288136959076,-0.14341655373573303,-0.1307869553565979],[0.2744673788547516,0.2331516444683075,0.3486177921295166,0.30886876583099365,0.22816042602062225],[-0.40107494592666626,-0.3892190456390381,-0.14054960012435913,-0.1976327896118164,-0.3676984906196594],[-0.07461435347795486,0.037449609488248825,-0.08971460908651352,0.12061034888029099,0.19699278473854065],[-0.1613703966140747,-0.3642696142196655,-0.08819592744112015,-0.07099487632513046,-0.3070763051509857],[-0.31119418144226074,-0.2661250829696655,-0.3904381990432739,-0.24127745628356934,-0.3310386538505554],[-0.39016401767730713,-0.3275161385536194,-0.2488401085138321,-0.2342069447040558,-0.0995638370513916],[0.2400791496038437,0.2885974645614624,0.4073347747325897,0.5108413696289062,0.28254467248916626],[-0.15392367541790009,-0.04158903285861015,0.005092071369290352,-0.08447614312171936,-0.17450439929962158],[-0.1582207828760147,-0.11532532423734665,-0.38812488317489624,-0.2966238260269165,-0.32912930846214294]],"biases":[-0.09485716372728348,-0.25558221340179443,0.266238808631897,0.06410360336303711,0.028726618736982346,0.14789366722106934,0.3108653128147125,-0.15321190655231476,-0.017254939302802086,0.03556564822793007]},{"weights":[[-0.2553480565547943,0.5262380242347717,-0.5773718357086182,0.08099117875099182,-0.3431672751903534,-0.5428195595741272,-0.49557164311408997,0.6222744584083557,-0.17058412730693817,-0.44023609161376953]],"biases":[0.641730785369873]}],"inputLookup":null,"inputLookupLength":0,"outputLookup":null,"outputLookupLength":0,"options":{"inputSize":0,"outputSize":0,"binaryThresh":0.1,"hiddenLayers":[10],"activation":"leaky-relu","leakyReluAlpha":0.9},"trainOpts":{"activation":"leaky-relu","iterations":20000,"errorThresh":0.005,"log":false,"logPeriod":10,"leakyReluAlpha":0.9,"learningRate":0.3,"momentum":0.1,"callbackPeriod":10,"timeout":"Infinity","beta1":0.9,"beta2":0.999,"epsilon":1e-8}};
+				// const net = new brain.NeuralNetwork({
+				// 	binaryThresh: 0.1,
+				// 	hiddenLayers: [10], // array of ints for the sizes of the hidden layers in the network
+				// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+				// 	leakyReluAlpha: 0.9, // supported for activation type 'leaky-relu'
+				// });
+
+				// net.train([
+				// 	{ input: [0, 0, 0, 0, 0], output: [0] },
+				// 	{ input: [1, 0, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 1, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 1, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 1, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 0, 1], output: [1] },
+				// 	{ input: [1, 1, 1, 0, 0], output: [3] },
+				// ]);
+
+			// -------------
+			// --- [50] 312.500.000 (комбинаций)
+			// -------------
+
+				// const json = {"type":"NeuralNetwork","sizes":[5,5,1],"layers":[{"weights":[],"biases":[]},{"weights":[[0.5312674045562744,0.49515053629875183,0.45139428973197937,0.37616637349128723,0.6467660069465637],[-0.09129569679498672,0.015613171271979809,-0.16034983098506927,-0.10942231118679047,0.11621055752038956],[0.004167498555034399,0.22574369609355927,0.07545913755893707,-0.0942441076040268,-0.035514164716005325],[-0.42782044410705566,-0.4145229160785675,-0.4001995623111725,-0.5731788873672485,-0.3265560269355774],[-0.30292049050331116,-0.38503897190093994,-0.46921074390411377,-0.3948264420032501,-0.2827218472957611]],"biases":[-0.3696291446685791,0.09967107325792313,-0.04286519065499306,0.4099746346473694,0.24477887153625488]},{"weights":[[0.949376106262207,-0.07318895310163498,0.033281922340393066,-0.8010804653167725,-0.6413357257843018]],"biases":[0.8246943354606628]}],"inputLookup":null,"inputLookupLength":0,"outputLookup":null,"outputLookupLength":0,"options":{"inputSize":0,"outputSize":0,"binaryThresh":0.1,"hiddenLayers":[5],"activation":"leaky-relu","leakyReluAlpha":0.9},"trainOpts":{"activation":"leaky-relu","iterations":20000,"errorThresh":0.005,"log":false,"logPeriod":10,"leakyReluAlpha":0.9,"learningRate":0.3,"momentum":0.1,"callbackPeriod":10,"timeout":"Infinity","beta1":0.9,"beta2":0.999,"epsilon":1e-8}};
+				// const net = new brain.NeuralNetwork({
+				// 	binaryThresh: 0.1,
+				// 	hiddenLayers: [10], // array of ints for the sizes of the hidden layers in the network
+				// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+				// 	leakyReluAlpha: 0.9, // supported for activation type 'leaky-relu'
+				// });
+
+				//
+				// net.train([
+				// 	{ input: [0, 0, 0, 0, 0], output: [0] },
+				// 	{ input: [1, 0, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 1, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 1, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 1, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 0, 1], output: [1] },
+				// 	{ input: [1, 1, 1, 0, 0], output: [3] },
+				// ]);
+
+
+			// -------------
+			// --- [100] 10.000.000.000 (комбинаций)
+			// -------------
+
+				const json = {"type":"NeuralNetwork","sizes":[5,10,1],"layers":[{"weights":[],"biases":[]},{"weights":[[0.022673338651657104,0.10672818124294281,0.18894150853157043,-0.0330183282494545,-0.14203131198883057],[-0.08218146860599518,-0.10139750689268112,-0.1971161961555481,-0.25338372588157654,-0.08336323499679565],[-0.12529991567134857,0.028504258021712303,0.08462035655975342,0.1262059509754181,0.08229013532400131],[0.5957014560699463,0.5014873147010803,0.5013267397880554,0.6333075761795044,0.45781421661376953],[0.06469801068305969,-0.06117250397801399,0.10610708594322205,0.05100024864077568,0.0022170832380652428],[-0.3189116418361664,-0.3681609630584717,-0.1930253803730011,-0.243178591132164,-0.3660133481025696],[-0.33897364139556885,-0.36739447712898254,-0.3989855945110321,-0.23260828852653503,-0.3695233464241028],[-0.038897719234228134,0.07160565257072449,0.25758883357048035,0.23764930665493011,0.1764363944530487],[0.0051231966353952885,0.28603217005729675,0.05010385811328888,-0.08450118452310562,0.3039853572845459],[-0.27017539739608765,-0.09164781123399734,-0.2647443115711212,-0.10259351879358292,-0.11654410511255264]],"biases":[-0.0838395208120346,-0.019702009856700897,-0.031815722584724426,-0.3705364167690277,0.022338172420859337,0.23079776763916016,0.2690134346485138,-0.05245685577392578,-0.06351852416992188,0.13815438747406006]},{"weights":[[0.001379227265715599,-0.22980636358261108,0.07729054242372513,0.9803411364555359,0.046020351350307465,-0.5572007298469543,-0.604433000087738,0.24467596411705017,0.21840116381645203,-0.28742271661758423]],"biases":[0.7135019302368164]}],"inputLookup":null,"inputLookupLength":0,"outputLookup":null,"outputLookupLength":0,"options":{"inputSize":0,"outputSize":0,"binaryThresh":0.1,"hiddenLayers":[10],"activation":"leaky-relu","leakyReluAlpha":0.9},"trainOpts":{"activation":"leaky-relu","iterations":20000,"errorThresh":0.005,"log":false,"logPeriod":10,"leakyReluAlpha":0.9,"learningRate":0.3,"momentum":0.1,"callbackPeriod":10,"timeout":"Infinity","beta1":0.9,"beta2":0.999,"epsilon":1e-8}};
+				// const net = new brain.NeuralNetwork({
+				// 	binaryThresh: 0.1,
+				// 	hiddenLayers: [10], // array of ints for the sizes of the hidden layers in the network
+				// 	activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+				// 	leakyReluAlpha: 0.9, // supported for activation type 'leaky-relu'
+				// });
+
+				//
+				// net.train([
+				// 	{ input: [0, 0, 0, 0, 0], output: [0] },
+				// 	{ input: [1, 0, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 1, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 1, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 1, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 0, 1], output: [1] },
+				// 	{ input: [1, 1, 1, 0, 0], output: [3] },
+				// ]);
+		
+				// 
+				// net.train([
+				// 	{ input: [0, 0, 0, 0, 0], output: [0] },
+				// 	{ input: [1, 0, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 1, 0, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 1, 0, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 1, 0], output: [1] },
+				// 	{ input: [0, 0, 0, 0, 1], output: [1] },
+				// 	{ input: [2, 1, 0, 0, 0], output: [3] },
+				// ]);
+
+			console.log('--+ works?');
+			const net = new brain.NeuralNetwork();
+			net.fromJSON(json)
+			return net;
+		}
+		let highest = 0;
+
+		let contin = true;
+		let res = {}
+		do {
+			res = works();
+			const isN = isNaN(res.run([2, 4, 0, 0, 0])[0]);
+			isN && console.log('--+ isNaN');
+			if (!isN) {
+				// TESTING
+				let isPassAll = true;
+				let isBreak = false;
+
+				// --- full test 
+				for(let q=0;testNumb>=q;q++){
+					console.log('--+q', q);
+					if (isBreak) {break;}
+					for(let w=0;testNumb>=w;w++){
+						if (isBreak) {break;}
+						for(let e=0;testNumb>=e;e++){
+							if (isBreak) {break;}
+							for(let r=0;testNumb>=r;r++){
+								if (isBreak) {break;}
+								for(let t=0;testNumb>=t;t++){
+									const C = Math.round(res.run([q, w, e, r, t])[0]);
+									// [HIGHEST] - Чтобы понять насколько далеко забралась сеть
+									if (q+w+e+r+t > highest) {
+										highest = q+w+e+r+t;
+									}
+									if (C !== q+w+e+r+t) {
+										console.log('--+ [HIGHEST]', highest);
+										isBreak = true;
+										isPassAll = false;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+
+
+
+
+				if (isPassAll) {
+					contin = false;
+				}
+			}
+		} while (contin);
+
+		console.log('--+ res', JSON.stringify(res.toJSON()));
+    </script>
+</html>
