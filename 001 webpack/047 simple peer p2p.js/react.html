@@ -1,0 +1,267 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js"></script>
+	
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	////////////////////
+	// JoinDialog
+	////////////////////
+const JoinDialog = ({ onConnect }) => {
+		  const [open, setOpen] = React.useState(false);
+		  const [peer, setPeer] = React.useState(null);
+		  const [offer, setOffer] = React.useState("");
+		  const [answer, setAnswer] = React.useState(null);
+
+		  React.useEffect(() => {
+		    const p = new SimplePeer({
+		      initiator: false,
+		      trickle: false,
+		      objectMode: true
+		    });
+		    p.on("signal", data => {
+		      setAnswer(data);
+		    });
+		    p.on("connect", () => {
+		      onConnect(p);
+		    });
+
+		    setPeer(p);
+		  }, [onConnect]);
+
+		  React.useEffect(() => {
+		    if (peer && offer) {
+		      let offerObject;
+		      try {
+		        offerObject = JSON.parse(offer);
+		        peer.signal(offerObject);
+		      } catch (err) {
+		        console.warn("invalid offer");
+		      }
+		    }
+		  }, [offer, peer]);
+
+		  return (
+		    <div>
+		      {open && <div>
+		        <h2>Join Room</h2>
+		        <p>
+		          Paste an offer from a peer below, send them your answer, then wait for
+		          them to connect.
+		        </p>
+		        <form method="dialog">
+		          <label>
+		            <b>Offer</b>
+		            <textarea
+		              style={{ width: "100%" }}
+		              rows="6"
+		              value={offer}
+		              onChange={evt => {
+		                setOffer(evt.target.value);
+		              }}
+		            />
+		          </label>
+
+		          <label>
+		            <b>Answer</b>
+		            <textarea
+		              style={{ width: "100%" }}
+		              readOnly
+		              rows="6"
+		              value={JSON.stringify(answer)}
+		            />
+		          </label>
+
+		          <button>Cancel</button>
+		        </form>
+					  </div>
+				  }
+		      <button onClick={() => setOpen(true)}>Join Room</button>
+		    </div>
+		  );
+		}
+		
+	////////////////////
+	// CreateDialog
+	////////////////////
+const CreateDialog = ({ onConnect }) => {
+		  const [open, setOpen] = React.useState(false);
+		  const [peer, setPeer] = React.useState(null);
+		  const [offer, setOffer] = React.useState(null);
+		  const [answer, setAnswer] = React.useState("");
+
+		  React.useEffect(() => {
+		    const p = new SimplePeer({
+		      initiator: true,
+		      trickle: false,
+		      objectMode: true
+		    });
+		    p.on("signal", data => {
+		      setOffer(data);
+		    });
+		    p.on("connect", () => {
+		      onConnect(p);
+		    });
+		    setPeer(p);
+		  }, [onConnect]);
+
+		  return (
+		    <div>
+		      {open && <div>
+		        <h2>Create Room</h2>
+		        <p>
+		          Send your offer to a peer, then paste their answer below to connect.
+		        </p>
+		        <form method="dialog">
+		          <label>
+		            <b>Offer</b>
+		            <textarea
+		              style={{ width: "100%" }}
+		              readOnly
+		              rows="6"
+		              value={JSON.stringify(offer)}
+		            />
+		          </label>
+
+		          <label>
+		            <b>Answer</b>
+		            <textarea
+		              style={{ width: "100%" }}
+		              rows="6"
+		              value={answer}
+		              onChange={evt => setAnswer(evt.target.value)}
+		            />
+		          </label>
+
+		          <button>Cancel</button>
+		          <button
+		            onClick={() => {
+		              if (peer && answer) {
+		                let answerObject;
+		                try {
+		                  answerObject = JSON.parse(answer);
+		                  peer.signal(answerObject);
+		                } catch (err) {
+		                  console.warn("invalid answer");
+		                }
+		              }
+		            }}
+		          >
+		            Connect
+		          </button>
+		        </form>
+		      </div>
+				}
+		      <button onClick={() => setOpen(true)}>Create Room</button>
+		    </div>
+		  );
+		}
+	
+	////////////////////
+	// App
+	////////////////////
+const App = () => {
+  const [peer, setPeer] = React.useState(null);
+  const [log, setLog] = React.useState([]);
+  const [message, setMessage] = React.useState("");
+
+  const onConnect = React.useCallback(p => {
+      setPeer(p);
+      p.on("data", data => {
+        setLog(log => [{ local: false, action: "message", value: data }, ...log]);
+      });
+      p.on("close", data => {
+        setLog(log => [{ local: false, action: "disconnect" }, ...log]);
+      });
+      p.on("error", data => {
+        setLog(log => [{ local: false, action: "error", value: data }, ...log]);
+      });
+    }, []);
+
+  return (
+    <div className="App">
+      <h1>Serverless P2P Chat</h1>
+      {peer ? (
+        <div>
+          <div>
+            {log.map(({ local, action, value }, idx) => (
+              <div key={idx}>
+                {action === "message" && (
+                  <div>
+                    <span>
+                      {local ? "You" : "Stranger"}:{" "}
+                    </span>
+                    {value}
+                  </div>
+                )}
+                {action === "disconnect" && (
+                  <span>
+                    Stranger has disconnected.
+                  </span>
+                )}
+                {action === "error" && (
+                  <span>{value.toString()}</span>
+                )}
+              </div>
+            ))}
+          </div>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              try {
+                peer.send(message);
+                setLog([
+                  { local: true, action: "message", value: message },
+                  ...log
+                ]);
+                setMessage("");
+              } catch (err) {
+                setLog(log => [
+                  {
+                    local: false,
+                    action: "error",
+                    value: "Error: cannot send message"
+                  },
+                  ...log
+                ]);
+              }
+            }}
+          >
+            <input
+              autoFocus
+              type="text"
+              value={message}
+              onChange={evt => setMessage(evt.target.value)}
+            />
+            <button>Send</button>
+          </form>
+        </div>
+      ) : (
+        <div>
+          <CreateDialog onConnect={onConnect} />
+          <JoinDialog onConnect={onConnect} />
+        </div>
+      )}
+    </div>
+  );
+}
+	////////////////////
+	// App Js
+	////////////////////
+
+		ReactDOM.render(
+			<App />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
