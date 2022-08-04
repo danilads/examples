@@ -33,7 +33,14 @@
         </Context.Consumer>
       );
     }
-
+  const Hook = () => {
+    	const {theme} = React.useContext(Context);
+  	  	return (
+    	  	<div>
+				{theme}
+    	  	</div>
+  		);
+	}
  class Main extends React.Component {
        
         state = {
@@ -61,7 +68,10 @@
 
  ////////////////App Js
   ReactDOM.render(
-   <Main/>
+    <React.Fragment>
+      <Hook/>
+      <Main/>
+   </React.Fragment>
    ,document.getElementById('container')
   );
  </script>
