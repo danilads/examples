@@ -11,67 +11,55 @@
 <body>
  <div id="container"></div> 
  <script type="text/babel">
+  // CREATE CONTEXT (NEED TO WRAP MY APP)
+  const MyContext = React.createContext(null);
+    
 
-    // CONTEXT
-    const Context = React.createContext({
-          theme: 'red',
-          toggleTheme: () => {},
-    });
+    const MyProvider = ({children}) => {
+      const [value, setValue] = React.useState("red");
+      
+      return <MyContext.Provider value={{value, setValue}}>{children}</MyContext.Provider>;
+    }
 
-    function ThemeTogglerButton() {
-      // The Theme Toggler Button receives not only the theme
-      // but also a toggleTheme function from the context
+    // Old realization
+    function Old() {
       return (
-        <Context.Consumer>
-          {({theme, toggleTheme}) => (
+        <MyContext.Consumer>
+          {({value, setValue}) => (
             <button
-              onClick={toggleTheme}
-              style={{backgroundColor: theme}}>
+              onClick={() => setValue(value === 'red' ? 'black': 'red')}
+              style={{backgroundColor: value, color: 'white'}}>
               Toggle Theme
             </button>
           )}
-        </Context.Consumer>
+        </MyContext.Consumer>
       );
     }
-  const Hook = () => {
-    	const {theme} = React.useContext(Context);
-  	  	return (
-    	  	<div>
-				{theme}
-    	  	</div>
-  		);
-	}
- class Main extends React.Component {
-       
-        state = {
-          theme: "black",
-        };
 
-        toggleTheme = () => {
-          this.setState(state => ({
-            theme:
-              state.theme === "black"
-                ? "red"
-                : "black",
-          }));
-        };
-
-      render() {
-        // The entire state is passed to the provider
-        return (
-          <Context.Provider value={{toggleTheme: this.toggleTheme, theme: this.state.theme}}>
-            <ThemeTogglerButton />
-          </Context.Provider>
+    // New realization
+    const Hook = () => {
+        const {value} = React.useContext(MyContext);
+          return (
+            <div>
+              {value}
+            </div>
         );
-      }
+    }
+
+    const App = () => {
+          return (
+            <div>
+              <Hook/>
+              <Old />
+            </div>
+        );
     }
 
  ////////////////App Js
   ReactDOM.render(
-    <React.Fragment>
-      <Hook/>
-      <Main/>
-   </React.Fragment>
+    <MyProvider>
+      <App/>
+    </MyProvider>
    ,document.getElementById('container')
   );
  </script>
