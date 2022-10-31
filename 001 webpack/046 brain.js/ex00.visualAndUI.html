@@ -1,0 +1,135 @@
+
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script src="000-react.production.min.js"></script>
+	<script src="000-react-dom.production.min.js"></script>
+	<script src="000-babel.min.js"></script>
+	<script src="000-brain2.0.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	// constants
+	const LS = 'LS_network';
+	const CANV_ID = 'canvas';
+
+	const NETWORK_OPTIONS = {
+		// непонятно что это
+		inputRange: 200,
+
+		inputSize: 2,
+		hiddenLayers: [20, 2],
+		outputSize: 1,
+
+		binaryThresh: 0.1,
+		activation: 'leaky-relu', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+		leakyReluAlpha: 0.9, // supported for activation type 'leaky-relu'
+		errorThresh: 0.9999,
+
+		// learningRate: 0.01,
+  		// decayRate: 0.999,
+	};
+
+	// App
+	class MobileList extends React.Component {
+		// state
+		state = {
+			network: {},
+
+			value1: '',
+			value2: '',
+			value3: '',
+			value4: '',
+			value5: '',
+			value6: ''
+		}
+		// utils
+		export = () => {
+			return JSON.stringify(this.state.network.toJSON())
+		}
+		import = (json) => {
+			const net = new brain.NeuralNetwork();
+			net.fromJSON(json);
+			this.setState({network: net});
+		}
+		saveLS = () => {
+			const res = this.export();
+			localStorage.setItem(LS, res);
+		}
+		loadLS = () => {
+			const net = localStorage.getItem(LS);
+			if (net) {
+				this.setState({network: net});
+			}
+			else {
+				console.log('--+ fail to load');
+			}
+		}
+		// life-cycles
+		componentDidMount() { 
+			const newNetwork = new brain.NeuralNetwork(NETWORK_OPTIONS);
+			this.setState({network: newNetwork});
+		}
+
+		train = () => {
+			const net = this.state.network;
+			net.train([{ input: [this.state.value1, this.state.value2], output: [this.state.value3] }]);
+			this.setState({network: net});
+		};
+
+		test = () => {
+			const net = this.state.network;
+			this.setState({value6: net.run([this.state.value4, this.state.value5])[0]});
+		};
+
+		visualize = () => {
+			document.getElementById(CANV_ID).innerHTML = brain.utilities.toSVG(
+				this.state.network,
+				NETWORK_OPTIONS
+			);
+		};
+
+		render() {
+			console.log('--+ this.state', this.state.network);
+			return (
+				<div>
+					<div>
+						<h3>LOCAL STORAGE</h3>
+						<button onClick={this.saveLS}>SAVE TO LS</button>
+						<button onClick={this.loadLS}>LOAD FROM LS</button>
+						<button onClick={this.visualize}>visualize</button>
+					</div>
+					<div>
+						<h3>TRAIN</h3>
+						<button onClick={this.train}>TRAIN</button>
+						<input type="text" value={this.state.value1} onChange={e => this.setState({value1: e.target.value})} />
+						<input type="text" value={this.state.value2} onChange={e => this.setState({value2: e.target.value})} />
+						<span>result</span>
+						<input type="text" value={this.state.value3} onChange={e => this.setState({value3: e.target.value})} />
+					</div>
+					<div>
+						<h3>TEST</h3>
+						<button onClick={this.test}>TEST</button>
+						<input type="text" value={this.state.value4} onChange={e => this.setState({value4: e.target.value})} />
+						<input type="text" value={this.state.value5} onChange={e => this.setState({value5: e.target.value})} />
+						<span>result</span>
+						<input disabled type="text" value={this.state.value6} />
+					</div>
+					<div id={CANV_ID}></div>
+				</div>
+			);
+		}
+	}
+	
+	// React
+		ReactDOM.render(
+			<MobileList/>
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>  
