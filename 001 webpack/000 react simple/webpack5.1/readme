@@ -1,0 +1,18 @@
+1) установка - yarn install
+2) build работает только на сервере (lite-server)
+    [проверить добавив]
+    package.json
+    {
+    "name": "",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "live": "lite-server"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "lite-server": "^2.3.0"
+    }
+    }
