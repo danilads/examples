@@ -11,6 +11,7 @@ brew update --verbose
 
 
 //Отоброжение в finder полного пути сверху
+// (есть опция в настройка!)
 defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
 
 
@@ -22,3 +23,9 @@ defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
 //разархивировать rar через терминал
 // brew install rar
 // unrar x <filename>
+
+// конвертировать PNG to JPG
+1) открыть папку только с png
+2) pwd (показать путь)
+3) и заменяем это -> /Users/Home/Downloads/wo/classic/
+4) for i in *.png; do sips -s format jpeg $i --out /Users/Home/Downloads/wo/classic/$i.jpg;done
