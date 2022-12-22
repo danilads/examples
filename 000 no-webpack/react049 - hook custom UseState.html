@@ -1,0 +1,60 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+		<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+
+		// custom useState
+		const useCustomState = (initialState) => {
+			const val = React.useState(initialState);
+			const state = val[0];
+			const setState = val[1];
+			const ref = React.useRef({updatedValue: state, previousValue: state});
+			const dispatch = React.useCallback((setStateAction) => {
+				ref.current.updatedValue = typeof setStateAction === 'function' ? setStateAction(ref.current) : setStateAction;
+			    ref.current.previousValue = state;
+			    setState(ref.current.updatedValue);
+			}, [setState, state]);
+			return [state, dispatch, ref.current];
+		};
+		
+
+	// component
+	const Component = () => {
+		// !!! don't do destructuring 
+		// const [value, setValue, {updatedValue, previousValue}] = useCustomState(0);
+		
+		const [value, setValue, values] = useCustomState(0);
+
+		const run = () => {
+			// here is updated value / prev value
+			console.log('--+ run', values);
+		};
+
+		const onChangeHandler = () => {
+			setValue(value+1);
+			run();
+		};
+		
+		return(
+			<div>
+			<button onClick={onChangeHandler}>{`Change ${value}`}</button>
+			</div>
+		)
+	}
+	// App
+		ReactDOM.render(
+			<Component />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

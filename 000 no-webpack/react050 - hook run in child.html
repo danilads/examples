@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.8.6/umd/react.production.min.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.production.min.js"></script>
+		<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+		// child
+		const Child = React.forwardRef((props, ref) => {
+			const [value, setValue] = React.useState(0);
+		
+	       const run = () => {
+	         setValue(value+1);
+	       }
+		    React.useImperativeHandle(ref, () => ({
+		       childRun() {
+		         setValue(value+1);
+		       }
+
+		     }));
+		
+			return(
+				<div>
+					<button onClick={run}>{`Child Run ${value}`}</button>
+				</div>
+			)
+		})
+	// component
+	const Component = () => {
+		const childRef = React.useRef();
+		const parentRun = () => {
+			childRef.current.childRun();
+		}
+		return(
+			<div style={{border: '1px solid black'}}>
+				<button onClick={parentRun}>{`parentRun`}</button>
+				<Child ref={childRef} />
+			</div>
+		)
+	}
+	// App
+		ReactDOM.render(
+			<Component />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

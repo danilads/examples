@@ -11,7 +11,8 @@
 <body>
  <div id="container"></div> 
  <script type="text/babel">
-
+// hook - child controll
+// get controll to btn from parrent -> click on div
 const Child = () => {
     const clickHandler = e => {
         e.stopPropagation();
@@ -24,6 +25,7 @@ const Child = () => {
     const ref = React.useRef();
     const clickHandler = () => {
         ref.current.querySelector('button').focus();
+		ref.current.querySelector('button').click();
     }
     return (
         <div ref={ref} style={{border: '1px solid black', padding: '5px'}} onClick={clickHandler}>

@@ -55,7 +55,7 @@
 			console.log('--MEMO 1')
 		}, [some, props]);
 
-		// НЕ ПОНЯЛ КАК РАБОТАЕТ useCallback
+		// useCallback возвращает один и тот же экземпляр передаваемой функции (параметр 1) вместо создания нового при каждом повторном рендеринге компонента.
 		// const memoizedCallback = React.useCallback(
 		// 	() => {
 		// 		console.log('--MEMO 2')
