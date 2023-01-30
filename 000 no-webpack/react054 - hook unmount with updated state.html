@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+		<script crossorigin src="https://unpkg.com/@babel/standalone@7.20.13/babel.min.js"></script>
+</head>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+	const Page1 = () => {
+		const [value, setValue] = React.useState(0);
+		const valueRef = React.useRef(value);
+
+		React.useEffect(() => {
+			valueRef.current = value;
+		}, [value]);
+		
+		// SHOULD BE A THE BOTTOM
+		React.useEffect(() => {
+		  return () => {
+			console.log('--+ unmoun value', value)
+			console.log('--+ unmoun with updated state', valueRef.current)
+		  }
+		}, []);
+	
+		return(
+			<div>
+				<button onClick={() => setValue(value+1)}>{`update ${value}`}</button>
+			</div>
+		)
+	}
+	const Switcher = () => {
+		const [value, setValue] = React.useState(true);
+	
+		return(
+			<div>
+				<button onClick={() => setValue(!value)}>close</button>
+				{value && <Page1 />}
+			</div>
+		)
+	}
+	// App
+		ReactDOM.render(
+			<Switcher />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>

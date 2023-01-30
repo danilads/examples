@@ -1,0 +1,21 @@
+h1 {
+  color: rgb(33, 33, 33);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.img {
+  width: 15px;
+  height: 15px;
+}
+.item {
+  font-family: 'Raleway';
+  background-color: white;
+  outline: 1px solid orange;
+}
+
+@font-face {
+	font-family: 'Raleway';
+	src: url('./assets/BhuTukaExpandedOne-Regular.ttf');
+	font-style: normal;
+}
