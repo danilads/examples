@@ -256,5 +256,18 @@
 			-) git clone https://<TOKEN>@github.com/<user_name>/<repo_name>.git
 			или
 			-) git clone https://<TOKEN>@github.com/<repo_name>.git
+	////////////////
+	// объеденить несколько последних комитов в 1
+	////////////////
+			(протестировать на копии ветки)
+
+			 1) где 3 - колво комитов которые нужно объеденить
+			 git reset --soft HEAD~3 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
+			 
+			 2) далее нажимаем 'esc'
+			 3) потом (выход с сохранением) :wq
+
+			 4) (не точно) -> далее комитим и пушим
+
 </body>
 </html>
