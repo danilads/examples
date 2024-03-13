@@ -23,6 +23,9 @@
 **/system.log
 **.txt
 
+# 04 просто файл в корне
+yarn.lock
+
 ----------------------
 #стандартный git ignore
 node_modules/

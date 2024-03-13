@@ -1,0 +1,70 @@
+html  {
+  font-family: 'arial';
+}
+
+h1 {
+  color: rgb(33, 33, 33);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.img {
+  width: 150px;
+  height: 150px;
+}
+.font {
+  font-family: 'testFont';
+  background-color: white;
+}
+
+@font-face {
+	font-family: 'testFont';
+	src: url('./assets/Ojuju-Regular.ttf');
+	font-style: normal;
+}
+
+// Ex01
+table {
+  width: 100%;
+  overflow: auto;
+  border-spacing: 0;
+}
+
+thead {
+  border: 3px solid green;
+}
+
+tr {
+  border-top: 1px solid black;
+}
+
+tr:first-child {
+  border-top: 0;
+}
+
+tr:last-child {
+  border-bottom: 0;
+}
+
+td {
+  /*border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;*/
+
+  border-left: 1px solid black;
+}
+
+td:first-child {
+  border-left: 0;
+}
+
+td:last-child {
+  border-right: 0;
+}
+
+/*tr:first-child td {
+  border-top: 1px solid #ccc;
+}
+
+td:last-child {
+  border-right: 1px solid #ccc;
+}*/
