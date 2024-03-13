@@ -23,6 +23,8 @@ defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
 //разархивировать rar через терминал
 // brew install rar
 // unrar x <filename>
+// if error
+// Press "Show in Finder" in the error dialog window. Next right click the unrar binary and "Open With > Terminal". After this the binary works as expected and you can rerun your command. 
 
 // конвертировать PNG to JPG
 1) открыть папку только с png
