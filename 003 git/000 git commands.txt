@@ -269,5 +269,9 @@
 
 			 4) (не точно) -> далее комитим и пушим
 
+	////////////////
+	// Удалть все локаьные ветки кроме выбранной а также (master и integration)
+	////////////////
+			git branch | egrep -v " (master|integration)$" | xargs git branch -D
 </body>
 </html>
