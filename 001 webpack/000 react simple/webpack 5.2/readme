@@ -1,0 +1,24 @@
+
+0) node -v  ->   v20.11.0
+
+1) установка - yarn install / yarn live / yarn build
+
+2) добавление новых Ex02 смотрите в src/index.js (3 места)
+
+3) build (имеется ввиду собраный index.html) работает только на сервере (lite-server)
+    [проверить добавив]
+    package.json
+    {
+    "name": "",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "live": "lite-server"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "lite-server": "^2.6.1"
+    }
+    }
