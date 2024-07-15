@@ -25,7 +25,7 @@
 	//ESLINT
 	////////////////
 
-			//комит без проверки
+			// комит без проверки
 			git commit --no-verify -m 'in progress'
 
 	////////////////
@@ -72,41 +72,51 @@
 			
 			// ---------------------
 			// 01 НЕБЕЗОПАСНЫЙ СПОСОБ (на git больше неработает) можно клонировать с паролем и больше не понадобиться его вводить
-			git clone https://{username}:{password}@github.com/{username}/{repo}.git
+			// ---------------------
+				git clone https://{username}:{password}@github.com/{username}/{repo}.git
 			
-			git pull git clone https://{username}:{password}@github.com/{username}/{repo}.git
+				git pull git clone https://{username}:{password}@github.com/{username}/{repo}.git
 			
-			git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
+				git push --repo git clone https://{username}:{password}@github.com/{username}/{repo}.git
 
 			// ---------------------
 			// 02 Каждый раз вводить пароль
+			// ---------------------
 			
 			// ---------------------
 			// 03 Через ssh (Генерация ключа)
+			// ---------------------
 				!СМОТРИМ ГОТОВЫЕ КЛЮЧИ -> finder - go - go to folder -> ~/.ssh/ 
-					-) Если есть ключ (по имени юзера или репо) или (хотим создать новый) то начинаем с пункта 4
-					-) Если нету папки ssh - то в командной строке пишем -> ssh-keygen -> enter
+					-) Если есть ключ (по имени юзера или репо) то начинаем с пункта 4
+					-) Если нету папки .ssh (она скрыта в - Macintosh HD / Users / Daniil)  - то создаем там папку .ssh и в ней -> touch config
 
-				(ЮЗЕРНЕЙМ - чувствителен к регистру - DaNilaDS / DaNilaDS@github.com)
-
+				(ЮЗЕРНЕЙМ - чувствителен к регистру - DaNilaDS / DaNilaDS@github.com) в BITBUCKET - просто email / в GITHUB - danilads@github.com
 				1) СОЗДАЕМ В Папке
 					-> cd ~/.ssh
 					-> ssh-keygen -t ed25519 -C "danilads@github.com"
     
-					- УКАЗЫВАЕМ ИМЯ ФАЙЛА - danilads
+					- УКАЗЫВАЕМ ИМЯ ФАЙЛА - github_danilads
 					- (passphrase (опционально) -ЕСЛИ НЕ НАДО - просто два раза enter)
 						Then it will ask you to create a passphrase. This is optional, either create a passphrase or press enter for no passphrase
 						When you press enter, two files will be created
 
 				2) CONFIG - в папке .ssh (finder - go - go to folder -> ~/.ssh/ )
-					создаем файл config (если его нет)
-					в него добавляем:
-						Host danilads danilads@github.com #имя аккаунта git
-						AddKeysToAgent yes
-						UseKeychain yes
-						PreferredAuthentications publickey
-						IdentityFile ~/.ssh/danilads
-						User test #имя аккаунта macbook
+					создаем файл config (если его нет) -> touch config
+
+					в него добавляем: (таких блоков может быть несколько)
+						(GITHUB)
+							Host danilads danilads@github.com (имя аккаунта git и мейл гита)
+							AddKeysToAgent yes
+							UseKeychain yes
+							PreferredAuthentications publickey
+							IdentityFile ~/.ssh/github_danilads
+							User test (имя аккаунта macbook)
+
+						(BITBUCKET)
+							Host bitbucket.org
+							AddKeysToAgent yes
+							IdentityFile ~/.ssh/bitbucket_danilads 
+
 
 				3) КОПИРУЕМ КЛЮЧ В GIT 
 					открываем терминал и вводим след команыд:
@@ -115,11 +125,12 @@
 					- Вставляем в https://github.com/settings/profile -> SSH and GPG keys -> New SSH key
 
 				4) СКАЧАТЬ Repo нужно именно такой командой (заходим в папку с репозиториями)
+					(для GitHub - git@github.com / BITBUCKET - git@bitbucket.org)
 					-> ssh -T git@github.com
 						ЕСЛИ "Hi danilads! You've successfully authenticated" -> то все хорошо
 						ЕСЛИ НЕТ -> папке с репозиториями
 								-> eval "$(ssh-agent -s)"
-								-> ssh-add ~/.ssh/danilads 
+								-> ssh-add ~/.ssh/github_danilads 
 					-> git clone git@github.com:danilads/examples.git
                 
 
