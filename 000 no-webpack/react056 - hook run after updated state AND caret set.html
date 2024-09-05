@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.8.0/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.8.0/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<style>
+	html {width: 100%; margin: 0;}
+	body {width: 100%; margin: 0;}
+</style>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+
+	// CUSTOM HOOK
+	function useCustomState(init) {
+		const [state, setState] = React.useState(init);
+		const cbRef = React.useRef();
+
+		const setCustomState = (newState, callback) => {
+			cbRef.current = callback;
+			setState(newState);
+		};
+
+		React.useEffect(() => {
+			if (cbRef.current) {
+				cbRef.current(state);
+			}
+			cbRef.current = undefined;
+		}, [state]);
+
+		return [state, setCustomState];
+	}
+
+	// INSERT LETTER AND SET CARET
+	const Main = () => {
+		const textareaRef = React.useRef();
+
+		const LETTERS = ['a', 'b', 'c'];
+		const [inputContent, setInputContent] = useCustomState('');
+	
+		return (
+				<div>
+					<div style={{margin: '5px'}}>{LETTERS.map(it => {
+						return <span style={{margin: '5px', padding: '0 5px', border: '1px solid black'}} onClick={() => {
+							let caret = textareaRef.current.selectionStart;
+
+							setInputContent(inputContent.slice(0, caret) + it + inputContent.slice(caret), () => {
+								// RUNS AFTER STATE UPDATED
+								textareaRef.current.focus();
+								textareaRef.current.selectionStart = caret + 1;
+								textareaRef.current.selectionEnd = caret + 1;
+							})
+						}}>{it}</span>
+					})}</div>
+
+					<div style={{display: 'flex'}}>
+						<input
+							id="answerArea"
+							ref={textareaRef}
+							rows={10}
+							value={inputContent}
+							onChange={e => {
+								setInputContent(e.target.value)
+							}}
+						/>
+					</div>
+				</div>
+			);
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<Main />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
