@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<script crossorigin src="https://unpkg.com/react@16.8.0/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.8.0/umd/react-dom.production.min.js"></script>
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<style>
+	html {width: 100%; margin: 0;}
+	body {width: 100%; margin: 0;}
+</style>
+<body>
+	<div id="container"></div> 
+	<script type="text/babel">
+
+	// CUSTOM HOOK
+	const useStateWithCallback = (initialState) => {
+		const [state, setState] = React.useState(initialState);
+		const callbackRef = React.useRef(null); // To store the callback
+
+		const setStateWithCallback = (newState, callback) => {
+			setState((prevState) => {
+			const updatedState = typeof newState === 'function' ? newState(prevState) : newState;
+			if (callback) {
+				callbackRef.current = callback;
+			}
+			return updatedState;
+			});
+		};
+
+		React.useEffect(() => {
+			if (callbackRef.current) {
+			callbackRef.current();  // Execute the callback after the state has been updated
+			callbackRef.current = null;
+			}
+		}, [state]);
+
+		return [state, setStateWithCallback];
+	};
+
+	// You will get state wordsRef imidiate
+	const Main = ({DATA}) => {
+		// State
+		const [words, setWords] = React.useState([]);
+		const wordsRef = React.useRef(words); // HERE will be imidiate state
+
+		const TrueUpdateState = (newState) => {
+			setWords(newState);
+			wordsRef.current = newState;
+		};
+
+		React.useEffect(() => {
+			TrueUpdateState(DATA);
+			console.log('--+ HERE TRUE RESULT', wordsRef.current);
+		}, []);
+
+
+		return <div />;
+	}
+	////////////////App Js
+		ReactDOM.render(
+			<Main DATA={['1', '2', '3']} />
+			,document.getElementById('container')
+		);
+	</script>
+</body> 
+</html>
