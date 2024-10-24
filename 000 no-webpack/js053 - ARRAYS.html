@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            // --------------------
+            // (1) Есть ли в массиве все значения другого массива
+            // --------------------
+
+            const ar = ['0','1','2','3','4','5','6','7','8']
+
+            const ar1 = ['1','2','3']; // true
+            const ar2 = ['1','4','8']; // true
+            const ar3 = ['1','4','']; // false
+            const ar4 = ['1','4','9']; // false
+            const ar5 = ['1']; // true
+            const ar6 = ['9']; // false
+
+            
+            const isArrayHas = (baseArr, checkArr) => {
+                const hashBase = new Set(baseArr);
+                let correctCnt = 0;
+                checkArr.forEach(it => {
+                    if (hashBase.has(it)) {
+                        correctCnt += 1;
+                    }
+                });
+                return correctCnt === checkArr.length
+            }
+           
+            // console.log('--+ 1 1', isArrayHas(ar, ar1));
+            // console.log('--+ 1 2', isArrayHas(ar, ar2));
+            // console.log('--+ 1 3', isArrayHas(ar, ar3));
+            // console.log('--+ 1 4', isArrayHas(ar, ar4));
+            // console.log('--+ 1 5', isArrayHas(ar, ar5));
+            // console.log('--+ 1 6', isArrayHas(ar, ar6));
+
+            // --------------------
+            // (2) Объеденить два простых массива без повторов
+            // --------------------
+
+            const arr1 = ['1','2','5'];
+            const arr2 = ['7','9','1'];
+
+            const mergreArraysWithoutDuplicates = (array1, array2) => {
+                const hashBase = new Set(array1);
+                const result = [...array1];
+                array2.forEach(it => {
+                    if (!hashBase.has(it)) {
+                        result.push(it);
+                    }
+                });
+                return result;
+            };
+
+            // console.log('--+ 2', mergreArraysWithoutDuplicates(arr1, arr2));
+
+            // --------------------
+            // (3) Убрать из массива содержимое другого
+            // --------------------
+
+            const arrr1 = ['1','2','5','7'];
+            const arrr2 = ['7','9','1'];
+
+            const removeFromArray = (array1, array2) => {
+                return array1.filter(it => !array2.includes(it));;
+            };
+
+            console.log('--+ 2', removeFromArray(arrr1, arrr2));
+
+            // --------------------
+            // (4) Объеденить два сложных массива без повторов под идентифекатору
+            //     !нужно учитывать что {id: 1, test: 1} и {id: 1, some: 1} - возьмет только один
+            // --------------------
+
+            const arrrr1 = [{id: 1}, {id: 2}, {id: 3}];
+            const arrrr2 = [{id: 1}, {id: 4}, {id: 3}, {id: 7}];
+
+            const mergreComplexArraysWithoutDuplicates = (array1, array2, identificator) => {
+                const hash = {};
+                for (const i of array1.concat(array2)) {
+                    if (!hash[i[identificator]]) {
+                    hash[i[identificator]] = i;
+                    }
+                }
+                return Object.values(hash);
+            };
+
+            // console.log('--+ 4', mergreComplexArraysWithoutDuplicates(arrrr1, arrrr2, 'id'));
+        </script>
+    
+</body></html>

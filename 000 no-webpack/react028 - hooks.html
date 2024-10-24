@@ -34,7 +34,7 @@
 		React.useEffect(() => {
 			//event listener
 			const handler = () => {
-				console.log(window.innerHeight);
+				console.log(window.innerWidth);
 			}
 			console.log('--mount');
 			window.addEventListener('resize', handler);
@@ -62,9 +62,9 @@
 		// 	},
 		// 	[some, props],
 		// );
-		// const memoizedCallback = () => {
-		// 	console.log('--MEMO 2', value);
-		// }
+		const memoizedCallback = () => {
+			console.log('--MEMO 2', value);
+		}
 		// console.log('--+ render');
 		return(
 			<div>

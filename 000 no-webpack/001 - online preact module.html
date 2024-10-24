@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+	<!-- ЕСЛИ ИСПОЛЬЗУЕМ МОДУЛЬ ТО НЕ СМОЖЕМ ИСПОЛЬЗОВАТЬ JSX и BABEL -->
+	<script type="module">
+		import {h, render, Component} from "https://cdn.skypack.dev/preact";
+		import {useState} from "https://cdn.skypack.dev/preact/hooks";
+		import {Router} from "https://cdn.skypack.dev/preact-router";
+		import htm from "https://cdn.skypack.dev/htm";
+		const html = htm.bind(h);
+		
+		const Counter = () => {
+		  const [count, setCount] = useState(0);
+		
+		  const increment = () => {
+			setCount(prevState => prevState + 1);
+		  };
+		
+		  return html`
+			<button onClick=${increment}>
+			  Count: ${count}
+			</button>
+		  `;
+		};
+		
+		const Nav = () => html`
+		  <nav>
+			<a href="/">home</a> | <a href="/about">about</a>
+		  </nav>
+		`;
+		const Home = () => html`
+		  <p>Home</p>
+		  <${Counter} />
+		`;
+		const About = () => html`
+		  <p>About</p>
+		`;
+		const App = () => html`
+		  <header>
+			<${Nav} />
+		  </header>
+		  <main>
+			<${Router}>
+			  <${Home} path="/" />
+			  <${About} path="/about" />
+			  <${Home} default />
+			<//>
+		  </main>
+		`;
+		
+		render(html`<${App} />`, document.querySelector("#app"));
+		</script>
+		<div id="app"></div>
+</body>
+</html>

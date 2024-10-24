@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/preact@latest/dist/preact.umd.js"></script>
+  <script src="https://unpkg.com/preact/hooks/dist/hooks.umd.js"></script>
+</head>
+<body>
+  <div id='root'></div>
+
+  <script>window.React = { createElement: preact.h }</script>
+  <!--  или написать это в скрипте - /** @jsx preact.h */ -->
+
+  <script type="text/babel">
+	/** @jsx preact.h */
+  const { h, render } = preact;
+  const { useState, useRef, useEffect, useMemo } = preactHooks;
+
+	const Main = () => {
+		const arr = [1,2,3];
+
+    console.log('--+ HERE preact', preact);
+
+    const [value,setValue] = useState(1);
+
+		// cache value
+		const valueRef = useRef(null);
+		valueRef.current = value;
+
+
+    const counter = useMemo(()=> {
+      return value*10;
+    },[value]);
+
+		// Аналогично componentDidMount и componentDidUpdate
+		useEffect(() => {
+			//event listener
+			const handler = () => {
+				console.log(window.innerWidth);
+			}
+			console.log('--mount');
+			window.addEventListener('resize', handler);
+
+			return () => {
+				console.log('--Unmount', value);
+				console.log('--Unmount', valueRef.current);
+
+
+				window.removeEventListener('resize', handler);
+			}
+		}, []);
+
+		return <div>
+      <div onClick={() => setValue(value+1)}>{value}</div>
+      <div>{counter}</div>
+      {arr.map(it => (<div>{it}</div>))}
+    </div>;
+	};
+	////////////////App Js
+    function App(props){
+      const [mount,setMount] = useState(true);
+      return (
+			  <div>
+          <div onClick={() => {setMount(!mount)}}> MOUNT </div>
+          {mount ? <Main /> : null}
+          <h1>{props.title}</h1> 
+        </div>
+		  );
+    }
+    preact.render(<App title="Welcome" />, document.getElementById('root'));
+</script>
+</body>
+</html>
