@@ -31,3 +31,6 @@ defaults write com.apple.finder _FXShowPosixPathInTitle Yes; killall Finder
 2) pwd (показать путь)
 3) и заменяем это -> /Users/Home/Downloads/wo/classic/
 4) for i in *.png; do sips -s format jpeg $i --out /Users/Home/Downloads/wo/classic/$i.jpg;done
+
+//ipconfig for mac
+ifconfig | grep "inet " | grep -v 127.0.0.1
