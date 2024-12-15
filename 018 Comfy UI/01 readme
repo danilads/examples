@@ -1,0 +1,35 @@
+1) download git
+2) download github comfy ui -  внизу будет  direct downlod (portable)
+3) устанавливаем python 3.10. 6
+4) устанавливаем manager (для плагинов) - comfyUI manager - внизу будет  ссылка bat (для portable) - кидаем в внутрь comfy и запускаем
+5) запускам nvidia gpu
+
+6) далее FLUX INSTALL GUIDE
+    1) Download t5xxl_fp8_e4m3fn.safetensors and clip_l.safetensors from   
+        https://huggingface.co/comfyanonymous/flux_text_encoders/tree/main
+        Place these files in the ComfyUI/models/clip/ directory.
+
+    If
+    you have high vram and ram, you can download the FP16 version 
+    (t5xxl_fp16.safetensors) for better results. For lower memory usage, 
+    stick with t5xxl_fp8_e4m3fn.safetensors.
+
+    2)  Download VAE Model
+
+        Download the VAE model ae.safetensors / ae.sft from https://huggingface.co/black-forest-labs/FLUX.1-schnell/tree/main
+
+        Place the file in the ComfyUI/models/vae/ folder.
+
+    3)  Download UNet Model
+
+        Download flux1-schnell.sft from 
+        https://huggingface.co/black-forest-labs/FLUX.1-schnell/tree/main
+        
+
+        Place the file in the ComfyUI/models/unet/ folder.
+
+    ---------------------
+    если выпадает ошибка: HeaderTooLarge - перекачай файлы
+    ---------------------
+
+    ПРОБУЕМ - 01 Flux-Schnell-ComfyUI-Workflow перетянув и настроив по скриншоту
