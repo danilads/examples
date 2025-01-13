@@ -1,0 +1,2 @@
+1) Проблема форматирования после вставки - settings -> settings -> Editor: Format on Paste - OFF
+2) Проблема при копировании значек loading, что сильно замедляет работу - settings -> settings -> Editor: Paste As - OFF

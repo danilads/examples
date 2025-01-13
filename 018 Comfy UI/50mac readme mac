@@ -1,0 +1,38 @@
+1) download git
+2) download github comfy ui -  внизу будет  direct downlod (portable)
+
+3) устанавливаем python 3.10. 6
+
+	brew install pyenv
+
+
+	pyenv install 3.10.6
+
+
+	pyenv global 3.10.6
+
+
+	python --version
+
+
+
+4) 
+
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+sh Miniconda3-latest-MacOSX-arm64.sh
+
+conda install pytorch torchvision torchaudio -c pytorch-nightly
+
+-
+
+
+
+git clone https://github.com/comfyanonymous/ComfyUI.git
+
+pip install -r requirements.txt
+
+
+
+5) RUN
+
+Python3 main.py
