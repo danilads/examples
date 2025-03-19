@@ -17,7 +17,7 @@
 
   <script type="text/babel">
 	/** @jsx preact.h */
-  const { h, render } = preact;
+  const { h, render, Fragment } = preact;
   const { useState, useRef, useEffect, useMemo } = preactHooks;
 
 	const Main = () => {
@@ -54,11 +54,11 @@
 			}
 		}, []);
 
-		return <div>
+		return <Fragment>
       <div onClick={() => setValue(value+1)}>{value}</div>
       <div>{counter}</div>
       {arr.map(it => (<div>{it}</div>))}
-    </div>;
+    </Fragment>;
 	};
 	////////////////App Js
     function App(props){
