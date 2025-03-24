@@ -1,0 +1,54 @@
+capacitor v7
+
+[Guide Android APK]
+1) устанавливаем android studio
+2) открывае и устанавливаем Android SDK
+3) Tools -> SDK Manager 
+    устанваливаем для той версии которую будем компайлить
+
+
+4) далее в папке  устанавливаем capacitor
+    npm init @capacitor/app@latest
+
+    What is the name of your app
+    my app
+
+    What directory should be used for your app?
+    www
+
+    What should be the App ID for your app?
+    com.myapp.com
+
+
+5) в www кидаем index.html
+
+6) далее в корне (на одну выше www)
+    npm i @capacitor/core
+    npm i -D @capacitor/cli
+
+    npx cap init
+
+    npm i @capacitor/android
+
+    npx cap add android
+
+    //
+    // если просто поменяли js в www то начинаем отсюда
+    // 
+
+    // npx cap sync // если нужно обновить js
+
+    npx cap open android // открыть adnroid studio
+
+
+7) в  andoid студио Tools -> Device Manager 
+    устанавливает такой версии девайс которой устанавливали через SDK Manager 
+
+8) перезагружаем
+9) если нету Andoid App в меню где кнопка плейт
+    добвлаяем и указываем - module - android.app
+
+
+10) Build -> Generate App Budles or APK - Generat APK
+
+11) apk будет внутри в папке andoid/app/build/outpurs/apk/debug
