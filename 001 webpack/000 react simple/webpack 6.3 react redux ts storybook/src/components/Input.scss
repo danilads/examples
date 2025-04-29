@@ -1,0 +1,20 @@
+
+.text {
+  color: maroon;
+  font-family: 'testFont';
+}
+@media (min-width: $breakpoint-s) {
+  .text {
+    color: orange;
+  }
+}
+@media (min-width: $breakpoint-m) {
+  .text {
+    color: blue;
+  }
+}
+@media (min-width: $breakpoint-l) {
+  .text {
+    color: red;
+  }
+}
