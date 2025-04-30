@@ -1,0 +1,23 @@
+
+.TestComponent {
+  
+  .font {
+    font-family: 'testFont';
+    background: #cef;
+  }
+}
+@media (min-width: $breakpoint-s) {
+  .media_border {
+    outline: 2px solid orange;
+  }
+}
+@media (min-width: $breakpoint-m) {
+  .media_border {
+    outline: 2px solid blue;
+  }
+}
+@media (min-width: $breakpoint-l) {
+  .media_border {
+    outline: 2px solid red;
+  }
+}
