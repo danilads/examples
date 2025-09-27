@@ -1,0 +1,135 @@
+.component-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  cursor: pointer;
+
+  font-weight: 500;
+
+  width: fit-content;
+  padding: 0 14px;
+
+  border: 0;
+  border-radius: 6px;
+
+  &-primary {
+    background: $primary;
+    color: $white;
+    & svg > * {
+      fill: $white;
+    }
+  }
+  &-gradient {
+    background: $gradient-primary;
+    color: $white;
+    & svg > * {
+      fill: $white;
+    }
+  }
+  &-secondary {
+    background: $neutral-10;
+    color: $neutral-100;
+    & svg > * {
+      fill: $neutral-100;
+    }
+  }
+  &-disabled {
+    border: 0;
+    background: $neutral-30;
+    color: $white;
+    cursor: not-allowed;
+    & svg > * {
+      fill: $white;
+    }
+  }
+  &-outline {
+    border: 1px solid $neutral-70;
+    background: $transparent;
+    color: $neutral-70;
+    & svg > * {
+      fill: $neutral-70;
+    }
+    &.component-button-disabled {
+      border: 1px solid $neutral-30;
+      background: $transparent;
+      color: $neutral-30;
+      cursor: not-allowed;
+      & svg > * {
+        fill: $neutral-30;
+      }
+    }
+  }
+  &-text {
+    border: 0;
+    background: $transparent;
+    color: $neutral-70;
+    & svg > * {
+      fill: $neutral-70;
+    }
+    &.component-button-disabled {
+      border: 0;
+      background: $transparent;
+      color: $neutral-30;
+      cursor: not-allowed;
+      & svg > * {
+        fill: $neutral-30;
+      }
+    }
+  }
+
+  &-asIconLarge {
+    min-width: 48px;
+    padding: 0;
+  }
+  &-asIconSmall {
+    min-width: 40px;
+    padding: 0;
+  }
+
+  &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-large {
+    font-size: 16px;
+    height: 48px;
+  }
+  &-small {
+    font-size: 14px;
+    height: 40px;
+  }
+
+  &-spinner {
+    color: transparent;
+    text-shadow: none;
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  
+    & svg > * {
+      fill: transparent;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin: -8px 0 0 -8px;
+      border: 2px solid transparent;
+      border-top: 2px solid #ffffff; /* Цвет спинера */
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+}

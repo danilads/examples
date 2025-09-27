@@ -1,0 +1,58 @@
+* {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+.GLOBAL_img_TEST {
+  width: 150px;
+  height: 150px;
+}
+
+@font-face {
+  font-family: "testFont";
+  src: url("assets/Ojuju-Regular.ttf");
+  font-style: normal;
+}

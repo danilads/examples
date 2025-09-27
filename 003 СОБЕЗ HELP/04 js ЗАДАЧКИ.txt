@@ -1,0 +1,36 @@
+// ------------------------------
+// --- [УБРАТЬ ПОВТОРЫ ИЗ МАССИВА]
+// ------------------------------
+
+1) CYCLE
+   const unique = (arr) => {
+	const result = [];
+        arr.forEach(it => {
+          if (!result.includes(it)) {
+            result.push(it);
+          }
+        });
+        return result;
+   };
+
+2) REDUCE
+
+   const unique = arr1.reduce((acc, curr, ind) => {
+        if (!acc.includes(curr)) {
+          acc.push(curr);
+        }
+        return acc;
+   }, []);
+
+3) FILTER
+
+   const unique = arr.filter((item, index) => {
+	// смысл в том что если элемент не уникальный то он покажет indexOf вначале (уже был)
+	return arr.indexOf(item) === index;
+   });
+
+// ------------------------------
+// --- [ПАЛИНДРОМ]
+// ------------------------------
+
+
