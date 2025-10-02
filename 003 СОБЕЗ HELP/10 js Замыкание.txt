@@ -1,0 +1,18 @@
+Замыкание это такая фича
+Моэно сделать в функциях.
+Там создать переменную которая "помнит" своё окружение, даже если выполняется вне этого окружение.
+
+function counter() {
+  let count = 0;
+
+  return function() {
+    count++;
+    return count;
+  };
+}
+
+const inc = counter();
+
+console.log(inc()); // 1
+console.log(inc()); // 2
+console.log(inc()); // 3

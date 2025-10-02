@@ -1,0 +1,27 @@
+// ------------------------------
+// --- [НЕСТАНДАРТНЫЕ ТИПЫ]
+// ------------------------------
+
+Object.prototype.toString.call([]) === "[object Array]";
+Object.prototype.toString.call(new Date()) === "[object Date]";
+Object.prototype.toString.call(RegExp) === "[object RegExp]";
+Object.prototype.toString.call(Promise) === "[object Promise]";
+
+
+// вернет массив ключей
+Object.keys(obj)
+
+// вернет массив значений
+Object.values(obj)
+
+// delete
+const user = { name: "Alice", age: 25, city: "Paris" };
+delete user.age;
+
+
+
+Object.freeze(obj) → нельзя добавлять/удалять/изменять свойства.
+
+Object.seal(obj) → нельзя добавлять/удалять, но можно менять существующие значения.
+
+Object.preventExtensions(obj) → нельзя добавлять новые свойства.

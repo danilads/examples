@@ -1,0 +1,9 @@
+Pipeline — это инструмент реализации CI/CD
+
+1) Lint / Prettier
+
+2) Jest / React Testing library / Cypress
+
+3) npm run build
+
+4) Deploy

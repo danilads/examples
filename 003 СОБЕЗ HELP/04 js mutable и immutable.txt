@@ -1,0 +1,22 @@
+//[mutable]
+.pop - удалить в конце
+.shift - удалить в начале
+.push - добавить в конец
+.unshift - добавить в начало
+.reverse - задом на перед
+.sort((a,b)=> a-b); чисел
+.splice(begin-1, кол-во элемент)
+
+//[immutable]
+resBool = .includes() - true/false
+resNumb = .indexOf()
+res[] = .concat([])
+res[] = .flat() - делает одноуровневым
+resNumb = .reduce/reduceRight(acc, curVal, i, arr)/(initVal) - второй аргумент
+res[] = .slice(begin-1, end-2(not include)) (1,2) - первый
+resBool = .every(it=> it===1) удовлетворяет всем? 
+resBool = .some(it=> it===1) удовлетв одному?
+res[] = .filter((curVal, i, arr)=> curVal>1) отфильтрует
+undefined = .forEach((curVal, i, arr)=>{})) перебор
+res[] = .map((curVal, i, arr)=> {}) возвр для каждой позиции
+res[] = [...new Set(arr)]; оставить уникальные знач

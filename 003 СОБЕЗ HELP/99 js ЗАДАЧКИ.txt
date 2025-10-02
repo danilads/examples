@@ -1,0 +1,111 @@
+// ------------------------------
+// --- [УБРАТЬ ПОВТОРЫ ИЗ МАССИВА]
+// ------------------------------
+
+1) CYCLE
+  const unique = (arr) => {
+	      const result = [];
+        arr.forEach(it => {
+          if (!result.includes(it)) {
+            result.push(it);
+          }
+        });
+        return result;
+   };
+
+2) REDUCE
+
+   const unique = arr1.reduce((acc, curr, ind) => {
+        if (!acc.includes(curr)) {
+          acc.push(curr);
+        }
+        return acc;
+   }, []);
+
+3) FILTER
+
+   const unique = arr.filter((item, index) => {
+	// смысл в том что если элемент не уникальный то он покажет indexOf вначале (уже был)
+	return arr.indexOf(item) === index;
+   });
+
+// ------------------------------
+// --- [ПАЛИНДРОМ]
+// ------------------------------
+
+1) CYCLE
+
+    const isPalindrome = (str) => {
+        let result = true;
+
+        for(let i = 0; i <= Math.floor(str.length/2); i++) {
+          if (str[i] !== str[str.length - i - 1]) {
+            result = false;
+          }
+        }
+        return result;
+    };
+
+2) ЧЕРЕЗ РАЗВОРОТ
+    const isPalindrome = (str) => {
+        return str === str.split("").reverse().join("");
+    };
+
+
+3) РЕКУРСИЕЙ
+    const isPalindrome = (str) => {
+      if (str.length < 1) {
+        return str[0] === str[str.length - 1] && isPalindrome(str.slice(1, -1));
+      }
+      return true;
+    };
+
+// ------------------------------
+// --- [РЕКУРСИЯ]
+// ------------------------------
+
+// сумму всех чисел от 1 до n
+function sumTo(n) {
+  if (n === 1) return n;
+  return n + sumTo(n - 1);
+}
+
+// принимает строку и возвращает её перевёрнутую.
+function reverseString(str) {
+  if (str.length === 1) return str;
+  return str[str.length - 1] + reverseString(str.slice(0, str.length - 1));
+}
+
+// ------------------------------
+// --- [СОРТИРОВКИ]
+// ------------------------------
+
+  // просто свапает элементы которые находятся рядом
+  const bubbleSort = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+        }
+      }
+    }
+    return arr;
+  };
+
+
+  // записывает минимальный и записывает его в начало
+  const selectionSort = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      let minIndex = i;
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[j] < arr[minIndex]) {
+          minIndex = j;
+          break
+        }
+      }
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+    return arr;
+  };
+
+  //

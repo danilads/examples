@@ -1,0 +1,103 @@
+
+// ------------------------------
+// --- [привидение типов] 
+// ------------------------------
++'2.2' - число 2.2
+parseInt('2.2') - число 2 / parseFloat('2.2') - 2.2
+!!'0' - true / !!+'0' - false / !!'' - false / !!' ' - true
+numb.toString();
+
+
+
+// ------------------------------
+// --- [привидение типов] 
+// ------------------------------
+str.charCodeAt()
+
+
+// ------------------------------
+// --- [ТИПЫ ДАННЫХ] 
+// ------------------------------
+
+String 
+Number
+null
+undefined
+Boolean
+
+Function
+Object
+Array - Array.isArray([]) 
+
+Date, RegExp, Promise
+
+
+
+
+// ------------------------------
+// --- [ТИПЫ ДАННЫХ] typeof 
+// ------------------------------
+
+'string' ---- ''  ""  ``
+'undefined' ---- undefined
+'number' ---- числа  Infinity  -Infinity  NaN
+'boolean' ---- 0, "", null, undefined, NaN, false
+'function' ---- function(){}
+
+'object' ---  Array, Date, RegExp, Promise
+
+
+
+// ------------------------------
+// --- [SPREAD]
+// ------------------------------
+
+Копирование массива
+const arr1 = [...arr2];
+
+Объединение массивов
+const arr3 = [...arr1, ...arr2];
+
+Передача элементов как аргументов функции
+const sum = (x, y, z) => {
+  return x + y + z;
+}
+const numbers = [1, 2, 3];
+console.log(sum(...numbers)); // 6
+
+Копирование объекта
+const obj2 = { ...obj1 };
+
+
+Слияние объектов
+const obj = { ...objA, ...objB };
+
+// ------------------------------
+// --- IF ELSE
+// ------------------------------
+
+if (условие1) {
+  
+} else if (условие2) {
+  
+} else {
+  
+}
+
+// ------------------------------
+// --- SWITCH
+// ------------------------------
+
+const grade = "B";
+
+switch (grade) {
+    case "A":
+        console.log("не отработает");
+    case "B":
+        console.log("отработает 1");
+    case "C":
+        console.log("отработает 2");
+        break;
+    default:
+        console.log("не отработает");
+}

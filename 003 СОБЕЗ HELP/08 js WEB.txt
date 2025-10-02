@@ -1,0 +1,139 @@
+// ------------------------------
+// --- [ASYNC AWAIT]
+// ------------------------------
+
+
+// ------------------------------
+// --- [PROMOSE]
+// ------------------------------
+
+Promise (промис) в JavaScript — это функция (объект), который хранит результат асинхронной операции
+
+const promise1 = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("resolve");
+          }, 2000);
+        })
+        .then((value) => {
+          console.log(value);
+          // Expected output: "foo"
+        })
+        .catch((error) => {
+          console.error("Ошибка запроса:", error);
+        })
+        .finally(() => {
+          console.log("Запрос завершён");
+        });
+
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Ошибка HTTP: " + response.status);
+    }
+    return response.json(); // тоже возвращает Promise
+  })
+  .then(data => {
+    console.log("Данные:", data);
+  })
+  .catch(error => {
+    console.error("Ошибка запроса:", error);
+  })
+  .finally(() => {
+    console.log("Запрос завершён");
+  });     
+
+
+
+Promise.all([p1, p2, p3]) → runs multiple promises in parallel, resolves when all succeed (or rejects if one fails).
+
+Promise.race([p1, p2]) → resolves/rejects as soon as the first promise settles.
+
+Promise.allSettled([p1, p2]) → waits for all promises, regardless of success or failure.
+
+Promise.any([p1, p2]) → resolves when the first successful promise resolves.
+
+
+// ------------------------------
+// --- [TIMEOUT]
+// ------------------------------
+
+await new Promise(res=>setTimeout(res,5000))
+
+
+
+// ------------------------------
+// --- [WEB API]
+// ------------------------------
+
+Web API — это набор функций и объектов, которые предоставляет браузер (или среда исполнения, например Node.js), чтобы JavaScript мог работать с внешним окружением.
+setTimeout, setInterval, fetch, localStorage, sessionStorage
+
+
+// ------------------------------
+// --- [AJAX]
+// ------------------------------
+
+AJAX ( Asynchronous JavaScript And XML) — это технология, которая позволяет обновлять часть веб-страницы без полной перезагрузки.
+
+// ------------------------------
+// --- [1-REST]
+// ------------------------------
+ 
+REST (Representational State Transfer) - Классический стиль архитектуры для API.
+Принцип: каждый ресурс (например, пользователь, товар) доступен по URL-адресу.
+
+Формат данных: чаще всего JSON.
+
+Методы HTTP:
+GET — получить ресурс
+POST — создать
+PUT/PATCH — обновить
+DELETE — удалить
+
+Плюсы:
+Простота и предсказуемость.
+Легко кешировать.
+Хорошо поддерживается во всех фреймворках.
+
+Минусы:
+Возвращает фиксированные данные, иногда «лишние».
+
+
+// ------------------------------
+// --- [2-GraphQL]
+// ------------------------------
+ 
+Альтернатива REST, разработанная Facebook.
+Принцип: клиент сам формулирует запрос, указывая, какие именно поля нужны.
+Единая точка входа: обычно /graphql.
+Формат данных: всегда JSON.
+query {
+  user(id: 123) {
+    name
+    email
+    posts {
+      title
+    }
+  }
+}
+
+Плюсы:
+Нет «лишних данных» (экономия трафика).
+Один запрос может заменить несколько REST-запросов.
+
+Минусы:
+Не всегда хорошо кешируется.
+Иногда перегружает сервер сложными запросами.
+
+// ------------------------------
+// --- [3-WEB socket]
+// ------------------------------
+ 
+Технология для двунаправленной связи между клиентом и сервером.
+В отличие от REST/GraphQL, которые работают поверх HTTP (запрос–ответ), WebSocket позволяет держать постоянное соединение.
+
+Плюсы:
+Низкая задержка.
+Отлично подходит для real-time приложений.
+Минусы:
+Не кешируется
