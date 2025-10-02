@@ -1,9 +1,24 @@
 Pipeline — это инструмент реализации CI/CD
 
-1) Lint / Prettier
+CI (Continuous Integration) — непрерывная интеграция
+CD (Continuous Delivery / Continuous Deployment
 
-2) Jest / React Testing library / Cypress
 
-3) npm run build
+Цель: автоматически объединять изменения кода всех разработчиков в общую ветку, чтобы быстро выявлять ошибки.
 
+
+Пример процесса CI:
+-) Разработчик пушит код в репозиторий (GitHub, GitLab, Bitbucket).
+
+CI-система (Jenkins, GitHub Actions, GitLab CI) запускает:
+1) Lint / Prettier --- проверку стиля кода
+2) Jest / React Testing library / Cypress --- запуск тестов
+3) npm run build --- сборку проекта
+
+CD
 4) Deploy
+
+
+Если что-то сломалось — CI уведомляет команду.
+
+

@@ -20,3 +20,17 @@
 -)  componentWillUnmount() → вызывается один раз перед удалением.
   - очистить таймеры,
   - отписаться от событий/сокетов,
+
+-) shouldComponentUpdate(nextProps, nextState)
+позволяет оптимизировать рендер: вернуть false, если обновление не нужно.
+
+
+// OLD
+
+-) componentWillMount() ⚠️ УСТАРЕЛ
+вызывался перед первым render.
+
+-) componentWillReceiveProps(nextProps) ⚠️ УСТАРЕЛ
+вызывался при новых props, до render.
+Использовался для синхронизации state с props.
+
