@@ -1,6 +1,199 @@
-//
-// (utility types) omit, record, partial и другие
-// ?? и другие операторы
-// Дженерики
-// Декораторы
+// ------------------------------
+// --- [БАЗА]
+// ------------------------------
+
+TypeScript — это надстройка над JavaScript.
+Его придумала Microsoft, чтобы добавить в JS строгую типизацию и более удобный инструментарий.
+Весь TS-код в итоге компилируется в обычный JavaScript
+
+
+// ------------------------------
+// --- [Основы синтаксиса]
+// ------------------------------
+
+Типы переменных
+let age: number = 25;
+let name: string  = "Alice";
+let isAdmin: boolean = true;
+
+
+Массивы и объекты
+let numbers: number[] = [1, 2, 3];
+let user: { name: string; age: number } = {
+  name: "Bob",
+  age: 30
+};
+
+
+Функции
+function greet(name: string): string {
+  return `Hello, ${name}`;
+}
+
+
+Интерфейсы и типы
+interface User {
+  name: string;
+  age: number;
+}
+let user: User = { name: "Anna", age: 22 };
+
+
+// ------------------------------
+// --- [разное]
+// ------------------------------
+
+Union types (несколько вариантов типов)
+let id: string | number;
+
+// ------------------------------
+// --- [отличается type от inteface]
+// ------------------------------
+interface расширяется через extends:
+interface Animal {
+  name: string;
+}
+interface Dog extends Animal {
+  breed: string;
+}
+
+
+type расширяется через &
+type Animal = { name: string };
+type Dog = Animal & { breed: string };
+
+
+// ------------------------------
+// --- [Generics (обобщения)]
+// ------------------------------
+
+Функция
+function identity<T>(value: T): T {
+  return value;
+}
+let result = identity<string>("Hello");
+
+
+Массив
+function getFirst<T>(arr: T[]): T {
+  return arr[0];
+}
+let numbers = getFirst<number>([1, 2, 3]); // number
+let words = getFirst<string>(["a", "b"]); 
+
+
+Несколько параметров
+function pair<K, V>(key: K, value: V): [K, V] {
+  return [key, value];
+}
+let p = pair<string, number>("age", 25);
+
+
+
+// ------------------------------
+// --- [ENUM]
+// ------------------------------
+это способ задать набор именованных констант.
+
+// По умолчанию — нумерация с 0
+enum Direction {
+  Up,       // 0
+  Down,     // 1
+  Left,     // 2
+  Right     // 3
+}
+let move: Direction = Direction.Up;
+console.log(move); // 0
+
+enum Role {
+  Admin = "ADMIN",
+  User = "USER",
+  Guest = "GUEST"
+}
+let r: Role = Role.Admin;
+console.log(r); // "ADMIN"
+
+enum Mixed {
+  No = 0,
+  Yes = "YES"
+}
+
+// ------------------------------
+// --- [Декораторы]
+// ------------------------------
+Декораторы — это специальные функции, которые могут "навешиваться" на классы, методы, свойства или параметры, чтобы модифицировать их поведение.
+Они работают на этапе компиляции/транспиляции.
+📌 В TypeScript они пока в статусе experimental (экспериментальные)
+
+
+// ------------------------------
+// --- [Декораторы]
+// ------------------------------
+
+
+Partial<T>
+Делает все свойства объекта необязательными.
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+type UserUpdate = Partial<User>;
+let u: UserUpdate = { name: "Alice" }; // только name, ок
+
+
+Required<T>
+Делает все свойства обязательными.
+interface User {
+  id?: number;
+  name?: string;
+}
+type FullUser = Required<User>;
+let u: FullUser = { id: 1, name: "Bob" }; // всё обязательно
+
+
+Readonly<T>
+Запрещает изменять свойства.
+interface User {
+  id: number;
+  name: string;
+}
+const user: Readonly<User> = { id: 1, name: "Alice" };
+// user.name = "Bob"; ❌ ошибка
+
+
+Pick<T, K>
+Выбирает только указанные ключи из типа.
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+type UserPreview = Pick<User, "id" | "name">;
+let u: UserPreview = { id: 1, name: "Alice" };
+
+
+Omit<T, K>
+Противоположность Pick — убирает указанные ключи.
+type UserWithoutAge = Omit<User, "age">;
+let u: UserWithoutAge = { id: 1, name: "Bob" };
+
+
+Record<K, T>
+Создаёт объектный тип, где ключи = K, значения = T.
+type Roles = "admin" | "user" | "guest";
+type RolePermissions = Record<Roles, boolean>;
+let perms: RolePermissions = {
+  admin: true,
+  user: true,
+  guest: false
+};
+
+
+Exclude<T, U>
+Исключает из T все типы, которые входят в U.
+type Status = "new" | "in-progress" | "done";
+type WithoutDone = Exclude<Status, "done">;
+// "new" | "in-progress"
+
 

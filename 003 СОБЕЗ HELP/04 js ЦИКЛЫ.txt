@@ -5,6 +5,8 @@ reduce(acc, current, ind)
 // след итерации - acc то что было в return
 
 
+
+// (element, index, array)
 forEach(fn) — пройтись по всем элементам.
 
 map(fn) — создать новый массив из результатов функции.

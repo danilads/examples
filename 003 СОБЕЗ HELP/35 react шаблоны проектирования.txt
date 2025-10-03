@@ -1,0 +1,89 @@
+
+// ------------------------------
+// --- [Популярные шаблоны проектирования в React]
+// ------------------------------
+
+
+
+////////
+1) Container–Presentational (Умный и Глупый компоненты)
+
+Presentational (только отображение, без логики, получает данные через props).
+
+Container (знает, откуда брать данные, управляет состоянием, передаёт их вниз).
+
+// Presentational
+const UserCard = ({ user }) => (
+  <div>{user.name}</div>
+);
+
+// Container
+const UserContainer = () => {
+  const [user, setUser] = React.useState({ name: "Alice" });
+  return <UserCard user={user} />;
+};
+
+
+////////
+2) Higher-Order Component (HOC, Компонент-обёртка)
+
+Функция, которая принимает компонент и возвращает новый с расширенным поведением.
+
+function withLogger(Component) {
+  return function Wrapped(props) {
+    console.log("Render with props:", props);
+    return <Component {...props} />;
+  };
+}
+
+const User = ({ name }) => <div>{name}</div>;
+const UserWithLogger = withLogger(User);
+
+////////
+3) Render Props
+
+Компонент передаёт функцию в props, чтобы дать гибкость в отрисовке.
+
+const MouseTracker = ({ render }) => {
+  const [pos, setPos] = React.useState({ x: 0, y: 0 });
+  return (
+    <div onMouseMove={(e) => setPos({ x: e.clientX, y: e.clientY })}>
+      {render(pos)}
+    </div>
+  );
+};
+
+<MouseTracker render={({ x, y }) => <p>{x}, {y}</p>} />;
+
+
+///////
+4) Hooks как Strategy / Observer
+
+Кастомные хуки позволяют вынести стратегии поведения (useFetch, useForm).
+
+По сути, это реализация Observer: компонент подписывается на изменения состояния.
+
+function useWindowWidth() {
+  const [width, setWidth] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return width;
+}
+
+
+
+///////
+5) Controlled / Uncontrolled Components
+
+Controlled → состояние хранится в React.
+
+Uncontrolled → состояние хранится в DOM.
+
+// Controlled
+<input value={text} onChange={(e) => setText(e.target.value)} />
+
+// Uncontrolled
+<input ref={inputRef} />

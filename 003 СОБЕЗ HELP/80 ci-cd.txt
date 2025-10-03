@@ -11,6 +11,7 @@ CD (Continuous Delivery / Continuous Deployment
 -) Разработчик пушит код в репозиторий (GitHub, GitLab, Bitbucket).
 
 CI-система (Jenkins, GitHub Actions, GitLab CI) запускает:
+
 1) Lint / Prettier --- проверку стиля кода
 2) Jest / React Testing library / Cypress --- запуск тестов
 3) npm run build --- сборку проекта

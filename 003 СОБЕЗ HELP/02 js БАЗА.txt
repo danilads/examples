@@ -142,3 +142,128 @@ switch (grade) {
     default:
         console.log("не отработает");
 }
+
+// ------------------------------
+// --- .target / .currentTarget
+// ------------------------------
+
+
+event.target
+Элемент, на котором произошло событие (вложенный)
+Может быть вложенным элементом внутри обработчика.
+
+event.currentTarget
+Элемент, на который навешан обработчик события.
+Всегда совпадает с тем элементом, у которого вызван
+
+
+// ------------------------------
+// --- [JSON.stringify(obj) / JSON.parse(json)] 
+// ------------------------------
+
+При копировании потеряются 
+
+undefined	- Игнорируется в объектах, превращается в null в массивах
+Function - (функции)	Игнорируются, не сериализуются
+Date	- Превращается в строку ISO ("2025-10-03T12:34:56.789Z") — при JSON.parse не станет объектом Date, а будет обычной строкой
+RegExp	- Превращается в {} (теряется информация о регулярном выражении)
+
+// ------------------------------
+// --- [window] 
+// ------------------------------
+redirect - <div onClick="window.location.href='http://localhost:2'">
+
+1. Навигация / работа со страницей
+window.location.href → получить или изменить URL (редирект).
+window.open(url, target) → открыть новое окно или вкладку.
+window.close() → закрыть текущее окно (работает только для окон, открытых скриптом).
+window.history.back() / window.history.forward() / window.history.go(n) → управление историей.
+
+2. Диалоги
+window.alert("Сообщение") → простое сообщение.
+window.confirm("Вы уверены?") → даёт выбор OK/Cancel (true/false).
+window.prompt("Введите имя:") → окно с вводом текста.
+
+3. Таймеры
+window.setTimeout(fn, ms) → выполнить функцию один раз через время.
+window.setInterval(fn, ms) → выполнять функцию регулярно через заданный интервал.
+window.clearTimeout(id) / window.clearInterval(id) → остановка таймеров.
+
+4. Размеры и прокрутка
+window.scrollTo(x, y) → прокрутить страницу в указанное место.
+window.scrollBy(dx, dy) → прокрутить относительно текущего положения.
+window.innerWidth / window.innerHeight → размеры окна (внутренняя часть).
+window.outerWidth / window.outerHeight → размеры всего окна браузера.
+
+5. Слушатели событий
+window.addEventListener("resize", fn) → реагировать на изменение размера окна.
+window.addEventListener("scroll", fn) → реагировать на прокрутку.
+window.removeEventListener(type, fn) → удалить слушатель.
+
+// ------------------------------
+// --- [document] 
+// ------------------------------
+
+Поиск элементов
+document.getElementById(id) – ищет по id.
+document.getElementsByClassName(className) – коллекция по классу.
+document.getElementsByTagName(tag) – коллекция по тегу.
+document.getElementsByName(name) – элементы с атрибутом name.
+document.querySelector(css) – первый элемент по CSS-селектору.
+document.querySelectorAll(css) – все элементы по селектору (NodeList).
+
+Создание и изменение
+document.createElement(tagName) – создаёт новый элемент.
+document.createTextNode(text) – создаёт текстовый узел.
+document.write(html) – вставка HTML прямо в документ (обычно не рекомендуется).
+document.writeln(html) – как write, но с переводом строки.
+
+Работа с DOM-деревом
+document.appendChild(node) – добавить узел в конец.
+document.insertBefore(newNode, referenceNode) – вставить перед указанным.
+document.removeChild(node) – удалить дочерний узел.
+document.replaceChild(newNode, oldNode) – заменить узел.
+
+События
+document.addEventListener(type, listener) – слушатель событий.
+document.removeEventListener(type, listener) – удалить слушатель.
+document.dispatchEvent(event) – вызвать событие вручную.
+
+
+// ------------------------------
+// --- [Событийная модель / Event Flow] 
+// ------------------------------
+Когда событие "идёт" по дереву DOM, есть три фазы:
+
+1) Capturing (погружение) — сверху вниз (от window → document → html → … → элемент).
+2) Target (цель) — сам элемент, на котором произошло событие. - отработает клик на div
+3) Bubbling (всплытие) — снизу вверх (от элемента обратно до window). - здесь отработает event listener
+
+По умолчанию обработчики работают на фазе всплытия.
+
+ОСТАНОВИТЬ - event.stopPropagation() – остановить всплытие.
+
+// ------------------------------
+// --- [event.] 
+// ------------------------------
+event.target – на каком элементе реально произошло событие. (вложенный)
+event.currentTarget – тот элемент, на который навешан обработчик события.
+event.stopPropagation() – остановить всплытие.
+event.preventDefault() – отменить стандартное (браузерное) поведение элемента (a href="..."> <submit>  <input type="checkbox")
+
+
+
+preventDefault что это конкретнее
+
+
+// ------------------------------
+// --- [prototype] 
+// ------------------------------
+
+prototype — это объект, от которого другие объекты могут наследовать свойства и методы.
+
+В JS наследование идёт по цепочке прототипов (prototype chain).
+
+У функций-конструкторов есть свойство prototype. Все созданные через new экземпляры будут его использовать.
+
+У объектов есть скрытое свойство __proto__, которое указывает на prototype их конструктора.

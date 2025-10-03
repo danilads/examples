@@ -25,3 +25,20 @@ Object.freeze(obj) → нельзя добавлять/удалять/измен
 Object.seal(obj) → нельзя добавлять/удалять, но можно менять существующие значения.
 
 Object.preventExtensions(obj) → нельзя добавлять новые свойства.
+
+
+// Глубокое Копирование - рекурсивное
+function deepClone(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+
+  if (obj instanceof Date) return new Date(obj);
+  if (obj instanceof Array) return obj.map(deepClone);
+
+  const clone = {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      clone[key] = deepClone(obj[key]);
+    }
+  }
+  return clone;
+}
