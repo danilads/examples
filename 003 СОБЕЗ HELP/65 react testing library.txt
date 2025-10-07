@@ -1,0 +1,65 @@
+// ------------------------------
+// --- [React Testing Library]
+// ------------------------------
+библиотека для тестирования React-компонентов.
+
+Работает поверх Jest.
+
+Главная идея: тестировать поведение пользователя, а не внутреннюю реализацию.
+
+
+// ------------------------------
+// --- [Основные функции]
+// ------------------------------
+
+render(ui)	Рендерит компонент в виртуальный DOM
+screen	Позволяет искать элементы (screen.getByText, screen.getByRole, ...)
+fireEvent	Имитирует события (клик, ввод и т.п.)
+userEvent	Более "реалистичные" действия пользователя
+waitFor()	Ожидание асинхронных изменений
+
+// ------------------------------
+// --- [Методы поиска (queries)]
+// ------------------------------
+
+getByText	Найти по тексту (если должен быть на экране)
+getByRole	Семантический поиск (лучший способ)
+getByLabelText	Для форм
+getByPlaceholderText	Для input'ов
+getByTestId	Крайний случай, если других способов нет
+
+// Пример
+screen.getByRole('button', { name: /submit/i });
+screen.getByLabelText(/username/i);
+screen.getByTestId('custom-element');
+
+// ------------------------------
+// --- [Пример базового теста]
+// ------------------------------
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Button from './Button';
+
+test('renders button and reacts to click', async () => {
+  render(<Button label="Click me" />);
+  
+  const btn = screen.getByText(/click me/i);
+  expect(btn).toBeInTheDocument();
+
+  await userEvent.click(btn);
+  expect(screen.getByText(/clicked/i)).toBeInTheDocument();
+});
+
+
+// ------------------------------
+// --- [Асинхронность]
+// ------------------------------
+
+import { render, screen, waitFor } from '@testing-library/react';
+import App from './App';
+
+test('loads and displays data', async () => {
+  render(<App />);
+  await waitFor(() => expect(screen.getByText(/loaded/i)).toBeInTheDocument());
+});

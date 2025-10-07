@@ -1,0 +1,58 @@
+// ------------------------------
+// --- [Jest]
+// ------------------------------
+Jest — это тестовый фреймворк от Facebook для JavaScript / TypeScript, чаще всего используется с React.
+
+
+
+// ------------------------------
+// --- [Основные функции Jest]
+// ------------------------------
+
+describe(name, fn)	Группирует тесты логически
+test(name, fn) или it(name, fn)	Определяет один тест
+expect(value)	Создаёт "ожидание" (assertion)
+.toBe(value)	Проверка на строгое равенство (===)
+.toEqual(obj)	Проверка по значению (для объектов/массивов)
+.toContain(el)	Проверка, что массив/строка содержит элемент
+.toBeTruthy() / .toBeFalsy()	Проверка логического значения
+.toHaveBeenCalled()	Проверка вызова mock-функции
+.toHaveBeenCalledWith(args)	Проверка аргументов вызова
+
+
+
+// ------------------------------
+// --- [ПРИМЕР]
+// ------------------------------
+
+// sum.js
+export const sum = (a, b) => a + b;
+
+// sum.test.js
+import { sum } from './sum';
+
+test('adds 1 + 2 = 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+
+
+
+// ------------------------------
+// --- [MOCK]
+// ------------------------------
+
+const mockFn = jest.fn();
+
+mockFn('hi');
+expect(mockFn).toHaveBeenCalledWith('hi');
+
+
+Пример с API:
+jest.mock('./api');
+import { fetchData } from './api';
+
+test('calls API once', async () => {
+  fetchData.mockResolvedValue({ data: 'ok' });
+  const res = await fetchData();
+  expect(res.data).toBe('ok');
+});

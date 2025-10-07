@@ -1,0 +1,19 @@
+// ------------------------------
+// --- [Storybook]
+// ------------------------------
+
+Storybook — это инструмент для изолированной разработки и демонстрации UI-компонентов.
+
+
+// ------------------------------
+// --- [Пример Button.stories.js]
+// ------------------------------
+import Button from './Button';
+
+export default {
+  title: 'Components/Button', // путь в интерфейсе Storybook
+  component: Button,
+};
+
+export const Primary = () => <Button variant="primary">Primary</Button>;
+export const Disabled = () => <Button disabled>Disabled</Button>;

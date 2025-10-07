@@ -1,0 +1,31 @@
+Redux Toolkit (современный Redux)
+
+Современный способ работы с Redux — Redux Toolkit (RTK).
+Он уменьшает шаблонный код и делает Redux проще.
+
+// configureStore, createSlice
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { count: 0 },
+  reducers: {
+    increment: (state) => { state.count += 1 },
+    decrement: (state) => { state.count -= 1 }
+  }
+});
+
+export const { increment, decrement } = counterSlice.actions;
+export const store = configureStore({ reducer: counterSlice.reducer });
+
+
+// createAsyncThunk
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const fetchUser = createAsyncThunk(
+  'user/fetch',
+  async (id, thunkAPI) => {
+    const res = await fetch(`/api/user/${id}`);
+    return await res.json();
+  }
+);

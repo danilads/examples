@@ -136,3 +136,12 @@ speech — для устройств чтения текста вслух.
 @media (min-width: 1200px) {
   p { font-size: 20px; }
 }
+
+
+// ------------------------------
+// --- [ellipsis]
+// ------------------------------
+
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;

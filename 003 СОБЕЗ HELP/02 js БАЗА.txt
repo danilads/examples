@@ -72,6 +72,8 @@ Array - Array.isArray([])
 
 Date, RegExp, Promise
 
+FormData
+
 
 
 
@@ -255,6 +257,15 @@ event.preventDefault() – отменить стандартное (браузе
 
 preventDefault что это конкретнее
 
+// ------------------------------
+// --- [Нормализация данных] 
+// ------------------------------
+Нормализация данных в JavaScript — это процесс приведения данных к единому, удобному и предсказуемому виду.
+
+Она нужна, чтобы:
+- облегчить обработку и поиск данных,
+- избежать дублирования,
+- ускорить работу с коллекциями (например, при работе с API или базой данных).
 
 // ------------------------------
 // --- [prototype] 
@@ -267,3 +278,106 @@ prototype — это объект, от которого другие объек
 У функций-конструкторов есть свойство prototype. Все созданные через new экземпляры будут его использовать.
 
 У объектов есть скрытое свойство __proto__, которое указывает на prototype их конструктора.
+
+
+
+// ------------------------------
+// --- [JSdoc] 
+// ------------------------------
+
+/**
+ *  Takes 2 numbers and returns their sum.
+ *  @param   {number} a the first number
+ *  @param   {number} b the second number
+ *
+ *  @returns {number} the sum of a and b
+ */
+
+// ------------------------------
+// --- [userAgent] 
+// ------------------------------
+
+
+navigator.userAgent.includes("Edge")
+navigator.userAgent.includes("MSIE")
+navigator.userAgent.includes("Trident")
+navigator.userAgent.includes("Firefox")
+navigator.userAgent.includes("Opera")
+navigator.userAgent.includes("Chrome")
+navigator.userAgent.includes("Safari")
+
+
+// ------------------------------
+// --- [call  apply  bind] 
+// ------------------------------
+Все три метода — это способы явно задать this при вызове функции
+
+
+// call
+Вызывает функцию сразу, передавая аргументы через запятую.
+function greet(greeting) {
+  console.log(`${greeting}, ${this.name}`);
+}
+const user = { name: "Alice" };
+greet.call(user, "Hi"); // "Hi, Alice"
+
+
+// apply
+То же, что call, но аргументы передаются массивом.
+function greet(greeting) {
+  console.log(`${greeting}, ${this.name}`);
+}
+greet.apply(user, ["Hello"]); // "Hello, Alice"
+
+
+// bind
+Не вызывает функцию сразу, а возвращает новую функцию с привязанным this.
+function greet(greeting) {
+  console.log(`${greeting}, ${this.name}`);
+}
+const greetUser = greet.bind(user, "Hey");
+greetUser(); // "Hey, Alice"
+
+
+// ------------------------------
+// --- [instanceof] 
+// ------------------------------
+
+Оператор instanceof проверяет, находится ли объект в цепочке прототипов конструктора.
+
+function Animal() {}
+const a = new Animal();
+
+console.log(a instanceof Animal); // true
+console.log(a instanceof Object); // true
+console.log(a instanceof Array);  // false
+
+
+// ------------------------------
+// --- [FormData] 
+// ------------------------------
+FormData — это объект (object), экземпляр встроенного класса FormData, то есть специальный тип объектa, предназначенный для работы с данными формы
+
+const dataFD  = new FormData();
+console.log(typeof dataFD );     // "object"
+console.log(dataFD  instanceof FormData); // true
+
+
+// Основные методы
+append(name, value)	 -  Добавляет новое значение по ключу (можно несколько одинаковых ключей)
+set(name, value)  - 	Устанавливает (перезаписывает) значение
+get(name)	 -  Возвращает первое значение по ключу
+getAll(name)	-  Возвращает все значения по ключу (если их несколько)
+has(name)	 -  Проверяет, есть ли ключ
+
+// Перебор
+dataFD.forEach((value, key) => {
+  console.log(`${key}: ${value}`);
+});
+
+
+
+fetch('/api/profile', {
+  method: 'POST',
+  body: dataFD, // multipart/form-data
+});

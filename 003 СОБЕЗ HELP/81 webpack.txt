@@ -1,0 +1,76 @@
+// ------------------------------
+// --- [Webpack]
+// ------------------------------
+
+Webpack — бандлер для JS.
+Он берёт твой код (и все его зависимости) и объединяет их в один файл.
+
+// ------------------------------
+// --- [Основные понятия]
+// ------------------------------
+
+Термин	Что это
+Entry	Точка входа — откуда Webpack начинает строить граф зависимостей (entry: './src/index.js')
+Output	Куда кладётся собранный файл (output: { filename: 'bundle.js' })
+Loader	Преобразует файлы (например, babel-loader для JSX или css-loader для CSS)
+Plugin	Расширяет функциональность (например, HtmlWebpackPlugin, MiniCssExtractPlugin)
+Mode	Режим сборки: development, production, none
+DevServer	Локальный сервер для разработки с hot-reload
+Chunk	Фрагмент бандла, может грузиться отдельно (code splitting)
+Asset	Любой ресурс (JS, CSS, изображения, шрифты и т.д.)
+
+// ------------------------------
+// --- [source map]
+// ------------------------------
+
+Файлы, которые позволяют отладить скомпилированный код, показывая исходный.
+
+devtool: 'source-map'
+
+
+// ------------------------------
+// --- [source map]
+// ------------------------------
+
+
+// ------------------------------
+// --- [Пример]
+// ------------------------------
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'development', // или 'production'
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|svg)$/,
+        type: 'asset/resource',
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+  ],
+  devServer: {
+    port: 3000,
+    hot: true,
+    open: true,
+  },
+};

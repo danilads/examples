@@ -8,6 +8,30 @@ TypeScript — это надстройка над JavaScript.
 
 
 // ------------------------------
+// --- [Типы JSX.Element, ReactElement, ReactNode]
+// ------------------------------
+
+JSX.Element
+-) встроеный тип в TS
+-) описывает возвращаемое значение компонента
+function MyComponent(): JSX.Element {
+  return <div>Hello</div>;
+}
+
+
+ReactElement
+-) тип из библиотеки React
+-) Его можно параметризовать (описать пропсы)
+const el: ReactElement<{ title: string }> = <MyComp title="Hi" />;
+
+
+ReactNode
+-) Объединённый тип всего, что React может отрендерить.
+type Props = {
+  children: React.ReactNode;
+};
+
+// ------------------------------
 // --- [Основы синтаксиса]
 // ------------------------------
 
@@ -46,9 +70,16 @@ let user: User = { name: "Anna", age: 22 };
 Union types (несколько вариантов типов)
 let id: string | number;
 
+
 // ------------------------------
 // --- [отличается type от inteface]
 // ------------------------------
+1)
+Используй interface подходит для объектов
+
+Используй type, если нужны функции, примитивы или комбинирование типов (string | number)
+
+2)
 interface расширяется через extends:
 interface Animal {
   name: string;
@@ -62,6 +93,16 @@ type расширяется через &
 type Animal = { name: string };
 type Dog = Animal & { breed: string };
 
+// ------------------------------
+// --- [отличается any от unknown]
+// ------------------------------
+
+any	“Что угодно” — TypeScript перестаёт проверять типы небезопасно
+
+unknown	“Неизвестный тип” — нужно проверить перед использованием
+if (typeof value === "string") {
+  console.log(value.toUpperCase());
+}
 
 // ------------------------------
 // --- [Generics (обобщения)]
@@ -89,6 +130,11 @@ function pair<K, V>(key: K, value: V): [K, V] {
 let p = pair<string, number>("age", 25);
 
 
+Дженерик в type
+type MyType<T> = {
+  component: T;
+};
+const renderMy: MyType<string> = { component: "Hello" };
 
 // ------------------------------
 // --- [ENUM]

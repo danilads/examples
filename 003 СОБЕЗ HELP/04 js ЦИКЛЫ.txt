@@ -1,8 +1,26 @@
 
 
 reduce(acc, current, ind) 
-// первый раз acc пустой массив
+// 1
+const sum = arr.reduce((acc, curr, ind) => {
+  console.log('acc:', acc, 'curr:', curr);
+  return acc + curr;
+}, 0); <----------------
+
+// отработает с ind 0
+// первый раз acc - 0
 // след итерации - acc то что было в return
+
+// 2
+const sum = arr.reduce((acc, curr, ind) => {
+  console.log('acc:', acc, 'curr:', curr);
+  return acc + curr;
+}); <----------------
+
+// отработает с ind 1
+// первый раз acc - первое значение
+// след итерации - acc то что было в return
+
 
 
 

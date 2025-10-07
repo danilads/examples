@@ -1,0 +1,10 @@
+Middleware — прослойки между dispatch и reducer.
+Они позволяют обрабатывать асинхронные действия, логи, ошибки и т.д.
+
+Пример с redux-thunk:
+
+const fetchUser = () => async (dispatch) => {
+  dispatch({ type: 'USER_LOADING' });
+  const data = await fetch('/api/user').then(res => res.json());
+  dispatch({ type: 'USER_SUCCESS', payload: data });
+};
