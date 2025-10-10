@@ -8,11 +8,20 @@ Object.prototype.toString.call(RegExp) === "[object RegExp]";
 Object.prototype.toString.call(Promise) === "[object Promise]";
 
 
-// вернет массив ключей
+// Object.keys - вернет массив ключей
 Object.keys(obj)
 
-// вернет массив значений
+// Object.values - вернет массив значений
 Object.values(obj)
+
+// Object.entries - Вернет массив массивов
+const user = { name: "Alice", age: 25, city: "Paris" };
+console.log(Object.entries(user));
+[
+  ["name", "Alice"],
+  ["age", 25],
+  ["city", "Paris"]
+]
 
 // delete
 const user = { name: "Alice", age: 25, city: "Paris" };

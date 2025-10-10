@@ -97,7 +97,7 @@ type Dog = Animal & { breed: string };
 // --- [отличается any от unknown]
 // ------------------------------
 
-any	“Что угодно” — TypeScript перестаёт проверять типы небезопасно
+any	“Что угодно” — TypeScript перестаёт проверять типы (небезопасно)
 
 unknown	“Неизвестный тип” — нужно проверить перед использованием
 if (typeof value === "string") {
@@ -242,4 +242,24 @@ type Status = "new" | "in-progress" | "done";
 type WithoutDone = Exclude<Status, "done">;
 // "new" | "in-progress"
 
+
+
+// ------------------------------
+// --- [ПРИМЕР]
+// ------------------------------
+
+
+interface MyComponentProps {
+  width: number | string;
+  text: string;
+}
+
+const MyComponent = ({ width, text }: MyComponentProps): JSX.Element => {
+  return <div style={{ width }}>{text}</div>;
+};
+
+
+const MyComponent: React.FC<MyComponentProps> = ({ width, text }) => {
+  return <div style={{ width }}>{text}</div>;
+};
 

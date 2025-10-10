@@ -39,6 +39,9 @@ function withLogger(Component) {
 const User = ({ name }) => <div>{name}</div>;
 const UserWithLogger = withLogger(User);
 
+// React.Memo
+
+
 ////////
 3) Render Props
 

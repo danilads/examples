@@ -76,6 +76,15 @@ function reverseString(str) {
   return str[str.length - 1] + reverseString(str.slice(0, str.length - 1));
 }
 
+// факториал - произведение всех чисел
+ function fact (n) {
+		if (n === 1) {
+			return 1;
+		}
+		return n * fact(n-1);
+  }
+
+
 // ------------------------------
 // --- [СОРТИРОВКИ]
 // ------------------------------
@@ -108,14 +117,20 @@ function reverseString(str) {
     return arr;
   };
 
-  //
-
-// ------------------------------
-// --- [factorial]
-// ------------------------------
-
-
-// ------------------------------
-// --- [sort by template]
-// ------------------------------
+  // sort by template
    const templ = ['banana', 'orange', 'apple'];
+
+   function sortByTemp(arr, temp) {
+		const editedArr = [...arr];
+        const sorted = [];
+		
+		templ.forEach((it, index) => {
+			if (editedArr.includes(it)) {
+				result.push(it);
+
+				editedArr.splice(editedArr.indexOf(it), 1);
+			}
+		});
+
+		return sorted.concat(editedArr);
+  }

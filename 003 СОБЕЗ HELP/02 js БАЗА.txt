@@ -352,6 +352,50 @@ console.log(a instanceof Animal); // true
 console.log(a instanceof Object); // true
 console.log(a instanceof Array);  // false
 
+// ------------------------------
+// --- [деструктуризация] 
+// ------------------------------
+
+// Пример с объектом:
+const user = { name: "Alice", age: 25 };
+const { name, age } = user;
+console.log(name); // "Alice"
+console.log(age);  // 25
+
+// Пример с массивом:
+const arr = [10, 20];
+const [a, b] = arr;
+console.log(a, b); // 10, 20
+
+// Значения по умолчанию с объектом:
+const person = { name: "John", city: "Paris" };
+const { city = "Unknown" } = person;
+console.log(city); // "Paris"
+
+// Значения по умолчанию с массивом:
+const [a = 10, b = 20] = [5];
+console.log(a, b); // 5, 20
+
+
+// Деструктуризация в функциях
+function greet({ name, age }) {
+  console.log(`Hello ${name}, age ${age}`);
+}
+
+const user = { name: "Alice", age: 25 };
+greet(user); // Hello Alice, age 25
+
+// ------------------------------
+// --- [setTimeout / setInterval] 
+// ------------------------------
+useEffect(() => {
+    const id = setTimeout(() => {
+      console.log("run once");
+    }, 2000);
+
+    return () => clearTimeout(id); // cleanup
+  }, []); 
+
 
 // ------------------------------
 // --- [FormData] 

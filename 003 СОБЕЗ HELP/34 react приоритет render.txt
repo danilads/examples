@@ -1,0 +1,65 @@
+const App1 = () => {
+    console.log("App1 consoleInComponent");
+    
+    React.useInsertionEffect(() => {
+        console.log("App1 useInsertionEffect");
+    }, []);
+
+    React.useLayoutEffect(() => {
+        console.log("App1 useLayoutEffect");
+    }, []);
+
+    React.useEffect(() => {
+        console.log("App1 useEffect");
+    }, []);
+
+    
+    return <div ref={() => {
+        console.log('App1 ref')
+    }}>{console.log("App1 consoleInRender")}</div>;
+};
+
+App1 consoleInComponent
+App1 consoleInRender 
+App1 useInsertionEffect 
+App1 ref 
+App1 useLayoutEffect 
+App1 useEffect
+
+
+1) приритет
+consoleInRender
+
+2) приритет
+useInsertionEffect — который выполняется синхронно перед любыми другими эффектами (включая useLayoutEffect и useEffect), и предназначен для вставки стилей или других побочных действий
+
+3) приоритет
+useLayoutEffect запускается синхронно сразу после обновления DOM, но до того, как браузер покажет изменения пользователю. (блокирует consoleInRender)
+
+4) приоритет
+useEffect — побочные эффекты 
+Используется для работы с сетевыми запросами, подписками, таймерами, изменением DOM
+useEffect запускается асинхронно после того, как React уже обновил DOM и отрисовал изменения на экране.
+Если не передать массив (в том числе пустой - то будет при срабатывать при каждом рендере) 
+
+
+если два компонента
+// очередь 1 - сверху вниз / ребенок последний
+App1 consoleInComponent
+App1 consoleInRender
+App2 consoleInComponent
+App2 consoleInRender
+
+// очередь 2 - ребенок первый / снизу вверх 
+App2 useInsertionEffect 
+App1 useInsertionEffect 
+
+// очередь 3 - ребенок первый / снизу вверх
+App2 ref
+App2 useLayoutEffect
+App1 ref
+App1 useLayoutEffect 
+
+// очередь 4 - ребенок первый / снизу вверх
+App2 useEffect
+App1 useEffect
