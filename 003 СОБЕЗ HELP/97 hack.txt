@@ -33,8 +33,10 @@ Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-...';
 npm audit
 yarn audit
 
+4) GitHub, GitLab, AWS - уже имеют встроенные (в базовом плане — бесплатные) инструменты для проверки зависимостей
 
-4) Используй продвинутые сканеры
+
+5) Используй продвинутые сканеры
 Socket.dev
 Snyk
 deps.dev

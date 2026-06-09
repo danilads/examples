@@ -1,0 +1,43 @@
+Создание объектов Date
+const now = new Date();
+
+
+Из строки
+new Date("2025-11-18");
+new Date("2025-11-18T15:30:00Z");
+new Date("November 18, 2025 15:30:00");
+
+
+По числам (год, месяц, день…)
+new Date(2025, 10, 18, 15, 30, 0); 
+// месяц 0–11, здесь 10 = ноябрь
+
+
+new Date(1700000000000);
+Date.now(); // текущий timestamp
+
+
+////////////
+Основные методы Date
+date.getFullYear()    // 2025
+date.getMonth()        // 0–11
+date.getDate()         // 1–31
+date.getDay()          // 0–6 (вс, пн, вт...)
+
+date.getHours()       // 0 до 23
+date.getMinutes()     // 0 до 59
+date.getSeconds()     // 0 до 59
+date.getMilliseconds() // от 0 до 999
+
+date.getTime()   // timestamp -  1700000000000
+
+//// Установка значений
+date.setFullYear(2030);
+date.setMonth(0);      // январь
+date.setDate(10);
+date.setHours(12, 30, 45);
+
+
+//// Форматирование дат
+new Date().toISOString(); 
+// "2025-11-18T12:45:30.000Z"

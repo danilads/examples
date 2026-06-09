@@ -1,0 +1,7 @@
+
+// маунт
+Mount-DiskImage -ImagePath "C:\Games\nf.iso"
+
+
+// unmount
+Get-Volume -DriveLetter G | Get-DiskImage | Dismount-DiskImage

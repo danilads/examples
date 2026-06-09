@@ -78,6 +78,7 @@ let id: string | number;
 Используй interface подходит для объектов
 
 Используй type, если нужны функции, примитивы или комбинирование типов (string | number)
+type Add = (a: number, b: number) => number;
 
 2)
 interface расширяется через extends:

@@ -34,3 +34,26 @@
 вызывался при новых props, до render.
 Использовался для синхронизации state с props.
 
+
+// АНАЛОГИ 
+componentDidMount (выполнить один раз после монтирования)
+useEffect(() => {
+  console.log("Монтирование компонента");
+}, []);
+
+componentDidUpdate (выполнить при обновлении)
+useEffect(() => {
+  console.log("Обновление компонента");
+}, [value]);
+
+componentWillUnmount
+useEffect(() => {
+  return () => {
+    console.log("Размонтирование компонента");
+  };
+}, []);
+
+getSnapshotBeforeUpdate
+useLayoutEffect(() => {
+  console.log("Срабатывает перед отрисовкой в DOM");
+});
