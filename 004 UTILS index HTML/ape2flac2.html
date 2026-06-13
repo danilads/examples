@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MP4 to Base64 Converter</title>
+    <style>
+      #drop-zone {
+        border: 2px dashed #ccc;
+        padding: 30px;
+        text-align: center;
+        margin: 20px;
+        background-color: #f9f9f9;
+        transition: 0.3s;
+      }
+      #drop-zone.hover {
+        border-color: #333;
+        background-color: #eee;
+      }
+      #status {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      #dwn-btn {
+        display: none;
+        margin-top: 20px;
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>1) Введите название <input id="in" value="test" /></div>
+    <div id="drop-zone">2) Перетащите сюда MP4 файл</div>
+    <div id="status"></div>
+    <button id="dwn-btn">3) Скачать .js файл</button>
+    <textarea id="text-val" style="display: none"></textarea>
+
+    <!-- Подключаем UMD-скрипт FFmpeg -->
+    <script type="module">
+      import { FFmpeg } from "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/esm/index.js";
+      import { fetchFile } from "https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.15/dist/esm/index.js";
+
+      const ffmpeg = new FFmpeg({ log: true });
+
+      await ffmpeg.load({
+        coreURL:
+          "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.15/dist/esm/ffmpeg-core.js",
+        wasmURL:
+          "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.15/dist/esm/ffmpeg-core.wasm",
+        workerURL:
+          "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.15/dist/esm/ffmpeg-core.worker.js",
+      });
+
+      // Далее твой код
+    </script>
+    <script>
+      const dropZone = document.getElementById("drop-zone");
+      const status = document.getElementById("status");
+      const downloadBtn = document.getElementById("dwn-btn");
+      const inputText = document.getElementById("in");
+      const textArea = document.getElementById("text-val");
+
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("hover");
+      });
+      dropZone.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("hover");
+      });
+
+      dropZone.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("hover");
+
+        const file = e.dataTransfer.files[0];
+        if (!file || file.type !== "video/mp4") {
+          status.textContent = "Ошибка: нужен MP4 файл";
+          return;
+        }
+
+        status.textContent = "Загрузка FFmpeg...";
+        if (!ffmpeg.isLoaded()) {
+          await ffmpeg.load();
+        }
+
+        status.textContent = "Чтение файла...";
+        const data = await fetchFile(file);
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(data)));
+
+        const filename = inputText.value.trim() || "video";
+        const jsContent = `const ${filename} = "data:video/mp4;base64,${base64}";`;
+        textArea.value = jsContent;
+
+        const blob = new Blob([jsContent], { type: "application/javascript" });
+        const url = URL.createObjectURL(blob);
+        downloadBtn.style.display = "inline-block";
+        downloadBtn.onclick = () => {
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename + ".js";
+          a.click();
+        };
+
+        status.textContent = "Готово! Нажмите скачать.";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>APE to FLAC/WAV Converter</title>
+  <style>
+    #drop-zone {
+      border: 2px dashed #ccc;
+      padding: 30px;
+      text-align: center;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    #drop-zone.hover {
+      border-color: #333;
+      background-color: #eee;
+    }
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #dwn-btn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div>1) Введите имя файла: <input id="in" value="converted"></div>
+
+  <div style="margin: 10px 0;">
+    2) Выберите формат:
+    <select id="format">
+      <option value="flac">FLAC</option>
+      <option value="wav">WAV</option>
+    </select>
+  </div>
+
+  <div id="drop-zone">3) Перетащите сюда APE файл</div>
+  <div id="status">Ожидание файла...</div>
+
+  <button id="dwn-btn">4) Скачать файл</button>
+
+  <!-- FFmpeg -->
+  <script type="module">
+    import { createFFmpeg, fetchFile } from 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.mjs';
+
+    const ffmpeg = createFFmpeg({ log: true });
+    const dropZone = document.getElementById("drop-zone");
+    const status = document.getElementById("status");
+    const downloadBtn = document.getElementById("dwn-btn");
+    const inputText = document.getElementById("in");
+    const formatSelect = document.getElementById("format");
+
+    let outputBlob = null;
+
+    // Prevent default behaviors for drag events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
+      dropZone.addEventListener(event, e => e.preventDefault());
+    });
+
+    dropZone.addEventListener('dragover', () => {
+      dropZone.classList.add("hover");
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove("hover");
+    });
+
+    dropZone.addEventListener("drop", async function (e) {
+      dropZone.classList.remove("hover");
+      const files = e.dataTransfer.files;
+      if (!files || files.length === 0) {
+        status.textContent = "Файл не обнаружен.";
+        return;
+      }
+
+      const file = files[0];
+      const format = formatSelect.value;
+
+      if (!file.name.toLowerCase().endsWith(".ape")) {
+        status.textContent = "Пожалуйста, загрузите APE файл.";
+        return;
+      }
+
+      status.textContent = "Загрузка FFmpeg...";
+      if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+      }
+
+      try {
+        const inputName = "input.ape";
+        const outputName = `output.${format}`;
+
+        ffmpeg.FS("writeFile", inputName, await fetchFile(file));
+
+        status.textContent = `Конвертация в ${format.toUpperCase()}...`;
+
+        await ffmpeg.run("-i", inputName, outputName);
+
+        const data = ffmpeg.FS("readFile", outputName);
+        outputBlob = new Blob([data.buffer], { type: `audio/${format}` });
+
+        status.textContent = `✅ Успешно! Готово к скачиванию: ${outputName}`;
+        downloadBtn.style.display = "inline-block";
+      } catch (err) {
+        console.error(err);
+        status.textContent = "❌ Ошибка при конвертации. APE может не поддерживаться.";
+      }
+    });
+
+    downloadBtn.addEventListener("click", () => {
+      if (!outputBlob) return;
+
+      const filename = `${inputText.value}.${formatSelect.value}`;
+      const url = URL.createObjectURL(outputBlob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  </script>
+</body>
+</html>

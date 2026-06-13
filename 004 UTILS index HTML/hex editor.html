@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Hex Editor Pro</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #d4d4d4;
+            --offset-color: #569cd6;
+            --ascii-color: #ce9178;
+            --cell-hover: #2a2d2e;
+            --cell-focus: #007acc;
+            --cell-selected: #062f4a;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #252526;
+            border-radius: 5px;
+            align-items: center;
+        }
+
+        button, input[type="file"] {
+            background-color: #333333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+
+        .header {
+            display: flex;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            padding: 10px 0;
+            background-color: #2d2d2d;
+        }
+
+        .row {
+            display: flex;
+            padding: 4px 0;
+        }
+
+        .row:hover {
+            background-color: var(--cell-hover);
+        }
+
+        .col-offset {
+            width: 100px;
+            text-align: center;
+            color: var(--offset-color);
+            user-select: none;
+        }
+
+        .col-hex {
+            width: 450px;
+            display: flex;
+            gap: 8px;
+            padding: 0 20px;
+        }
+
+        .col-ascii {
+            width: 250px;
+            color: var(--ascii-color);
+            letter-spacing: 2px;
+        }
+
+        /* Обновленные стили ячеек */
+        .hex-cell {
+            width: 20px;
+            text-align: center;
+            cursor: cell; /* Удобный курсор для выделения */
+            outline: none;
+            user-select: none; /* Отключаем стандартное выделение текста */
+            border-bottom: 1px solid transparent;
+        }
+
+        .hex-cell:focus, .hex-cell.active {
+            background-color: var(--cell-focus);
+            color: #fff;
+        }
+
+        .hex-cell.selected {
+            background-color: var(--cell-selected);
+            color: #fff;
+        }
+
+        .col-ascii span.selected {
+            background-color: var(--cell-selected);
+            color: #fff;
+        }
+
+        .pagination {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #editor-body {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <input type="file" id="fileInput" />
+        <button id="exportBtn">Экспорт (Сохранить)</button>
+        <span id="fileSize"></span>
+    </div>
+
+    <div class="editor-container">
+        <div class="header">
+            <div class="col-offset">Offset</div>
+            <div class="col-hex">
+                <span>00</span><span>01</span><span>02</span><span>03</span>
+                <span>04</span><span>05</span><span>06</span><span>07</span>
+                <span>08</span><span>09</span><span>0A</span><span>0B</span>
+                <span>0C</span><span>0D</span><span>0E</span><span>0F</span>
+            </div>
+            <div class="col-ascii">ASCII</div>
+        </div>
+        <div id="editor-body"></div>
+    </div>
+
+    <div class="pagination">
+        <button id="prevBtn">Предыдущая страница</button>
+        <span id="pageInfo">Страница 1 / 1</span>
+        <button id="nextBtn">Следующая страница</button>
+    </div>
+
+    <script>
+        let fileData = new Uint8Array(512); 
+        const PAGE_SIZE = 512; 
+        let currentPage = 0;
+
+        // Состояние выделения
+        let selStart = -1;
+        let selEnd = -1;
+        let isDragging = false;
+        let nibbleIndex = 0; // 0 для первого символа байта, 1 для второго
+
+        const editorBody = document.getElementById('editor-body');
+        const fileInput = document.getElementById('fileInput');
+        const exportBtn = document.getElementById('exportBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageInfo = document.getElementById('pageInfo');
+        const fileSizeLabel = document.getElementById('fileSize');
+
+        renderPage();
+
+        // Загрузка файла
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                fileData = new Uint8Array(event.target.result);
+                currentPage = 0;
+                selStart = selEnd = -1;
+                fileSizeLabel.textContent = `Размер: ${fileData.length} байт`;
+                renderPage();
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // Экспорт файла
+        exportBtn.addEventListener('click', () => {
+            const blob = new Blob([fileData], { type: 'application/octet-stream' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'edited_file.bin';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Пагинация
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) { currentPage--; renderPage(); }
+        });
+        nextBtn.addEventListener('click', () => {
+            if ((currentPage + 1) * PAGE_SIZE < fileData.length) { currentPage++; renderPage(); }
+        });
+
+        // Отрисовка страницы
+        function renderPage() {
+            editorBody.innerHTML = '';
+            const startOffset = currentPage * PAGE_SIZE;
+            const endOffset = Math.min(startOffset + PAGE_SIZE, fileData.length);
+            const totalPages = Math.ceil(fileData.length / PAGE_SIZE) || 1;
+
+            pageInfo.textContent = `Страница ${currentPage + 1} / ${totalPages}`;
+
+            for (let i = startOffset; i < endOffset; i += 16) {
+                const row = document.createElement('div');
+                row.className = 'row';
+
+                const offsetCol = document.createElement('div');
+                offsetCol.className = 'col-offset';
+                offsetCol.textContent = i.toString(16).padStart(8, '0').toUpperCase();
+                row.appendChild(offsetCol);
+
+                const hexCol = document.createElement('div');
+                hexCol.className = 'col-hex';
+                
+                const asciiCol = document.createElement('div');
+                asciiCol.className = 'col-ascii';
+                
+                for (let j = 0; j < 16; j++) {
+                    const byteIndex = i + j;
+                    if (byteIndex < endOffset) {
+                        const byteValue = fileData[byteIndex];
+                        
+                        // Ячейка стала span с tabindex вместо contenteditable
+                        const hexCell = document.createElement('span');
+                        hexCell.className = 'hex-cell';
+                        hexCell.tabIndex = 0; 
+                        hexCell.dataset.index = byteIndex;
+                        hexCell.textContent = byteValue.toString(16).padStart(2, '0').toUpperCase();
+                        
+                        const asciiChar = document.createElement('span');
+                        asciiChar.id = `ascii-${byteIndex}`;
+                        asciiChar.textContent = getAsciiChar(byteValue);
+
+                        hexCol.appendChild(hexCell);
+                        asciiCol.appendChild(asciiChar);
+                    }
+                }
+                
+                row.appendChild(hexCol);
+                row.appendChild(asciiCol);
+                editorBody.appendChild(row);
+            }
+            updateSelectionVisuals();
+        }
+
+        function getAsciiChar(byte) {
+            return (byte >= 32 && byte <= 126) ? String.fromCharCode(byte) : '.';
+        }
+
+        // --- ЛОГИКА ВЫДЕЛЕНИЯ МЫШЬЮ ---
+
+        editorBody.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('hex-cell')) {
+                isDragging = true;
+                selStart = parseInt(e.target.dataset.index);
+                selEnd = selStart;
+                nibbleIndex = 0; // Сбрасываем позицию ввода внутри байта
+                updateSelectionVisuals();
+            }
+        });
+
+        editorBody.addEventListener('mouseover', (e) => {
+            if (isDragging && e.target.classList.contains('hex-cell')) {
+                selEnd = parseInt(e.target.dataset.index);
+                updateSelectionVisuals();
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        function updateSelectionVisuals() {
+            document.querySelectorAll('.hex-cell, .col-ascii span').forEach(el => el.classList.remove('selected', 'active'));
+
+            if (selStart === -1 || selEnd === -1) return;
+
+            const start = Math.min(selStart, selEnd);
+            const end = Math.max(selStart, selEnd);
+
+            for (let i = start; i <= end; i++) {
+                const cell = document.querySelector(`.hex-cell[data-index="${i}"]`);
+                const ascii = document.getElementById(`ascii-${i}`);
+                if (cell) cell.classList.add('selected');
+                if (ascii) ascii.classList.add('selected');
+            }
+
+            // Фокус на начальной ячейке для ввода
+            const activeCell = document.querySelector(`.hex-cell[data-index="${selStart}"]`);
+            if (activeCell) {
+                activeCell.classList.add('active');
+                activeCell.focus();
+            }
+        }
+
+        // --- ЛОГИКА ВВОДА С КЛАВИАТУРЫ ---
+
+        document.addEventListener('keydown', (e) => {
+            const active = document.activeElement;
+            if (!active || !active.classList.contains('hex-cell')) return;
+
+            // Игнорируем горячие клавиши браузера
+            if (e.ctrlKey || e.metaKey || ['Alt', 'Control', 'Shift', 'Tab'].includes(e.key)) return;
+
+            const index = parseInt(active.dataset.index);
+
+            // Навигация по сетке
+            let nextIndex = index;
+            if (e.key === 'ArrowRight') nextIndex = index + 1;
+            if (e.key === 'ArrowLeft') nextIndex = index - 1;
+            if (e.key === 'ArrowUp') nextIndex = index - 16;
+            if (e.key === 'ArrowDown') nextIndex = index + 16;
+
+            if (nextIndex !== index && nextIndex >= 0 && nextIndex < fileData.length) {
+                e.preventDefault();
+                selStart = selEnd = nextIndex;
+                nibbleIndex = 0;
+                updateSelectionVisuals();
+                return;
+            }
+
+            // Ввод Hex
+            const isHex = /^[0-9a-fA-F]$/.test(e.key);
+            if (isHex) {
+                e.preventDefault();
+
+                // Если было большое выделение, сбрасываем его до одной ячейки при начале ввода
+                if (selStart !== selEnd) {
+                    selEnd = selStart;
+                    updateSelectionVisuals();
+                }
+
+                let hexStr = fileData[index].toString(16).padStart(2, '0').toUpperCase();
+                
+                if (nibbleIndex === 0) {
+                    hexStr = e.key.toUpperCase() + hexStr[1];
+                    nibbleIndex = 1; // Ждем второй символ
+                } else {
+                    hexStr = hexStr[0] + e.key.toUpperCase();
+                    nibbleIndex = 0; // Переходим к следующей ячейке
+                }
+
+                const val = parseInt(hexStr, 16);
+                fileData[index] = val;
+                active.textContent = hexStr;
+                document.getElementById(`ascii-${index}`).textContent = getAsciiChar(val);
+
+                // Автоматический переход после ввода 2 символов
+                if (nibbleIndex === 0 && index + 1 < fileData.length) {
+                    selStart = selEnd = index + 1;
+                    updateSelectionVisuals();
+                }
+            }
+        });
+
+        // --- CTRL+C И CTRL+V ---
+
+        document.addEventListener('copy', (e) => {
+            if (selStart === -1) return;
+            
+            // Если пользователь случайно выделил текст мышкой вне редактора
+            const nativeSelection = window.getSelection().toString();
+            if (nativeSelection.length > 0 && !document.activeElement.classList.contains('hex-cell')) return;
+
+            e.preventDefault();
+            const start = Math.min(selStart, selEnd);
+            const end = Math.max(selStart, selEnd);
+            
+            let hexArray = [];
+            for (let i = start; i <= end; i++) {
+                hexArray.push(fileData[i].toString(16).padStart(2, '0').toUpperCase());
+            }
+            e.clipboardData.setData('text/plain', hexArray.join(' '));
+        });
+
+        document.addEventListener('paste', (e) => {
+            if (selStart === -1 || !document.activeElement.classList.contains('hex-cell')) return;
+
+            e.preventDefault();
+            let pasteData = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9a-fA-F]/g, '');
+            
+            let startIndex = Math.min(selStart, selEnd);
+            let byteCounter = 0;
+
+            for (let i = 0; i < pasteData.length; i += 2) {
+                if (startIndex + byteCounter >= fileData.length) break;
+                
+                let hexStr = pasteData.substring(i, i + 2);
+                if (hexStr.length === 1) hexStr += '0'; 
+                
+                fileData[startIndex + byteCounter] = parseInt(hexStr, 16);
+                byteCounter++;
+            }
+            
+            // Автоматически выделяем вставленный блок для наглядности
+            if (byteCounter > 0) {
+                selStart = startIndex;
+                selEnd = startIndex + byteCounter - 1;
+                nibbleIndex = 0;
+            }
+            renderPage(); 
+        });
+
+    </script>
+</body>
+</html>

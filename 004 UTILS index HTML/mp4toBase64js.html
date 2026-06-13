@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>MP4 to Base64 Converter</title>
+  <style>
+    #drop-zone {
+      border: 2px dashed #ccc;
+      padding: 30px;
+      text-align: center;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    #drop-zone.hover {
+      border-color: #333;
+      background-color: #eee;
+    }
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #dwn-btn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div>1) вставьте название <input id="in" value="test"></input></div>
+  
+
+  <div id="drop-zone">2) Перетащите сюда MP4 файл</div>
+  <div id="status"></div>
+
+  <button id="dwn-btn">3) Скачать .js файл</button>
+
+  <textarea id="text-val" style="display:none;"></textarea>
+
+  <script>
+    const dropZone = document.getElementById("drop-zone");
+    const status = document.getElementById("status");
+    const downloadBtn = document.getElementById("dwn-btn");
+    const textArea = document.getElementById("text-val");
+    const inputText = document.getElementById("in");
+    
+    dropZone.addEventListener("dragover", function(e) {
+      e.preventDefault();
+      dropZone.classList.add("hover");
+    });
+
+    dropZone.addEventListener("dragleave", function(e) {
+      e.preventDefault();
+      dropZone.classList.remove("hover");
+    });
+
+    dropZone.addEventListener("drop", function(e) {
+      e.preventDefault();
+      dropZone.classList.remove("hover");
+
+      const file = e.dataTransfer.files[0];
+      if (!file || file.type !== "video/mp4") {
+        status.textContent = "Пожалуйста, загрузите MP4 файл.";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const base64 = event.target.result.split(',')[1]; // убираем prefix
+        const textContent = `const ${inputText.value} = "data:audio/ogg;base64,${base64}";`;
+        textArea.value = textContent;
+
+        status.textContent = "Файл успешно конвертирован в base64!";
+        downloadBtn.style.display = "inline-block";
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    function download(filename, text) {
+      const element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+
+    downloadBtn.addEventListener("click", function() {
+      const text = textArea.value;
+      const filename = `${inputText.value}.js`;
+      download(filename, text);
+    });
+  </script>
+
+</body>
+</html>
